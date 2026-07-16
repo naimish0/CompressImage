@@ -4,44 +4,33 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import com.example.compressimage.ads.InterstitialAdController
+import com.example.compressimage.data.storage.ImageShareController
+import com.example.compressimage.ui.PhotoCompressorViewModel
+import com.example.compressimage.ui.navigation.PhotoCompressorApp
 import com.example.compressimage.ui.theme.CompressImageTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject lateinit var interstitialAdController: InterstitialAdController
+    @Inject lateinit var imageShareController: ImageShareController
+
+    private val viewModel: PhotoCompressorViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             CompressImageTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                PhotoCompressorApp(
+                    viewModel = viewModel,
+                    interstitialAdController = interstitialAdController,
+                    imageShareController = imageShareController,
+                )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CompressImageTheme {
-        Greeting("Android")
     }
 }

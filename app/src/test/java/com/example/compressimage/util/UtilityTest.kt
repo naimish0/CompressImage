@@ -1,0 +1,171 @@
+package com.example.compressimage.util
+
+import com.example.compressimage.ads.AdFrequencyCapper
+import com.example.compressimage.domain.model.CompressionMode
+import com.example.compressimage.domain.model.Dimension
+import com.example.compressimage.domain.model.ImageFormat
+import com.example.compressimage.domain.model.ResizeConfig
+import com.example.compressimage.domain.model.ResizeMode
+import com.example.compressimage.domain.model.TargetSize
+import com.example.compressimage.domain.model.TargetSizePreset
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+class UtilityTest {
+    @Test
+    fun fileSizeFormattingUsesReadableUnits() {
+        assertEquals("512 B", FileSizeFormatter.format(512))
+        assertEquals("2.0 KB", FileSizeFormatter.format(2048))
+        assertEquals("1.5 MB", FileSizeFormatter.format(1_572_864))
+    }
+
+    @Test
+    fun compressionStatsHandleSavingsAndLargerOutput() {
+        val saved = CompressionStatsCalculator.calculate(1_000, 250)
+        assertEquals(750, saved.savedBytes)
+        assertEquals(75.0, saved.percentageSaved, 0.001)
+        assertEquals(4.0, saved.compressionRatio, 0.001)
+
+        val larger = CompressionStatsCalculator.calculate(1_000, 1_250)
+        assertEquals(-250, larger.savedBytes)
+        assertEquals(-25.0, larger.percentageSaved, 0.001)
+    }
+
+    @Test
+    fun targetSizeValidationRejectsInvalidCustomValues() {
+        assertFalse(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "")).isValid)
+        assertFalse(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "0")).isValid)
+        assertFalse(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "5")).isValid)
+        assertTrue(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "200")).isValid)
+    }
+
+    @Test
+    fun resizeCalculatorMaintainsAspectRatioAndRejectsUpscale() {
+        val half = ResizeCalculator.calculate(4000, 3000, ResizeConfig(mode = ResizeMode.PERCENT_50))
+        assertEquals(2000, half.dimension?.width)
+        assertEquals(1500, half.dimension?.height)
+
+        val width = ResizeCalculator.aspectHeight(width = 1000, originalWidth = 4000, originalHeight = 3000)
+        assertEquals(750, width)
+
+        val upscale = ResizeCalculator.calculate(
+            800,
+            600,
+            ResizeConfig(
+                mode = ResizeMode.CUSTOM,
+                customWidth = "1600",
+                customHeight = "1200",
+                allowUpscale = false,
+            ),
+        )
+        assertFalse(upscale.validation.isValid)
+        assertTrue(upscale.upscales)
+    }
+
+    @Test
+    fun outputFilenameGenerationSanitizesAndMapsExtension() {
+        val name = OutputFilenameGenerator.generate(
+            originalName = "summer photo!!.png",
+            format = ImageFormat.WEBP,
+            timestampMillis = 0L,
+        )
+        assertTrue(name.startsWith("summer_photo_compressed_"))
+        assertTrue(name.endsWith(".webp"))
+        assertEquals("avatar.jpg", OutputFilenameGenerator.ensureExtension("avatar", ImageFormat.JPEG))
+    }
+
+    @Test
+    fun imageFormatMapperUsesHeadersBeforeMime() {
+        val jpeg = byteArrayOf(0xFF.toByte(), 0xD8.toByte(), 0xFF.toByte())
+        assertEquals(ImageFormat.JPEG, ImageFormatMapper.fromHeader(jpeg, "image/png"))
+
+        val webp = byteArrayOf(
+            'R'.code.toByte(),
+            'I'.code.toByte(),
+            'F'.code.toByte(),
+            'F'.code.toByte(),
+            0,
+            0,
+            0,
+            0,
+            'W'.code.toByte(),
+            'E'.code.toByte(),
+            'B'.code.toByte(),
+            'P'.code.toByte(),
+        )
+        assertEquals(ImageFormat.WEBP, ImageFormatMapper.fromHeader(webp, null))
+    }
+
+    @Test
+    fun adFrequencyCapperShowsEveryThirdCompletedOperation() {
+        val capper = AdFrequencyCapper()
+        assertFalse(capper.recordCompletedOperation())
+        assertFalse(capper.recordCompletedOperation())
+        assertTrue(capper.recordCompletedOperation())
+        assertFalse(capper.recordCompletedOperation())
+    }
+
+    @Test
+    fun qualitySearchFindsHighestQualityWithinTolerance() {
+        val result = AdaptiveCompressionPlanner.searchHighestQuality(
+            targetBytes = 1_000,
+            minQuality = 70,
+        ) { quality ->
+            ByteArray(500 + quality * 6)
+        }
+
+        assertTrue(result.targetReached)
+        assertEquals(91, result.quality)
+        assertTrue(result.sizeBytes <= AdaptiveCompressionPlanner.toleratedTargetBytes(1_000))
+    }
+
+    @Test
+    fun qualitySearchDoesNotGoBelowMinimumQualityForUnachievableTarget() {
+        val result = AdaptiveCompressionPlanner.searchHighestQuality(
+            targetBytes = 100,
+            minQuality = 74,
+        ) { quality ->
+            ByteArray(1_000 + quality)
+        }
+
+        assertFalse(result.targetReached)
+        assertEquals(74, result.quality)
+    }
+
+    @Test
+    fun targetToleranceIsFivePercent() {
+        assertTrue(AdaptiveCompressionPlanner.targetReached(105, 100))
+        assertFalse(AdaptiveCompressionPlanner.targetReached(106, 100))
+    }
+
+    @Test
+    fun resolutionPlanningPreservesAspectRatioAndNeverUpscales() {
+        val fitted = AdaptiveCompressionPlanner.fitWithin(Dimension(8000, 4000), 4000)
+        assertEquals(Dimension(4000, 2000), fitted)
+
+        val next = AdaptiveCompressionPlanner.nextReducedDimension(
+            dimension = Dimension(4000, 2000),
+            resizeFactor = 0.90f,
+            minShortSide = 640,
+        )
+        assertEquals(Dimension(3600, 1800), next)
+
+        val tooSmall = AdaptiveCompressionPlanner.nextReducedDimension(
+            dimension = Dimension(800, 640),
+            resizeFactor = 0.90f,
+            minShortSide = 640,
+        )
+        assertEquals(null, tooSmall)
+    }
+
+    @Test
+    fun qualityPoliciesKeepReasonableMinimums() {
+        assertTrue(AdaptiveCompressionPlanner.policyFor(CompressionMode.BEST_QUALITY).minAcceptableQuality >= 80)
+        assertTrue(AdaptiveCompressionPlanner.policyFor(CompressionMode.BALANCED).minAcceptableQuality >= 70)
+        assertTrue(AdaptiveCompressionPlanner.policyFor(CompressionMode.SMALLEST_SIZE).minAcceptableQuality >= 60)
+        assertTrue(ImageFormat.PNG.supportsTransparency)
+        assertFalse(ImageFormat.JPEG.supportsTransparency)
+    }
+}

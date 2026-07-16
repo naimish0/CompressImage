@@ -103,7 +103,12 @@ fun SettingsScreen(
             item {
                 SettingsCard(title = "Background removal") {
                     Text(
-                        "The app includes the repository/use-case/UI architecture for background removal. This build does not bundle a production segmentation model or online API key, so the action reports unavailable instead of generating a fake cutout.",
+                        "Background removal runs offline with a bundled ONNX U2-NetP model. Images are processed on-device and are not uploaded by this feature.",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        "Open-source notices are included in the project legal folder. Production releases should include the same notices in the app or store listing as required.",
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }

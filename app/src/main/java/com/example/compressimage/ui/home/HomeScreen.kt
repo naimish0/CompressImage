@@ -1,6 +1,5 @@
 package com.example.compressimage.ui.home
 
-import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -36,7 +35,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,17 +52,9 @@ fun HomeScreen(
     onOpenHistory: () -> Unit,
     onOpenSettings: () -> Unit,
 ) {
-    val context = LocalContext.current
     val picker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = 50),
+        contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_IMAGE_SELECTION),
     ) { uris: List<Uri> ->
-        persistReadAccessIfAvailable(context.contentResolver, uris)
-        onAddImages(uris.map { it.toString() })
-    }
-    val documentPicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenMultipleDocuments(),
-    ) { uris: List<Uri> ->
-        persistReadAccessIfAvailable(context.contentResolver, uris)
         onAddImages(uris.map { it.toString() })
     }
 
@@ -142,13 +132,13 @@ fun HomeScreen(
                         }
                         OutlinedButton(
                             onClick = {
-                                documentPicker.launch(
-                                    arrayOf("image/jpeg", "image/png", "image/webp"),
+                                picker.launch(
+                                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
                                 )
                             },
                             modifier = Modifier.fillMaxWidth(),
                         ) {
-                            Text("Browse files")
+                            Text("Choose JPG, PNG, or WEBP")
                         }
                         if (state.selectedImages.isNotEmpty()) {
                             OutlinedButton(
@@ -192,8 +182,8 @@ fun HomeScreen(
                 item {
                     FilledTonalButton(
                         onClick = {
-                            documentPicker.launch(
-                                arrayOf("image/jpeg", "image/png", "image/webp"),
+                            picker.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
                             )
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -213,16 +203,4 @@ fun HomeScreen(
     }
 }
 
-private fun persistReadAccessIfAvailable(
-    contentResolver: android.content.ContentResolver,
-    uris: List<Uri>,
-) {
-    uris.forEach { uri ->
-        runCatching {
-            contentResolver.takePersistableUriPermission(
-                uri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION,
-            )
-        }
-    }
-}
+private const val MAX_IMAGE_SELECTION = 50

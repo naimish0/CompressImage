@@ -1,6 +1,8 @@
 package com.example.compressimage.di
 
-import com.example.compressimage.backgroundremoval.OfflineBackgroundRemovalRepository
+import com.example.compressimage.backgroundremoval.OnDeviceBackgroundRemovalRepository
+import com.example.compressimage.backgroundremoval.OnnxBackgroundRemovalEngine
+import com.example.compressimage.backgroundremoval.BackgroundRemovalEngine
 import com.example.compressimage.data.repository.AndroidImageRepository
 import com.example.compressimage.domain.repository.BackgroundRemovalRepository
 import com.example.compressimage.domain.repository.ImageRepository
@@ -19,7 +21,11 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
+    abstract fun bindBackgroundRemovalEngine(engine: OnnxBackgroundRemovalEngine): BackgroundRemovalEngine
+
+    @Binds
+    @Singleton
     abstract fun bindBackgroundRemovalRepository(
-        repository: OfflineBackgroundRemovalRepository,
+        repository: OnDeviceBackgroundRemovalRepository,
     ): BackgroundRemovalRepository
 }

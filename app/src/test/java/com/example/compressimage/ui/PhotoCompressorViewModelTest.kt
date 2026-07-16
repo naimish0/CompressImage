@@ -117,24 +117,62 @@ class PhotoCompressorViewModelTest {
 
 
     @Test
-    fun backgroundRemovalUnavailableStateIsExposed() = runTest {
+    fun backgroundRemovalSuccessStateIsExposed() = runTest {
         val repository = FakeImageRepository()
-        val viewModel = viewModel(repository)
+        val viewModel = viewModel(
+            repository,
+            backgroundRepository = FakeBackgroundRemovalRepository(result = BackgroundRemovalResult.Success(processedImage("background"))),
+        )
 
         viewModel.addImageUris(listOf("uri://one"))
         advanceUntilIdle()
         viewModel.removeBackground()
         advanceUntilIdle()
 
-        assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Unavailable)
+        assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Success)
     }
 
-    private fun viewModel(repository: FakeImageRepository): PhotoCompressorViewModel {
+    @Test
+    fun duplicateBackgroundRemovalTapDoesNotStartSecondJob() = runTest {
+        val repository = FakeImageRepository()
+        val backgroundRepository = FakeBackgroundRemovalRepository(hang = true)
+        val viewModel = viewModel(repository, backgroundRepository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.removeBackground()
+        viewModel.removeBackground()
+        advanceUntilIdle()
+
+        assertEquals(1, backgroundRepository.calls)
+        assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Running)
+        viewModel.cancelBackgroundRemoval()
+    }
+
+    @Test
+    fun cancelBackgroundRemovalShowsCancelledState() = runTest {
+        val repository = FakeImageRepository()
+        val backgroundRepository = FakeBackgroundRemovalRepository(hang = true)
+        val viewModel = viewModel(repository, backgroundRepository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.removeBackground()
+        viewModel.cancelBackgroundRemoval()
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Cancelled)
+    }
+
+    private fun viewModel(
+        repository: FakeImageRepository,
+        backgroundRepository: BackgroundRemovalRepository = FakeBackgroundRemovalRepository(),
+    ): PhotoCompressorViewModel {
         return PhotoCompressorViewModel(
             loadImageInfo = LoadImageInfoUseCase(repository),
             compressImage = CompressImageUseCase(repository),
             saveImages = SaveImagesUseCase(repository),
-            removeBackgroundUseCase = RemoveBackgroundUseCase(FakeBackgroundRemovalRepository()),
+            removeBackgroundUseCase = RemoveBackgroundUseCase(backgroundRepository),
             replaceBackgroundUseCase = ReplaceBackgroundUseCase(repository),
             adFrequencyCapper = AdFrequencyCapper(),
         )
@@ -219,12 +257,48 @@ private class FakeImageRepository(
     override suspend fun cleanupObsoleteTempFiles() = Unit
 }
 
-private class FakeBackgroundRemovalRepository : BackgroundRemovalRepository {
+private fun processedImage(id: String): ProcessedImage {
+    val original = ImageInfo(
+        id = id,
+        uriString = "uri://$id",
+        displayName = "$id.png",
+        sizeBytes = 1_000,
+        width = 100,
+        height = 100,
+        format = ImageFormat.PNG,
+        mimeType = ImageFormat.PNG.mimeType,
+        hasAlpha = true,
+    )
+    return ProcessedImage(
+        id = id,
+        original = original,
+        filePath = "/tmp/$id.png",
+        displayName = "$id.png",
+        sizeBytes = 500,
+        width = 100,
+        height = 100,
+        format = ImageFormat.PNG,
+        mimeType = ImageFormat.PNG.mimeType,
+    )
+}
+
+private class FakeBackgroundRemovalRepository(
+    private val result: BackgroundRemovalResult = BackgroundRemovalResult.Unavailable("No provider configured."),
+    private val hang: Boolean = false,
+) : BackgroundRemovalRepository {
+    var calls: Int = 0
+        private set
+
     override suspend fun removeBackground(
         input: ImageSource,
         progress: (Float) -> Unit,
     ): BackgroundRemovalResult {
+        calls += 1
+        progress(0.2f)
+        if (hang) {
+            suspendCancellableCoroutine<Nothing> { }
+        }
         progress(1f)
-        return BackgroundRemovalResult.Unavailable("No provider configured.")
+        return result
     }
 }

@@ -62,6 +62,9 @@ android {
         compose = true
         buildConfig = true
     }
+    androidResources {
+        noCompress += "onnx"
+    }
 }
 
 dependencies {
@@ -84,6 +87,7 @@ dependencies {
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
     implementation(libs.google.play.services.ads)
+    implementation(libs.onnxruntime.android)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

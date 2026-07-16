@@ -31,6 +31,6 @@ Before Play Store release, add a final privacy policy URL, Google User Messaging
 
 ## Background Removal
 
-The app includes a `BackgroundRemovalRepository` abstraction, domain use case, UI workflow, progress state, error state, and background replacement/export UI. This build does not bundle a production-quality segmentation model or online provider API key, so removal reports an unavailable state instead of generating fake transparent images.
+The app includes an offline `BackgroundRemovalRepository` implementation using ONNX Runtime Android and a bundled U2-NetP ONNX model. The workflow runs on-device, exports a transparent PNG, and does not upload user images.
 
-To enable removal later, add an offline model or online provider behind `BackgroundRemovalRepository` without changing UI/domain layers.
+The U2-NetP model provenance, conversion process, checksums, tensor contract, and license notes are documented in `legal/MODEL_PROVENANCE.md`. This build relies on the project owner's explicit confirmation that the official pretrained U2-NetP weights may be used commercially and redistributed in the app.

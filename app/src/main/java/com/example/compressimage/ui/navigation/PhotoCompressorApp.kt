@@ -136,6 +136,7 @@ fun PhotoCompressorApp(
                 state = state,
                 onBack = { navController.popBackStack() },
                 onStartRemoval = viewModel::removeBackground,
+                onCancelRemoval = viewModel::cancelBackgroundRemoval,
                 onReplaceBackground = viewModel::replaceBackground,
             )
         }

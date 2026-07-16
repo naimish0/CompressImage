@@ -64,6 +64,7 @@ fun BackgroundReplacementScreen(
     state: PhotoCompressorUiState,
     onBack: () -> Unit,
     onStartRemoval: () -> Unit,
+    onCancelRemoval: () -> Unit,
     onReplaceBackground: (BackgroundReplacementConfig) -> Unit,
 ) {
     var selectedColor by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -95,7 +96,16 @@ fun BackgroundReplacementScreen(
             item {
                 when (val backgroundState = state.backgroundState) {
                     BackgroundUiState.Idle -> StartRemovalCard(onStartRemoval)
-                    is BackgroundUiState.Running -> RunningCard(backgroundState.progress)
+                    is BackgroundUiState.Running -> RunningCard(
+                        progress = backgroundState.progress,
+                        stage = backgroundState.stage.label,
+                        onCancel = onCancelRemoval,
+                    )
+                    BackgroundUiState.Cancelled -> MessageCard(
+                        title = "Background removal cancelled",
+                        message = "The original image was not changed. Start again when you are ready.",
+                        isError = false,
+                    )
                     is BackgroundUiState.Unavailable -> MessageCard(
                         title = "Background removal unavailable",
                         message = backgroundState.reason,
@@ -114,6 +124,13 @@ fun BackgroundReplacementScreen(
                         ) {
                             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Text("Preview", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                                backgroundState.image.warning?.let { warning ->
+                                    Text(
+                                        warning,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -198,7 +215,7 @@ private fun StartRemovalCard(onStartRemoval: () -> Unit) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text("Remove background", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(
-                "This workflow is ready for an offline model or configured online provider. Images are not uploaded by this build.",
+                "Runs on this device and exports a transparent PNG. Images are not uploaded.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -212,14 +229,22 @@ private fun StartRemovalCard(onStartRemoval: () -> Unit) {
 }
 
 @Composable
-private fun RunningCard(progress: Float) {
+private fun RunningCard(
+    progress: Float,
+    stage: String,
+    onCancel: () -> Unit,
+) {
     Card(
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text("Processing", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(stage, color = MaterialTheme.colorScheme.onSurfaceVariant)
             LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
+            Button(onClick = onCancel, modifier = Modifier.fillMaxWidth()) {
+                Text("Cancel")
+            }
         }
     }
 }

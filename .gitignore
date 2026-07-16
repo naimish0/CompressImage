@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+.bgremoval-venv/
+.background-removal-work/

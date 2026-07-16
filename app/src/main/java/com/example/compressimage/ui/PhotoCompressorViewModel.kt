@@ -283,22 +283,36 @@ class PhotoCompressorViewModel @Inject constructor(
     }
 
     fun removeBackground() {
+        if (backgroundJob?.isActive == true) return
         val image = _uiState.value.selectedImages.singleOrNull()
         if (image == null) {
             showMessage("Select one image before removing a background.")
             return
         }
-        backgroundJob?.cancel()
         backgroundJob = viewModelScope.launch {
-            _uiState.update { it.copy(backgroundState = BackgroundUiState.Running(progress = 0f)) }
+            _uiState.update {
+                it.copy(
+                    backgroundState = BackgroundUiState.Running(
+                        progress = 0f,
+                        stage = BackgroundProcessingStage.PREPARING_IMAGE,
+                    ),
+                )
+            }
             val result = try {
                 removeBackgroundUseCase(ImageSource(image.id, image.uriString)) { progress ->
                     _uiState.update { state ->
-                        state.copy(backgroundState = BackgroundUiState.Running(progress = progress.coerceIn(0f, 1f)))
+                        val safeProgress = progress.coerceIn(0f, 1f)
+                        state.copy(
+                            backgroundState = BackgroundUiState.Running(
+                                progress = safeProgress,
+                                stage = backgroundStageForProgress(safeProgress),
+                            ),
+                        )
                     }
                 }
             } catch (cancelled: CancellationException) {
-                throw cancelled
+                _uiState.update { it.copy(backgroundState = BackgroundUiState.Cancelled) }
+                return@launch
             } catch (error: Throwable) {
                 BackgroundRemovalResult.Failure(error.message ?: "Background removal failed.")
             }
@@ -312,6 +326,11 @@ class PhotoCompressorViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun cancelBackgroundRemoval() {
+        backgroundJob?.cancel()
+        _uiState.update { it.copy(backgroundState = BackgroundUiState.Cancelled) }
     }
 
     fun replaceBackground(config: BackgroundReplacementConfig) {
@@ -533,6 +552,16 @@ class PhotoCompressorViewModel @Inject constructor(
             else -> ProcessingStage.COMPLETE
         }
     }
+
+    private fun backgroundStageForProgress(progress: Float): BackgroundProcessingStage {
+        return when {
+            progress < 0.2f -> BackgroundProcessingStage.PREPARING_IMAGE
+            progress < 0.72f -> BackgroundProcessingStage.REMOVING_BACKGROUND
+            progress < 0.86f -> BackgroundProcessingStage.REFINING_EDGES
+            progress < 1f -> BackgroundProcessingStage.FINALIZING
+            else -> BackgroundProcessingStage.COMPLETE
+        }
+    }
 }
 
 data class PhotoCompressorUiState(
@@ -609,10 +638,22 @@ enum class ProcessingStage(val label: String) {
 
 sealed interface BackgroundUiState {
     data object Idle : BackgroundUiState
-    data class Running(val progress: Float) : BackgroundUiState
+    data class Running(
+        val progress: Float,
+        val stage: BackgroundProcessingStage,
+    ) : BackgroundUiState
     data class Success(val image: ProcessedImage) : BackgroundUiState
     data class Unavailable(val reason: String) : BackgroundUiState
     data class Error(val message: String) : BackgroundUiState
+    data object Cancelled : BackgroundUiState
+}
+
+enum class BackgroundProcessingStage(val label: String) {
+    PREPARING_IMAGE("Preparing image"),
+    REMOVING_BACKGROUND("Removing background"),
+    REFINING_EDGES("Refining edges"),
+    FINALIZING("Finalizing"),
+    COMPLETE("Complete"),
 }
 
 fun ResizeMode.percentLabel(): String {

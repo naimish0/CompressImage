@@ -3,6 +3,7 @@ package com.rameshta.photocompressor.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -11,36 +12,59 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Teal80,
-    secondary = Coral80,
-    tertiary = Blue80,
-    background = SurfaceDark,
-    surface = SurfaceDark,
+    primary = BrandPrimaryDark,
+    onPrimary = BrandOnPrimaryDark,
+    primaryContainer = BrandPrimaryContainerDark,
+    onPrimaryContainer = BrandOnPrimaryContainerDark,
+    secondary = BrandSecondaryDark,
+    onSecondary = BrandOnSecondaryDark,
+    secondaryContainer = BrandSecondaryContainerDark,
+    onSecondaryContainer = BrandOnSecondaryContainerDark,
+    background = BrandBackgroundDark,
+    onBackground = BrandOnBackgroundDark,
+    surface = BrandSurfaceDark,
+    onSurface = BrandOnSurfaceDark,
+    surfaceVariant = BrandSurfaceVariantDark,
+    onSurfaceVariant = BrandOnSurfaceVariantDark,
+    outline = BrandOutlineDark,
+    outlineVariant = BrandOutlineVariantDark,
+    error = BrandErrorDark,
+    onError = BrandOnErrorDark,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Teal40,
-    secondary = Coral40,
-    tertiary = Blue40,
-    background = SurfaceLight,
-    surface = SurfaceLight,
+    primary = BrandPrimaryLight,
+    onPrimary = BrandOnPrimaryLight,
+    primaryContainer = BrandPrimaryContainerLight,
+    onPrimaryContainer = BrandOnPrimaryContainerLight,
+    secondary = BrandSecondaryLight,
+    onSecondary = BrandOnSecondaryLight,
+    secondaryContainer = BrandSecondaryContainerLight,
+    onSecondaryContainer = BrandOnSecondaryContainerLight,
+    background = BrandBackgroundLight,
+    onBackground = BrandOnBackgroundLight,
+    surface = BrandSurfaceLight,
+    onSurface = BrandOnSurfaceLight,
+    surfaceVariant = BrandSurfaceVariantLight,
+    onSurfaceVariant = BrandOnSurfaceVariantLight,
+    outline = BrandOutlineLight,
+    outlineVariant = BrandOutlineVariantLight,
+    error = BrandErrorLight,
+    onError = BrandOnErrorLight,
+)
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val AppMaterialShapes = Shapes(
+    extraSmall = AppShapes.small,
+    small = AppShapes.small,
+    medium = AppShapes.medium,
+    large = AppShapes.large,
+    extraLarge = AppShapes.large,
 )
 
 @Composable
 fun CompressImageTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -56,6 +80,7 @@ fun CompressImageTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = AppMaterialShapes,
         content = content
     )
 }

@@ -19,23 +19,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.PlayArrow
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -56,8 +48,16 @@ import com.rameshta.photocompressor.domain.model.TargetSizeUnit
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.FormatChip
+import com.rameshta.photocompressor.ui.components.ImagePreviewBox
 import com.rameshta.photocompressor.ui.components.InfoRow
+import com.rameshta.photocompressor.ui.components.PremiumCard
+import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
+import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
+import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
 import com.rameshta.photocompressor.ui.percentLabel
+import com.rameshta.photocompressor.ui.theme.AppShapes
+import com.rameshta.photocompressor.ui.theme.AppSpacing
+import com.rameshta.photocompressor.ui.theme.AppTouchTargets
 import com.rameshta.photocompressor.util.FileSizeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,31 +85,32 @@ fun EditorScreen(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Preview and configure") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Go back")
-                    }
-                },
+            PremiumTopAppBar(
+                title = "Preview and configure",
+                navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                onNavigationClick = onBack,
             )
         },
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            contentPadding = PaddingValues(AppSpacing.md),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.md),
         ) {
             item {
-                Card(
-                    shape = RoundedCornerShape(8.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                ) {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("Selected images", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                        InfoRow("Count", state.selectedImages.size.toString())
+                PremiumCard {
+                    Text("Selected images", style = MaterialTheme.typography.titleMedium)
+                    state.selectedImages.firstOrNull()?.let { first ->
+                        ImagePreviewBox(
+                            model = first.uriString,
+                            contentDescription = "Preview of ${first.displayName}",
+                            fit = false,
+                        )
+                    }
+                    Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
                         val totalBytes = state.selectedImages.sumOf { it.sizeBytes }
+                        InfoRow("Count", state.selectedImages.size.toString())
                         InfoRow("Original total", FileSizeFormatter.format(totalBytes))
                         state.selectedImages.firstOrNull()?.let {
                             InfoRow("First image", "${it.width} x ${it.height} • ${it.format.displayName}")
@@ -136,26 +137,33 @@ fun EditorScreen(
                         }
                     }
                     if (state.config.targetSize.preset == TargetSizePreset.CUSTOM) {
-                        Spacer(Modifier.height(10.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Spacer(Modifier.height(AppSpacing.sm))
+                        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
                             OutlinedTextField(
                                 value = state.config.targetSize.customValue,
                                 onValueChange = onCustomTarget,
-                                label = { Text("Custom size") },
+                                label = { Text("Target size") },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                                 isError = !state.targetValidation.isValid,
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
                             )
-                            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
                                 TargetSizeUnit.entries.forEach { unit ->
-                                    AssistChip(
+                                    FilterChip(
+                                        selected = state.config.targetSize.customUnit == unit,
                                         onClick = { onCustomTargetUnit(unit) },
                                         label = { Text(unit.name) },
                                     )
                                 }
                             }
                         }
+                        Spacer(Modifier.height(AppSpacing.xs))
+                        Text(
+                            "Compress toward your selected size. Actual output may vary to preserve quality.",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodySmall,
+                        )
                     }
                     state.targetValidation.message?.let {
                         Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
@@ -177,7 +185,7 @@ fun EditorScreen(
                             )
                         }
                     }
-                    Spacer(Modifier.height(8.dp))
+                    Spacer(Modifier.height(AppSpacing.xs))
                     Text(
                         text = state.config.compressionMode.description,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -201,8 +209,8 @@ fun EditorScreen(
                         }
                     }
                     if (state.config.resize.mode == ResizeMode.CUSTOM) {
-                        Spacer(Modifier.height(10.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Spacer(Modifier.height(AppSpacing.sm))
+                        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
                             OutlinedTextField(
                                 value = state.config.resize.customWidth,
                                 onValueChange = onCustomWidth,
@@ -252,10 +260,10 @@ fun EditorScreen(
                         }
                     }
                     state.alphaToJpegWarning?.let {
-                        Spacer(Modifier.height(8.dp))
+                        Spacer(Modifier.height(AppSpacing.xs))
                         Text(it, color = MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.bodySmall)
-                        Spacer(Modifier.height(8.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Spacer(Modifier.height(AppSpacing.xs))
+                        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs), verticalAlignment = Alignment.CenterVertically) {
                             Text("JPG background", style = MaterialTheme.typography.bodySmall)
                             listOf(
                                 0xFFFFFFFF.toInt(),
@@ -278,28 +286,24 @@ fun EditorScreen(
             }
 
             item {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Button(
+                Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+                    PremiumPrimaryButton(
+                        text = "Compress image",
                         onClick = onCompress,
                         enabled = state.selectedImages.isNotEmpty() &&
                             state.targetValidation.isValid &&
                             state.resizeValidation.isValid &&
                             !state.batch.isRunning,
                         modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Icon(Icons.Outlined.PlayArrow, contentDescription = null)
-                        Spacer(Modifier.width(8.dp))
-                        Text("Compress")
-                    }
-                    OutlinedButton(
+                        icon = Icons.Outlined.PlayArrow,
+                    )
+                    PremiumOutlinedButton(
+                        text = "Remove background",
                         onClick = onRemoveBackground,
                         enabled = state.selectedImages.size == 1 && !state.batch.isRunning,
                         modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Icon(Icons.Outlined.AutoFixHigh, contentDescription = null)
-                        Spacer(Modifier.width(8.dp))
-                        Text("Remove background")
-                    }
+                        icon = Icons.Outlined.AutoFixHigh,
+                    )
                 }
             }
         }
@@ -311,15 +315,10 @@ private fun ConfigCard(
     title: String,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    Card(
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-    ) {
-        Column(Modifier.padding(16.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.height(12.dp))
-            content()
-        }
+    PremiumCard {
+        Text(title, style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(AppSpacing.sm))
+        content()
     }
 }
 
@@ -348,7 +347,7 @@ private fun ColorSwatch(
     val borderColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
     androidx.compose.foundation.layout.Box(
         modifier = Modifier
-            .size(32.dp)
+            .size(AppTouchTargets.min)
             .clip(CircleShape)
             .background(Color(color))
             .border(2.dp, borderColor, CircleShape)

@@ -9,18 +9,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
+import com.rameshta.photocompressor.ui.components.PremiumCard
+import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
+import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
+import com.rameshta.photocompressor.ui.theme.AppSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,21 +43,18 @@ fun SettingsScreen(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Settings") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Go back")
-                    }
-                },
+            PremiumTopAppBar(
+                title = "Settings",
+                navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                onNavigationClick = onBack,
             )
         },
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            contentPadding = PaddingValues(AppSpacing.md),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.md),
         ) {
             item {
                 SettingsCard(title = "Files") {
@@ -93,10 +87,12 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     if (privacyOptionsRequired) {
-                        Spacer(Modifier.height(12.dp))
-                        OutlinedButton(onClick = onPrivacyOptions, modifier = Modifier.fillMaxWidth()) {
-                            Text("Privacy choices")
-                        }
+                        Spacer(Modifier.height(AppSpacing.sm))
+                        PremiumOutlinedButton(
+                            text = "Privacy choices",
+                            onClick = onPrivacyOptions,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
                     }
                 }
             }
@@ -132,14 +128,9 @@ fun SettingsScreen(
 
 @Composable
 private fun SettingsCard(title: String, content: @Composable ColumnScope.() -> Unit) {
-    Card(
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-    ) {
-        Column(Modifier.padding(16.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.height(10.dp))
-            content()
-        }
+    PremiumCard {
+        Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(AppSpacing.xs))
+        content()
     }
 }

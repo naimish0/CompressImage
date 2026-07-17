@@ -15,22 +15,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.AutoFixHigh
 import androidx.compose.material.icons.outlined.Save
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
@@ -48,6 +41,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -58,6 +56,13 @@ import com.rameshta.photocompressor.ui.BackgroundUiState
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.FormatChip
+import com.rameshta.photocompressor.ui.components.PremiumCard
+import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
+import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
+import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
+import com.rameshta.photocompressor.ui.theme.AppShapes
+import com.rameshta.photocompressor.ui.theme.AppSpacing
+import com.rameshta.photocompressor.ui.theme.AppTouchTargets
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,24 +87,23 @@ fun BackgroundReplacementScreen(
         fullScreenAdVisible = fullScreenAdVisible,
         hasBottomContent = state.backgroundState is BackgroundUiState.Running,
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Background") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Go back")
-                    }
-                },
+            PremiumTopAppBar(
+                title = "Background",
+                navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                onNavigationClick = onBack,
             )
         },
         bottomContent = {
             if (state.backgroundState is BackgroundUiState.Running) {
                 Column(
                     Modifier,
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(AppSpacing.xs),
                 ) {
-                    Button(onClick = onCancelRemoval, modifier = Modifier.fillMaxWidth()) {
-                        Text("Cancel")
-                    }
+                    PremiumOutlinedButton(
+                        text = "Cancel",
+                        onClick = onCancelRemoval,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
                 }
             }
         },
@@ -107,8 +111,8 @@ fun BackgroundReplacementScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            contentPadding = PaddingValues(AppSpacing.md),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.md),
         ) {
             item {
                 when (val backgroundState = state.backgroundState) {
@@ -134,86 +138,83 @@ fun BackgroundReplacementScreen(
                     )
                     is BackgroundUiState.Success -> {
                         val transparent = selectedColor == null
-                        Card(
-                            shape = RoundedCornerShape(8.dp),
-                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                        ) {
-                            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                                Text("Preview", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                                backgroundState.image.warning?.let { warning ->
-                                    Text(
-                                        warning,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    )
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .aspectRatio(1f)
-                                        .clip(RoundedCornerShape(8.dp))
-                                        .then(if (transparent) Modifier.checkerboard() else Modifier.background(Color(selectedColor!!))),
-                                ) {
-                                    AsyncImage(
-                                        model = backgroundState.image.filePath,
-                                        contentDescription = "Transparent image preview",
-                                        modifier = Modifier.fillMaxSize(),
-                                        contentScale = ContentScale.Fit,
-                                    )
-                                }
-                                Text("Replacement color", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                                ColorChoices(
-                                    selectedColor = selectedColor,
-                                    customColor = customColor,
-                                    onColor = { selectedColor = it },
+                        PremiumCard {
+                            Text("Preview", style = MaterialTheme.typography.titleMedium)
+                            backgroundState.image.warning?.let { warning ->
+                                Text(
+                                    warning,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
-                                Text("Custom color", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                                ColorSlider("Red", red) { value ->
-                                    red = value
-                                    selectedColor = Color(value, green, blue).toArgb()
-                                }
-                                ColorSlider("Green", green) { value ->
-                                    green = value
-                                    selectedColor = Color(red, value, blue).toArgb()
-                                }
-                                ColorSlider("Blue", blue) { value ->
-                                    blue = value
-                                    selectedColor = Color(red, green, value).toArgb()
-                                }
-                                Text("Export format", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    listOf(ImageFormat.PNG, ImageFormat.WEBP, ImageFormat.JPEG)
-                                        .filter { selectedColor != null || it.supportsTransparency }
-                                        .forEach { format ->
-                                            FormatChip(
-                                                format = format,
-                                                selected = outputFormat == format,
-                                                onClick = { outputFormat = format },
-                                            )
-                                        }
-                                }
-                                state.backgroundReplaceProgress?.let { progress ->
-                                    LinearProgressIndicator(
-                                        progress = { progress },
-                                        modifier = Modifier.fillMaxWidth(),
-                                    )
-                                }
-                                Button(
-                                    onClick = {
-                                        onReplaceBackground(
-                                            BackgroundReplacementConfig(
-                                                colorArgb = selectedColor,
-                                                outputFormat = outputFormat,
-                                            ),
-                                        )
-                                    },
-                                    modifier = Modifier.fillMaxWidth(),
-                                ) {
-                                    Icon(Icons.Outlined.Save, contentDescription = null)
-                                    Spacer(Modifier.width(8.dp))
-                                    Text("Export background")
-                                }
                             }
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .aspectRatio(1f)
+                                    .clip(AppShapes.medium)
+                                    .then(if (transparent) Modifier.checkerboard() else Modifier.background(Color(selectedColor!!))),
+                            ) {
+                                AsyncImage(
+                                    model = backgroundState.image.filePath,
+                                    contentDescription = if (transparent) {
+                                        "Transparent background preview"
+                                    } else {
+                                        "Image preview with selected background color"
+                                    },
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Fit,
+                                )
+                            }
+                            Text("Replacement color", style = MaterialTheme.typography.titleSmall)
+                            ColorChoices(
+                                selectedColor = selectedColor,
+                                customColor = customColor,
+                                onColor = { selectedColor = it },
+                            )
+                            Text("Custom color", style = MaterialTheme.typography.titleSmall)
+                            ColorSlider("Red", red) { value ->
+                                red = value
+                                selectedColor = Color(value, green, blue).toArgb()
+                            }
+                            ColorSlider("Green", green) { value ->
+                                green = value
+                                selectedColor = Color(red, value, blue).toArgb()
+                            }
+                            ColorSlider("Blue", blue) { value ->
+                                blue = value
+                                selectedColor = Color(red, green, value).toArgb()
+                            }
+                            Text("Export format", style = MaterialTheme.typography.titleSmall)
+                            Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+                                listOf(ImageFormat.PNG, ImageFormat.WEBP, ImageFormat.JPEG)
+                                    .filter { selectedColor != null || it.supportsTransparency }
+                                    .forEach { format ->
+                                        FormatChip(
+                                            format = format,
+                                            selected = outputFormat == format,
+                                            onClick = { outputFormat = format },
+                                        )
+                                    }
+                            }
+                            state.backgroundReplaceProgress?.let { progress ->
+                                LinearProgressIndicator(
+                                    progress = { progress },
+                                    modifier = Modifier.fillMaxWidth(),
+                                )
+                            }
+                            PremiumPrimaryButton(
+                                text = "Export background",
+                                onClick = {
+                                    onReplaceBackground(
+                                        BackgroundReplacementConfig(
+                                            colorArgb = selectedColor,
+                                            outputFormat = outputFormat,
+                                        ),
+                                    )
+                                },
+                                modifier = Modifier.fillMaxWidth(),
+                                icon = Icons.Outlined.Save,
+                            )
                         }
                     }
                 }
@@ -224,23 +225,19 @@ fun BackgroundReplacementScreen(
 
 @Composable
 private fun StartRemovalCard(onStartRemoval: () -> Unit) {
-    Card(
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Remove background", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Text(
-                "Runs on this device and exports a transparent PNG. Images are not uploaded.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Button(onClick = onStartRemoval, modifier = Modifier.fillMaxWidth()) {
-                Icon(Icons.Outlined.AutoFixHigh, contentDescription = null)
-                Spacer(Modifier.width(8.dp))
-                Text("Start")
-            }
-        }
+    PremiumCard {
+        Text("Remove background", style = MaterialTheme.typography.titleMedium)
+        Text(
+            "Runs on this device and exports a transparent PNG. Images are not uploaded.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        PremiumPrimaryButton(
+            text = "Start removal",
+            onClick = onStartRemoval,
+            modifier = Modifier.fillMaxWidth(),
+            icon = Icons.Outlined.AutoFixHigh,
+        )
     }
 }
 
@@ -249,31 +246,21 @@ private fun RunningCard(
     progress: Float,
     stage: String,
 ) {
-    Card(
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Processing", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Text(stage, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
-        }
+    PremiumCard {
+        Text("Processing", style = MaterialTheme.typography.titleMedium)
+        Text(stage, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
     }
 }
 
 @Composable
 private fun MessageCard(title: String, message: String, isError: Boolean) {
-    Card(
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            Text(
-                text = message,
-                color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
+    PremiumCard {
+        Text(title, style = MaterialTheme.typography.titleMedium)
+        Text(
+            text = message,
+            color = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 
@@ -283,8 +270,8 @@ private fun ColorChoices(
     customColor: Int,
     onColor: (Int?) -> Unit,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
             FilterChip(
                 selected = selectedColor == null,
                 onClick = { onColor(null) },
@@ -296,7 +283,7 @@ private fun ColorChoices(
                 label = { Text("Custom") },
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
             listOf(
                 0xFFFFFFFF.toInt(),
                 0xFF000000.toInt(),
@@ -306,16 +293,23 @@ private fun ColorChoices(
                 0xFFFDD835.toInt(),
                 0xFF9E9E9E.toInt(),
             ).forEach { color ->
+                val colorName = color.accessibleColorName()
+                val isSelected = selectedColor == color
                 Box(
                     modifier = Modifier
-                        .size(34.dp)
+                        .size(AppTouchTargets.min)
                         .clip(CircleShape)
                         .background(Color(color))
                         .border(
                             width = 2.dp,
-                            color = if (selectedColor == color) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
                             shape = CircleShape,
                         )
+                        .semantics {
+                            role = Role.Button
+                            contentDescription = "$colorName background"
+                            selected = isSelected
+                        }
                         .clickable { onColor(color) },
                 )
             }
@@ -344,5 +338,18 @@ private fun Modifier.checkerboard(): Modifier = drawBehind {
                 size = Size(square, square),
             )
         }
+    }
+}
+
+private fun Int.accessibleColorName(): String {
+    return when (this) {
+        0xFFFFFFFF.toInt() -> "White"
+        0xFF000000.toInt() -> "Black"
+        0xFF2F80ED.toInt() -> "Blue"
+        0xFFE53935.toInt() -> "Red"
+        0xFF43A047.toInt() -> "Green"
+        0xFFFDD835.toInt() -> "Yellow"
+        0xFF9E9E9E.toInt() -> "Gray"
+        else -> "Custom"
     }
 }

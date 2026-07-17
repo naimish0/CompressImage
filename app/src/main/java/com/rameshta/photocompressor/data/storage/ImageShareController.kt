@@ -1,5 +1,6 @@
 package com.rameshta.photocompressor.data.storage
 
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 data class ShareableImage(
     val uri: Uri,
     val mimeType: String,
+    val displayName: String,
 )
 
 @Singleton
@@ -40,42 +42,64 @@ class ImageShareController @Inject constructor(
         return ShareableImage(
             uri = contentUriFor(image),
             mimeType = image.mimeType,
+            displayName = image.displayName,
         )
     }
 
-    fun shareIntent(uri: Uri, mimeType: String): Intent {
+    fun shareIntent(
+        uri: Uri,
+        mimeType: String,
+        displayName: String = context.getString(R.string.share_results_chooser),
+    ): Intent {
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            type = mimeType
+            clipData = ClipData.newUri(context.contentResolver, displayName, uri)
+            putExtra(Intent.EXTRA_STREAM, uri)
+            putExtra(Intent.EXTRA_TITLE, displayName)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
         return Intent.createChooser(
-            Intent(Intent.ACTION_SEND).apply {
-                type = mimeType
-                putExtra(Intent.EXTRA_STREAM, uri)
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            },
+            sendIntent,
             context.getString(R.string.share_results_chooser),
-        )
+        ).apply {
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
     }
 
     fun shareOneIntent(image: ProcessedImage): Intent {
         val shareable = shareableOutputFor(image)
-        return shareIntent(shareable.uri, shareable.mimeType)
+        return shareIntent(shareable.uri, shareable.mimeType, shareable.displayName)
     }
 
     fun shareManyIntent(images: List<ProcessedImage>): Intent {
         val uris = ArrayList(images.map { contentUriFor(it) })
         val mimeType = images.firstOrNull()?.mimeType ?: "image/*"
+        val displayName = context.getString(R.string.share_results_chooser)
+        val resolvedMimeType = if (images.map { it.mimeType }.distinct().size == 1) mimeType else "image/*"
+        val clipData = uris.firstOrNull()?.let { firstUri ->
+            ClipData.newUri(context.contentResolver, displayName, firstUri).apply {
+                uris.drop(1).forEach { addItem(ClipData.Item(it)) }
+            }
+        }
         return Intent.createChooser(
             Intent(Intent.ACTION_SEND_MULTIPLE).apply {
-                type = if (images.map { it.mimeType }.distinct().size == 1) mimeType else "image/*"
+                type = resolvedMimeType
+                this.clipData = clipData
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+                putExtra(Intent.EXTRA_TITLE, displayName)
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             },
             context.getString(R.string.share_results_chooser),
-        )
+        ).apply {
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
     }
 
     fun openIntent(image: ProcessedImage): Intent {
         val uri = contentUriFor(image)
         return Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, image.mimeType)
+            clipData = ClipData.newUri(context.contentResolver, image.displayName, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
     }

@@ -130,7 +130,7 @@ class UtilityTest {
         BannerPlacement.entries.forEach { placement ->
             assertTrue(policy.isBannerEligible(placement))
         }
-        assertFalse(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
+        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
         assertTrue(policy.isInterstitialEligible(InterstitialPlacement.SAVE_CLICKED))
     }
 

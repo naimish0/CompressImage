@@ -27,10 +27,12 @@ android {
     val testBannerAdUnitId = "ca-app-pub-3940256099942544/9214589741"
     val testInterstitialAdUnitId = "ca-app-pub-3940256099942544/1033173712"
     val testAppOpenAdUnitId = "ca-app-pub-3940256099942544/9257395921"
+    val testNativeAdUnitId = "ca-app-pub-3940256099942544/2247696110"
     val releaseAdMobAppId = "ca-app-pub-7742442202074564~2488993156"
     val releaseBannerAdUnitId = "ca-app-pub-7742442202074564/5574321499"
     val releaseInterstitialAdUnitId = "ca-app-pub-7742442202074564/1251933104"
     val releaseAppOpenAdUnitId = "ca-app-pub-7742442202074564/6620644008"
+    val releaseNativeAdUnitId = "ca-app-pub-7742442202074564/8690760808"
     val releaseTopBannerAdUnitId = releaseBannerAdUnitId
     val releaseBottomBannerAdUnitId = releaseBannerAdUnitId
     val releaseInlineAdUnitId = releaseBannerAdUnitId
@@ -44,6 +46,7 @@ android {
         releaseHistoryInterstitialAdUnitId,
         releaseSaveInterstitialAdUnitId,
         releaseAppOpenAdUnitId,
+        releaseNativeAdUnitId
     )
     if (releaseAdIds.any { it.contains("ca-app-pub-3940256099942544") }) {
         throw GradleException("Release AdMob properties must not use Google's sample ad IDs.")
@@ -58,6 +61,7 @@ android {
             buildConfigField("String", "TOP_BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
             buildConfigField("String", "BOTTOM_BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
             buildConfigField("String", "INLINE_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
+            buildConfigField("String", "NATIVE_AD_UNIT_ID", "\"$testNativeAdUnitId\"")
             buildConfigField("String", "HISTORY_INTERSTITIAL_AD_UNIT_ID", "\"$testInterstitialAdUnitId\"")
             buildConfigField("String", "SAVE_INTERSTITIAL_AD_UNIT_ID", "\"$testInterstitialAdUnitId\"")
             buildConfigField("String", "ADMOB_APP_OPEN_AD_UNIT_ID", "\"$testAppOpenAdUnitId\"")
@@ -72,6 +76,7 @@ android {
             buildConfigField("String", "TOP_BANNER_AD_UNIT_ID", "\"$releaseTopBannerAdUnitId\"")
             buildConfigField("String", "BOTTOM_BANNER_AD_UNIT_ID", "\"$releaseBottomBannerAdUnitId\"")
             buildConfigField("String", "INLINE_AD_UNIT_ID", "\"$releaseInlineAdUnitId\"")
+            buildConfigField("String", "NATIVE_AD_UNIT_ID", "\"$releaseNativeAdUnitId\"")
             buildConfigField("String", "HISTORY_INTERSTITIAL_AD_UNIT_ID", "\"$releaseHistoryInterstitialAdUnitId\"")
             buildConfigField("String", "SAVE_INTERSTITIAL_AD_UNIT_ID", "\"$releaseSaveInterstitialAdUnitId\"")
             buildConfigField("String", "ADMOB_APP_OPEN_AD_UNIT_ID", "\"$releaseAppOpenAdUnitId\"")

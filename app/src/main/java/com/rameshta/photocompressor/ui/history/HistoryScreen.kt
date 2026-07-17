@@ -4,32 +4,28 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.InlineHistoryAd
+import com.rameshta.photocompressor.ui.components.PremiumEmptyState
+import com.rameshta.photocompressor.ui.components.PremiumErrorState
+import com.rameshta.photocompressor.ui.components.PremiumIconButton
+import com.rameshta.photocompressor.ui.components.PremiumLoadingState
+import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
+import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
+import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
 import com.rameshta.photocompressor.ui.components.ProcessedImageCard
+import com.rameshta.photocompressor.ui.theme.AppSpacing
 
 sealed interface HistoryListItem {
     data class Content(
@@ -59,17 +55,18 @@ fun HistoryScreen(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("History") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Go back")
-                    }
-                },
+            PremiumTopAppBar(
+                title = "History",
+                navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                onNavigationClick = onBack,
                 actions = {
-                    IconButton(onClick = onClear, enabled = history.isNotEmpty()) {
-                        Icon(Icons.Outlined.Delete, contentDescription = "Clear history")
-                    }
+                    PremiumIconButton(
+                        onClick = onClear,
+                        icon = Icons.Outlined.Delete,
+                        contentDescription = "Clear history",
+                        enabled = history.isNotEmpty(),
+                        danger = history.isNotEmpty(),
+                    )
                 },
             )
         },
@@ -86,8 +83,8 @@ fun HistoryScreen(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    contentPadding = PaddingValues(AppSpacing.md),
+                    verticalArrangement = Arrangement.spacedBy(AppSpacing.sm),
                 ) {
                     items(
                         listItems,
@@ -106,18 +103,24 @@ fun HistoryScreen(
                             )
                             is HistoryListItem.Content -> {
                                 val item = listItem.item
-                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
                                     ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
-                                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                                        Button(onClick = { onOpenItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                            Text("Open")
-                                        }
-                                        OutlinedButton(onClick = { onShareItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                            Text("Share")
-                                        }
-                                        OutlinedButton(onClick = { onRemoveItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                            Text("Remove")
-                                        }
+                                    Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs), modifier = Modifier.fillMaxWidth()) {
+                                        PremiumPrimaryButton(
+                                            text = "Open",
+                                            onClick = { onOpenItem(item.id) },
+                                            modifier = Modifier.weight(1f),
+                                        )
+                                        PremiumOutlinedButton(
+                                            text = "Share",
+                                            onClick = { onShareItem(item.id) },
+                                            modifier = Modifier.weight(1f),
+                                        )
+                                        PremiumOutlinedButton(
+                                            text = "Remove",
+                                            onClick = { onRemoveItem(item.id) },
+                                            modifier = Modifier.weight(1f),
+                                        )
                                     }
                                 }
                             }
@@ -131,33 +134,15 @@ fun HistoryScreen(
 
 @Composable
 private fun HistoryLoadingState() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        CircularProgressIndicator()
-        Spacer(Modifier.height(12.dp))
-        Text("Loading history...", style = MaterialTheme.typography.titleMedium)
-    }
+    PremiumLoadingState(title = "Loading history...")
 }
 
 @Composable
 private fun HistoryEmptyState() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text("No processed images yet.", style = MaterialTheme.typography.titleMedium)
-        Spacer(Modifier.height(8.dp))
-        Text(
-            "Compressed images appear here after a successful operation.",
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-    }
+    PremiumEmptyState(
+        title = "No processed images yet.",
+        message = "Compressed and background-removed images appear here after a successful operation.",
+    )
 }
 
 @Composable
@@ -165,23 +150,11 @@ private fun HistoryErrorState(
     message: String,
     onRetry: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text("History could not be loaded.", style = MaterialTheme.typography.titleMedium)
-        Spacer(Modifier.height(8.dp))
-        Text(
-            message,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(12.dp))
-        Button(onClick = onRetry) {
-            Text("Retry")
-        }
-    }
+    PremiumErrorState(
+        title = "History could not be loaded.",
+        message = message,
+        onRetry = onRetry,
+    )
 }
 
 internal fun historyListItems(

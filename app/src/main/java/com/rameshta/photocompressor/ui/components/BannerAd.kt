@@ -38,6 +38,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.LoadAdError
+import com.rameshta.photocompressor.ui.theme.AppSpacing
 
 @Composable
 fun PhotoCompressorBanner(
@@ -223,8 +224,8 @@ fun AdScreenScaffold(
                 Column(
                     modifier = Modifier
                         .navigationBarsPadding()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                        .padding(horizontal = AppSpacing.md, vertical = AppSpacing.xs),
+                    verticalArrangement = Arrangement.spacedBy(AppSpacing.xs),
                 ) {
                     if (showBottomAd) {
                         BottomBannerAd(

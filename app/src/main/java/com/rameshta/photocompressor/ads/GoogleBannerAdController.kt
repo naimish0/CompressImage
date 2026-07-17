@@ -65,6 +65,15 @@ class GoogleBannerAdController @Inject constructor(
         }
     }
 
+    override fun shouldShowNativeAd(state: AdsUiState): Boolean {
+        return state.adsEnabled &&
+            state.canRequestAds &&
+            state.initialized &&
+            configuration.nativeAdsEnabled
+    }
+
+    override fun nativeAdUnitId(): String = configuration.nativeAdUnitId
+
     override fun buildAdRequest(): AdRequest {
         return AdRequest.Builder().build()
     }

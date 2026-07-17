@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -19,15 +18,8 @@ import androidx.compose.material.icons.outlined.AddPhotoAlternate
 import androidx.compose.material.icons.outlined.FolderOpen
 import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,7 +39,15 @@ import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.EmptySpaceBannerAd
 import com.rameshta.photocompressor.ui.components.ImagePreviewBox
 import com.rameshta.photocompressor.ui.components.InfoRow
+import com.rameshta.photocompressor.ui.components.PremiumCard
+import com.rameshta.photocompressor.ui.components.PremiumEmptyState
+import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
+import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
+import com.rameshta.photocompressor.ui.components.PremiumSecondaryButton
+import com.rameshta.photocompressor.ui.components.PremiumSuccessPill
+import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
 import com.rameshta.photocompressor.ui.components.ProcessedImageCard
+import com.rameshta.photocompressor.ui.theme.AppSpacing
 import com.rameshta.photocompressor.util.CompressionStatsCalculator
 import com.rameshta.photocompressor.util.FileSizeFormatter
 import java.util.Locale
@@ -75,13 +75,10 @@ fun ResultScreen(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("Compare result") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "Go back")
-                    }
-                },
+            PremiumTopAppBar(
+                title = "Compare result",
+                navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
+                onNavigationClick = onBack,
             )
         },
     ) {
@@ -93,8 +90,8 @@ fun ResultScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            contentPadding = PaddingValues(AppSpacing.md),
+            verticalArrangement = Arrangement.spacedBy(AppSpacing.md),
         ) {
             item {
                 ComparisonPanel(selected)
@@ -102,7 +99,7 @@ fun ResultScreen(
 
             if (state.results.size > 1) {
                 item {
-                    Text("Batch results", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                    Text("Batch results", style = MaterialTheme.typography.titleMedium)
                 }
                 items(state.results, key = { it.id }) { image ->
                     ProcessedImageCard(
@@ -136,12 +133,12 @@ fun ResultScreen(
             }
 
             item {
-                Card(
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-                ) {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text("Save and share", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                PremiumCard {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(AppSpacing.sm),
+                    ) {
+                        Text("Save and share", style = MaterialTheme.typography.titleMedium)
                         OutlinedTextField(
                             value = requestedName,
                             onValueChange = { requestedName = it },
@@ -149,59 +146,65 @@ fun ResultScreen(
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true,
                         )
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                            Button(
-                                onClick = { onSaveSelected(requestedName) },
-                                enabled = !actionInProgress,
-                                modifier = Modifier.weight(1f),
-                            ) {
-                                Icon(Icons.Outlined.Save, contentDescription = null)
-                                Spacer(Modifier.width(8.dp))
-                                Text(if (state.isSaving) "Saving..." else "Save")
-                            }
-                            OutlinedButton(
-                                onClick = onShareSelected,
-                                enabled = !actionInProgress,
-                                modifier = Modifier.weight(1f),
-                            ) {
-                                Icon(Icons.Outlined.Share, contentDescription = null)
-                                Spacer(Modifier.width(8.dp))
-                                Text("Share")
-                            }
-                        }
-                        Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                            OutlinedButton(
-                                onClick = onOpenImage,
-                                enabled = !actionInProgress,
-                                modifier = Modifier.weight(1f),
-                            ) {
-                                Icon(Icons.Outlined.FolderOpen, contentDescription = null)
-                                Spacer(Modifier.width(8.dp))
-                                Text("Open")
-                            }
-                            OutlinedButton(onClick = onCompressAnother, modifier = Modifier.weight(1f)) {
-                                Icon(Icons.Outlined.AddPhotoAlternate, contentDescription = null)
-                                Spacer(Modifier.width(8.dp))
-                                Text("Another")
-                            }
-                        }
+                        ResultActionPair(
+                            first = { modifier ->
+                                PremiumPrimaryButton(
+                                    text = if (state.isSaving) "Saving..." else "Save",
+                                    onClick = { onSaveSelected(requestedName) },
+                                    enabled = !actionInProgress,
+                                    loading = state.isSaving,
+                                    modifier = modifier,
+                                    icon = Icons.Outlined.Save,
+                                )
+                            },
+                            second = { modifier ->
+                                PremiumOutlinedButton(
+                                    text = "Share",
+                                    onClick = onShareSelected,
+                                    enabled = !actionInProgress,
+                                    modifier = modifier,
+                                    icon = Icons.Outlined.Share,
+                                )
+                            },
+                        )
+                        ResultActionPair(
+                            first = { modifier ->
+                                PremiumOutlinedButton(
+                                    text = "Open",
+                                    onClick = onOpenImage,
+                                    enabled = !actionInProgress,
+                                    modifier = modifier,
+                                    icon = Icons.Outlined.FolderOpen,
+                                )
+                            },
+                            second = { modifier ->
+                                PremiumSecondaryButton(
+                                    text = "Another",
+                                    onClick = onCompressAnother,
+                                    modifier = modifier,
+                                    icon = Icons.Outlined.AddPhotoAlternate,
+                                )
+                            },
+                        )
                         if (state.results.size > 1) {
-                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                                OutlinedButton(
-                                    onClick = onSaveAll,
-                                    enabled = !actionInProgress,
-                                    modifier = Modifier.weight(1f),
-                                ) {
-                                    Text("Save all")
-                                }
-                                OutlinedButton(
-                                    onClick = onShareAll,
-                                    enabled = !actionInProgress,
-                                    modifier = Modifier.weight(1f),
-                                ) {
-                                    Text("Share all")
-                                }
-                            }
+                            ResultActionPair(
+                                first = { modifier ->
+                                    PremiumOutlinedButton(
+                                        text = "Save all",
+                                        onClick = onSaveAll,
+                                        enabled = !actionInProgress,
+                                        modifier = modifier,
+                                    )
+                                },
+                                second = { modifier ->
+                                    PremiumOutlinedButton(
+                                        text = "Share all",
+                                        onClick = onShareAll,
+                                        enabled = !actionInProgress,
+                                        modifier = modifier,
+                                    )
+                                },
+                            )
                         }
                     }
                 }
@@ -211,17 +214,59 @@ fun ResultScreen(
 }
 
 @Composable
-private fun ComparisonPanel(image: ProcessedImage) {
-    BoxWithConstraints {
-        if (maxWidth > 700.dp) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                PreviewColumn("Original", image.original.uriString, modifier = Modifier.weight(1f))
-                PreviewColumn("Processed", image.filePath, modifier = Modifier.weight(1f))
+private fun ResultActionPair(
+    first: @Composable (Modifier) -> Unit,
+    second: @Composable (Modifier) -> Unit,
+) {
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        if (maxWidth < 360.dp) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(AppSpacing.sm),
+            ) {
+                first(Modifier.fillMaxWidth())
+                second(Modifier.fillMaxWidth())
             }
         } else {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                PreviewColumn("Original", image.original.uriString)
-                PreviewColumn("Processed", image.filePath)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm),
+            ) {
+                first(Modifier.weight(1f))
+                second(Modifier.weight(1f))
+            }
+        }
+    }
+}
+
+@Composable
+private fun ComparisonPanel(image: ProcessedImage) {
+    PremiumCard {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Column(Modifier.weight(1f)) {
+                Text("Result ready", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    "Compare the original and processed output before saving.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            PremiumSuccessPill("Processed")
+        }
+        BoxWithConstraints {
+            if (maxWidth > 700.dp) {
+                Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm), modifier = Modifier.fillMaxWidth()) {
+                    PreviewColumn("Original", image.original.uriString, modifier = Modifier.weight(1f))
+                    PreviewColumn("Processed", image.filePath, modifier = Modifier.weight(1f))
+                }
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
+                    PreviewColumn("Original", image.original.uriString)
+                    PreviewColumn("Processed", image.filePath)
+                }
             }
         }
     }
@@ -234,8 +279,8 @@ private fun PreviewColumn(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Text(label, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-        Spacer(Modifier.height(8.dp))
+        Text(label, style = MaterialTheme.typography.titleSmall)
+        Spacer(Modifier.height(AppSpacing.xs))
         ImagePreviewBox(model = model, contentDescription = "$label image preview")
     }
 }
@@ -243,12 +288,9 @@ private fun PreviewColumn(
 @Composable
 private fun StatsPanel(image: ProcessedImage) {
     val stats = CompressionStatsCalculator.calculate(image.original.sizeBytes, image.sizeBytes)
-    Card(
-        shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
-    ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Details", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+    PremiumCard {
+        Text("Details", style = MaterialTheme.typography.titleMedium)
+        Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
             InfoRow("Original size", FileSizeFormatter.format(stats.originalSizeBytes))
             InfoRow("Processed size", FileSizeFormatter.format(stats.processedSizeBytes))
             image.requestedTargetBytes?.let { target ->
@@ -288,16 +330,11 @@ private fun EmptyResult(
     modifier: Modifier = Modifier,
     onCompressAnother: () -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text("No compressed result is available.", style = MaterialTheme.typography.titleMedium)
-        Spacer(Modifier.height(12.dp))
-        Button(onClick = onCompressAnother, modifier = Modifier.fillMaxWidth()) {
-            Text("Select an image")
-        }
-    }
+    PremiumEmptyState(
+        title = "No compressed result is available.",
+        message = "Select an image and run compression to compare results here.",
+        actionLabel = "Select an image",
+        onAction = onCompressAnother,
+        modifier = modifier,
+    )
 }

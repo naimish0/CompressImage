@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
@@ -197,6 +198,27 @@ class PhotoCompressorViewModelTest {
     }
 
     @Test
+    fun compressionKeepsProgressScreenRunningDuringNativeAdDwell() = runTest {
+        val repository = FakeImageRepository()
+        val viewModel = viewModel(repository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+
+        viewModel.startCompression()
+        runCurrent()
+
+        assertTrue(viewModel.uiState.value.batch.isRunning)
+        assertEquals(0, repository.compressCalls)
+
+        advanceTimeBy(10_001)
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.batch.isRunning)
+        assertEquals(1, repository.compressCalls)
+    }
+
+    @Test
     fun runningProgressUpdatesProcessingStage() = runTest {
         val repository = FakeImageRepository(progressValues = listOf(0.2f, 0.5f, 0.95f, 1f))
         val viewModel = viewModel(repository)
@@ -354,6 +376,26 @@ class PhotoCompressorViewModelTest {
         assertEquals(1, repository.saveCalls)
         assertEquals("Image saved successfully", viewModel.uiState.value.message)
         assertTrue(historyRepository.historyFlow.value.first().filePath.startsWith("content://saved/"))
+    }
+
+    @Test
+    fun saveSelectedAfterInterstitialPerformsSaveWithoutQueuingAnotherAd() = runTest {
+        val repository = FakeImageRepository()
+        val historyRepository = FakeHistoryRepository()
+        val viewModel = viewModel(repository, historyRepository = historyRepository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.startCompression()
+        advanceUntilIdle()
+
+        viewModel.saveSelectedAfterInterstitial("custom-name.jpg")
+        advanceUntilIdle()
+
+        assertEquals(PendingAdAction.None, viewModel.uiState.value.pendingAdAction)
+        assertEquals(1, repository.saveCalls)
+        assertEquals("Image saved successfully", viewModel.uiState.value.message)
+        assertEquals("custom-name.jpg", historyRepository.historyFlow.value.first().displayName)
     }
 
     @Test

@@ -4,9 +4,16 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
@@ -28,6 +35,7 @@ import com.rameshta.photocompressor.ui.editor.EditorScreen
 import com.rameshta.photocompressor.ui.history.HistoryScreen
 import com.rameshta.photocompressor.ui.home.HomeScreen
 import com.rameshta.photocompressor.ui.settings.SettingsScreen
+import com.rameshta.photocompressor.ui.theme.AppMotion
 import com.rameshta.photocompressor.util.findActivity
 
 @Composable
@@ -47,6 +55,7 @@ fun PhotoCompressorApp(
     val adsInitializationState by adsInitializer.state.collectAsStateWithLifecycle()
     val fullScreenAdVisible by interstitialAdManager.isFullScreenAdShowing.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    var outputInterstitialActionRunning by remember { mutableStateOf(false) }
 
     fun navigateToHistory(consumePendingRequest: Boolean = false) {
         appOpenAdManager.suppressNextForegroundAd()
@@ -57,6 +66,40 @@ fun PhotoCompressorApp(
         }
         if (consumePendingRequest) {
             viewModel.consumePendingAdAction()
+        }
+    }
+
+    fun navigateBackFromResult() {
+        if (!navController.popBackStack(Routes.EDITOR, inclusive = false)) {
+            navController.popBackStack()
+        }
+    }
+
+    fun runAfterOptionalInterstitial(
+        placement: InterstitialPlacement,
+        guardDuplicateAction: Boolean = false,
+        action: () -> Unit,
+    ) {
+        if (guardDuplicateAction && outputInterstitialActionRunning) return
+        if (guardDuplicateAction) {
+            outputInterstitialActionRunning = true
+        }
+        fun finish() {
+            if (guardDuplicateAction) {
+                outputInterstitialActionRunning = false
+            }
+            action()
+        }
+
+        val activity = context.findActivity()
+        if (activity != null &&
+            !state.hasActiveProcessing &&
+            interstitialAdManager.canShow(placement)
+        ) {
+            interstitialAdManager.show(activity, placement, onFinished = ::finish)
+        } else {
+            interstitialAdManager.preload(placement)
+            finish()
         }
     }
 
@@ -96,21 +139,6 @@ fun PhotoCompressorApp(
     }
 
     LaunchedEffect(state.pendingAdAction) {
-        fun runAfterOptionalInterstitial(
-            placement: InterstitialPlacement,
-            action: () -> Unit,
-        ) {
-            val activity = context.findActivity()
-            if (activity != null &&
-                !state.hasActiveProcessing &&
-                interstitialAdManager.canShow(placement)
-            ) {
-                interstitialAdManager.show(activity, placement, onFinished = action)
-            } else {
-                action()
-            }
-        }
-
         when (val pendingAction = state.pendingAdAction) {
             PendingAdAction.OpenHistory -> {
                 navigateToHistory(consumePendingRequest = true)
@@ -128,6 +156,30 @@ fun PhotoCompressorApp(
     NavHost(
         navController = navController,
         startDestination = Routes.HOME,
+        enterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                animationSpec = tween(AppMotion.screen),
+            ) + fadeIn(animationSpec = tween(AppMotion.standard))
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                animationSpec = tween(AppMotion.screen),
+            ) + fadeOut(animationSpec = tween(AppMotion.fast))
+        },
+        popEnterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(AppMotion.screen),
+            ) + fadeIn(animationSpec = tween(AppMotion.standard))
+        },
+        popExitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                animationSpec = tween(AppMotion.screen),
+            ) + fadeOut(animationSpec = tween(AppMotion.fast))
+        },
     ) {
         composable(Routes.HOME) {
             HomeScreen(
@@ -186,30 +238,62 @@ fun PhotoCompressorApp(
             )
         }
         composable(Routes.RESULT) {
+            BackHandler {
+                navigateBackFromResult()
+            }
             ResultScreen(
                 state = state,
                 bannerAdController = bannerAdController,
                 fullScreenAdVisible = fullScreenAdVisible,
-                onBack = { navController.popBackStack() },
+                onBack = { navigateBackFromResult() },
                 onSelectResult = viewModel::selectResult,
-                onSaveSelected = viewModel::saveSelected,
-                onSaveAll = viewModel::saveAllResults,
+                onSaveSelected = { requestedName ->
+                    runAfterOptionalInterstitial(
+                        placement = InterstitialPlacement.SAVE_CLICKED,
+                        guardDuplicateAction = true,
+                    ) {
+                        viewModel.saveSelectedAfterInterstitial(requestedName)
+                    }
+                },
+                onSaveAll = {
+                    runAfterOptionalInterstitial(
+                        placement = InterstitialPlacement.SAVE_CLICKED,
+                        guardDuplicateAction = true,
+                    ) {
+                        viewModel.saveAllResultsAfterInterstitial()
+                    }
+                },
                 onShareSelected = {
                     viewModel.selectedResult()?.let { image ->
-                        appOpenAdManager.suppressNextForegroundAd()
-                        startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
+                        runAfterOptionalInterstitial(
+                            placement = InterstitialPlacement.SAVE_CLICKED,
+                            guardDuplicateAction = true,
+                        ) {
+                            appOpenAdManager.suppressNextForegroundAd()
+                            startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
+                        }
                     }
                 },
                 onShareAll = {
                     if (state.results.isNotEmpty()) {
-                        appOpenAdManager.suppressNextForegroundAd()
-                        startSafely(context) { context.startActivity(imageShareController.shareManyIntent(state.results)) }
+                        runAfterOptionalInterstitial(
+                            placement = InterstitialPlacement.SAVE_CLICKED,
+                            guardDuplicateAction = true,
+                        ) {
+                            appOpenAdManager.suppressNextForegroundAd()
+                            startSafely(context) { context.startActivity(imageShareController.shareManyIntent(state.results)) }
+                        }
                     }
                 },
                 onOpenImage = {
                     viewModel.selectedResult()?.let { image ->
-                        appOpenAdManager.suppressNextForegroundAd()
-                        startSafely(context) { context.startActivity(imageShareController.openIntent(image)) }
+                        runAfterOptionalInterstitial(
+                            placement = InterstitialPlacement.SAVE_CLICKED,
+                            guardDuplicateAction = true,
+                        ) {
+                            appOpenAdManager.suppressNextForegroundAd()
+                            startSafely(context) { context.startActivity(imageShareController.openIntent(image)) }
+                        }
                     }
                 },
                 onCompressAnother = {
@@ -239,16 +323,26 @@ fun PhotoCompressorApp(
                 fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onOpenItem = { id ->
-                    if (viewModel.openHistoryItem(id)) {
-                        navController.navigate(Routes.RESULT) {
-                            launchSingleTop = true
+                    runAfterOptionalInterstitial(
+                        placement = InterstitialPlacement.SAVE_CLICKED,
+                        guardDuplicateAction = true,
+                    ) {
+                        if (viewModel.openHistoryItem(id)) {
+                            navController.navigate(Routes.RESULT) {
+                                launchSingleTop = true
+                            }
                         }
                     }
                 },
                 onShareItem = { id ->
                     state.history.firstOrNull { it.id == id }?.let { image ->
-                        appOpenAdManager.suppressNextForegroundAd()
-                        startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
+                        runAfterOptionalInterstitial(
+                            placement = InterstitialPlacement.SAVE_CLICKED,
+                            guardDuplicateAction = true,
+                        ) {
+                            appOpenAdManager.suppressNextForegroundAd()
+                            startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
+                        }
                     }
                 },
                 onRemoveItem = viewModel::removeHistoryItem,

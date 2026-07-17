@@ -32,6 +32,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,6 +44,7 @@ import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 import kotlin.math.roundToInt
+import kotlin.random.Random
 
 @HiltViewModel
 class PhotoCompressorViewModel @Inject constructor(
@@ -282,8 +284,7 @@ class PhotoCompressorViewModel @Inject constructor(
         val current = _uiState.value
         if (current.isSaving || current.pendingAdAction !is PendingAdAction.None) return
         val image = selectedResult() ?: return
-        val requestId = UUID.randomUUID().toString()
-        pendingSaveRequests[requestId] = PendingSaveRequest.Single(image, requestedName)
+        val requestId = enqueueSaveRequest(PendingSaveRequest.Single(image, requestedName))
         _uiState.update {
             it.copy(
                 pendingAdAction = PendingAdAction.SaveResult(requestId),
@@ -292,19 +293,35 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
+    fun saveSelectedAfterInterstitial(requestedName: String? = null) {
+        val current = _uiState.value
+        if (current.isSaving || current.pendingAdAction !is PendingAdAction.None) return
+        val image = selectedResult() ?: return
+        val requestId = enqueueSaveRequest(PendingSaveRequest.Single(image, requestedName))
+        performPendingSave(requestId)
+    }
+
     fun saveAllResults() {
         val current = _uiState.value
         if (current.isSaving || current.pendingAdAction !is PendingAdAction.None) return
         val results = current.results
         if (results.isEmpty()) return
-        val requestId = UUID.randomUUID().toString()
-        pendingSaveRequests[requestId] = PendingSaveRequest.Batch(results)
+        val requestId = enqueueSaveRequest(PendingSaveRequest.Batch(results))
         _uiState.update {
             it.copy(
                 pendingAdAction = PendingAdAction.SaveResult(requestId),
                 message = null,
             )
         }
+    }
+
+    fun saveAllResultsAfterInterstitial() {
+        val current = _uiState.value
+        if (current.isSaving || current.pendingAdAction !is PendingAdAction.None) return
+        val results = current.results
+        if (results.isEmpty()) return
+        val requestId = enqueueSaveRequest(PendingSaveRequest.Batch(results))
+        performPendingSave(requestId)
     }
 
     fun requestOpenHistory() {
@@ -342,6 +359,12 @@ class PhotoCompressorViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun enqueueSaveRequest(request: PendingSaveRequest): String {
+        val requestId = UUID.randomUUID().toString()
+        pendingSaveRequests[requestId] = request
+        return requestId
     }
 
     fun consumePendingAdAction() {
@@ -512,6 +535,7 @@ class PhotoCompressorViewModel @Inject constructor(
             val newResults = mutableListOf<ProcessedImage>()
             var wasCancelled = false
             try {
+                delay(randomProcessingAdDwellMillis())
                 images.forEachIndexed { index, image ->
                     var lastProgress = -1f
                     var lastStage = ProcessingStage.READING_IMAGE
@@ -687,6 +711,10 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
+    private fun randomProcessingAdDwellMillis(): Long {
+        return Random.nextLong(PROCESSING_AD_DWELL_MIN_MILLIS, PROCESSING_AD_DWELL_MAX_MILLIS + 1)
+    }
+
     private fun backgroundStageForProgress(progress: Float): BackgroundProcessingStage {
         return when {
             progress < 0.2f -> BackgroundProcessingStage.PREPARING_IMAGE
@@ -829,6 +857,9 @@ fun ResizeMode.percentLabel(): String {
 }
 
 fun Float.percentText(): String = "${(this * 100f).roundToInt()}%"
+
+private const val PROCESSING_AD_DWELL_MIN_MILLIS = 5_000L
+private const val PROCESSING_AD_DWELL_MAX_MILLIS = 10_000L
 
 private fun ProcessedImage.asSavedHistoryOutput(saved: SavedImage): ProcessedImage {
     return copy(

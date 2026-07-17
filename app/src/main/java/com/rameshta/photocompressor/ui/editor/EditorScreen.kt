@@ -259,6 +259,12 @@ fun EditorScreen(
                             )
                         }
                     }
+                    Spacer(Modifier.height(AppSpacing.xs))
+                    Text(
+                        text = "For low-size compression, avoid PNG. JPG or WEBP usually create smaller files.",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
                     state.alphaToJpegWarning?.let {
                         Spacer(Modifier.height(AppSpacing.xs))
                         Text(it, color = MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.bodySmall)

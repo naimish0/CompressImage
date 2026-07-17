@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.compressimage"
+    namespace = "com.rameshta.photocompressor"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -14,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.compressimage"
+        applicationId = "com.rameshta.photocompressor"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

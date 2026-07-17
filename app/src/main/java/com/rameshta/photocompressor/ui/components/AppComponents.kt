@@ -64,6 +64,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.rameshta.photocompressor.domain.model.HistoryOperationType
 import com.rameshta.photocompressor.domain.model.ImageFormat
@@ -79,6 +80,7 @@ import com.rameshta.photocompressor.ui.theme.AppShapes
 import com.rameshta.photocompressor.ui.theme.AppSpacing
 import com.rameshta.photocompressor.ui.theme.AppTouchTargets
 import com.rameshta.photocompressor.util.FileSizeFormatter
+import java.io.File
 import java.text.DateFormat
 import java.util.Date
 import java.util.Locale
@@ -740,7 +742,7 @@ fun ImagePreviewBox(
     fit: Boolean = true,
 ) {
     AsyncImage(
-        model = model,
+        model = model.toCoilImageModel(),
         contentDescription = contentDescription,
         modifier = modifier
             .fillMaxWidth()
@@ -749,6 +751,16 @@ fun ImagePreviewBox(
             .background(MaterialTheme.colorScheme.surfaceVariant),
         contentScale = if (fit) ContentScale.Fit else ContentScale.Crop,
     )
+}
+
+private fun Any.toCoilImageModel(): Any {
+    if (this !is String) return this
+    val uri = toUri()
+    return when {
+        uri.scheme == "content" || uri.scheme == "file" -> uri
+        startsWith("/") -> File(this)
+        else -> this
+    }
 }
 
 @Composable

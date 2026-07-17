@@ -70,8 +70,10 @@ class PhotoCompressorViewModel @Inject constructor(
     }
 
     fun addImageUris(uriStrings: List<String>) {
+        val current = _uiState.value
+        val reusableSelection = current.selectedImages.filterNot { it.id in current.processedSelectionIds }
         val unique = uriStrings.distinct().filterNot { incoming ->
-            _uiState.value.selectedImages.any { it.uriString == incoming }
+            reusableSelection.any { it.uriString == incoming }
         }
         if (unique.isEmpty()) return
 
@@ -92,7 +94,8 @@ class PhotoCompressorViewModel @Inject constructor(
             }
             _uiState.update { state ->
                 state.copy(
-                    selectedImages = state.selectedImages + loaded,
+                    selectedImages = reusableSelection + loaded,
+                    processedSelectionIds = emptySet(),
                     isLoadingSelection = false,
                     selectionError = failures.distinct().joinToString("\n").ifBlank { null },
                 )
@@ -103,7 +106,10 @@ class PhotoCompressorViewModel @Inject constructor(
 
     fun removeImage(id: String) {
         _uiState.update { state ->
-            state.copy(selectedImages = state.selectedImages.filterNot { it.id == id })
+            state.copy(
+                selectedImages = state.selectedImages.filterNot { it.id == id },
+                processedSelectionIds = state.processedSelectionIds - id,
+            )
         }
     }
 
@@ -246,7 +252,7 @@ class PhotoCompressorViewModel @Inject constructor(
             val item = state.history.firstOrNull { it.id == id } ?: return@update state
             opened = true
             state.copy(
-                results = (listOf(item) + state.results).distinctBy { it.id },
+                results = listOf(item),
                 selectedResultId = item.id,
             )
         }
@@ -371,6 +377,10 @@ class PhotoCompressorViewModel @Inject constructor(
         _uiState.update { it.copy(pendingAdAction = PendingAdAction.None) }
     }
 
+    fun consumePendingResultNavigation() {
+        _uiState.update { it.copy(pendingResultNavigationId = null) }
+    }
+
     private suspend fun saveSingle(
         image: ProcessedImage,
         requestedName: String?,
@@ -428,6 +438,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 )
             }
             val result = try {
+                delay(randomProcessingTransitionMillis())
                 removeBackgroundUseCase(ImageSource(image.id, image.uriString)) { progress ->
                     _uiState.update { state ->
                         val safeProgress = progress.coerceIn(0f, 1f)
@@ -445,11 +456,13 @@ class PhotoCompressorViewModel @Inject constructor(
             } catch (error: Throwable) {
                 BackgroundRemovalResult.Failure(error.message ?: "Background removal failed.")
             }
-            if (result is BackgroundRemovalResult.Success) {
-                recordSuccessfulOutput(result.image, HistoryOperationType.BACKGROUND_REMOVED)
-            }
             _uiState.update { state ->
                 state.copy(
+                    processedSelectionIds = if (result is BackgroundRemovalResult.Success) {
+                        state.processedSelectionIds + image.id
+                    } else {
+                        state.processedSelectionIds - image.id
+                    },
                     backgroundState = when (result) {
                         is BackgroundRemovalResult.Success -> BackgroundUiState.Success(result.image)
                         is BackgroundRemovalResult.Unavailable -> BackgroundUiState.Unavailable(result.reason)
@@ -466,21 +479,19 @@ class PhotoCompressorViewModel @Inject constructor(
     }
 
     fun replaceBackground(config: BackgroundReplacementConfig) {
-        val image = (_uiState.value.backgroundState as? BackgroundUiState.Success)?.image ?: return
+        val current = _uiState.value
+        if (current.backgroundReplaceProgress != null) return
+        val image = (current.backgroundState as? BackgroundUiState.Success)?.image ?: return
         viewModelScope.launch {
             _uiState.update { it.copy(backgroundReplaceProgress = 0f) }
+            if (config == BackgroundReplacementConfig.Transparent) {
+                publishBackgroundExport(image)
+                return@launch
+            }
             replaceBackgroundUseCase(image, config) { progress ->
                 _uiState.update { it.copy(backgroundReplaceProgress = progress.coerceIn(0f, 1f)) }
             }.onSuccess { processed ->
-                recordSuccessfulOutput(processed, HistoryOperationType.BACKGROUND_REMOVED)
-                _uiState.update { state ->
-                    state.copy(
-                        results = listOf(processed) + state.results.filterNot { it.id == processed.id },
-                        selectedResultId = processed.id,
-                        backgroundReplaceProgress = null,
-                        message = "Background exported.",
-                    )
-                }
+                publishBackgroundExport(processed)
             }.onFailure { error ->
                 _uiState.update {
                     it.copy(
@@ -489,6 +500,19 @@ class PhotoCompressorViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private suspend fun publishBackgroundExport(processed: ProcessedImage) {
+        recordSuccessfulOutput(processed, HistoryOperationType.BACKGROUND_REMOVED)
+        _uiState.update { state ->
+            state.copy(
+                results = listOf(processed),
+                selectedResultId = processed.id,
+                backgroundReplaceProgress = null,
+                pendingResultNavigationId = processed.id,
+                message = "Background exported.",
+            )
         }
     }
 
@@ -535,7 +559,7 @@ class PhotoCompressorViewModel @Inject constructor(
             val newResults = mutableListOf<ProcessedImage>()
             var wasCancelled = false
             try {
-                delay(randomProcessingAdDwellMillis())
+                delay(randomProcessingTransitionMillis())
                 images.forEachIndexed { index, image ->
                     var lastProgress = -1f
                     var lastStage = ProcessingStage.READING_IMAGE
@@ -618,8 +642,11 @@ class PhotoCompressorViewModel @Inject constructor(
                 withContext(NonCancellable) {
                     recordSuccessfulOutputs(newResults)
                 }
+                val processedImageIds = newResults.map { it.original.id }.toSet()
+                val attemptedImageIds = images.map { it.id }.toSet()
                 _uiState.update { state ->
                     state.copy(
+                        processedSelectionIds = (state.processedSelectionIds - attemptedImageIds) + processedImageIds,
                         batch = state.batch.copy(
                             isRunning = false,
                             summary = summary,
@@ -711,8 +738,8 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
-    private fun randomProcessingAdDwellMillis(): Long {
-        return Random.nextLong(PROCESSING_AD_DWELL_MIN_MILLIS, PROCESSING_AD_DWELL_MAX_MILLIS + 1)
+    private fun randomProcessingTransitionMillis(): Long {
+        return Random.nextLong(PROCESSING_TRANSITION_MIN_MILLIS, PROCESSING_TRANSITION_MAX_MILLIS + 1)
     }
 
     private fun backgroundStageForProgress(progress: Float): BackgroundProcessingStage {
@@ -728,6 +755,7 @@ class PhotoCompressorViewModel @Inject constructor(
 
 data class PhotoCompressorUiState(
     val selectedImages: List<ImageInfo> = emptyList(),
+    val processedSelectionIds: Set<String> = emptySet(),
     val isLoadingSelection: Boolean = false,
     val selectionError: String? = null,
     val config: CompressionConfig = CompressionConfig(),
@@ -740,9 +768,12 @@ data class PhotoCompressorUiState(
     val backgroundState: BackgroundUiState = BackgroundUiState.Idle,
     val backgroundReplaceProgress: Float? = null,
     val pendingAdAction: PendingAdAction = PendingAdAction.None,
+    val pendingResultNavigationId: String? = null,
     val message: String? = null,
 ) {
     val targetValidation: ValidationResult = TargetSizeValidator.validate(config.targetSize)
+
+    val visibleSelectedImages: List<ImageInfo> = selectedImages.filterNot { it.id in processedSelectionIds }
 
     val totalProgress: Float = if (batch.items.isEmpty()) {
         0f
@@ -858,8 +889,8 @@ fun ResizeMode.percentLabel(): String {
 
 fun Float.percentText(): String = "${(this * 100f).roundToInt()}%"
 
-private const val PROCESSING_AD_DWELL_MIN_MILLIS = 5_000L
-private const val PROCESSING_AD_DWELL_MAX_MILLIS = 10_000L
+private const val PROCESSING_TRANSITION_MIN_MILLIS = 300L
+private const val PROCESSING_TRANSITION_MAX_MILLIS = 700L
 
 private fun ProcessedImage.asSavedHistoryOutput(saved: SavedImage): ProcessedImage {
     return copy(

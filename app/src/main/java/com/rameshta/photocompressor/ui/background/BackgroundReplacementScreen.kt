@@ -56,6 +56,7 @@ import com.rameshta.photocompressor.ui.BackgroundUiState
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.FormatChip
+import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
 import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
@@ -81,6 +82,7 @@ fun BackgroundReplacementScreen(
     var green by rememberSaveable { mutableFloatStateOf(0.42f) }
     var blue by rememberSaveable { mutableFloatStateOf(0.85f) }
     val customColor = Color(red, green, blue).toArgb()
+    val exportInProgress = state.backgroundReplaceProgress != null
 
     AdScreenScaffold(
         bannerAdController = bannerAdController,
@@ -169,7 +171,12 @@ fun BackgroundReplacementScreen(
                             ColorChoices(
                                 selectedColor = selectedColor,
                                 customColor = customColor,
-                                onColor = { selectedColor = it },
+                                onColor = { color ->
+                                    selectedColor = color
+                                    if (color == null && !outputFormat.supportsTransparency) {
+                                        outputFormat = ImageFormat.PNG
+                                    }
+                                },
                             )
                             Text("Custom color", style = MaterialTheme.typography.titleSmall)
                             ColorSlider("Red", red) { value ->
@@ -203,7 +210,7 @@ fun BackgroundReplacementScreen(
                                 )
                             }
                             PremiumPrimaryButton(
-                                text = "Export background",
+                                text = if (exportInProgress) "Exporting..." else "Export background",
                                 onClick = {
                                     onReplaceBackground(
                                         BackgroundReplacementConfig(
@@ -213,10 +220,20 @@ fun BackgroundReplacementScreen(
                                     )
                                 },
                                 modifier = Modifier.fillMaxWidth(),
+                                enabled = !exportInProgress,
+                                loading = exportInProgress,
                                 icon = Icons.Outlined.Save,
                             )
                         }
                     }
+                }
+            }
+            if (state.backgroundState !is BackgroundUiState.Success) {
+                item {
+                    InlineNativeAdvancedAd(
+                        bannerAdController = bannerAdController,
+                        hidden = fullScreenAdVisible,
+                    )
                 }
             }
         }

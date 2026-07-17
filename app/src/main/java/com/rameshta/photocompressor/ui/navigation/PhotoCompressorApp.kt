@@ -153,6 +153,17 @@ fun PhotoCompressorApp(
         }
     }
 
+    LaunchedEffect(state.pendingResultNavigationId) {
+        state.pendingResultNavigationId?.let {
+            if (navController.currentBackStackEntry?.destination?.route != Routes.RESULT) {
+                navController.navigate(Routes.RESULT) {
+                    launchSingleTop = true
+                }
+            }
+            viewModel.consumePendingResultNavigation()
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = Routes.HOME,

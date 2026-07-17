@@ -50,6 +50,7 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     onExternalPickerOpened: () -> Unit = {},
 ) {
+    val visibleSelectedImages = state.visibleSelectedImages
     val picker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_IMAGE_SELECTION),
     ) { uris: List<Uri> ->
@@ -59,7 +60,7 @@ fun HomeScreen(
     AdScreenScaffold(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
-        hasBottomContent = state.selectedImages.isNotEmpty(),
+        hasBottomContent = visibleSelectedImages.isNotEmpty(),
         topBar = {
             PremiumTopAppBar(
                 title = "Photo Compressor",
@@ -76,7 +77,7 @@ fun HomeScreen(
             )
         },
         bottomContent = {
-            if (state.selectedImages.isNotEmpty()) {
+            if (visibleSelectedImages.isNotEmpty()) {
                 PremiumPrimaryButton(
                     text = "Preview and configure",
                     onClick = onOpenEditor,
@@ -100,10 +101,10 @@ fun HomeScreen(
                         tint = MaterialTheme.colorScheme.primary,
                     )
                     Text(
-                        text = if (state.selectedImages.isEmpty()) {
-                            "Compress, resize, convert, save, or share images on this device."
+                        text = if (visibleSelectedImages.isEmpty()) {
+                            "Compress one image, compress many images, or remove a background."
                         } else {
-                            "${state.selectedImages.size} image${if (state.selectedImages.size == 1) "" else "s"} selected"
+                            "${visibleSelectedImages.size} image${if (visibleSelectedImages.size == 1) "" else "s"} selected"
                         },
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -120,7 +121,7 @@ fun HomeScreen(
                         verticalArrangement = Arrangement.spacedBy(AppSpacing.xs),
                     ) {
                         PremiumPrimaryButton(
-                            text = if (state.selectedImages.isEmpty()) "Select images" else "Add more",
+                            text = if (visibleSelectedImages.isEmpty()) "Select images" else "Add more",
                             onClick = {
                                 onExternalPickerOpened()
                                 picker.launch(
@@ -167,7 +168,7 @@ fun HomeScreen(
                 }
             }
 
-            items(state.selectedImages, key = { it.id }) { image ->
+            items(visibleSelectedImages, key = { it.id }) { image ->
                 SelectedImageCard(
                     image = image,
                     onRemove = { onRemoveImage(image.id) },

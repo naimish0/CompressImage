@@ -16,6 +16,7 @@ import androidx.exifinterface.media.ExifInterface
 import com.example.compressimage.di.DefaultDispatcher
 import com.example.compressimage.di.IoDispatcher
 import com.example.compressimage.domain.model.BackgroundRemovalResult
+import com.example.compressimage.domain.model.HistoryOperationType
 import com.example.compressimage.domain.model.ImageFormat
 import com.example.compressimage.domain.model.ImageInfo
 import com.example.compressimage.domain.model.ImageSource
@@ -88,6 +89,7 @@ class OnDeviceBackgroundRemovalRepository @Inject constructor(
                     height = output.height,
                     format = ImageFormat.PNG,
                     mimeType = ImageFormat.PNG.mimeType,
+                    operationType = HistoryOperationType.BACKGROUND_REMOVED,
                     warning = if (loaded.wasDownscaled) {
                         "Processed at a safe resolution to avoid running out of memory on this device."
                     } else {

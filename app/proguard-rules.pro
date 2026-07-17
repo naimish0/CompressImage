@@ -21,6 +21,5 @@
 #-renamesourcefileattribute SourceFile
 
 -keepattributes RuntimeVisibleAnnotations,RuntimeVisibleParameterAnnotations,AnnotationDefault,Signature,InnerClasses,EnclosingMethod
--keep class com.google.android.gms.ads.** { *; }
 -keep class ai.onnxruntime.** { *; }
 -keep enum ai.onnxruntime.** { *; }

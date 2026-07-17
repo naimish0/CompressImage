@@ -37,7 +37,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -48,12 +47,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.compressimage.ads.BannerAdController
 import com.example.compressimage.domain.model.CompressionMode
 import com.example.compressimage.domain.model.ImageFormat
 import com.example.compressimage.domain.model.ResizeMode
 import com.example.compressimage.domain.model.TargetSizePreset
 import com.example.compressimage.domain.model.TargetSizeUnit
 import com.example.compressimage.ui.PhotoCompressorUiState
+import com.example.compressimage.ui.components.AdScreenScaffold
 import com.example.compressimage.ui.components.FormatChip
 import com.example.compressimage.ui.components.InfoRow
 import com.example.compressimage.ui.percentLabel
@@ -63,6 +64,8 @@ import com.example.compressimage.util.FileSizeFormatter
 @Composable
 fun EditorScreen(
     state: PhotoCompressorUiState,
+    bannerAdController: BannerAdController,
+    fullScreenAdVisible: Boolean,
     onBack: () -> Unit,
     onTargetPreset: (TargetSizePreset) -> Unit,
     onCustomTarget: (String) -> Unit,
@@ -78,7 +81,9 @@ fun EditorScreen(
     onCompress: () -> Unit,
     onRemoveBackground: () -> Unit,
 ) {
-    Scaffold(
+    AdScreenScaffold(
+        bannerAdController = bannerAdController,
+        fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Preview and configure") },
@@ -89,11 +94,10 @@ fun EditorScreen(
                 },
             )
         },
-    ) { innerPadding ->
+    ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {

@@ -1,6 +1,6 @@
 # Photo Compressor
 
-Photo Compressor is a Kotlin + Jetpack Compose Android app for selecting, compressing, resizing, converting, comparing, saving, opening, and sharing images. Core image processing runs offline.
+Photo Compressor is a Kotlin + Jetpack Compose Android app for selecting, compressing, resizing, converting, comparing, saving, opening, and sharing images. Image processing happens entirely on the device. An internet connection may be used to load advertisements and advertising consent information.
 
 ## Run
 
@@ -19,15 +19,30 @@ Open the project in Android Studio and run the `app` configuration on a device o
 
 ## Production Configuration
 
-Debug builds use official Google Mobile Ads test IDs. Provide production AdMob IDs through Gradle properties before publishing:
+Debug builds use Google's official sample AdMob app ID and test ad-unit IDs.
+Release builds only enable ads when all production identifiers are supplied
+through Gradle properties:
 
 ```properties
 PHOTO_COMPRESSOR_ADMOB_APP_ID=ca-app-pub-...
-PHOTO_COMPRESSOR_ADMOB_BANNER_ID=ca-app-pub-.../...
-PHOTO_COMPRESSOR_ADMOB_INTERSTITIAL_ID=ca-app-pub-.../...
+PHOTO_COMPRESSOR_ADMOB_TOP_BANNER_ID=ca-app-pub-.../...
+PHOTO_COMPRESSOR_ADMOB_BOTTOM_BANNER_ID=ca-app-pub-.../...
+PHOTO_COMPRESSOR_ADMOB_INLINE_ID=ca-app-pub-.../...
+PHOTO_COMPRESSOR_ADMOB_HISTORY_INTERSTITIAL_ID=ca-app-pub-.../...
+PHOTO_COMPRESSOR_ADMOB_SAVE_INTERSTITIAL_ID=ca-app-pub-.../...
 ```
 
-Before Play Store release, add a final privacy policy URL, Google User Messaging Platform or equivalent consent flow where required, app-ads.txt setup, production signing, and Play Console data-safety disclosures.
+If release identifiers are missing, ads are disabled at runtime and the release
+build does not fall back to Google's sample ad-unit IDs.
+
+Short Gradle property aliases are also supported for CI:
+`ADMOB_APP_ID`, `TOP_BANNER_AD_UNIT_ID`, `BOTTOM_BANNER_AD_UNIT_ID`,
+`INLINE_AD_UNIT_ID`, `HISTORY_INTERSTITIAL_AD_UNIT_ID`, and
+`SAVE_INTERSTITIAL_AD_UNIT_ID`.
+
+Before Play Store release, add a final privacy policy URL, production signing,
+verified background-removal model licence records, AdMob GDPR/US privacy
+messages, app-ads.txt, and Play Console data-safety disclosures.
 
 ## Background Removal
 

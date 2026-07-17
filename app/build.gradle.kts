@@ -21,33 +21,67 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val defaultAdMobAppId = "ca-app-pub-3940256099942544~3347511713"
-        manifestPlaceholders["adMobAppId"] = providers.gradleProperty("PHOTO_COMPRESSOR_ADMOB_APP_ID")
-            .orElse(defaultAdMobAppId)
-            .get()
     }
+
+    val testAdMobAppId = "ca-app-pub-3940256099942544~3347511713"
+    val testBannerAdUnitId = "ca-app-pub-3940256099942544/9214589741"
+    val testInterstitialAdUnitId = "ca-app-pub-3940256099942544/1033173712"
+    val disabledReleaseAdMobAppId = "ca-app-pub-0000000000000000~0000000000"
+    fun releaseAdProperty(projectPropertyName: String, shortPropertyName: String): String {
+        return providers.gradleProperty(projectPropertyName)
+            .orElse(providers.gradleProperty(shortPropertyName))
+            .orElse("")
+            .get()
+            .trim()
+    }
+
+    val releaseAdMobAppId = releaseAdProperty("PHOTO_COMPRESSOR_ADMOB_APP_ID", "ADMOB_APP_ID")
+    val releaseTopBannerAdUnitId = releaseAdProperty("PHOTO_COMPRESSOR_ADMOB_TOP_BANNER_ID", "TOP_BANNER_AD_UNIT_ID")
+    val releaseBottomBannerAdUnitId = releaseAdProperty("PHOTO_COMPRESSOR_ADMOB_BOTTOM_BANNER_ID", "BOTTOM_BANNER_AD_UNIT_ID")
+    val releaseInlineAdUnitId = releaseAdProperty("PHOTO_COMPRESSOR_ADMOB_INLINE_ID", "INLINE_AD_UNIT_ID")
+    val releaseHistoryInterstitialAdUnitId = releaseAdProperty("PHOTO_COMPRESSOR_ADMOB_HISTORY_INTERSTITIAL_ID", "HISTORY_INTERSTITIAL_AD_UNIT_ID")
+    val releaseSaveInterstitialAdUnitId = releaseAdProperty("PHOTO_COMPRESSOR_ADMOB_SAVE_INTERSTITIAL_ID", "SAVE_INTERSTITIAL_AD_UNIT_ID")
+    val releaseAdIds = listOf(
+        releaseAdMobAppId,
+        releaseTopBannerAdUnitId,
+        releaseBottomBannerAdUnitId,
+        releaseInlineAdUnitId,
+        releaseHistoryInterstitialAdUnitId,
+        releaseSaveInterstitialAdUnitId,
+    )
+    if (releaseAdIds.any { it.contains("ca-app-pub-3940256099942544") }) {
+        throw GradleException("Release AdMob properties must not use Google's sample ad IDs.")
+    }
+    val releaseAdsConfigured = releaseAdIds.all { it.isNotBlank() }
 
     buildTypes {
         debug {
-            buildConfigField("String", "ADMOB_BANNER_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
-            buildConfigField("String", "ADMOB_INTERSTITIAL_ID", "\"ca-app-pub-3940256099942544/1033173712\"")
+            manifestPlaceholders["ADMOB_APP_ID"] = testAdMobAppId
             buildConfigField("Boolean", "ADS_ENABLED", "true")
+            buildConfigField("Boolean", "ADS_TEST_MODE", "true")
+            buildConfigField("String", "ADMOB_APP_ID", "\"$testAdMobAppId\"")
+            buildConfigField("String", "TOP_BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
+            buildConfigField("String", "BOTTOM_BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
+            buildConfigField("String", "INLINE_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
+            buildConfigField("String", "HISTORY_INTERSTITIAL_AD_UNIT_ID", "\"$testInterstitialAdUnitId\"")
+            buildConfigField("String", "SAVE_INTERSTITIAL_AD_UNIT_ID", "\"$testInterstitialAdUnitId\"")
         }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            buildConfigField(
-                "String",
-                "ADMOB_BANNER_ID",
-                "\"${providers.gradleProperty("PHOTO_COMPRESSOR_ADMOB_BANNER_ID").orElse("ca-app-pub-3940256099942544/6300978111").get()}\""
-            )
-            buildConfigField(
-                "String",
-                "ADMOB_INTERSTITIAL_ID",
-                "\"${providers.gradleProperty("PHOTO_COMPRESSOR_ADMOB_INTERSTITIAL_ID").orElse("ca-app-pub-3940256099942544/1033173712").get()}\""
-            )
-            buildConfigField("Boolean", "ADS_ENABLED", "true")
+            manifestPlaceholders["ADMOB_APP_ID"] = if (releaseAdsConfigured) {
+                releaseAdMobAppId
+            } else {
+                disabledReleaseAdMobAppId
+            }
+            buildConfigField("Boolean", "ADS_ENABLED", releaseAdsConfigured.toString())
+            buildConfigField("Boolean", "ADS_TEST_MODE", "false")
+            buildConfigField("String", "ADMOB_APP_ID", "\"${if (releaseAdsConfigured) releaseAdMobAppId else ""}\"")
+            buildConfigField("String", "TOP_BANNER_AD_UNIT_ID", "\"${if (releaseAdsConfigured) releaseTopBannerAdUnitId else ""}\"")
+            buildConfigField("String", "BOTTOM_BANNER_AD_UNIT_ID", "\"${if (releaseAdsConfigured) releaseBottomBannerAdUnitId else ""}\"")
+            buildConfigField("String", "INLINE_AD_UNIT_ID", "\"${if (releaseAdsConfigured) releaseInlineAdUnitId else ""}\"")
+            buildConfigField("String", "HISTORY_INTERSTITIAL_AD_UNIT_ID", "\"${if (releaseAdsConfigured) releaseHistoryInterstitialAdUnitId else ""}\"")
+            buildConfigField("String", "SAVE_INTERSTITIAL_AD_UNIT_ID", "\"${if (releaseAdsConfigured) releaseSaveInterstitialAdUnitId else ""}\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -64,6 +98,11 @@ android {
     }
     androidResources {
         noCompress += "onnx"
+    }
+    sourceSets {
+        getByName("main") {
+            assets.directories.add("../legal")
+        }
     }
 }
 
@@ -86,9 +125,10 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.google.hilt.android)
     ksp(libs.google.hilt.compiler)
-    implementation(libs.google.play.services.ads)
     implementation(libs.onnxruntime.android)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.google.play.services.ads)
+    implementation(libs.google.user.messaging.platform)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.core.testing)

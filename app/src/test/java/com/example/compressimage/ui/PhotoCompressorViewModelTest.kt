@@ -1,25 +1,30 @@
 package com.example.compressimage.ui
 
 import com.example.compressimage.MainDispatcherRule
-import com.example.compressimage.ads.AdFrequencyCapper
 import com.example.compressimage.domain.model.BackgroundRemovalResult
 import com.example.compressimage.domain.model.BackgroundReplacementConfig
 import com.example.compressimage.domain.model.CompressionConfig
+import com.example.compressimage.domain.model.HistoryOperationType
 import com.example.compressimage.domain.model.ImageFormat
 import com.example.compressimage.domain.model.ImageInfo
 import com.example.compressimage.domain.model.ImageSource
 import com.example.compressimage.domain.model.ProcessedImage
 import com.example.compressimage.domain.model.SavedImage
 import com.example.compressimage.domain.repository.BackgroundRemovalRepository
+import com.example.compressimage.domain.repository.HistoryRepository
 import com.example.compressimage.domain.repository.ImageRepository
 import com.example.compressimage.domain.usecase.CompressImageUseCase
 import com.example.compressimage.domain.usecase.LoadImageInfoUseCase
 import com.example.compressimage.domain.usecase.RemoveBackgroundUseCase
 import com.example.compressimage.domain.usecase.ReplaceBackgroundUseCase
 import com.example.compressimage.domain.usecase.SaveImagesUseCase
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -36,7 +41,8 @@ class PhotoCompressorViewModelTest {
     @Test
     fun addImagesAndCompressSuccessUpdatesResultsAndSummary() = runTest {
         val repository = FakeImageRepository()
-        val viewModel = viewModel(repository)
+        val historyRepository = FakeHistoryRepository()
+        val viewModel = viewModel(repository, historyRepository = historyRepository)
 
         viewModel.addImageUris(listOf("uri://one", "uri://two"))
         advanceUntilIdle()
@@ -50,6 +56,7 @@ class PhotoCompressorViewModelTest {
         assertEquals(2, state.results.size)
         assertEquals(2, state.batch.summary?.successful)
         assertEquals(0, state.batch.summary?.failed)
+        assertEquals(2, historyRepository.historyFlow.value.size)
     }
 
     @Test
@@ -119,9 +126,11 @@ class PhotoCompressorViewModelTest {
     @Test
     fun backgroundRemovalSuccessStateIsExposed() = runTest {
         val repository = FakeImageRepository()
+        val historyRepository = FakeHistoryRepository()
         val viewModel = viewModel(
             repository,
             backgroundRepository = FakeBackgroundRemovalRepository(result = BackgroundRemovalResult.Success(processedImage("background"))),
+            historyRepository = historyRepository,
         )
 
         viewModel.addImageUris(listOf("uri://one"))
@@ -130,6 +139,7 @@ class PhotoCompressorViewModelTest {
         advanceUntilIdle()
 
         assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Success)
+        assertEquals(HistoryOperationType.BACKGROUND_REMOVED, historyRepository.historyFlow.value.first().operationType)
     }
 
     @Test
@@ -164,9 +174,56 @@ class PhotoCompressorViewModelTest {
         assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Cancelled)
     }
 
+    @Test
+    fun successfulSaveQueuesPendingAdAndRecordsSavedHistoryAfterContinuation() = runTest {
+        val repository = FakeImageRepository()
+        val historyRepository = FakeHistoryRepository()
+        val viewModel = viewModel(repository, historyRepository = historyRepository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.startCompression()
+        advanceUntilIdle()
+        viewModel.saveSelected()
+        advanceUntilIdle()
+
+        val pending = viewModel.uiState.value.pendingAdAction as PendingAdAction.SaveResult
+        assertEquals(0, repository.saveCalls)
+
+        viewModel.performPendingSave(pending.requestId)
+        advanceUntilIdle()
+
+        assertEquals(1, repository.saveCalls)
+        assertEquals("Image saved successfully", viewModel.uiState.value.message)
+        assertTrue(historyRepository.historyFlow.value.first().filePath.startsWith("content://saved/"))
+    }
+
+    @Test
+    fun duplicateSaveTapIsIgnoredWhileSaveIsActive() = runTest {
+        val repository = FakeImageRepository(saveHang = true)
+        val viewModel = viewModel(repository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.startCompression()
+        advanceUntilIdle()
+        viewModel.saveSelected()
+        val pending = viewModel.uiState.value.pendingAdAction as PendingAdAction.SaveResult
+        viewModel.performPendingSave(pending.requestId)
+        runCurrent()
+        viewModel.saveSelected()
+        runCurrent()
+
+        assertEquals(1, repository.saveCalls)
+        assertTrue(viewModel.uiState.value.isSaving)
+        repository.releaseSave()
+        advanceUntilIdle()
+    }
+
     private fun viewModel(
         repository: FakeImageRepository,
         backgroundRepository: BackgroundRemovalRepository = FakeBackgroundRemovalRepository(),
+        historyRepository: FakeHistoryRepository = FakeHistoryRepository(),
     ): PhotoCompressorViewModel {
         return PhotoCompressorViewModel(
             loadImageInfo = LoadImageInfoUseCase(repository),
@@ -174,7 +231,7 @@ class PhotoCompressorViewModelTest {
             saveImages = SaveImagesUseCase(repository),
             removeBackgroundUseCase = RemoveBackgroundUseCase(backgroundRepository),
             replaceBackgroundUseCase = ReplaceBackgroundUseCase(repository),
-            adFrequencyCapper = AdFrequencyCapper(),
+            historyRepository = historyRepository,
         )
     }
 }
@@ -183,8 +240,12 @@ private class FakeImageRepository(
     private val failIds: Set<String> = emptySet(),
     private val hangIds: Set<String> = emptySet(),
     private val progressValues: List<Float> = listOf(1f),
+    private val saveHang: Boolean = false,
 ) : ImageRepository {
+    private val saveGate = if (saveHang) CompletableDeferred<Unit>() else null
     var compressCalls: Int = 0
+        private set
+    var saveCalls: Int = 0
         private set
 
     override suspend fun loadImageInfo(uriString: String): Result<ImageInfo> {
@@ -247,7 +308,13 @@ private class FakeImageRepository(
     }
 
     override suspend fun saveImage(image: ProcessedImage, requestedName: String?): Result<SavedImage> {
+        saveCalls += 1
+        saveGate?.await()
         return Result.success(SavedImage(uriString = "content://saved/${image.id}", displayName = requestedName ?: image.displayName))
+    }
+
+    fun releaseSave() {
+        saveGate?.complete(Unit)
     }
 
     override suspend fun saveAll(images: List<ProcessedImage>): List<Result<SavedImage>> {
@@ -255,6 +322,28 @@ private class FakeImageRepository(
     }
 
     override suspend fun cleanupObsoleteTempFiles() = Unit
+}
+
+private class FakeHistoryRepository : HistoryRepository {
+    val historyFlow = MutableStateFlow<List<ProcessedImage>>(emptyList())
+    override val history: Flow<List<ProcessedImage>> = historyFlow
+
+    override suspend fun recordSuccessfulOutput(
+        output: ProcessedImage,
+        operationType: HistoryOperationType,
+    ): Result<Unit> {
+        historyFlow.value = (listOf(output.copy(operationType = operationType)) + historyFlow.value)
+            .distinctBy { it.id }
+        return Result.success(Unit)
+    }
+
+    override suspend fun remove(id: String) {
+        historyFlow.value = historyFlow.value.filterNot { it.id == id }
+    }
+
+    override suspend fun clear() {
+        historyFlow.value = emptyList()
+    }
 }
 
 private fun processedImage(id: String): ProcessedImage {

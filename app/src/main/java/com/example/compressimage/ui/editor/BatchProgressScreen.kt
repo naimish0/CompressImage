@@ -27,14 +27,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.compressimage.ads.BannerAdController
 import com.example.compressimage.ui.BatchItemStatus
 import com.example.compressimage.ui.PhotoCompressorUiState
+import com.example.compressimage.ui.components.AdScreenScaffold
 import com.example.compressimage.ui.components.BatchStatusCard
 import com.example.compressimage.ui.percentText
 
@@ -42,6 +43,8 @@ import com.example.compressimage.ui.percentText
 @Composable
 fun BatchProgressScreen(
     state: PhotoCompressorUiState,
+    bannerAdController: BannerAdController,
+    fullScreenAdVisible: Boolean,
     onBack: () -> Unit,
     onCancel: () -> Unit,
     onRetryFailed: () -> Unit,
@@ -49,7 +52,10 @@ fun BatchProgressScreen(
 ) {
     val failedCount = state.batch.items.count { it.status == BatchItemStatus.FAILED }
     val successCount = state.batch.items.count { it.status == BatchItemStatus.SUCCESS }
-    Scaffold(
+    AdScreenScaffold(
+        bannerAdController = bannerAdController,
+        fullScreenAdVisible = fullScreenAdVisible,
+        hasBottomContent = true,
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text(if (state.batch.isRunning) "Compressing" else "Batch summary") },
@@ -60,8 +66,11 @@ fun BatchProgressScreen(
                 },
             )
         },
-        bottomBar = {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        bottomContent = {
+            Column(
+                Modifier,
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
                 if (state.batch.isRunning) {
                     OutlinedButton(
                         onClick = onCancel,
@@ -94,11 +103,10 @@ fun BatchProgressScreen(
                 }
             }
         },
-    ) { innerPadding ->
+    ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {

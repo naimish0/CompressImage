@@ -5,7 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.example.compressimage.ads.InterstitialAdController
+import com.example.compressimage.ads.AdsInitializer
+import com.example.compressimage.ads.BannerAdController
+import com.example.compressimage.ads.ConsentManager
+import com.example.compressimage.ads.InterstitialAdManager
 import com.example.compressimage.data.storage.ImageShareController
 import com.example.compressimage.ui.PhotoCompressorViewModel
 import com.example.compressimage.ui.navigation.PhotoCompressorApp
@@ -15,7 +18,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject lateinit var interstitialAdController: InterstitialAdController
+    @Inject lateinit var consentManager: ConsentManager
+    @Inject lateinit var adsInitializer: AdsInitializer
+    @Inject lateinit var bannerAdController: BannerAdController
+    @Inject lateinit var interstitialAdManager: InterstitialAdManager
     @Inject lateinit var imageShareController: ImageShareController
 
     private val viewModel: PhotoCompressorViewModel by viewModels()
@@ -27,7 +33,10 @@ class MainActivity : ComponentActivity() {
             CompressImageTheme {
                 PhotoCompressorApp(
                     viewModel = viewModel,
-                    interstitialAdController = interstitialAdController,
+                    consentManager = consentManager,
+                    adsInitializer = adsInitializer,
+                    bannerAdController = bannerAdController,
+                    interstitialAdManager = interstitialAdManager,
                     imageShareController = imageShareController,
                 )
             }

@@ -22,9 +22,11 @@ import com.example.compressimage.di.IoDispatcher
 import com.example.compressimage.domain.model.BackgroundReplacementConfig
 import com.example.compressimage.domain.model.CompressionConfig
 import com.example.compressimage.domain.model.Dimension
+import com.example.compressimage.domain.model.HistoryOperationType
 import com.example.compressimage.domain.model.ImageFormat
 import com.example.compressimage.domain.model.ImageInfo
 import com.example.compressimage.domain.model.ProcessedImage
+import com.example.compressimage.domain.model.ResizeMode
 import com.example.compressimage.domain.model.SavedImage
 import com.example.compressimage.domain.repository.ImageRepository
 import com.example.compressimage.util.AdaptiveCompressionPlanner
@@ -173,6 +175,7 @@ class AndroidImageRepository @Inject constructor(
                 targetReached = targetBytes?.let { AdaptiveCompressionPlanner.targetReached(outputFile.length(), it) },
                 outputQuality = encoded.quality,
                 compressionMode = config.compressionMode,
+                operationType = operationTypeFor(image, config),
                 warning = buildWarning(
                     outputSize = outputFile.length(),
                     targetBytes = targetBytes,
@@ -240,6 +243,7 @@ class AndroidImageRepository @Inject constructor(
                 height = renderedOutput.height,
                 format = exportFormat,
                 mimeType = exportFormat.mimeType,
+                operationType = HistoryOperationType.BACKGROUND_REMOVED,
             )
         }.also {
             if (output !== source) output?.recycle()
@@ -581,6 +585,17 @@ class AndroidImageRepository @Inject constructor(
             return "Target reached by reducing resolution while preserving acceptable encoder quality."
         }
         return null
+    }
+
+    private fun operationTypeFor(
+        image: ImageInfo,
+        config: CompressionConfig,
+    ): HistoryOperationType {
+        return when {
+            config.outputFormat != image.format -> HistoryOperationType.FORMAT_CONVERTED
+            config.resize.mode != ResizeMode.ORIGINAL -> HistoryOperationType.RESIZED
+            else -> HistoryOperationType.COMPRESSED
+        }
     }
 
     private fun validateOutputFile(outputFile: File): BitmapFactory.Options {

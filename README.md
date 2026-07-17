@@ -20,25 +20,10 @@ Open the project in Android Studio and run the `app` configuration on a device o
 ## Production Configuration
 
 Debug builds use Google's official sample AdMob app ID and test ad-unit IDs.
-Release builds only enable ads when all production identifiers are supplied
-through Gradle properties:
-
-```properties
-PHOTO_COMPRESSOR_ADMOB_APP_ID=ca-app-pub-...
-PHOTO_COMPRESSOR_ADMOB_TOP_BANNER_ID=ca-app-pub-.../...
-PHOTO_COMPRESSOR_ADMOB_BOTTOM_BANNER_ID=ca-app-pub-.../...
-PHOTO_COMPRESSOR_ADMOB_INLINE_ID=ca-app-pub-.../...
-PHOTO_COMPRESSOR_ADMOB_HISTORY_INTERSTITIAL_ID=ca-app-pub-.../...
-PHOTO_COMPRESSOR_ADMOB_SAVE_INTERSTITIAL_ID=ca-app-pub-.../...
-```
-
-If release identifiers are missing, ads are disabled at runtime and the release
-build does not fall back to Google's sample ad-unit IDs.
-
-Short Gradle property aliases are also supported for CI:
-`ADMOB_APP_ID`, `TOP_BANNER_AD_UNIT_ID`, `BOTTOM_BANNER_AD_UNIT_ID`,
-`INLINE_AD_UNIT_ID`, `HISTORY_INTERSTITIAL_AD_UNIT_ID`, and
-`SAVE_INTERSTITIAL_AD_UNIT_ID`.
+Release builds use the production AdMob identifiers centralized in
+`app/build.gradle.kts`: the AdMob App ID is used only for the Google Mobile Ads
+SDK manifest metadata, one banner ad-unit ID is used for every banner placement,
+and one interstitial ad-unit ID is used for every interstitial placement.
 
 Before Play Store release, add a final privacy policy URL, production signing,
 verified background-removal model licence records, AdMob GDPR/US privacy

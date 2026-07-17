@@ -13,6 +13,7 @@ class AdsConfiguration @Inject constructor() {
     val inlineAdUnitId: String = BuildConfig.INLINE_AD_UNIT_ID
     val historyInterstitialAdUnitId: String = BuildConfig.HISTORY_INTERSTITIAL_AD_UNIT_ID
     val saveInterstitialAdUnitId: String = BuildConfig.SAVE_INTERSTITIAL_AD_UNIT_ID
+    val appOpenAdUnitId: String = BuildConfig.ADMOB_APP_OPEN_AD_UNIT_ID
 
     val adsEnabled: Boolean =
         BuildConfig.ADS_ENABLED &&
@@ -22,6 +23,8 @@ class AdsConfiguration @Inject constructor() {
             inlineAdUnitId.isNotBlank() &&
             historyInterstitialAdUnitId.isNotBlank() &&
             saveInterstitialAdUnitId.isNotBlank()
+
+    val appOpenAdsEnabled: Boolean = adsEnabled && appOpenAdUnitId.isNotBlank()
 }
 
 data class AdsUiState(

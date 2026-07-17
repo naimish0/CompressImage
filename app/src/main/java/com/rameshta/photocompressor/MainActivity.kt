@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import com.rameshta.photocompressor.ads.AppOpenAdManager
 import com.rameshta.photocompressor.ads.AdsInitializer
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.ConsentManager
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
     @Inject lateinit var bannerAdController: BannerAdController
     @Inject lateinit var interstitialAdManager: InterstitialAdManager
     @Inject lateinit var imageShareController: ImageShareController
+    @Inject lateinit var appOpenAdManager: AppOpenAdManager
 
     private val viewModel: PhotoCompressorViewModel by viewModels()
 
@@ -38,6 +40,7 @@ class MainActivity : ComponentActivity() {
                     bannerAdController = bannerAdController,
                     interstitialAdManager = interstitialAdManager,
                     imageShareController = imageShareController,
+                    appOpenAdManager = appOpenAdManager,
                 )
             }
         }

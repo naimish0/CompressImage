@@ -16,9 +16,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,14 +28,14 @@ class GoogleInterstitialAdManager @Inject constructor(
     private val consentManager: ConsentManager,
     private val adsInitializer: AdsInitializer,
     private val placementPolicy: AdPlacementPolicy,
+    private val fullscreenAdCoordinator: FullscreenAdCoordinator,
 ) : InterstitialAdManager {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-    private val mutableFullScreenAdShowing = MutableStateFlow(false)
     private val interstitialAds = mutableMapOf<InterstitialPlacement, InterstitialAd>()
     private val loadingPlacements = mutableSetOf<InterstitialPlacement>()
     private var isShowing = false
 
-    override val isFullScreenAdShowing: StateFlow<Boolean> = mutableFullScreenAdShowing.asStateFlow()
+    override val isFullScreenAdShowing: StateFlow<Boolean> = fullscreenAdCoordinator.isShowing
 
     override fun preload(placement: InterstitialPlacement?) {
         val placements = placement?.let(::listOf) ?: InterstitialPlacement.entries
@@ -50,7 +48,7 @@ class GoogleInterstitialAdManager @Inject constructor(
             interstitialAds[placement] != null &&
             placement !in loadingPlacements &&
             !isShowing &&
-            !mutableFullScreenAdShowing.value
+            !fullscreenAdCoordinator.isShowing.value
     }
 
     override fun show(
@@ -102,7 +100,7 @@ class GoogleInterstitialAdManager @Inject constructor(
         onFinished: () -> Unit,
     ) {
         val ad = interstitialAds.remove(placement)
-        if (ad == null || isShowing || !isActivityForeground(activity)) {
+        if (ad == null || isShowing || !isActivityForeground(activity) || !fullscreenAdCoordinator.tryAcquire()) {
             preload(placement)
             onFinished()
             return
@@ -117,13 +115,12 @@ class GoogleInterstitialAdManager @Inject constructor(
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdShowedFullScreenContent() {
                 logDebug("${placement.name} interstitial shown.")
-                mutableFullScreenAdShowing.value = true
             }
 
             override fun onAdDismissedFullScreenContent() {
                 logDebug("${placement.name} interstitial dismissed.")
                 isShowing = false
-                mutableFullScreenAdShowing.value = false
+                fullscreenAdCoordinator.release(suppressNextAppOpen = false)
                 preload(placement)
                 finishOnce()
             }
@@ -131,7 +128,7 @@ class GoogleInterstitialAdManager @Inject constructor(
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 logDebug("${placement.name} interstitial failed to show: ${adError.code}")
                 isShowing = false
-                mutableFullScreenAdShowing.value = false
+                fullscreenAdCoordinator.release(suppressNextAppOpen = false)
                 preload(placement)
                 finishOnce()
             }
@@ -141,16 +138,16 @@ class GoogleInterstitialAdManager @Inject constructor(
             }
 
             override fun onAdClicked() {
+                fullscreenAdCoordinator.suppressNextAppOpen()
                 logDebug("${placement.name} interstitial clicked.")
             }
         }
         try {
-            mutableFullScreenAdShowing.value = true
             ad.show(activity)
         } catch (error: RuntimeException) {
             logDebug("Interstitial show threw: ${error.javaClass.simpleName}")
             isShowing = false
-            mutableFullScreenAdShowing.value = false
+            fullscreenAdCoordinator.release(suppressNextAppOpen = false)
             preload(placement)
             finishOnce()
         }

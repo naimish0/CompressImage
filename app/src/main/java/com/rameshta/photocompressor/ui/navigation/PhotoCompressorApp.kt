@@ -12,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rameshta.photocompressor.ads.AppOpenAdManager
 import com.rameshta.photocompressor.ads.AdsInitializer
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.ConsentManager
@@ -37,10 +38,12 @@ fun PhotoCompressorApp(
     bannerAdController: BannerAdController,
     interstitialAdManager: InterstitialAdManager,
     imageShareController: ImageShareController,
+    appOpenAdManager: AppOpenAdManager,
 ) {
     val navController = rememberNavController()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val consentState by consentManager.state.collectAsStateWithLifecycle()
+    val adsInitializationState by adsInitializer.state.collectAsStateWithLifecycle()
     val fullScreenAdVisible by interstitialAdManager.isFullScreenAdShowing.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
@@ -49,6 +52,7 @@ fun PhotoCompressorApp(
             consentManager.requestConsentInfoUpdate(activity) {
                 adsInitializer.initializeIfAllowed(consentManager.canRequestAds())
                 interstitialAdManager.preload()
+                appOpenAdManager.loadAdIfPossible()
             }
         }
     }
@@ -57,7 +61,18 @@ fun PhotoCompressorApp(
         if (consentState.canRequestAds) {
             adsInitializer.initializeIfAllowed(true)
             interstitialAdManager.preload()
+            appOpenAdManager.loadAdIfPossible()
         }
+    }
+
+    LaunchedEffect(consentState.canRequestAds, adsInitializationState.initialized) {
+        if (consentState.canRequestAds && adsInitializationState.initialized) {
+            appOpenAdManager.loadAdIfPossible()
+        }
+    }
+
+    LaunchedEffect(state.hasActiveProcessing) {
+        appOpenAdManager.setActiveOperation(state.hasActiveProcessing)
     }
 
     LaunchedEffect(state.message) {
@@ -124,6 +139,7 @@ fun PhotoCompressorApp(
                 onOpenEditor = { navController.navigate(Routes.EDITOR) },
                 onOpenHistory = viewModel::requestOpenHistory,
                 onOpenSettings = { navController.navigate(Routes.SETTINGS) },
+                onExternalPickerOpened = appOpenAdManager::suppressNextForegroundAd,
             )
         }
         composable(Routes.EDITOR) {
@@ -180,16 +196,19 @@ fun PhotoCompressorApp(
                 onSaveAll = viewModel::saveAllResults,
                 onShareSelected = {
                     viewModel.selectedResult()?.let { image ->
+                        appOpenAdManager.suppressNextForegroundAd()
                         startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
                     }
                 },
                 onShareAll = {
                     if (state.results.isNotEmpty()) {
+                        appOpenAdManager.suppressNextForegroundAd()
                         startSafely(context) { context.startActivity(imageShareController.shareManyIntent(state.results)) }
                     }
                 },
                 onOpenImage = {
                     viewModel.selectedResult()?.let { image ->
+                        appOpenAdManager.suppressNextForegroundAd()
                         startSafely(context) { context.startActivity(imageShareController.openIntent(image)) }
                     }
                 },
@@ -225,6 +244,7 @@ fun PhotoCompressorApp(
                 },
                 onShareItem = { id ->
                     state.history.firstOrNull { it.id == id }?.let { image ->
+                        appOpenAdManager.suppressNextForegroundAd()
                         startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
                     }
                 },
@@ -241,9 +261,11 @@ fun PhotoCompressorApp(
                 onKeepOriginal = viewModel::updateKeepOriginal,
                 onPrivacyOptions = {
                     context.findActivity()?.let { activity ->
+                        appOpenAdManager.suppressNextForegroundAd()
                         consentManager.showPrivacyOptionsForm(activity) {
                             adsInitializer.initializeIfAllowed(consentManager.canRequestAds())
                             interstitialAdManager.preload()
+                            appOpenAdManager.loadAdIfPossible()
                         }
                     }
                 },

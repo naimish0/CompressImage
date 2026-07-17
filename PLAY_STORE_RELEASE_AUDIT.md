@@ -13,7 +13,7 @@ The codebase now contains a centralized Google AdMob and Google User Messaging P
 
 This requested ad density and the interstitial on History navigation/Save click require manual policy review before production. History navigation interstitials may be considered disruptive, Save-click interstitials may be considered interruption of a direct user action because they appear before MediaStore save begins, and top plus bottom plus inline banners can create accidental-click/ad-density concerns. The app no longer claims to be fully offline; documentation now states that image processing is local and that internet access may be used for ads and consent information.
 
-The generated release APK and AAB were built and inspected. The release artifact is not publishable yet because production AdMob IDs are not configured, the AAB/APK are unsigned, the application ID is still the sample-style `com.example.compressimage`, a public privacy policy and Play/AdMob console configuration are missing, and the bundled U2-NetP pretrained weights still need independently verified commercial redistribution evidence.
+The generated release APK and AAB were built and inspected. The release artifact is not publishable yet because production AdMob IDs are not configured, the AAB/APK are unsigned, external Play/AdMob/Firebase registration for `com.rameshta.photocompressor` still needs to be completed, a public privacy policy and Play/AdMob console configuration are missing, and the bundled U2-NetP pretrained weights still need independently verified commercial redistribution evidence.
 
 Official sources reviewed:
 
@@ -35,7 +35,7 @@ Finding counts:
 
 | Severity | Count | Fixed in this pass | Remaining |
 |---|---:|---:|---:|
-| Blocker | 5 | 0 | 5 |
+| Blocker | 5 | 1 | 4 |
 | High | 4 | 1 | 3 |
 | Medium | 6 | 0 | 6 |
 | Low | 4 | 0 | 4 |
@@ -54,7 +54,7 @@ Finding counts:
 Final artifact identifiers:
 
 ```text
-applicationId com.example.compressimage
+applicationId com.rameshta.photocompressor
 versionCode 1
 versionName 1.0
 minSdk 24
@@ -90,7 +90,7 @@ Toolchain:
 |---|---|---|---|---|---|---|
 | B-01 | Release `BuildConfig` has `ADS_ENABLED=false`, blank ad-unit IDs, and the merged release manifest contains the disabled placeholder app ID `ca-app-pub-0000000000000000~0000000000`. | `app/build.gradle.kts`; generated release `BuildConfig`; merged release manifest | The generated AAB does not represent a production ad configuration and must not be uploaded as the final ad-supported release. | Supply real `PHOTO_COMPRESSOR_ADMOB_APP_ID`, `PHOTO_COMPRESSOR_ADMOB_TOP_BANNER_ID`, `PHOTO_COMPRESSOR_ADMOB_BOTTOM_BANNER_ID`, `PHOTO_COMPRESSOR_ADMOB_INLINE_ID`, `PHOTO_COMPRESSOR_ADMOB_HISTORY_INTERSTITIAL_ID`, and `PHOTO_COMPRESSOR_ADMOB_SAVE_INTERSTITIAL_ID` through secure Gradle/CI configuration, rebuild, and reinspect the merged manifest/AAB. Short property aliases `ADMOB_APP_ID`, `TOP_BANNER_AD_UNIT_ID`, `BOTTOM_BANNER_AD_UNIT_ID`, `INLINE_AD_UNIT_ID`, `HISTORY_INTERSTITIAL_AD_UNIT_ID`, and `SAVE_INTERSTITIAL_AD_UNIT_ID` are also supported. | No | Grep of generated `BuildConfig` and merged release manifest. |
 | B-02 | `apksigner verify` reports `DOES NOT VERIFY`; `jarsigner` reports the AAB is unsigned. | `app-release-unsigned.apk`; `app-release.aab` | Google Play requires a signed upload artifact. Signing cannot be generated or replaced without developer authorization. | Configure upload signing with Play App Signing using secure local/CI secrets. Do not commit keystores or passwords. | No | `/Users/naimishgupta/Library/Android/sdk/build-tools/36.1.0/apksigner verify`; `jarsigner -verify`. |
-| B-03 | APK badging reports `package: name='com.example.compressimage'`. | `app/build.gradle.kts`; APK badging | `com.example.*` is a sample namespace. The Play package name is permanent after first publish. | Confirm this is intentionally the owned production package, or change to the final reverse-DNS application ID before first upload. | No | `aapt dump badging`. |
+| B-03 | APK badging reports `package: name='com.rameshta.photocompressor'`. | `app/build.gradle.kts`; APK badging | The Play package name is permanent after first publish and must match external store/service registrations. | Create the Play app and related external registrations for this final reverse-DNS application ID before first upload. | Yes in source; external registration still required | `aapt dump badging`. |
 | B-04 | Privacy policy is only a draft with placeholders for legal developer name, contact, effective date, and child-audience statement. No public HTTPS privacy-policy URL is configured. | `PRIVACY_POLICY.md`; `README.md`; Settings source | Ads and Data Safety disclosures require a public, accurate privacy policy. Developer identity and contact cannot be invented in code. | Publish a public HTTPS privacy policy and link the same policy from Play Console and in-app legal/privacy UI. Fill developer identity, contact, date, target audience, and advertising disclosures. | No | Source and docs audit. |
 | B-05 | The app packages `assets/models/u2netp.onnx`; repository evidence documents Apache-2.0 source code but not independently verified commercial redistribution terms for the exact pretrained weights. | `app/src/main/assets/models/u2netp.onnx`; `legal/MODEL_PROVENANCE.md`; AAB asset list | User requirements state unknown or non-commercial model provenance is a release blocker. | Obtain rights-holder evidence covering commercial use, redistribution, ONNX conversion, and Play distribution, or replace with a verified commercial-use model. | No | Packaged model SHA-256 previously recorded as `2db478c3e56cc19f8076b5bc12f0725716fc82d5b9a19e554815cac1150c476b`; legal docs inspected. |
 
@@ -213,7 +213,7 @@ Final release APK permissions:
 | `android.permission.ACCESS_ADSERVICES_TOPICS` | Topics API support from GMA SDK. | Newer Android versions | Normal/AdServices | May affect ad personalization disclosure. | Remove ads or configure ad behavior after policy review. | Kept |
 | `android.permission.WAKE_LOCK` | WorkManager transitive dependency from GMA SDK. | All supported versions | Normal | Usually no special Play declaration; privacy/security review item. | Potential manifest removal only after confirming SDK will not need WorkManager wake locks. | Kept and documented |
 | `android.permission.FOREGROUND_SERVICE` | WorkManager transitive dependency from GMA SDK. | Android 9+ | Normal but Play Console may require FGS disclosure if used | Possible Play Console FGS declaration risk. | Potential manifest removal only after confirming no SDK foreground-worker path is used. | Kept and documented |
-| `com.example.compressimage.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` | AndroidX dynamic receiver protection. | All supported versions | Signature app-defined | No special Play declaration. | Not applicable. | Kept |
+| `com.rameshta.photocompressor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` | AndroidX dynamic receiver protection. | All supported versions | Signature app-defined | No special Play declaration. | Not applicable. | Kept |
 
 Permissions explicitly absent:
 
@@ -250,9 +250,9 @@ Merged manifest inspected: `app/build/intermediates/merged_manifest/release/proc
 
 Important findings:
 
-- Package: `com.example.compressimage`
+- Package: `com.rameshta.photocompressor`
 - `MainActivity`: exported `true`, launcher only.
-- `FileProvider`: authority `com.example.compressimage.fileprovider`, exported `false`, grants URI permissions.
+- `FileProvider`: authority `com.rameshta.photocompressor.fileprovider`, exported `false`, grants URI permissions.
 - AdMob metadata exists: `com.google.android.gms.ads.APPLICATION_ID`.
 - Current release metadata value is the disabled placeholder because production IDs are missing.
 - SDK components include `com.google.android.gms.ads.AdActivity`, `MobileAdsInitProvider`, `AdService`, `OutOfContextTestingActivity`, `NotificationHandlerActivity`, `GoogleApiActivity`, `HsdpShimActivity`, WorkManager components, and ProfileInstaller receiver.

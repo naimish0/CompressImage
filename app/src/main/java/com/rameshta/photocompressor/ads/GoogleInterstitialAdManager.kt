@@ -66,7 +66,8 @@ class GoogleInterstitialAdManager @Inject constructor(
     }
 
     private fun preloadPlacement(placement: InterstitialPlacement) {
-        if (!canLoadAd() ||
+        if (!placementPolicy.isInterstitialEligible(placement) ||
+            !canLoadAd() ||
             isShowing ||
             placement in loadingPlacements ||
             interstitialAds[placement] != null
@@ -120,7 +121,7 @@ class GoogleInterstitialAdManager @Inject constructor(
             override fun onAdDismissedFullScreenContent() {
                 logDebug("${placement.name} interstitial dismissed.")
                 isShowing = false
-                fullscreenAdCoordinator.release(suppressNextAppOpen = false)
+                fullscreenAdCoordinator.release()
                 preload(placement)
                 finishOnce()
             }
@@ -128,7 +129,7 @@ class GoogleInterstitialAdManager @Inject constructor(
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 logDebug("${placement.name} interstitial failed to show: ${adError.code}")
                 isShowing = false
-                fullscreenAdCoordinator.release(suppressNextAppOpen = false)
+                fullscreenAdCoordinator.release()
                 preload(placement)
                 finishOnce()
             }
@@ -147,7 +148,7 @@ class GoogleInterstitialAdManager @Inject constructor(
         } catch (error: RuntimeException) {
             logDebug("Interstitial show threw: ${error.javaClass.simpleName}")
             isShowing = false
-            fullscreenAdCoordinator.release(suppressNextAppOpen = false)
+            fullscreenAdCoordinator.release()
             preload(placement)
             finishOnce()
         }

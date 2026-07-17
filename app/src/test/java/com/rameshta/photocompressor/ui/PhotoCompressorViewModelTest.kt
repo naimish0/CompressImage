@@ -18,10 +18,13 @@ import com.rameshta.photocompressor.domain.usecase.LoadImageInfoUseCase
 import com.rameshta.photocompressor.domain.usecase.RemoveBackgroundUseCase
 import com.rameshta.photocompressor.domain.usecase.ReplaceBackgroundUseCase
 import com.rameshta.photocompressor.domain.usecase.SaveImagesUseCase
+import com.rameshta.photocompressor.ui.history.HistoryUiState
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runCurrent
@@ -57,6 +60,71 @@ class PhotoCompressorViewModelTest {
         assertEquals(2, state.batch.summary?.successful)
         assertEquals(0, state.batch.summary?.failed)
         assertEquals(2, historyRepository.historyFlow.value.size)
+        assertTrue(viewModel.uiState.value.history.isNotEmpty())
+        assertTrue(viewModel.historyUiState.value is HistoryUiState.Content)
+    }
+
+    @Test
+    fun historyStateTransitionsFromLoadingToEmpty() = runTest {
+        val historyRepository = ControlledHistoryRepository()
+        val viewModel = viewModel(FakeImageRepository(), historyRepository = historyRepository)
+
+        assertEquals(HistoryUiState.Loading, viewModel.historyUiState.value)
+        runCurrent()
+        assertEquals(HistoryUiState.Loading, viewModel.historyUiState.value)
+        historyRepository.emit(emptyList())
+        runCurrent()
+
+        assertEquals(HistoryUiState.Empty, viewModel.historyUiState.value)
+    }
+
+    @Test
+    fun historyStateTransitionsFromLoadingToContent() = runTest {
+        val history = listOf(processedImage("history"))
+        val historyRepository = ControlledHistoryRepository()
+        val viewModel = viewModel(
+            FakeImageRepository(),
+            historyRepository = historyRepository,
+        )
+
+        assertEquals(HistoryUiState.Loading, viewModel.historyUiState.value)
+        runCurrent()
+        assertEquals(HistoryUiState.Loading, viewModel.historyUiState.value)
+        historyRepository.emit(history)
+        runCurrent()
+
+        assertEquals(HistoryUiState.Content(history), viewModel.historyUiState.value)
+        assertEquals(history, viewModel.uiState.value.history)
+    }
+
+    @Test
+    fun historyRepositoryErrorShowsRecoverableErrorState() = runTest {
+        val viewModel = viewModel(
+            FakeImageRepository(),
+            historyRepository = RecoveringHistoryRepository(initiallyFailing = true),
+        )
+
+        advanceUntilIdle()
+
+        val state = viewModel.historyUiState.value
+        assertTrue(state is HistoryUiState.Error)
+        assertTrue((state as HistoryUiState.Error).message.contains("History unavailable"))
+    }
+
+    @Test
+    fun refreshHistoryRestartsCollectionAfterRepositoryError() = runTest {
+        val historyRepository = RecoveringHistoryRepository(initiallyFailing = true)
+        val viewModel = viewModel(FakeImageRepository(), historyRepository = historyRepository)
+        advanceUntilIdle()
+        assertTrue(viewModel.historyUiState.value is HistoryUiState.Error)
+
+        val restored = listOf(processedImage("restored"))
+        historyRepository.fail = false
+        historyRepository.historyFlow.value = restored
+        viewModel.refreshHistory()
+        advanceUntilIdle()
+
+        assertEquals(HistoryUiState.Content(restored), viewModel.historyUiState.value)
     }
 
     @Test
@@ -79,18 +147,37 @@ class PhotoCompressorViewModelTest {
     @Test
     fun cancellationMarksRemainingItemsCancelled() = runTest {
         val repository = FakeImageRepository(hangIds = setOf("one"))
-        val viewModel = viewModel(repository)
+        val historyRepository = FakeHistoryRepository()
+        val viewModel = viewModel(repository, historyRepository = historyRepository)
 
         viewModel.addImageUris(listOf("uri://one", "uri://two"))
         advanceUntilIdle()
         viewModel.startCompression()
         viewModel.cancelCompression()
         advanceUntilIdle()
+        val restored = listOf(processedImage("after-cancel"))
+        historyRepository.historyFlow.value = restored
+        advanceUntilIdle()
 
         val state = viewModel.uiState.value
         assertFalse(state.batch.isRunning)
         assertTrue(state.batch.summary?.cancelled == true)
         assertTrue(state.batch.items.any { it.status == BatchItemStatus.CANCELLED })
+        assertEquals(HistoryUiState.Content(restored), viewModel.historyUiState.value)
+    }
+
+    @Test
+    fun recreatedViewModelRestoresHistoryFromRepository() = runTest {
+        val historyRepository = FakeHistoryRepository(initialHistory = listOf(processedImage("saved")))
+        val first = viewModel(FakeImageRepository(), historyRepository = historyRepository)
+        advanceUntilIdle()
+        assertTrue(first.historyUiState.value is HistoryUiState.Content)
+
+        val recreated = viewModel(FakeImageRepository(), historyRepository = historyRepository)
+        advanceUntilIdle()
+
+        assertEquals(first.uiState.value.history, recreated.uiState.value.history)
+        assertEquals(first.historyUiState.value, recreated.historyUiState.value)
     }
 
     @Test
@@ -140,6 +227,77 @@ class PhotoCompressorViewModelTest {
 
         assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Success)
         assertEquals(HistoryOperationType.BACKGROUND_REMOVED, historyRepository.historyFlow.value.first().operationType)
+        assertTrue(viewModel.historyUiState.value is HistoryUiState.Content)
+    }
+
+    @Test
+    fun openHistoryItemReturnsFalseForMissingItem() = runTest {
+        val viewModel = viewModel(FakeImageRepository())
+        advanceUntilIdle()
+
+        assertFalse(viewModel.openHistoryItem("missing"))
+        assertTrue(viewModel.uiState.value.results.isEmpty())
+    }
+
+    @Test
+    fun openHistoryItemSelectsExistingItem() = runTest {
+        val item = processedImage("existing")
+        val viewModel = viewModel(
+            FakeImageRepository(),
+            historyRepository = FakeHistoryRepository(initialHistory = listOf(item)),
+        )
+        advanceUntilIdle()
+
+        assertTrue(viewModel.openHistoryItem(item.id))
+
+        assertEquals(item.id, viewModel.uiState.value.selectedResultId)
+        assertEquals(item.id, viewModel.uiState.value.results.first().id)
+    }
+
+    @Test
+    fun duplicateHistoryRequestsAreIgnoredWhilePending() = runTest {
+        val viewModel = viewModel(FakeImageRepository())
+
+        viewModel.requestOpenHistory()
+        viewModel.requestOpenHistory()
+
+        assertEquals(PendingAdAction.OpenHistory, viewModel.uiState.value.pendingAdAction)
+    }
+
+    @Test
+    fun previewBackThenHistoryRequestKeepsExistingHistoryVisible() = runTest {
+        val history = listOf(processedImage("existing"))
+        val viewModel = viewModel(
+            FakeImageRepository(),
+            historyRepository = FakeHistoryRepository(initialHistory = history),
+        )
+
+        viewModel.addImageUris(listOf("uri://selected"))
+        advanceUntilIdle()
+        viewModel.requestOpenHistory()
+        viewModel.requestOpenHistory()
+
+        assertEquals(1, viewModel.uiState.value.selectedImages.size)
+        assertEquals(PendingAdAction.OpenHistory, viewModel.uiState.value.pendingAdAction)
+        assertEquals(HistoryUiState.Content(history), viewModel.historyUiState.value)
+
+        viewModel.consumePendingAdAction()
+
+        assertEquals(PendingAdAction.None, viewModel.uiState.value.pendingAdAction)
+        assertEquals(HistoryUiState.Content(history), viewModel.historyUiState.value)
+    }
+
+    @Test
+    fun previewBackThenHistoryRequestKeepsEmptyHistoryVisible() = runTest {
+        val viewModel = viewModel(FakeImageRepository())
+
+        viewModel.addImageUris(listOf("uri://selected"))
+        advanceUntilIdle()
+        viewModel.requestOpenHistory()
+
+        assertEquals(1, viewModel.uiState.value.selectedImages.size)
+        assertEquals(PendingAdAction.OpenHistory, viewModel.uiState.value.pendingAdAction)
+        assertEquals(HistoryUiState.Empty, viewModel.historyUiState.value)
     }
 
     @Test
@@ -223,7 +381,7 @@ class PhotoCompressorViewModelTest {
     private fun viewModel(
         repository: FakeImageRepository,
         backgroundRepository: BackgroundRemovalRepository = FakeBackgroundRemovalRepository(),
-        historyRepository: FakeHistoryRepository = FakeHistoryRepository(),
+        historyRepository: HistoryRepository = FakeHistoryRepository(),
     ): PhotoCompressorViewModel {
         return PhotoCompressorViewModel(
             loadImageInfo = LoadImageInfoUseCase(repository),
@@ -324,8 +482,10 @@ private class FakeImageRepository(
     override suspend fun cleanupObsoleteTempFiles() = Unit
 }
 
-private class FakeHistoryRepository : HistoryRepository {
-    val historyFlow = MutableStateFlow<List<ProcessedImage>>(emptyList())
+private class FakeHistoryRepository(
+    initialHistory: List<ProcessedImage> = emptyList(),
+) : HistoryRepository {
+    val historyFlow = MutableStateFlow(initialHistory)
     override val history: Flow<List<ProcessedImage>> = historyFlow
 
     override suspend fun recordSuccessfulOutput(
@@ -334,6 +494,58 @@ private class FakeHistoryRepository : HistoryRepository {
     ): Result<Unit> {
         historyFlow.value = (listOf(output.copy(operationType = operationType)) + historyFlow.value)
             .distinctBy { it.id }
+        return Result.success(Unit)
+    }
+
+    override suspend fun remove(id: String) {
+        historyFlow.value = historyFlow.value.filterNot { it.id == id }
+    }
+
+    override suspend fun clear() {
+        historyFlow.value = emptyList()
+    }
+}
+
+private class ControlledHistoryRepository : HistoryRepository {
+    private val emissions = MutableSharedFlow<List<ProcessedImage>>()
+    override val history: Flow<List<ProcessedImage>> = emissions
+
+    suspend fun emit(history: List<ProcessedImage>) {
+        emissions.emit(history)
+    }
+
+    override suspend fun recordSuccessfulOutput(
+        output: ProcessedImage,
+        operationType: HistoryOperationType,
+    ): Result<Unit> {
+        emit(listOf(output.copy(operationType = operationType)))
+        return Result.success(Unit)
+    }
+
+    override suspend fun remove(id: String) = Unit
+
+    override suspend fun clear() = Unit
+}
+
+private class RecoveringHistoryRepository(
+    initiallyFailing: Boolean,
+) : HistoryRepository {
+    val historyFlow = MutableStateFlow<List<ProcessedImage>>(emptyList())
+    var fail: Boolean = initiallyFailing
+
+    override val history: Flow<List<ProcessedImage>>
+        get() = flow {
+            if (fail) {
+                throw IOException("History unavailable")
+            }
+            emit(historyFlow.value)
+        }
+
+    override suspend fun recordSuccessfulOutput(
+        output: ProcessedImage,
+        operationType: HistoryOperationType,
+    ): Result<Unit> {
+        historyFlow.value = listOf(output.copy(operationType = operationType)) + historyFlow.value
         return Result.success(Unit)
     }
 

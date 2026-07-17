@@ -89,6 +89,11 @@ android {
         compose = true
         buildConfig = true
     }
+    installation {
+        // Avoid local release deploy failures caused by stale secondary-dex profile
+        // state on test devices. Packaged release baseline profiles are unchanged.
+        enableBaselineProfile = false
+    }
     androidResources {
         noCompress += "onnx"
     }

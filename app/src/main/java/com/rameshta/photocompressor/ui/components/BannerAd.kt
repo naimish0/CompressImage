@@ -2,6 +2,7 @@ package com.rameshta.photocompressor.ui.components
 
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -61,6 +63,9 @@ fun PhotoCompressorBanner(
         val adSize = remember(widthDp) {
             AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, widthDp)
         }
+        val bannerHeightDp = adSize.height
+            .coerceAtLeast(0)
+            .coerceAtMost(MAX_BANNER_HEIGHT_DP)
         var loadState by remember(adUnitId, widthDp, instanceKey) { mutableStateOf(BannerLoadState.Loading) }
         val adView = remember(adUnitId, widthDp, instanceKey) {
             AdView(context).apply {
@@ -110,7 +115,7 @@ fun PhotoCompressorBanner(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(adSize.height.dp),
+                .height(bannerHeightDp.dp),
         ) {
             if (loadState != BannerLoadState.Failed) {
                 AndroidView(
@@ -211,6 +216,7 @@ fun AdScreenScaffold(
     val showBottomBar = showBottomAd || hasBottomContent
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = topBar,
         bottomBar = {
             if (showBottomBar) {
@@ -234,6 +240,7 @@ fun AdScreenScaffold(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding),
         ) {
             if (showTopAd) {
@@ -254,6 +261,8 @@ private enum class BannerLoadState {
     Loaded,
     Failed,
 }
+
+private const val MAX_BANNER_HEIGHT_DP = 120
 
 private const val MIN_BANNER_WIDTH_DP = 320
 private const val MIN_INLINE_BANNER_SCREEN_HEIGHT_DP = 600

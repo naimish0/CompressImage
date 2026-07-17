@@ -16,6 +16,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,12 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.rameshta.photocompressor.ads.BannerAdController
-import com.rameshta.photocompressor.domain.model.ProcessedImage
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.InlineHistoryAd
 import com.rameshta.photocompressor.ui.components.ProcessedImageCard
-
-typealias HistoryItem = ProcessedImage
 
 sealed interface HistoryListItem {
     data class Content(
@@ -46,7 +44,7 @@ sealed interface HistoryListItem {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
-    history: List<ProcessedImage>,
+    state: HistoryUiState,
     bannerAdController: BannerAdController,
     fullScreenAdVisible: Boolean,
     onBack: () -> Unit,
@@ -54,7 +52,9 @@ fun HistoryScreen(
     onShareItem: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
     onClear: () -> Unit,
+    onRetry: () -> Unit,
 ) {
+    val history = (state as? HistoryUiState.Content)?.items.orEmpty()
     AdScreenScaffold(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
@@ -74,56 +74,50 @@ fun HistoryScreen(
             )
         },
     ) {
-        if (history.isEmpty()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text("No processed images yet.", style = MaterialTheme.typography.titleMedium)
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    "Compressed images appear here after a successful operation.",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        } else {
-            val listItems = historyListItems(history)
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                items(
-                    listItems,
-                    key = { item ->
-                        when (item) {
-                            is HistoryListItem.Ad -> item.placementKey
-                            is HistoryListItem.Content -> "history-${item.item.id}"
-                        }
-                    },
-                ) { listItem ->
-                    when (listItem) {
-                        is HistoryListItem.Ad -> InlineHistoryAd(
-                            placementKey = listItem.placementKey,
-                            bannerAdController = bannerAdController,
-                            hidden = fullScreenAdVisible,
-                        )
-                        is HistoryListItem.Content -> {
-                            val item = listItem.item
-                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
-                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                                    Button(onClick = { onOpenItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                        Text("Open")
-                                    }
-                                    OutlinedButton(onClick = { onShareItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                        Text("Share")
-                                    }
-                                    OutlinedButton(onClick = { onRemoveItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                        Text("Remove")
+        when (state) {
+            HistoryUiState.Loading -> HistoryLoadingState()
+            HistoryUiState.Empty -> HistoryEmptyState()
+            is HistoryUiState.Error -> HistoryErrorState(
+                message = state.message,
+                onRetry = onRetry,
+            )
+            is HistoryUiState.Content -> {
+                val listItems = historyListItems(history)
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    items(
+                        listItems,
+                        key = { item ->
+                            when (item) {
+                                is HistoryListItem.Ad -> item.placementKey
+                                is HistoryListItem.Content -> "history-${item.item.id}"
+                            }
+                        },
+                    ) { listItem ->
+                        when (listItem) {
+                            is HistoryListItem.Ad -> InlineHistoryAd(
+                                placementKey = listItem.placementKey,
+                                bannerAdController = bannerAdController,
+                                hidden = fullScreenAdVisible,
+                            )
+                            is HistoryListItem.Content -> {
+                                val item = listItem.item
+                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
+                                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                                        Button(onClick = { onOpenItem(item.id) }, modifier = Modifier.weight(1f)) {
+                                            Text("Open")
+                                        }
+                                        OutlinedButton(onClick = { onShareItem(item.id) }, modifier = Modifier.weight(1f)) {
+                                            Text("Share")
+                                        }
+                                        OutlinedButton(onClick = { onRemoveItem(item.id) }, modifier = Modifier.weight(1f)) {
+                                            Text("Remove")
+                                        }
                                     }
                                 }
                             }
@@ -131,6 +125,61 @@ fun HistoryScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun HistoryLoadingState() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        CircularProgressIndicator()
+        Spacer(Modifier.height(12.dp))
+        Text("Loading history...", style = MaterialTheme.typography.titleMedium)
+    }
+}
+
+@Composable
+private fun HistoryEmptyState() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text("No processed images yet.", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(8.dp))
+        Text(
+            "Compressed images appear here after a successful operation.",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun HistoryErrorState(
+    message: String,
+    onRetry: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text("History could not be loaded.", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(8.dp))
+        Text(
+            message,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(12.dp))
+        Button(onClick = onRetry) {
+            Text("Retry")
         }
     }
 }

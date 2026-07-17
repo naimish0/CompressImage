@@ -24,17 +24,22 @@ import com.rameshta.photocompressor.domain.usecase.LoadImageInfoUseCase
 import com.rameshta.photocompressor.domain.usecase.RemoveBackgroundUseCase
 import com.rameshta.photocompressor.domain.usecase.ReplaceBackgroundUseCase
 import com.rameshta.photocompressor.domain.usecase.SaveImagesUseCase
+import com.rameshta.photocompressor.ui.history.HistoryUiState
 import com.rameshta.photocompressor.util.ResizeCalculator
 import com.rameshta.photocompressor.util.TargetSizeValidator
 import com.rameshta.photocompressor.util.ValidationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -50,17 +55,16 @@ class PhotoCompressorViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PhotoCompressorUiState())
     val uiState: StateFlow<PhotoCompressorUiState> = _uiState.asStateFlow()
+    private val _historyUiState = MutableStateFlow<HistoryUiState>(HistoryUiState.Loading)
+    val historyUiState: StateFlow<HistoryUiState> = _historyUiState.asStateFlow()
 
     private var compressionJob: Job? = null
     private var backgroundJob: Job? = null
+    private var historyJob: Job? = null
     private val pendingSaveRequests = mutableMapOf<String, PendingSaveRequest>()
 
     init {
-        viewModelScope.launch {
-            historyRepository.history.collect { history ->
-                _uiState.update { it.copy(history = history) }
-            }
-        }
+        observeHistory()
     }
 
     fun addImageUris(uriStrings: List<String>) {
@@ -234,14 +238,17 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
-    fun openHistoryItem(id: String) {
+    fun openHistoryItem(id: String): Boolean {
+        var opened = false
         _uiState.update { state ->
             val item = state.history.firstOrNull { it.id == id } ?: return@update state
+            opened = true
             state.copy(
                 results = (listOf(item) + state.results).distinctBy { it.id },
                 selectedResultId = item.id,
             )
         }
+        return opened
     }
 
     fun startCompression() {
@@ -308,6 +315,10 @@ class PhotoCompressorViewModel @Inject constructor(
                 state.copy(pendingAdAction = PendingAdAction.OpenHistory)
             }
         }
+    }
+
+    fun refreshHistory() {
+        observeHistory()
     }
 
     fun performPendingSave(requestId: String) {
@@ -580,7 +591,9 @@ class PhotoCompressorViewModel @Inject constructor(
                 } else {
                     newResults
                 }
-                recordSuccessfulOutputs(newResults)
+                withContext(NonCancellable) {
+                    recordSuccessfulOutputs(newResults)
+                }
                 _uiState.update { state ->
                     state.copy(
                         batch = state.batch.copy(
@@ -604,6 +617,29 @@ class PhotoCompressorViewModel @Inject constructor(
                     },
                 ),
             )
+        }
+    }
+
+    private fun observeHistory() {
+        historyJob?.cancel()
+        historyJob = viewModelScope.launch {
+            historyRepository.history
+                .onStart {
+                    _historyUiState.value = HistoryUiState.Loading
+                }
+                .catch { error ->
+                    _historyUiState.value = HistoryUiState.Error(
+                        error.message ?: "Please retry or remove inaccessible history items.",
+                    )
+                }
+                .collect { history ->
+                    _uiState.update { it.copy(history = history) }
+                    _historyUiState.value = if (history.isEmpty()) {
+                        HistoryUiState.Empty
+                    } else {
+                        HistoryUiState.Content(history)
+                    }
+                }
         }
     }
 
@@ -634,12 +670,10 @@ class PhotoCompressorViewModel @Inject constructor(
         historyRepository.recordSuccessfulOutput(output, operationType)
     }
 
-    private fun recordSuccessfulOutputs(outputs: List<ProcessedImage>) {
+    private suspend fun recordSuccessfulOutputs(outputs: List<ProcessedImage>) {
         if (outputs.isEmpty()) return
-        viewModelScope.launch {
-            outputs.forEach { output ->
-                recordSuccessfulOutput(output, output.operationType)
-            }
+        outputs.forEach { output ->
+            recordSuccessfulOutput(output, output.operationType)
         }
     }
 

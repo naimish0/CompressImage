@@ -61,7 +61,6 @@ class AppOpenAdManager @Inject constructor(
                     loadTimeMs = SystemClock.elapsedRealtime()
                     isLoadingAd = false
                     logDebug("App Open ad loaded.")
-                    showIfStillInColdStartWindow()
                 }
 
                 override fun onAdFailedToLoad(error: LoadAdError) {
@@ -80,6 +79,7 @@ class AppOpenAdManager @Inject constructor(
 
     fun suppressNextForegroundAd() {
         suppressNextForegroundAd = true
+        coldStartShowUntilMs = 0L
     }
 
     override fun onStart(owner: LifecycleOwner) {
@@ -184,14 +184,6 @@ class AppOpenAdManager @Inject constructor(
         isShowingAd = false
         fullscreenAdCoordinator.release(suppressNextAppOpen = false)
         loadAdIfPossible()
-    }
-
-    private fun showIfStillInColdStartWindow() {
-        if (coldStartShowUntilMs > 0L &&
-            SystemClock.elapsedRealtime() <= coldStartShowUntilMs
-        ) {
-            showIfEligible(coldStart = true)
-        }
     }
 
     private fun canRequestAppOpenAd(): Boolean {

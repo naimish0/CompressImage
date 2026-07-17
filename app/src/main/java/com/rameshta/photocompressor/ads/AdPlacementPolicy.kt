@@ -40,9 +40,8 @@ class AdPlacementPolicy @Inject constructor() {
 
     fun isInterstitialEligible(placement: InterstitialPlacement): Boolean {
         return when (placement) {
-            InterstitialPlacement.HISTORY_OPENED,
-            InterstitialPlacement.SAVE_CLICKED,
-            -> true
+            InterstitialPlacement.HISTORY_OPENED -> true
+            InterstitialPlacement.SAVE_CLICKED -> true
         }
     }
 }

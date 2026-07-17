@@ -2,6 +2,7 @@ package com.rameshta.photocompressor.util
 
 import com.rameshta.photocompressor.ads.AdPlacementPolicy
 import com.rameshta.photocompressor.ads.BannerPlacement
+import com.rameshta.photocompressor.ads.FullscreenAdCoordinator
 import com.rameshta.photocompressor.ads.InterstitialPlacement
 import com.rameshta.photocompressor.domain.model.CompressionMode
 import com.rameshta.photocompressor.domain.model.Dimension
@@ -123,13 +124,13 @@ class UtilityTest {
     }
 
     @Test
-    fun adPlacementPolicyAllowsConfiguredBannerAndInterstitialPlacements() {
+    fun adPlacementPolicyAllowsBannersAndNonBlockingInterstitialPlacements() {
         val policy = AdPlacementPolicy()
 
         BannerPlacement.entries.forEach { placement ->
             assertTrue(policy.isBannerEligible(placement))
         }
-        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
+        assertFalse(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
         assertTrue(policy.isInterstitialEligible(InterstitialPlacement.SAVE_CLICKED))
     }
 
@@ -143,6 +144,16 @@ class UtilityTest {
         assertTrue(mixedItems[5] is HistoryListItem.Ad)
         assertTrue(mixedItems[6] is HistoryListItem.Content)
         assertEquals(0, historyListItems(emptyList()).size)
+    }
+
+    @Test
+    fun fullscreenAdCoordinatorConsumesAppOpenSuppressionOnce() {
+        val coordinator = FullscreenAdCoordinator()
+
+        coordinator.suppressNextAppOpen()
+
+        assertTrue(coordinator.consumeAppOpenSuppression())
+        assertFalse(coordinator.consumeAppOpenSuppression())
     }
 
     @Test

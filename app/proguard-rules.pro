@@ -23,3 +23,8 @@
 -keepattributes RuntimeVisibleAnnotations,RuntimeVisibleParameterAnnotations,AnnotationDefault,Signature,InnerClasses,EnclosingMethod
 -keep class ai.onnxruntime.** { *; }
 -keep enum ai.onnxruntime.** { *; }
+
+# play-services-ads pulls WorkManager 2.7.0 transitively. WorkManager's Room
+# database is created reflectively during AndroidX Startup in release builds.
+-keep class androidx.work.impl.WorkDatabase_Impl { *; }
+-keep class androidx.work.impl.model.**_Impl { *; }

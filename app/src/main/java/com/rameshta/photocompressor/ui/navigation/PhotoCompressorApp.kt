@@ -42,10 +42,23 @@ fun PhotoCompressorApp(
 ) {
     val navController = rememberNavController()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val historyUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
     val consentState by consentManager.state.collectAsStateWithLifecycle()
     val adsInitializationState by adsInitializer.state.collectAsStateWithLifecycle()
     val fullScreenAdVisible by interstitialAdManager.isFullScreenAdShowing.collectAsStateWithLifecycle()
     val context = LocalContext.current
+
+    fun navigateToHistory(consumePendingRequest: Boolean = false) {
+        appOpenAdManager.suppressNextForegroundAd()
+        if (navController.currentBackStackEntry?.destination?.route != Routes.HISTORY) {
+            navController.navigate(Routes.HISTORY) {
+                launchSingleTop = true
+            }
+        }
+        if (consumePendingRequest) {
+            viewModel.consumePendingAdAction()
+        }
+    }
 
     LaunchedEffect(Unit) {
         context.findActivity()?.let { activity ->
@@ -100,20 +113,7 @@ fun PhotoCompressorApp(
 
         when (val pendingAction = state.pendingAdAction) {
             PendingAdAction.OpenHistory -> {
-                fun navigateToHistory() {
-                    viewModel.consumePendingAdAction()
-                    if (navController.currentBackStackEntry?.destination?.route != Routes.HISTORY) {
-                        navController.navigate(Routes.HISTORY)
-                    }
-                }
-                if (navController.currentBackStackEntry?.destination?.route == Routes.HISTORY) {
-                    viewModel.consumePendingAdAction()
-                } else {
-                    runAfterOptionalInterstitial(
-                        placement = InterstitialPlacement.HISTORY_OPENED,
-                        action = ::navigateToHistory,
-                    )
-                }
+                navigateToHistory(consumePendingRequest = true)
             }
             is PendingAdAction.SaveResult -> {
                 runAfterOptionalInterstitial(
@@ -137,7 +137,7 @@ fun PhotoCompressorApp(
                 onAddImages = viewModel::addImageUris,
                 onRemoveImage = viewModel::removeImage,
                 onOpenEditor = { navController.navigate(Routes.EDITOR) },
-                onOpenHistory = viewModel::requestOpenHistory,
+                onOpenHistory = { navigateToHistory() },
                 onOpenSettings = { navController.navigate(Routes.SETTINGS) },
                 onExternalPickerOpened = appOpenAdManager::suppressNextForegroundAd,
             )
@@ -234,13 +234,16 @@ fun PhotoCompressorApp(
         }
         composable(Routes.HISTORY) {
             HistoryScreen(
-                history = state.history,
+                state = historyUiState,
                 bannerAdController = bannerAdController,
                 fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onOpenItem = { id ->
-                    viewModel.openHistoryItem(id)
-                    navController.navigate(Routes.RESULT)
+                    if (viewModel.openHistoryItem(id)) {
+                        navController.navigate(Routes.RESULT) {
+                            launchSingleTop = true
+                        }
+                    }
                 },
                 onShareItem = { id ->
                     state.history.firstOrNull { it.id == id }?.let { image ->
@@ -250,6 +253,7 @@ fun PhotoCompressorApp(
                 },
                 onRemoveItem = viewModel::removeHistoryItem,
                 onClear = viewModel::clearHistory,
+                onRetry = viewModel::refreshHistory,
             )
         }
         composable(Routes.SETTINGS) {

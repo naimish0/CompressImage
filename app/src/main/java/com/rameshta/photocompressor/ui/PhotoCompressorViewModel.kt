@@ -93,8 +93,12 @@ class PhotoCompressorViewModel @Inject constructor(
                     .onFailure { failures += (it.message ?: "Could not read one image.") }
             }
             _uiState.update { state ->
+                val currentReusableSelection = state.selectedImages.filterNot { it.id in state.processedSelectionIds }
+                val newImages = loaded.filterNot { loadedImage ->
+                    currentReusableSelection.any { it.uriString == loadedImage.uriString }
+                }
                 state.copy(
-                    selectedImages = reusableSelection + loaded,
+                    selectedImages = currentReusableSelection + newImages,
                     processedSelectionIds = emptySet(),
                     isLoadingSelection = false,
                     selectionError = failures.distinct().joinToString("\n").ifBlank { null },

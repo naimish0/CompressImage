@@ -29,7 +29,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,9 +38,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.compressimage.ads.BannerAdController
+import com.example.compressimage.ads.BannerPlacement
 import com.example.compressimage.domain.model.ProcessedImage
+import com.example.compressimage.ui.PendingAdAction
 import com.example.compressimage.ui.PhotoCompressorUiState
-import com.example.compressimage.ui.components.BannerAd
+import com.example.compressimage.ui.components.AdScreenScaffold
+import com.example.compressimage.ui.components.EmptySpaceBannerAd
 import com.example.compressimage.ui.components.ImagePreviewBox
 import com.example.compressimage.ui.components.InfoRow
 import com.example.compressimage.ui.components.ProcessedImageCard
@@ -53,6 +56,8 @@ import java.util.Locale
 @Composable
 fun ResultScreen(
     state: PhotoCompressorUiState,
+    bannerAdController: BannerAdController,
+    fullScreenAdVisible: Boolean,
     onBack: () -> Unit,
     onSelectResult: (String) -> Unit,
     onSaveSelected: (String?) -> Unit,
@@ -64,8 +69,11 @@ fun ResultScreen(
 ) {
     val selected = state.results.firstOrNull { it.id == state.selectedResultId } ?: state.results.firstOrNull()
     var requestedName by rememberSaveable(selected?.id) { mutableStateOf(selected?.displayName.orEmpty()) }
+    val actionInProgress = state.isSaving || state.pendingAdAction !is PendingAdAction.None
 
-    Scaffold(
+    AdScreenScaffold(
+        bannerAdController = bannerAdController,
+        fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Compare result") },
@@ -76,21 +84,15 @@ fun ResultScreen(
                 },
             )
         },
-        bottomBar = {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                BannerAd()
-            }
-        },
-    ) { innerPadding ->
+    ) {
         if (selected == null) {
-            EmptyResult(modifier = Modifier.padding(innerPadding), onCompressAnother = onCompressAnother)
-            return@Scaffold
+            EmptyResult(onCompressAnother = onCompressAnother)
+            return@AdScreenScaffold
         }
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
@@ -113,6 +115,14 @@ fun ResultScreen(
 
             item {
                 StatsPanel(selected)
+            }
+
+            item {
+                EmptySpaceBannerAd(
+                    placement = BannerPlacement.RESULT_EMPTY_SPACE,
+                    bannerAdController = bannerAdController,
+                    hidden = fullScreenAdVisible,
+                )
             }
 
             selected.warning?.let { warning ->
@@ -140,19 +150,31 @@ fun ResultScreen(
                             singleLine = true,
                         )
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                            Button(onClick = { onSaveSelected(requestedName) }, modifier = Modifier.weight(1f)) {
+                            Button(
+                                onClick = { onSaveSelected(requestedName) },
+                                enabled = !actionInProgress,
+                                modifier = Modifier.weight(1f),
+                            ) {
                                 Icon(Icons.Outlined.Save, contentDescription = null)
                                 Spacer(Modifier.width(8.dp))
-                                Text("Save")
+                                Text(if (state.isSaving) "Saving..." else "Save")
                             }
-                            OutlinedButton(onClick = onShareSelected, modifier = Modifier.weight(1f)) {
+                            OutlinedButton(
+                                onClick = onShareSelected,
+                                enabled = !actionInProgress,
+                                modifier = Modifier.weight(1f),
+                            ) {
                                 Icon(Icons.Outlined.Share, contentDescription = null)
                                 Spacer(Modifier.width(8.dp))
                                 Text("Share")
                             }
                         }
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                            OutlinedButton(onClick = onOpenImage, modifier = Modifier.weight(1f)) {
+                            OutlinedButton(
+                                onClick = onOpenImage,
+                                enabled = !actionInProgress,
+                                modifier = Modifier.weight(1f),
+                            ) {
                                 Icon(Icons.Outlined.FolderOpen, contentDescription = null)
                                 Spacer(Modifier.width(8.dp))
                                 Text("Open")
@@ -165,10 +187,18 @@ fun ResultScreen(
                         }
                         if (state.results.size > 1) {
                             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
-                                OutlinedButton(onClick = onSaveAll, modifier = Modifier.weight(1f)) {
+                                OutlinedButton(
+                                    onClick = onSaveAll,
+                                    enabled = !actionInProgress,
+                                    modifier = Modifier.weight(1f),
+                                ) {
                                     Text("Save all")
                                 }
-                                OutlinedButton(onClick = onShareAll, modifier = Modifier.weight(1f)) {
+                                OutlinedButton(
+                                    onClick = onShareAll,
+                                    enabled = !actionInProgress,
+                                    modifier = Modifier.weight(1f),
+                                ) {
                                     Text("Share all")
                                 }
                             }

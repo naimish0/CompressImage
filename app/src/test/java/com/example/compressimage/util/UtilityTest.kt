@@ -1,13 +1,19 @@
 package com.example.compressimage.util
 
-import com.example.compressimage.ads.AdFrequencyCapper
+import com.example.compressimage.ads.AdPlacementPolicy
+import com.example.compressimage.ads.BannerPlacement
+import com.example.compressimage.ads.InterstitialPlacement
 import com.example.compressimage.domain.model.CompressionMode
 import com.example.compressimage.domain.model.Dimension
 import com.example.compressimage.domain.model.ImageFormat
+import com.example.compressimage.domain.model.ImageInfo
+import com.example.compressimage.domain.model.ProcessedImage
 import com.example.compressimage.domain.model.ResizeConfig
 import com.example.compressimage.domain.model.ResizeMode
 import com.example.compressimage.domain.model.TargetSize
 import com.example.compressimage.domain.model.TargetSizePreset
+import com.example.compressimage.ui.history.HistoryListItem
+import com.example.compressimage.ui.history.historyListItems
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -99,12 +105,26 @@ class UtilityTest {
     }
 
     @Test
-    fun adFrequencyCapperShowsEveryThirdCompletedOperation() {
-        val capper = AdFrequencyCapper()
-        assertFalse(capper.recordCompletedOperation())
-        assertFalse(capper.recordCompletedOperation())
-        assertTrue(capper.recordCompletedOperation())
-        assertFalse(capper.recordCompletedOperation())
+    fun adPlacementPolicyAllowsConfiguredBannerAndInterstitialPlacements() {
+        val policy = AdPlacementPolicy()
+
+        BannerPlacement.entries.forEach { placement ->
+            assertTrue(policy.isBannerEligible(placement))
+        }
+        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
+        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.SAVE_CLICKED))
+    }
+
+    @Test
+    fun historyInlineAdsAppearAfterEveryFiveContentItemsOnly() {
+        val mixedItems = historyListItems((1..6).map { testProcessedImage("item-$it") })
+
+        assertEquals(7, mixedItems.size)
+        assertTrue(mixedItems[0] is HistoryListItem.Content)
+        assertTrue(mixedItems[4] is HistoryListItem.Content)
+        assertTrue(mixedItems[5] is HistoryListItem.Ad)
+        assertTrue(mixedItems[6] is HistoryListItem.Content)
+        assertEquals(0, historyListItems(emptyList()).size)
     }
 
     @Test
@@ -168,4 +188,29 @@ class UtilityTest {
         assertTrue(ImageFormat.PNG.supportsTransparency)
         assertFalse(ImageFormat.JPEG.supportsTransparency)
     }
+}
+
+private fun testProcessedImage(id: String): ProcessedImage {
+    val original = ImageInfo(
+        id = "original-$id",
+        uriString = "content://original/$id",
+        displayName = "$id.jpg",
+        sizeBytes = 1000,
+        width = 100,
+        height = 100,
+        format = ImageFormat.JPEG,
+        mimeType = ImageFormat.JPEG.mimeType,
+        hasAlpha = false,
+    )
+    return ProcessedImage(
+        id = id,
+        original = original,
+        filePath = "/tmp/$id.jpg",
+        displayName = "$id.jpg",
+        sizeBytes = 500,
+        width = 100,
+        height = 100,
+        format = ImageFormat.JPEG,
+        mimeType = ImageFormat.JPEG.mimeType,
+    )
 }

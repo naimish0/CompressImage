@@ -12,8 +12,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.compressimage.ads.InterstitialAdController
+import com.example.compressimage.ads.AdsInitializer
+import com.example.compressimage.ads.BannerAdController
+import com.example.compressimage.ads.ConsentManager
+import com.example.compressimage.ads.InterstitialAdManager
+import com.example.compressimage.ads.InterstitialPlacement
 import com.example.compressimage.data.storage.ImageShareController
+import com.example.compressimage.ui.PendingAdAction
 import com.example.compressimage.ui.PhotoCompressorViewModel
 import com.example.compressimage.ui.background.BackgroundReplacementScreen
 import com.example.compressimage.ui.comparison.ResultScreen
@@ -27,21 +32,81 @@ import com.example.compressimage.util.findActivity
 @Composable
 fun PhotoCompressorApp(
     viewModel: PhotoCompressorViewModel,
-    interstitialAdController: InterstitialAdController,
+    consentManager: ConsentManager,
+    adsInitializer: AdsInitializer,
+    bannerAdController: BannerAdController,
+    interstitialAdManager: InterstitialAdManager,
     imageShareController: ImageShareController,
 ) {
     val navController = rememberNavController()
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val consentState by consentManager.state.collectAsStateWithLifecycle()
+    val fullScreenAdVisible by interstitialAdManager.isFullScreenAdShowing.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        interstitialAdController.preload()
+        context.findActivity()?.let { activity ->
+            consentManager.requestConsentInfoUpdate(activity) {
+                adsInitializer.initializeIfAllowed(consentManager.canRequestAds())
+                interstitialAdManager.preload()
+            }
+        }
+    }
+
+    LaunchedEffect(consentState.canRequestAds) {
+        if (consentState.canRequestAds) {
+            adsInitializer.initializeIfAllowed(true)
+            interstitialAdManager.preload()
+        }
     }
 
     LaunchedEffect(state.message) {
         state.message?.let { message ->
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             viewModel.consumeMessage()
+        }
+    }
+
+    LaunchedEffect(state.pendingAdAction) {
+        fun runAfterOptionalInterstitial(
+            placement: InterstitialPlacement,
+            action: () -> Unit,
+        ) {
+            val activity = context.findActivity()
+            if (activity != null &&
+                !state.hasActiveProcessing &&
+                interstitialAdManager.canShow(placement)
+            ) {
+                interstitialAdManager.show(activity, placement, onFinished = action)
+            } else {
+                action()
+            }
+        }
+
+        when (val pendingAction = state.pendingAdAction) {
+            PendingAdAction.OpenHistory -> {
+                fun navigateToHistory() {
+                    viewModel.consumePendingAdAction()
+                    if (navController.currentBackStackEntry?.destination?.route != Routes.HISTORY) {
+                        navController.navigate(Routes.HISTORY)
+                    }
+                }
+                if (navController.currentBackStackEntry?.destination?.route == Routes.HISTORY) {
+                    viewModel.consumePendingAdAction()
+                } else {
+                    runAfterOptionalInterstitial(
+                        placement = InterstitialPlacement.HISTORY_OPENED,
+                        action = ::navigateToHistory,
+                    )
+                }
+            }
+            is PendingAdAction.SaveResult -> {
+                runAfterOptionalInterstitial(
+                    placement = InterstitialPlacement.SAVE_CLICKED,
+                    action = { viewModel.performPendingSave(pendingAction.requestId) },
+                )
+            }
+            PendingAdAction.None -> Unit
         }
     }
 
@@ -52,16 +117,20 @@ fun PhotoCompressorApp(
         composable(Routes.HOME) {
             HomeScreen(
                 state = state,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onAddImages = viewModel::addImageUris,
                 onRemoveImage = viewModel::removeImage,
                 onOpenEditor = { navController.navigate(Routes.EDITOR) },
-                onOpenHistory = { navController.navigate(Routes.HISTORY) },
+                onOpenHistory = viewModel::requestOpenHistory,
                 onOpenSettings = { navController.navigate(Routes.SETTINGS) },
             )
         }
         composable(Routes.EDITOR) {
             EditorScreen(
                 state = state,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onTargetPreset = viewModel::updateTargetPreset,
                 onCustomTarget = viewModel::updateCustomTarget,
@@ -90,19 +159,21 @@ fun PhotoCompressorApp(
             }
             BatchProgressScreen(
                 state = state,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onCancel = viewModel::cancelCompression,
                 onRetryFailed = viewModel::retryFailedItems,
                 onViewResults = {
-                    navigateToResultWithAd(context, viewModel, interstitialAdController) {
-                        navController.navigate(Routes.RESULT)
-                    }
+                    navController.navigate(Routes.RESULT)
                 },
             )
         }
         composable(Routes.RESULT) {
             ResultScreen(
                 state = state,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onSelectResult = viewModel::selectResult,
                 onSaveSelected = viewModel::saveSelected,
@@ -134,6 +205,8 @@ fun PhotoCompressorApp(
         composable(Routes.BACKGROUND) {
             BackgroundReplacementScreen(
                 state = state,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onStartRemoval = viewModel::removeBackground,
                 onCancelRemoval = viewModel::cancelBackgroundRemoval,
@@ -143,10 +216,17 @@ fun PhotoCompressorApp(
         composable(Routes.HISTORY) {
             HistoryScreen(
                 history = state.history,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onOpenItem = { id ->
                     viewModel.openHistoryItem(id)
                     navController.navigate(Routes.RESULT)
+                },
+                onShareItem = { id ->
+                    state.history.firstOrNull { it.id == id }?.let { image ->
+                        startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
+                    }
                 },
                 onRemoveItem = viewModel::removeHistoryItem,
                 onClear = viewModel::clearHistory,
@@ -155,24 +235,21 @@ fun PhotoCompressorApp(
         composable(Routes.SETTINGS) {
             SettingsScreen(
                 keepOriginal = state.keepOriginal,
+                privacyOptionsRequired = consentState.privacyOptionsRequired,
+                bannerAdController = bannerAdController,
+                fullScreenAdVisible = fullScreenAdVisible,
                 onKeepOriginal = viewModel::updateKeepOriginal,
+                onPrivacyOptions = {
+                    context.findActivity()?.let { activity ->
+                        consentManager.showPrivacyOptionsForm(activity) {
+                            adsInitializer.initializeIfAllowed(consentManager.canRequestAds())
+                            interstitialAdManager.preload()
+                        }
+                    }
+                },
                 onBack = { navController.popBackStack() },
             )
         }
-    }
-}
-
-private fun navigateToResultWithAd(
-    context: Context,
-    viewModel: PhotoCompressorViewModel,
-    interstitialAdController: InterstitialAdController,
-    navigate: () -> Unit,
-) {
-    val activity = context.findActivity()
-    if (activity != null && viewModel.shouldShowInterstitialBeforeResult()) {
-        interstitialAdController.showIfAvailable(activity, navigate)
-    } else {
-        navigate()
     }
 }
 

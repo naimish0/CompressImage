@@ -2,12 +2,12 @@ package com.example.compressimage.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.compressimage.ads.AdFrequencyCapper
 import com.example.compressimage.domain.model.BackgroundRemovalResult
 import com.example.compressimage.domain.model.BackgroundReplacementConfig
 import com.example.compressimage.domain.model.CompressionConfig
 import com.example.compressimage.domain.model.CompressionMode
 import com.example.compressimage.domain.model.Dimension
+import com.example.compressimage.domain.model.HistoryOperationType
 import com.example.compressimage.domain.model.ImageFormat
 import com.example.compressimage.domain.model.ImageInfo
 import com.example.compressimage.domain.model.ImageSource
@@ -18,6 +18,7 @@ import com.example.compressimage.domain.model.ResizeMode
 import com.example.compressimage.domain.model.SavedImage
 import com.example.compressimage.domain.model.TargetSizePreset
 import com.example.compressimage.domain.model.TargetSizeUnit
+import com.example.compressimage.domain.repository.HistoryRepository
 import com.example.compressimage.domain.usecase.CompressImageUseCase
 import com.example.compressimage.domain.usecase.LoadImageInfoUseCase
 import com.example.compressimage.domain.usecase.RemoveBackgroundUseCase
@@ -34,6 +35,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -44,13 +46,22 @@ class PhotoCompressorViewModel @Inject constructor(
     private val saveImages: SaveImagesUseCase,
     private val removeBackgroundUseCase: RemoveBackgroundUseCase,
     private val replaceBackgroundUseCase: ReplaceBackgroundUseCase,
-    private val adFrequencyCapper: AdFrequencyCapper,
+    private val historyRepository: HistoryRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(PhotoCompressorUiState())
     val uiState: StateFlow<PhotoCompressorUiState> = _uiState.asStateFlow()
 
     private var compressionJob: Job? = null
     private var backgroundJob: Job? = null
+    private val pendingSaveRequests = mutableMapOf<String, PendingSaveRequest>()
+
+    init {
+        viewModelScope.launch {
+            historyRepository.history.collect { history ->
+                _uiState.update { it.copy(history = history) }
+            }
+        }
+    }
 
     fun addImageUris(uriStrings: List<String>) {
         val unique = uriStrings.distinct().filterNot { incoming ->
@@ -212,11 +223,15 @@ class PhotoCompressorViewModel @Inject constructor(
     }
 
     fun clearHistory() {
-        _uiState.update { it.copy(history = emptyList()) }
+        viewModelScope.launch {
+            historyRepository.clear()
+        }
     }
 
     fun removeHistoryItem(id: String) {
-        _uiState.update { state -> state.copy(history = state.history.filterNot { it.id == id }) }
+        viewModelScope.launch {
+            historyRepository.remove(id)
+        }
     }
 
     fun openHistoryItem(id: String) {
@@ -257,29 +272,109 @@ class PhotoCompressorViewModel @Inject constructor(
     }
 
     fun saveSelected(requestedName: String? = null) {
+        val current = _uiState.value
+        if (current.isSaving || current.pendingAdAction !is PendingAdAction.None) return
         val image = selectedResult() ?: return
-        viewModelScope.launch {
-            saveImages.saveOne(image, requestedName)
-                .onSuccess { saved -> showSavedMessage(saved) }
-                .onFailure { error -> showMessage(error.message ?: "Save failed.") }
+        val requestId = UUID.randomUUID().toString()
+        pendingSaveRequests[requestId] = PendingSaveRequest.Single(image, requestedName)
+        _uiState.update {
+            it.copy(
+                pendingAdAction = PendingAdAction.SaveResult(requestId),
+                message = null,
+            )
         }
     }
 
     fun saveAllResults() {
-        val results = _uiState.value.results
+        val current = _uiState.value
+        if (current.isSaving || current.pendingAdAction !is PendingAdAction.None) return
+        val results = current.results
         if (results.isEmpty()) return
-        viewModelScope.launch {
-            val saved = saveImages.saveAll(results)
-            val successful = saved.count { it.isSuccess }
-            val failed = saved.size - successful
-            showMessage(
-                if (failed == 0) {
-                    "Saved $successful image${if (successful == 1) "" else "s"} to Pictures/Photo Compressor."
-                } else {
-                    "Saved $successful image${if (successful == 1) "" else "s"}; $failed failed."
-                },
+        val requestId = UUID.randomUUID().toString()
+        pendingSaveRequests[requestId] = PendingSaveRequest.Batch(results)
+        _uiState.update {
+            it.copy(
+                pendingAdAction = PendingAdAction.SaveResult(requestId),
+                message = null,
             )
         }
+    }
+
+    fun requestOpenHistory() {
+        _uiState.update { state ->
+            if (state.pendingAdAction !is PendingAdAction.None) {
+                state
+            } else {
+                state.copy(pendingAdAction = PendingAdAction.OpenHistory)
+            }
+        }
+    }
+
+    fun performPendingSave(requestId: String) {
+        val request = pendingSaveRequests.remove(requestId) ?: return
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    pendingAdAction = PendingAdAction.None,
+                    isSaving = true,
+                    message = null,
+                )
+            }
+            val message = when (request) {
+                is PendingSaveRequest.Single -> saveSingle(request.image, request.requestedName)
+                is PendingSaveRequest.Batch -> saveBatch(request.images)
+            }
+            _uiState.update {
+                it.copy(
+                    isSaving = false,
+                    message = message,
+                )
+            }
+        }
+    }
+
+    fun consumePendingAdAction() {
+        _uiState.update { it.copy(pendingAdAction = PendingAdAction.None) }
+    }
+
+    private suspend fun saveSingle(
+        image: ProcessedImage,
+        requestedName: String?,
+    ): String {
+        val saved = saveImages.saveOne(image, requestedName).getOrElse {
+            return SAVE_FAILURE_MESSAGE
+        }
+        if (saved.uriString.isBlank()) return SAVE_FAILURE_MESSAGE
+
+        val historyResult = historyRepository.recordSuccessfulOutput(
+            output = image.asSavedHistoryOutput(saved),
+            operationType = image.operationType,
+        )
+        return if (historyResult.isSuccess) {
+            SAVE_SUCCESS_MESSAGE
+        } else {
+            HISTORY_FAILURE_MESSAGE
+        }
+    }
+
+    private suspend fun saveBatch(images: List<ProcessedImage>): String {
+        val savedResults = saveImages.saveAll(images)
+        if (savedResults.size != images.size) return SAVE_FAILURE_MESSAGE
+
+        var allSaved = true
+        savedResults.zip(images).forEach { (savedResult, image) ->
+            val saved = savedResult.getOrNull()
+            if (saved?.uriString.isNullOrBlank()) {
+                allSaved = false
+            } else {
+                val historyResult = historyRepository.recordSuccessfulOutput(
+                    output = image.asSavedHistoryOutput(saved),
+                    operationType = image.operationType,
+                )
+                if (historyResult.isFailure) allSaved = false
+            }
+        }
+        return if (allSaved) SAVE_SUCCESS_MESSAGE else SAVE_FAILURE_MESSAGE
     }
 
     fun removeBackground() {
@@ -316,6 +411,9 @@ class PhotoCompressorViewModel @Inject constructor(
             } catch (error: Throwable) {
                 BackgroundRemovalResult.Failure(error.message ?: "Background removal failed.")
             }
+            if (result is BackgroundRemovalResult.Success) {
+                recordSuccessfulOutput(result.image, HistoryOperationType.BACKGROUND_REMOVED)
+            }
             _uiState.update { state ->
                 state.copy(
                     backgroundState = when (result) {
@@ -340,6 +438,7 @@ class PhotoCompressorViewModel @Inject constructor(
             replaceBackgroundUseCase(image, config) { progress ->
                 _uiState.update { it.copy(backgroundReplaceProgress = progress.coerceIn(0f, 1f)) }
             }.onSuccess { processed ->
+                recordSuccessfulOutput(processed, HistoryOperationType.BACKGROUND_REMOVED)
                 _uiState.update { state ->
                     state.copy(
                         results = listOf(processed) + state.results.filterNot { it.id == processed.id },
@@ -357,14 +456,6 @@ class PhotoCompressorViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    fun shouldShowInterstitialBeforeResult(): Boolean {
-        val shouldShow = _uiState.value.showInterstitialBeforeResult
-        if (shouldShow) {
-            _uiState.update { it.copy(showInterstitialBeforeResult = false) }
-        }
-        return shouldShow
     }
 
     fun consumeMessage() {
@@ -489,6 +580,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 } else {
                     newResults
                 }
+                recordSuccessfulOutputs(newResults)
                 _uiState.update { state ->
                     state.copy(
                         batch = state.batch.copy(
@@ -497,10 +589,6 @@ class PhotoCompressorViewModel @Inject constructor(
                         ),
                         results = combinedResults,
                         selectedResultId = combinedResults.firstOrNull()?.id,
-                        history = (combinedResults + state.history).distinctBy { it.filePath }.take(30),
-                        showInterstitialBeforeResult = successes > 0 &&
-                            !wasCancelled &&
-                            adFrequencyCapper.recordCompletedOperation(),
                     )
                 }
             }
@@ -535,12 +623,24 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
-    private fun showSavedMessage(saved: SavedImage) {
-        showMessage("Saved ${saved.displayName} to Pictures/Photo Compressor.")
-    }
-
     private fun showMessage(message: String) {
         _uiState.update { it.copy(message = message) }
+    }
+
+    private suspend fun recordSuccessfulOutput(
+        output: ProcessedImage,
+        operationType: HistoryOperationType,
+    ) {
+        historyRepository.recordSuccessfulOutput(output, operationType)
+    }
+
+    private fun recordSuccessfulOutputs(outputs: List<ProcessedImage>) {
+        if (outputs.isEmpty()) return
+        viewModelScope.launch {
+            outputs.forEach { output ->
+                recordSuccessfulOutput(output, output.operationType)
+            }
+        }
     }
 
     private fun stageForProgress(progress: Float): ProcessingStage {
@@ -574,9 +674,10 @@ data class PhotoCompressorUiState(
     val selectedResultId: String? = null,
     val history: List<ProcessedImage> = emptyList(),
     val keepOriginal: Boolean = true,
+    val isSaving: Boolean = false,
     val backgroundState: BackgroundUiState = BackgroundUiState.Idle,
     val backgroundReplaceProgress: Float? = null,
-    val showInterstitialBeforeResult: Boolean = false,
+    val pendingAdAction: PendingAdAction = PendingAdAction.None,
     val message: String? = null,
 ) {
     val targetValidation: ValidationResult = TargetSizeValidator.validate(config.targetSize)
@@ -601,6 +702,33 @@ data class PhotoCompressorUiState(
         } else {
             null
         }
+
+    val hasActiveProcessing: Boolean =
+        batch.isRunning ||
+            backgroundState is BackgroundUiState.Running ||
+            backgroundReplaceProgress != null ||
+            isSaving
+}
+
+sealed interface PendingAdAction {
+    data object OpenHistory : PendingAdAction
+
+    data class SaveResult(
+        val requestId: String,
+    ) : PendingAdAction
+
+    data object None : PendingAdAction
+}
+
+private sealed interface PendingSaveRequest {
+    data class Single(
+        val image: ProcessedImage,
+        val requestedName: String?,
+    ) : PendingSaveRequest
+
+    data class Batch(
+        val images: List<ProcessedImage>,
+    ) : PendingSaveRequest
 }
 
 data class BatchUiState(
@@ -667,3 +795,16 @@ fun ResizeMode.percentLabel(): String {
 }
 
 fun Float.percentText(): String = "${(this * 100f).roundToInt()}%"
+
+private fun ProcessedImage.asSavedHistoryOutput(saved: SavedImage): ProcessedImage {
+    return copy(
+        filePath = saved.uriString,
+        displayName = saved.displayName,
+        savedUriString = saved.uriString,
+        createdTimestamp = System.currentTimeMillis(),
+    )
+}
+
+private const val SAVE_SUCCESS_MESSAGE = "Image saved successfully"
+private const val SAVE_FAILURE_MESSAGE = "Couldn't save image. Please try again."
+private const val HISTORY_FAILURE_MESSAGE = "Image saved, but couldn't update History."

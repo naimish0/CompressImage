@@ -3,4 +3,7 @@
     <cache-path
         name="processed"
         path="processed/" />
+    <cache-path
+        name="background_removal"
+        path="background_removal/" />
 </paths>

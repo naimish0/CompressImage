@@ -4,7 +4,9 @@ import com.example.compressimage.backgroundremoval.OnDeviceBackgroundRemovalRepo
 import com.example.compressimage.backgroundremoval.OnnxBackgroundRemovalEngine
 import com.example.compressimage.backgroundremoval.BackgroundRemovalEngine
 import com.example.compressimage.data.repository.AndroidImageRepository
+import com.example.compressimage.data.storage.DataStoreHistoryRepository
 import com.example.compressimage.domain.repository.BackgroundRemovalRepository
+import com.example.compressimage.domain.repository.HistoryRepository
 import com.example.compressimage.domain.repository.ImageRepository
 import dagger.Binds
 import dagger.Module
@@ -28,4 +30,8 @@ abstract class RepositoryModule {
     abstract fun bindBackgroundRemovalRepository(
         repository: OnDeviceBackgroundRemovalRepository,
     ): BackgroundRemovalRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindHistoryRepository(repository: DataStoreHistoryRepository): HistoryRepository
 }

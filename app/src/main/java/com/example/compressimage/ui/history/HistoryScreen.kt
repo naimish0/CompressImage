@@ -21,24 +21,43 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.compressimage.ads.BannerAdController
 import com.example.compressimage.domain.model.ProcessedImage
+import com.example.compressimage.ui.components.AdScreenScaffold
+import com.example.compressimage.ui.components.InlineHistoryAd
 import com.example.compressimage.ui.components.ProcessedImageCard
+
+typealias HistoryItem = ProcessedImage
+
+sealed interface HistoryListItem {
+    data class Content(
+        val item: HistoryItem,
+    ) : HistoryListItem
+
+    data class Ad(
+        val placementKey: String,
+    ) : HistoryListItem
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
     history: List<ProcessedImage>,
+    bannerAdController: BannerAdController,
+    fullScreenAdVisible: Boolean,
     onBack: () -> Unit,
     onOpenItem: (String) -> Unit,
+    onShareItem: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
     onClear: () -> Unit,
 ) {
-    Scaffold(
+    AdScreenScaffold(
+        bannerAdController = bannerAdController,
+        fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("History") },
@@ -54,12 +73,11 @@ fun HistoryScreen(
                 },
             )
         },
-    ) { innerPadding ->
+    ) {
         if (history.isEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding)
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -71,22 +89,43 @@ fun HistoryScreen(
                 )
             }
         } else {
+            val listItems = historyListItems(history)
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
+                    .fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                items(history, key = { it.id }) { item ->
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                            Button(onClick = { onOpenItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                Text("Open")
-                            }
-                            OutlinedButton(onClick = { onRemoveItem(item.id) }, modifier = Modifier.weight(1f)) {
-                                Text("Remove")
+                items(
+                    listItems,
+                    key = { item ->
+                        when (item) {
+                            is HistoryListItem.Ad -> item.placementKey
+                            is HistoryListItem.Content -> "history-${item.item.id}"
+                        }
+                    },
+                ) { listItem ->
+                    when (listItem) {
+                        is HistoryListItem.Ad -> InlineHistoryAd(
+                            placementKey = listItem.placementKey,
+                            bannerAdController = bannerAdController,
+                            hidden = fullScreenAdVisible,
+                        )
+                        is HistoryListItem.Content -> {
+                            val item = listItem.item
+                            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
+                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
+                                    Button(onClick = { onOpenItem(item.id) }, modifier = Modifier.weight(1f)) {
+                                        Text("Open")
+                                    }
+                                    OutlinedButton(onClick = { onShareItem(item.id) }, modifier = Modifier.weight(1f)) {
+                                        Text("Share")
+                                    }
+                                    OutlinedButton(onClick = { onRemoveItem(item.id) }, modifier = Modifier.weight(1f)) {
+                                        Text("Remove")
+                                    }
+                                }
                             }
                         }
                     }
@@ -95,3 +134,22 @@ fun HistoryScreen(
         }
     }
 }
+
+internal fun historyListItems(
+    history: List<HistoryItem>,
+    interval: Int = INLINE_AD_INTERVAL,
+): List<HistoryListItem> {
+    if (history.isEmpty() || interval <= 0) return history.map { HistoryListItem.Content(it) }
+    return buildList {
+        history.forEachIndexed { index, item ->
+            add(HistoryListItem.Content(item))
+            val position = index + 1
+            val hasMoreItems = position < history.size
+            if (position % interval == 0 && hasMoreItems) {
+                add(HistoryListItem.Ad("history-inline-after-${item.id}"))
+            }
+        }
+    }
+}
+
+private const val INLINE_AD_INTERVAL = 5

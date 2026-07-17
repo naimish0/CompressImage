@@ -34,9 +34,21 @@ data class ProcessedImage(
     val targetReached: Boolean? = null,
     val outputQuality: Int? = null,
     val compressionMode: CompressionMode? = null,
+    val operationType: HistoryOperationType = HistoryOperationType.COMPRESSED,
+    val savedUriString: String? = null,
+    val createdTimestamp: Long = System.currentTimeMillis(),
     val warning: String? = null,
 ) {
     val resolutionLabel: String = "$width x $height"
+}
+
+enum class HistoryOperationType {
+    COMPRESSED,
+    BACKGROUND_REMOVED,
+    RESIZED,
+    FORMAT_CONVERTED,
+    ENHANCED,
+    COLLAGE,
 }
 
 data class SavedImage(

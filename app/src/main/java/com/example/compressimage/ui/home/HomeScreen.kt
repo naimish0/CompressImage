@@ -30,7 +30,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,14 +37,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.compressimage.ads.BannerAdController
+import com.example.compressimage.ads.BannerPlacement
 import com.example.compressimage.ui.PhotoCompressorUiState
-import com.example.compressimage.ui.components.BannerAd
+import com.example.compressimage.ui.components.AdScreenScaffold
+import com.example.compressimage.ui.components.EmptySpaceBannerAd
 import com.example.compressimage.ui.components.SelectedImageCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     state: PhotoCompressorUiState,
+    bannerAdController: BannerAdController,
+    fullScreenAdVisible: Boolean,
     onAddImages: (List<String>) -> Unit,
     onRemoveImage: (String) -> Unit,
     onOpenEditor: () -> Unit,
@@ -58,7 +62,10 @@ fun HomeScreen(
         onAddImages(uris.map { it.toString() })
     }
 
-    Scaffold(
+    AdScreenScaffold(
+        bannerAdController = bannerAdController,
+        fullScreenAdVisible = fullScreenAdVisible,
+        hasBottomContent = state.selectedImages.isNotEmpty(),
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Photo Compressor") },
@@ -74,27 +81,22 @@ fun HomeScreen(
                 },
             )
         },
-        bottomBar = {
-            Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-                if (state.selectedImages.isNotEmpty()) {
-                    Button(
-                        onClick = onOpenEditor,
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Icon(Icons.Outlined.Tune, contentDescription = null)
-                        Spacer(Modifier.width(8.dp))
-                        Text("Preview and configure")
-                    }
-                    Spacer(Modifier.height(8.dp))
+        bottomContent = {
+            if (state.selectedImages.isNotEmpty()) {
+                Button(
+                    onClick = onOpenEditor,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Icon(Icons.Outlined.Tune, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text("Preview and configure")
                 }
-                BannerAd()
             }
         },
-    ) { innerPadding ->
+    ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -190,6 +192,13 @@ fun HomeScreen(
                     ) {
                         Text("Choose JPG, PNG, or WEBP")
                     }
+                }
+                item {
+                    EmptySpaceBannerAd(
+                        placement = BannerPlacement.HOME_EMPTY_SPACE,
+                        bannerAdController = bannerAdController,
+                        hidden = fullScreenAdVisible,
+                    )
                 }
             }
 

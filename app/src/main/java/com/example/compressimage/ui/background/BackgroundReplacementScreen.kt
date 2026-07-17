@@ -33,7 +33,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,16 +51,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.compressimage.ads.BannerAdController
 import com.example.compressimage.domain.model.BackgroundReplacementConfig
 import com.example.compressimage.domain.model.ImageFormat
 import com.example.compressimage.ui.BackgroundUiState
 import com.example.compressimage.ui.PhotoCompressorUiState
+import com.example.compressimage.ui.components.AdScreenScaffold
 import com.example.compressimage.ui.components.FormatChip
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BackgroundReplacementScreen(
     state: PhotoCompressorUiState,
+    bannerAdController: BannerAdController,
+    fullScreenAdVisible: Boolean,
     onBack: () -> Unit,
     onStartRemoval: () -> Unit,
     onCancelRemoval: () -> Unit,
@@ -74,7 +77,10 @@ fun BackgroundReplacementScreen(
     var blue by rememberSaveable { mutableFloatStateOf(0.85f) }
     val customColor = Color(red, green, blue).toArgb()
 
-    Scaffold(
+    AdScreenScaffold(
+        bannerAdController = bannerAdController,
+        fullScreenAdVisible = fullScreenAdVisible,
+        hasBottomContent = state.backgroundState is BackgroundUiState.Running,
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Background") },
@@ -85,11 +91,22 @@ fun BackgroundReplacementScreen(
                 },
             )
         },
-    ) { innerPadding ->
+        bottomContent = {
+            if (state.backgroundState is BackgroundUiState.Running) {
+                Column(
+                    Modifier,
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    Button(onClick = onCancelRemoval, modifier = Modifier.fillMaxWidth()) {
+                        Text("Cancel")
+                    }
+                }
+            }
+        },
+    ) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
@@ -99,7 +116,6 @@ fun BackgroundReplacementScreen(
                     is BackgroundUiState.Running -> RunningCard(
                         progress = backgroundState.progress,
                         stage = backgroundState.stage.label,
-                        onCancel = onCancelRemoval,
                     )
                     BackgroundUiState.Cancelled -> MessageCard(
                         title = "Background removal cancelled",
@@ -232,7 +248,6 @@ private fun StartRemovalCard(onStartRemoval: () -> Unit) {
 private fun RunningCard(
     progress: Float,
     stage: String,
-    onCancel: () -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -242,9 +257,6 @@ private fun RunningCard(
             Text("Processing", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             Text(stage, color = MaterialTheme.colorScheme.onSurfaceVariant)
             LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
-            Button(onClick = onCancel, modifier = Modifier.fillMaxWidth()) {
-                Text("Cancel")
-            }
         }
     }
 }

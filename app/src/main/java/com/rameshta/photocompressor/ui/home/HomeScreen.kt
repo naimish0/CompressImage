@@ -55,6 +55,7 @@ fun HomeScreen(
     onOpenEditor: () -> Unit,
     onOpenHistory: () -> Unit,
     onOpenSettings: () -> Unit,
+    onExternalPickerOpened: () -> Unit = {},
 ) {
     val picker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = MAX_IMAGE_SELECTION),
@@ -122,6 +123,7 @@ fun HomeScreen(
                     ) {
                         Button(
                             onClick = {
+                                onExternalPickerOpened()
                                 picker.launch(
                                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
                                 )
@@ -134,6 +136,7 @@ fun HomeScreen(
                         }
                         OutlinedButton(
                             onClick = {
+                                onExternalPickerOpened()
                                 picker.launch(
                                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
                                 )
@@ -184,6 +187,7 @@ fun HomeScreen(
                 item {
                     FilledTonalButton(
                         onClick = {
+                            onExternalPickerOpened()
                             picker.launch(
                                 PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
                             )

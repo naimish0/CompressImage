@@ -57,6 +57,8 @@ class PhotoCompressorViewModelTest {
 
         val state = viewModel.uiState.value
         assertFalse(state.batch.isRunning)
+        assertEquals(2, state.selectedImages.size)
+        assertTrue(state.visibleSelectedImages.isEmpty())
         assertEquals(2, state.results.size)
         assertEquals(2, state.batch.summary?.successful)
         assertEquals(0, state.batch.summary?.failed)
@@ -140,6 +142,8 @@ class PhotoCompressorViewModelTest {
 
         val state = viewModel.uiState.value
         assertEquals(2, state.results.size)
+        assertEquals(listOf("one", "two", "three"), state.selectedImages.map { it.id })
+        assertEquals(listOf("two"), state.visibleSelectedImages.map { it.id })
         assertEquals(2, state.batch.summary?.successful)
         assertEquals(1, state.batch.summary?.failed)
         assertTrue(state.batch.items.any { it.status == BatchItemStatus.FAILED })
@@ -198,7 +202,7 @@ class PhotoCompressorViewModelTest {
     }
 
     @Test
-    fun compressionKeepsProgressScreenRunningDuringNativeAdDwell() = runTest {
+    fun compressionUsesShortProcessingTransitionDelay() = runTest {
         val repository = FakeImageRepository()
         val viewModel = viewModel(repository)
 
@@ -211,7 +215,7 @@ class PhotoCompressorViewModelTest {
         assertTrue(viewModel.uiState.value.batch.isRunning)
         assertEquals(0, repository.compressCalls)
 
-        advanceTimeBy(10_001)
+        advanceTimeBy(701)
         advanceUntilIdle()
 
         assertFalse(viewModel.uiState.value.batch.isRunning)
@@ -231,6 +235,29 @@ class PhotoCompressorViewModelTest {
         assertEquals(ProcessingStage.COMPLETE, viewModel.uiState.value.batch.items.first().stage)
     }
 
+    @Test
+    fun backgroundRemovalUsesShortProcessingTransitionDelay() = runTest {
+        val backgroundRepository = FakeBackgroundRemovalRepository(
+            result = BackgroundRemovalResult.Success(processedImage("background")),
+        )
+        val viewModel = viewModel(FakeImageRepository(), backgroundRepository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+
+        viewModel.removeBackground()
+        runCurrent()
+
+        assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Running)
+        assertEquals(0, backgroundRepository.calls)
+
+        advanceTimeBy(701)
+        advanceUntilIdle()
+
+        assertEquals(1, backgroundRepository.calls)
+        assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Success)
+    }
+
 
     @Test
     fun backgroundRemovalSuccessStateIsExposed() = runTest {
@@ -248,8 +275,43 @@ class PhotoCompressorViewModelTest {
         advanceUntilIdle()
 
         assertTrue(viewModel.uiState.value.backgroundState is BackgroundUiState.Success)
-        assertEquals(HistoryOperationType.BACKGROUND_REMOVED, historyRepository.historyFlow.value.first().operationType)
-        assertTrue(viewModel.historyUiState.value is HistoryUiState.Content)
+        assertEquals(1, viewModel.uiState.value.selectedImages.size)
+        assertTrue(viewModel.uiState.value.visibleSelectedImages.isEmpty())
+        assertTrue(historyRepository.historyFlow.value.isEmpty())
+        assertEquals(HistoryUiState.Empty, viewModel.historyUiState.value)
+    }
+
+    @Test
+    fun backgroundExportSelectsResultAndRequestsResultNavigation() = runTest {
+        val repository = FakeImageRepository()
+        val historyRepository = FakeHistoryRepository()
+        val viewModel = viewModel(
+            repository,
+            backgroundRepository = FakeBackgroundRemovalRepository(
+                result = BackgroundRemovalResult.Success(processedImage("background")),
+            ),
+            historyRepository = historyRepository,
+        )
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.removeBackground()
+        advanceUntilIdle()
+        viewModel.replaceBackground(BackgroundReplacementConfig.Transparent)
+        advanceUntilIdle()
+
+        val state = viewModel.uiState.value
+        assertEquals("background", state.selectedResultId)
+        assertEquals("background", state.pendingResultNavigationId)
+        assertEquals(1, state.results.size)
+        assertEquals("background", state.results.first().id)
+        assertEquals(0, repository.replaceCalls)
+        assertEquals(1, historyRepository.historyFlow.value.size)
+        assertEquals("background", historyRepository.historyFlow.value.first().id)
+
+        viewModel.consumePendingResultNavigation()
+
+        assertEquals(null, viewModel.uiState.value.pendingResultNavigationId)
     }
 
     @Test
@@ -273,6 +335,7 @@ class PhotoCompressorViewModelTest {
         assertTrue(viewModel.openHistoryItem(item.id))
 
         assertEquals(item.id, viewModel.uiState.value.selectedResultId)
+        assertEquals(1, viewModel.uiState.value.results.size)
         assertEquals(item.id, viewModel.uiState.value.results.first().id)
     }
 
@@ -447,6 +510,8 @@ private class FakeImageRepository(
         private set
     var saveCalls: Int = 0
         private set
+    var replaceCalls: Int = 0
+        private set
 
     override suspend fun loadImageInfo(uriString: String): Result<ImageInfo> {
         val id = uriString.substringAfterLast("/")
@@ -503,6 +568,7 @@ private class FakeImageRepository(
         config: BackgroundReplacementConfig,
         progress: (Float) -> Unit,
     ): Result<ProcessedImage> {
+        replaceCalls += 1
         progress(1f)
         return Result.success(image)
     }

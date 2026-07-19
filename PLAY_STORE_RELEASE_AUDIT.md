@@ -5,6 +5,11 @@ Project: Photo Compressor
 Module audited: `:app`  
 Audit scope: Google Play production gate after adding Google AdMob banner and interstitial ads.
 
+> Historical snapshot: this audit predates the 2026-07-18 remediation pass. The
+> current source includes the ad-placement, legacy-save, resize/memory, privacy
+> UI, model-provenance, and store-asset fixes described in that pass. Release
+> signing and publisher-owned Play/AdMob setup remain intentionally external.
+
 ## Executive Summary
 
 Final verdict: **Not ready**

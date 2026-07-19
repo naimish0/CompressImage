@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
-import com.rameshta.photocompressor.ui.components.InlineHistoryAd
 import com.rameshta.photocompressor.ui.components.PremiumEmptyState
 import com.rameshta.photocompressor.ui.components.PremiumErrorState
 import com.rameshta.photocompressor.ui.components.PremiumIconButton
@@ -26,16 +25,6 @@ import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
 import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
 import com.rameshta.photocompressor.ui.components.ProcessedImageCard
 import com.rameshta.photocompressor.ui.theme.AppSpacing
-
-sealed interface HistoryListItem {
-    data class Content(
-        val item: HistoryItem,
-    ) : HistoryListItem
-
-    data class Ad(
-        val placementKey: String,
-    ) : HistoryListItem
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,41 +77,26 @@ fun HistoryScreen(
                 ) {
                     items(
                         listItems,
-                        key = { item ->
-                            when (item) {
-                                is HistoryListItem.Ad -> item.placementKey
-                                is HistoryListItem.Content -> "history-${item.item.id}"
-                            }
-                        },
-                    ) { listItem ->
-                        when (listItem) {
-                            is HistoryListItem.Ad -> InlineHistoryAd(
-                                placementKey = listItem.placementKey,
-                                bannerAdController = bannerAdController,
-                                hidden = fullScreenAdVisible,
-                            )
-                            is HistoryListItem.Content -> {
-                                val item = listItem.item
-                                Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
-                                    ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
-                                    Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs), modifier = Modifier.fillMaxWidth()) {
-                                        PremiumPrimaryButton(
-                                            text = "Open",
-                                            onClick = { onOpenItem(item.id) },
-                                            modifier = Modifier.weight(1f),
-                                        )
-                                        PremiumOutlinedButton(
-                                            text = "Share",
-                                            onClick = { onShareItem(item.id) },
-                                            modifier = Modifier.weight(1f),
-                                        )
-                                        PremiumOutlinedButton(
-                                            text = "Remove",
-                                            onClick = { onRemoveItem(item.id) },
-                                            modifier = Modifier.weight(1f),
-                                        )
-                                    }
-                                }
+                        key = { item -> "history-${item.id}" },
+                    ) { item ->
+                        Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+                            ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
+                            Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs), modifier = Modifier.fillMaxWidth()) {
+                                PremiumPrimaryButton(
+                                    text = "Open",
+                                    onClick = { onOpenItem(item.id) },
+                                    modifier = Modifier.weight(1f),
+                                )
+                                PremiumOutlinedButton(
+                                    text = "Share",
+                                    onClick = { onShareItem(item.id) },
+                                    modifier = Modifier.weight(1f),
+                                )
+                                PremiumOutlinedButton(
+                                    text = "Remove",
+                                    onClick = { onRemoveItem(item.id) },
+                                    modifier = Modifier.weight(1f),
+                                )
                             }
                         }
                     }
@@ -159,19 +133,6 @@ private fun HistoryErrorState(
 
 internal fun historyListItems(
     history: List<HistoryItem>,
-    interval: Int = INLINE_AD_INTERVAL,
-): List<HistoryListItem> {
-    if (history.isEmpty() || interval <= 0) return history.map { HistoryListItem.Content(it) }
-    return buildList {
-        history.forEachIndexed { index, item ->
-            add(HistoryListItem.Content(item))
-            val position = index + 1
-            val hasMoreItems = position < history.size
-            if (position % interval == 0 && hasMoreItems) {
-                add(HistoryListItem.Ad("history-inline-after-${item.id}"))
-            }
-        }
-    }
+): List<HistoryItem> {
+    return history
 }
-
-private const val INLINE_AD_INTERVAL = 5

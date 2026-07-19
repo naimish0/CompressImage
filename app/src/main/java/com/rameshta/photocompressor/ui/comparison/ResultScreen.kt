@@ -39,6 +39,7 @@ import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.EmptySpaceBannerAd
 import com.rameshta.photocompressor.ui.components.ImagePreviewBox
 import com.rameshta.photocompressor.ui.components.InfoRow
+import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
 import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumEmptyState
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
@@ -74,6 +75,8 @@ fun ResultScreen(
     AdScreenScaffold(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
+        showTopBanner = true,
+        showBottomBanner = true,
         topBar = {
             PremiumTopAppBar(
                 title = "Compare result",
@@ -117,6 +120,13 @@ fun ResultScreen(
             item {
                 EmptySpaceBannerAd(
                     placement = BannerPlacement.RESULT_EMPTY_SPACE,
+                    bannerAdController = bannerAdController,
+                    hidden = fullScreenAdVisible,
+                )
+            }
+
+            item {
+                InlineNativeAdvancedAd(
                     bannerAdController = bannerAdController,
                     hidden = fullScreenAdVisible,
                 )

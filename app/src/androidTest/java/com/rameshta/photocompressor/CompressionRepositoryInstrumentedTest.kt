@@ -16,6 +16,7 @@ import com.rameshta.photocompressor.domain.model.TargetSizePreset
 import com.rameshta.photocompressor.util.AdaptiveCompressionPlanner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -52,8 +53,8 @@ class CompressionRepositoryInstrumentedTest {
             .minAcceptableQuality
         assertNotNull(result.outputQuality)
         assertTrue(result.outputQuality!! >= balancedFloor)
-        assertTrue(result.width <= info.width)
-        assertTrue(result.height <= info.height)
+        assertEquals(info.width, result.width)
+        assertEquals(info.height, result.height)
         assertTrue(File(result.filePath).length() == result.sizeBytes)
     }
 

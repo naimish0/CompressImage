@@ -3,6 +3,7 @@ package com.rameshta.photocompressor.util
 import com.rameshta.photocompressor.domain.model.Dimension
 import com.rameshta.photocompressor.domain.model.ResizeConfig
 import com.rameshta.photocompressor.domain.model.ResizeMode
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 data class ResizeValidation(
@@ -75,7 +76,12 @@ object ResizeCalculator {
         val width = resize.customWidth.trim().toIntOrNull()
         val height = resize.customHeight.trim().toIntOrNull()
         return when {
-            width != null && height != null -> Dimension(width, height)
+            resize.maintainAspectRatio && width != null && height != null -> fitInside(
+                originalWidth = originalWidth,
+                originalHeight = originalHeight,
+                maxWidth = width,
+                maxHeight = height,
+            )
             resize.maintainAspectRatio && width != null -> Dimension(
                 width = width,
                 height = aspectHeight(width, originalWidth, originalHeight),
@@ -84,7 +90,30 @@ object ResizeCalculator {
                 width = aspectWidth(height, originalWidth, originalHeight),
                 height = height,
             )
+            width != null && height != null -> Dimension(width, height)
             else -> null
         }
+    }
+
+    /**
+     * Treats the two custom dimensions as a bounding box when aspect-ratio locking is enabled.
+     * This keeps every image in a mixed-aspect batch proportional instead of stretching all of
+     * them to the first image's exact width and height.
+     */
+    private fun fitInside(
+        originalWidth: Int,
+        originalHeight: Int,
+        maxWidth: Int,
+        maxHeight: Int,
+    ): Dimension {
+        if (maxWidth <= 0 || maxHeight <= 0) return Dimension(maxWidth, maxHeight)
+        val scale = min(
+            maxWidth.toDouble() / originalWidth.toDouble(),
+            maxHeight.toDouble() / originalHeight.toDouble(),
+        )
+        return Dimension(
+            width = (originalWidth * scale).roundToInt().coerceAtLeast(1),
+            height = (originalHeight * scale).roundToInt().coerceAtLeast(1),
+        )
     }
 }

@@ -4,6 +4,11 @@ Audit date: 2026-07-17
 Project: Photo Compressor  
 Scope: Android application security/privacy audit for Google Play publication.
 
+> Historical snapshot: this audit predates the 2026-07-18 remediation pass.
+> Recheck the current source and `legal/MODEL_PROVENANCE.md` for the updated
+> model artifact, privacy UI, and storage behavior. Signing and publisher-owned
+> identity/hosting remain external by design.
+
 ## Executive Verdict
 
 **Release recommendation: Not ready for Play production upload.**

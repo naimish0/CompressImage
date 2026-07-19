@@ -13,10 +13,9 @@ Source: https://developers.google.com/admob/android
 
 Maven coordinate reviewed: `com.google.android.gms:play-services-ads:25.4.0`
 
-Usage: Google AdMob top, bottom, inline, and empty-space banner ads plus
-History-open and Save-click interstitial ads. The app must use test ad units
-during development and production ad units only after Play Console and AdMob
-setup is complete.
+Usage: Google AdMob banner, native, interstitial, and app-open advertising.
+Development builds use Google's sample ad units; release builds use the
+publisher's production units.
 
 Data disclosure reference: https://developers.google.com/admob/android/privacy/play-data-disclosure
 
@@ -35,23 +34,27 @@ Maven coordinate reviewed: `com.google.android.ump:user-messaging-platform:4.0.0
 Usage: Requests consent information, displays required consent forms, and
 provides privacy-options access where required before requesting ads.
 
-## Reviewed But Not Bundled
+## Background Removal
 
 ### U2-Net / U2-NetP
 
 Source: https://github.com/xuebinqin/U-2-Net
 
-Repository source-code license: Apache License 2.0
+Upstream project license: Apache License 2.0
 
-Usage: Background-removal model converted to ONNX for on-device inference.
+Usage: Bundled background-removal model for on-device inference.
 
-Modification: Converted from official PyTorch weights to ONNX opset 17 with
-constant folding. No quantization applied.
+Packaged artifact source:
+https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx
 
-Important note: the exact pretrained weight redistribution terms were not
-independently found in the official repository files. This build relies on the
-project owner's explicit confirmation that the official U2-NetP weights may be
-used commercially and redistributed in the app.
+Packaged SHA-256:
+`309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8`
+
+The public rembg release artifact is byte-identical to the artifact published
+by the Apache-2.0-declared `Heliosoph/u2net-onnx` model repository. See
+`legal/MODEL_PROVENANCE.md` for the pinned source and full evidence chain.
+
+License texts: `legal/U2NET_LICENSE.txt`, `legal/REMBG_LICENSE.txt`
 
 ### ONNX Runtime Android
 

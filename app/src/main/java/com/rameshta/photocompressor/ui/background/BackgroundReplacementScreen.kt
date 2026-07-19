@@ -87,6 +87,8 @@ fun BackgroundReplacementScreen(
     AdScreenScaffold(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
+        showTopBanner = true,
+        showBottomBanner = true,
         hasBottomContent = state.backgroundState is BackgroundUiState.Running,
         topBar = {
             PremiumTopAppBar(
@@ -228,13 +230,12 @@ fun BackgroundReplacementScreen(
                     }
                 }
             }
-            if (state.backgroundState !is BackgroundUiState.Success) {
-                item {
-                    InlineNativeAdvancedAd(
-                        bannerAdController = bannerAdController,
-                        hidden = fullScreenAdVisible,
-                    )
-                }
+
+            item {
+                InlineNativeAdvancedAd(
+                    bannerAdController = bannerAdController,
+                    hidden = fullScreenAdVisible,
+                )
             }
         }
     }

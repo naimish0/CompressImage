@@ -13,7 +13,6 @@ import com.rameshta.photocompressor.domain.model.ResizeConfig
 import com.rameshta.photocompressor.domain.model.ResizeMode
 import com.rameshta.photocompressor.domain.model.TargetSize
 import com.rameshta.photocompressor.domain.model.TargetSizePreset
-import com.rameshta.photocompressor.ui.history.HistoryListItem
 import com.rameshta.photocompressor.ui.history.historyListItems
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -70,6 +69,54 @@ class UtilityTest {
         )
         assertFalse(upscale.validation.isValid)
         assertTrue(upscale.upscales)
+
+        val allowedUpscale = ResizeCalculator.calculate(
+            800,
+            600,
+            ResizeConfig(
+                mode = ResizeMode.CUSTOM,
+                customWidth = "1600",
+                customHeight = "1200",
+                allowUpscale = true,
+            ),
+        )
+        assertTrue(allowedUpscale.validation.isValid)
+        assertEquals(Dimension(1600, 1200), allowedUpscale.dimension)
+    }
+
+    @Test
+    fun customAspectLockedDimensionsAreABoundingBoxForMixedAspectBatches() {
+        val resize = ResizeConfig(
+            mode = ResizeMode.CUSTOM,
+            customWidth = "1200",
+            customHeight = "900",
+            maintainAspectRatio = true,
+        )
+
+        val landscape = ResizeCalculator.calculate(4000, 3000, resize)
+        val portrait = ResizeCalculator.calculate(2000, 4000, resize)
+
+        assertEquals(Dimension(1200, 900), landscape.dimension)
+        assertEquals(Dimension(450, 900), portrait.dimension)
+        assertTrue(landscape.validation.isValid)
+        assertTrue(portrait.validation.isValid)
+    }
+
+    @Test
+    fun customDimensionsCanStillStretchWhenAspectLockIsOff() {
+        val result = ResizeCalculator.calculate(
+            2000,
+            4000,
+            ResizeConfig(
+                mode = ResizeMode.CUSTOM,
+                customWidth = "1200",
+                customHeight = "900",
+                maintainAspectRatio = false,
+            ),
+        )
+
+        assertEquals(Dimension(1200, 900), result.dimension)
+        assertTrue(result.validation.isValid)
     }
 
     @Test
@@ -124,25 +171,31 @@ class UtilityTest {
     }
 
     @Test
-    fun adPlacementPolicyAllowsBannersAndNonBlockingInterstitialPlacements() {
+    fun adPlacementPolicyAllowsOneAnchoredBannerAndNaturalInterstitialPlacement() {
         val policy = AdPlacementPolicy()
 
         BannerPlacement.entries.forEach { placement ->
-            assertTrue(policy.isBannerEligible(placement))
+            assertEquals(
+                placement in setOf(
+                    BannerPlacement.TOP,
+                    BannerPlacement.BOTTOM,
+                    BannerPlacement.HOME_EMPTY_SPACE,
+                    BannerPlacement.RESULT_EMPTY_SPACE,
+                ),
+                policy.isBannerEligible(placement),
+            )
         }
         assertTrue(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
-        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.SAVE_CLICKED))
     }
 
     @Test
-    fun historyInlineAdsAppearAfterEveryFiveContentItemsOnly() {
+    fun historyListContainsContentOnly() {
         val mixedItems = historyListItems((1..6).map { testProcessedImage("item-$it") })
 
-        assertEquals(7, mixedItems.size)
-        assertTrue(mixedItems[0] is HistoryListItem.Content)
-        assertTrue(mixedItems[4] is HistoryListItem.Content)
-        assertTrue(mixedItems[5] is HistoryListItem.Ad)
-        assertTrue(mixedItems[6] is HistoryListItem.Content)
+        assertEquals(6, mixedItems.size)
+        assertEquals("item-1", mixedItems[0].id)
+        assertEquals("item-5", mixedItems[4].id)
+        assertEquals("item-6", mixedItems[5].id)
         assertEquals(0, historyListItems(emptyList()).size)
     }
 

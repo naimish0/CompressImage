@@ -301,12 +301,11 @@ private fun ErrorHistoryScreenPreview() {
 private fun SettingsScreenPreview() {
     PreviewApp {
         SettingsScreen(
-            keepOriginal = true,
             privacyOptionsRequired = true,
             bannerAdController = PreviewBannerAdController,
             fullScreenAdVisible = false,
-            onKeepOriginal = {},
             onPrivacyOptions = {},
+            onPrivacyPolicy = {},
             onBack = {},
         )
     }

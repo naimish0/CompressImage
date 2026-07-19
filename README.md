@@ -25,12 +25,14 @@ Release builds use the production AdMob identifiers centralized in
 SDK manifest metadata, one banner ad-unit ID is used for every banner placement,
 and one interstitial ad-unit ID is used for every interstitial placement.
 
-Before Play Store release, add a final privacy policy URL, production signing,
-verified background-removal model licence records, AdMob GDPR/US privacy
-messages, app-ads.txt, and Play Console data-safety disclosures.
+Before Play Store release, add the publisher's final privacy-policy URL and
+production signing, then complete AdMob privacy messages, app-ads.txt, and Play
+Console declarations using the prepared release documentation.
 
 ## Background Removal
 
 The app includes an offline `BackgroundRemovalRepository` implementation using ONNX Runtime Android and a bundled U2-NetP ONNX model. The workflow runs on-device, exports a transparent PNG, and does not upload user images.
 
-The U2-NetP model provenance, conversion process, checksums, tensor contract, and license notes are documented in `legal/MODEL_PROVENANCE.md`. This build relies on the project owner's explicit confirmation that the official pretrained U2-NetP weights may be used commercially and redistributed in the app.
+The U2-NetP model's pinned public artifact, checksum, redistribution chain,
+tensor contract, and included license notices are documented in
+`legal/MODEL_PROVENANCE.md`.

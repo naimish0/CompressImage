@@ -42,8 +42,12 @@ class GoogleInterstitialAdManager @Inject constructor(
         placements.forEach(::preloadPlacement)
     }
 
+    override fun recordSuccessfulAction() {
+        placementPolicy.recordSuccessfulAction()
+    }
+
     override fun canShow(placement: InterstitialPlacement): Boolean {
-        return placementPolicy.isInterstitialEligible(placement) &&
+        return placementPolicy.canShowInterstitial(placement) &&
             canLoadAd() &&
             interstitialAds[placement] != null &&
             placement !in loadingPlacements &&
@@ -106,6 +110,12 @@ class GoogleInterstitialAdManager @Inject constructor(
             onFinished()
             return
         }
+        if (!placementPolicy.allowCurrentShowOpportunity(placement)) {
+            fullscreenAdCoordinator.release(suppressNextAppOpen = false)
+            preload(placement)
+            onFinished()
+            return
+        }
         isShowing = true
         var finished = false
         fun finishOnce() {
@@ -115,6 +125,7 @@ class GoogleInterstitialAdManager @Inject constructor(
         }
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdShowedFullScreenContent() {
+                placementPolicy.recordInterstitialShown()
                 logDebug("${placement.name} interstitial shown.")
             }
 
@@ -163,7 +174,10 @@ class GoogleInterstitialAdManager @Inject constructor(
     private fun adUnitIdFor(placement: InterstitialPlacement): String {
         return when (placement) {
             InterstitialPlacement.HISTORY_OPENED -> configuration.historyInterstitialAdUnitId
-            InterstitialPlacement.SAVE_CLICKED -> configuration.saveInterstitialAdUnitId
+            InterstitialPlacement.SAVE_CLICKED,
+            InterstitialPlacement.SHARE_CLICKED,
+            InterstitialPlacement.OPEN_CLICKED,
+            -> configuration.saveInterstitialAdUnitId
         }
     }
 

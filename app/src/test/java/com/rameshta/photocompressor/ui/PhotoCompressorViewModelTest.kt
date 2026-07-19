@@ -442,6 +442,33 @@ class PhotoCompressorViewModelTest {
     }
 
     @Test
+    fun deniedLegacyStoragePermissionCancelsOnlyTheMatchingPendingSave() = runTest {
+        val repository = FakeImageRepository()
+        val viewModel = viewModel(repository)
+
+        viewModel.addImageUris(listOf("uri://one"))
+        advanceUntilIdle()
+        viewModel.startCompression()
+        advanceUntilIdle()
+        viewModel.saveSelected()
+
+        val pending = viewModel.uiState.value.pendingAdAction as PendingAdAction.SaveResult
+        viewModel.cancelPendingSave(pending.requestId)
+        advanceUntilIdle()
+
+        assertEquals(PendingAdAction.None, viewModel.uiState.value.pendingAdAction)
+        assertEquals(0, repository.saveCalls)
+        assertTrue(viewModel.uiState.value.message.orEmpty().contains("Storage access"))
+
+        // A stale permission callback must not cancel a later request.
+        viewModel.saveSelected()
+        val later = viewModel.uiState.value.pendingAdAction as PendingAdAction.SaveResult
+        viewModel.cancelPendingSave(pending.requestId)
+
+        assertEquals(later, viewModel.uiState.value.pendingAdAction)
+    }
+
+    @Test
     fun saveSelectedAfterInterstitialPerformsSaveWithoutQueuingAnotherAd() = runTest {
         val repository = FakeImageRepository()
         val historyRepository = FakeHistoryRepository()

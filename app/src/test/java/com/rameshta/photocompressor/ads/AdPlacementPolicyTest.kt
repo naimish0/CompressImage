@@ -18,24 +18,24 @@ class AdPlacementPolicyTest {
             elapsedRealtimeMillis = { now },
         )
 
-        assertFalse(policy.canShowInterstitial(InterstitialPlacement.HISTORY_OPENED))
+        assertFalse(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
         repeat(3) { policy.recordSuccessfulAction() }
-        assertTrue(policy.canShowInterstitial(InterstitialPlacement.HISTORY_OPENED))
-        assertFalse(policy.allowCurrentShowOpportunity(InterstitialPlacement.HISTORY_OPENED))
-        assertFalse(policy.canShowInterstitial(InterstitialPlacement.HISTORY_OPENED))
+        assertTrue(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
+        assertFalse(policy.allowCurrentShowOpportunity(InterstitialPlacement.WORKFLOW_COMPLETED))
+        assertFalse(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
 
         repeat(3) { policy.recordSuccessfulAction() }
-        assertTrue(policy.allowCurrentShowOpportunity(InterstitialPlacement.HISTORY_OPENED))
+        assertTrue(policy.allowCurrentShowOpportunity(InterstitialPlacement.WORKFLOW_COMPLETED))
         policy.recordInterstitialShown()
 
         repeat(3) { policy.recordSuccessfulAction() }
-        assertFalse(policy.canShowInterstitial(InterstitialPlacement.HISTORY_OPENED))
+        assertFalse(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
         now += 180_000L
-        assertTrue(policy.allowCurrentShowOpportunity(InterstitialPlacement.HISTORY_OPENED))
+        assertTrue(policy.allowCurrentShowOpportunity(InterstitialPlacement.WORKFLOW_COMPLETED))
         policy.recordInterstitialShown()
 
         repeat(3) { policy.recordSuccessfulAction() }
         now += 180_000L
-        assertFalse(policy.canShowInterstitial(InterstitialPlacement.HISTORY_OPENED))
+        assertFalse(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
     }
 }

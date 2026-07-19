@@ -62,7 +62,6 @@ import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.FormatChip
-import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
 import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
@@ -241,12 +240,6 @@ fun BackgroundReplacementScreen(
                 }
             }
 
-            item {
-                InlineNativeAdvancedAd(
-                    bannerAdController = bannerAdController,
-                    hidden = fullScreenAdVisible,
-                )
-            }
         }
     }
 }

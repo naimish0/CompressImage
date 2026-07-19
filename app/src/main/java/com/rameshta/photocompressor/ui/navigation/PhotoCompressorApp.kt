@@ -144,7 +144,6 @@ fun PhotoCompressorApp(
         if (consumePendingRequest) {
             viewModel.consumePendingAdAction()
         }
-        showOptionalInterstitial(InterstitialPlacement.HISTORY_OPENED)
     }
 
     fun navigateBackFromResult() {
@@ -157,6 +156,7 @@ fun PhotoCompressorApp(
         if (resultKey == lastRecordedSuccessfulResultKey) return
         lastRecordedSuccessfulResultKey = resultKey
         interstitialAdManager.recordSuccessfulAction()
+        showOptionalInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED)
     }
 
     fun selectAppLanguage(languageTag: String?) {
@@ -330,37 +330,27 @@ fun PhotoCompressorApp(
                 onBack = { navigateBackFromResult() },
                 onSelectResult = viewModel::selectResult,
                 onSaveSelected = { requestedName ->
-                    showOptionalInterstitial(InterstitialPlacement.SAVE_CLICKED) {
-                        viewModel.saveSelected(requestedName)
-                    }
+                    viewModel.saveSelected(requestedName)
                 },
                 onSaveAll = {
-                    showOptionalInterstitial(InterstitialPlacement.SAVE_CLICKED) {
-                        viewModel.saveAllResults()
-                    }
+                    viewModel.saveAllResults()
                 },
                 onShareSelected = {
                     viewModel.selectedResult()?.let { image ->
-                        showOptionalInterstitial(InterstitialPlacement.SHARE_CLICKED) {
-                            appOpenAdManager.suppressNextForegroundAd()
-                            startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
-                        }
+                        appOpenAdManager.suppressNextForegroundAd()
+                        startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
                     }
                 },
                 onShareAll = {
                     if (state.results.isNotEmpty()) {
-                        showOptionalInterstitial(InterstitialPlacement.SHARE_CLICKED) {
-                            appOpenAdManager.suppressNextForegroundAd()
-                            startSafely(context) { context.startActivity(imageShareController.shareManyIntent(state.results)) }
-                        }
+                        appOpenAdManager.suppressNextForegroundAd()
+                        startSafely(context) { context.startActivity(imageShareController.shareManyIntent(state.results)) }
                     }
                 },
                 onOpenImage = {
                     viewModel.selectedResult()?.let { image ->
-                        showOptionalInterstitial(InterstitialPlacement.OPEN_CLICKED) {
-                            appOpenAdManager.suppressNextForegroundAd()
-                            startSafely(context) { context.startActivity(imageShareController.openIntent(image)) }
-                        }
+                        appOpenAdManager.suppressNextForegroundAd()
+                        startSafely(context) { context.startActivity(imageShareController.openIntent(image)) }
                     }
                 },
                 onCompressAnother = {
@@ -390,20 +380,16 @@ fun PhotoCompressorApp(
                 fullScreenAdVisible = fullScreenAdVisible,
                 onBack = { navController.popBackStack() },
                 onOpenItem = { id ->
-                    showOptionalInterstitial(InterstitialPlacement.OPEN_CLICKED) {
-                        if (viewModel.openHistoryItem(id)) {
-                            navController.navigate(Routes.RESULT) {
-                                launchSingleTop = true
-                            }
+                    if (viewModel.openHistoryItem(id)) {
+                        navController.navigate(Routes.RESULT) {
+                            launchSingleTop = true
                         }
                     }
                 },
                 onShareItem = { id ->
                     state.history.firstOrNull { it.id == id }?.let { image ->
-                        showOptionalInterstitial(InterstitialPlacement.SHARE_CLICKED) {
-                            appOpenAdManager.suppressNextForegroundAd()
-                            startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
-                        }
+                        appOpenAdManager.suppressNextForegroundAd()
+                        startSafely(context) { context.startActivity(imageShareController.shareOneIntent(image)) }
                     }
                 },
                 onRemoveItem = viewModel::removeHistoryItem,

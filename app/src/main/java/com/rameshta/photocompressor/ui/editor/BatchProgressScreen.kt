@@ -31,7 +31,6 @@ import com.rameshta.photocompressor.ui.BatchItemStatus
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.BatchStatusCard
-import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
 import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
@@ -146,13 +145,6 @@ fun BatchProgressScreen(
                         )
                     }
                 }
-            }
-
-            item {
-                InlineNativeAdvancedAd(
-                    bannerAdController = bannerAdController,
-                    hidden = fullScreenAdVisible,
-                )
             }
 
             items(state.batch.items, key = { it.imageId }) { item ->

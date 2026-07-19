@@ -1,5 +1,15 @@
 # Play Store Listing
 
+## Default English Metadata
+
+App title (16/30 characters):
+`Photo Compressor`
+
+Short description (66/80 characters):
+`Compress photos in batch, resize, convert, and remove backgrounds.`
+
+The title and short-description counts above were verified as Unicode character counts.
+
 ## Assets
 
 App icon:
@@ -11,10 +21,6 @@ Feature graphic:
 Phone screenshots to upload:
 `play-store/upload-phone-screenshots/` — eight 1560 x 3120, 24-bit RGB PNGs
 with a 1:2 aspect ratio. The narrow side padding preserves the complete app UI.
-
-## Short Description
-
-Compress photos in batch, resize, convert, and remove backgrounds.
 
 ## Full Description
 
@@ -34,29 +40,54 @@ Key features:
 - Export transparent PNGs or choose a background color.
 - View recent compressed and background-removed images in History.
 
-Your selected images are processed on your device by app code. The app uses Android's system image picker, so you choose the images you want to work with. An internet connection may be used to load advertisements and advertising consent information.
+Your selected images and generated results are processed on your device by app code. The app does not upload image content for compression, conversion, resizing, comparison, or background removal. Android's system photo picker lets you choose specific images without giving the app read access to your complete photo library.
+
+On Android 9 and earlier, Android may ask for storage write access when you save a generated image to the shared Pictures collection. Android 10 and later use the system media collection without that broad storage permission.
+
+This app contains ads. When consent and device settings permit ad requests, Google Mobile Ads may display banner and native ads within app screens, interstitial ads at eligible History, Save, Share, and Open opportunities, and app-open ads on eligible returns from the background. An internet connection may be used to retrieve advertisements and advertising consent information. Core image selection and processing work on the device.
 
 Photo Compressor is built for quick everyday image cleanup, smaller sharing files, product photos, documents, social posts, and background removal workflows.
 
-## Privacy Policy URL
+Full description character count: **2,030/4,000**.
 
-Publisher-provided information is still required before publishing. Finalize and
-host `PRIVACY_POLICY.md` at a public HTTPS URL, then paste that URL into Play
-Console. A repository review cannot supply the publisher's legal identity,
-support contact, effective date, target-audience decision, or hosted URL.
+## Privacy Policy
 
-Current local draft:
-`PRIVACY_POLICY.md`
+The repository source is `PRIVACY_POLICY.md`. Finalize it with the publisher-owned identity and contact details, host the final policy as an active, publicly accessible, non-geofenced, non-editable HTTPS webpage (not a PDF), and paste that URL into Play Console. Keep the hosted copy, repository copy, in-app policy, Data safety form, and actual SDK behavior consistent.
 
-The local draft still contains placeholders for effective date, legal developer name, support contact, and children/target-audience statement.
+## Publisher-Owned Fields
 
-## Recommended 8 Phone Screenshots
+Do not submit placeholders for these values:
 
-1. `01-home-select-images.png` - Compress one image, compress images in batch, or remove a background.
-2. `02-home-batch-selected.png` - Select one image or many images and keep everything local on your device.
-3. `03-custom-size-ui.png` - Set a custom target size in KB or MB before compressing.
-4. `04-batch-compression-progress.png` - Track batch compression progress and review every image in the queue.
-5. `05-compare-result.png` - Compare original and processed images before saving, sharing, or opening the result.
-6. `06-result-actions.png` - Save, share, open, or process another image from the result screen.
-7. `07-background-export.png` - Export a transparent or colored background as PNG, WEBP, or JPG.
-8. `08-history.png` - Find your recent compressed and background-removed images in history.
+| Play field | Required value |
+| --- | --- |
+| Legal publisher/developer name | **TODO — publisher must provide the exact public legal or trading name.** |
+| Support email | **TODO — publisher must provide and monitor a public support address.** |
+| Website | **TODO — publisher must provide the final public website URL.** |
+| Privacy policy URL | **TODO — publisher must host the finalized policy as an active, publicly accessible, non-geofenced, non-editable HTTPS webpage (not a PDF).** |
+| App category and tags | **TODO — publisher must select the accurate category and tags in Play Console.** |
+| Target audience | **TODO — publisher must choose the actual intended age groups; keep the privacy policy, ads configuration, and store content consistent with that decision.** |
+
+## Play Console Publication Checklist
+
+- [ ] **Data safety:** complete the form using the current app and every included SDK, including Google Mobile Ads and User Messaging Platform; verify collection, sharing, purposes, encryption, retention, and deletion answers against the final privacy policy.
+- [ ] **App access:** verify that the submitted build has no login or restricted areas, then complete the App access declaration and add instructions if any restricted path is introduced.
+- [ ] **Contains ads:** declare **Yes**; release builds enable Google Mobile Ads.
+- [ ] **Advertising ID:** complete the Advertising ID declaration for the Google Mobile Ads integration and confirm the merged release manifest before upload.
+- [ ] **Target audience and content:** complete the publisher's intended-age selection and all resulting Families/ads questions.
+- [ ] **Content rating:** submit a new questionnaire that describes image processing, user-selected media, sharing, and advertising accurately.
+- [ ] **Health apps declaration:** verify the release has no health features, then submit the applicable no-health-features declaration.
+- [ ] **COVID-19 declaration:** verify the release has no COVID-19 contact-tracing or status functionality, then submit the applicable no-functionality declaration.
+- [ ] **Release notes:** write version-specific notes for the exact signed bundle being uploaded; do not reuse implementation notes from another build.
+- [ ] **AdMob and app-ads.txt:** configure required privacy messages, publish app-ads.txt on the final developer website, and verify its status in AdMob.
+- [ ] **Signing:** build a fresh release AAB after all source changes, sign it with the production upload key, and verify the artifact before upload.
+- [ ] **Play developer account/profile:** verify the Play contact email and phone and the public developer email. For an organization account, also verify the public developer phone, organization phone and website, D-U-N-S number, and linked payments-profile details where applicable.
+- [ ] **Android developer verification:** register the package name `com.rameshta.photocompressor` through the March 2026 Android developer-verification flow and verify signing-key ownership if Play requests it, ahead of the September 2026 rollout.
+- [ ] **New-personal-account device verification:** if Play Console requires it for this account, use the Play Console mobile app to verify access to a non-rooted physical Android 10-or-later device.
+- [ ] **Testing and production access:** complete the tests required for this developer-account type, including any closed-testing duration and tester-count requirement shown by Play Console, before applying for production access.
+- [ ] **Store contact and URLs:** enter the final legal publisher name, support email, website, and compliant hosted privacy-policy URL from the table above.
+- [ ] **Category and tags:** select and review the final category/tags before rollout.
+- [ ] **Localized listings:** publish only translations that have been reviewed against the actual localized resources. The in-app language selector can fall back to English where a dedicated translation is not packaged.
+
+## Phone Screenshots
+
+Upload exactly the eight files in `play-store/upload-phone-screenshots/`, in filename order. The canonical upload-to-source mapping and captions are maintained in `play-store/screenshots/captions.md`.

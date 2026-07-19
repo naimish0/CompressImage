@@ -1,5 +1,6 @@
 package com.rameshta.photocompressor.ui.comparison
 
+import android.text.format.Formatter
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -25,16 +26,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.BannerPlacement
+import com.rameshta.photocompressor.domain.model.CompressionMode
+import com.rameshta.photocompressor.domain.model.ImageFormat
 import com.rameshta.photocompressor.domain.model.ProcessedImage
 import com.rameshta.photocompressor.ui.PendingAdAction
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
+import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.EmptySpaceBannerAd
 import com.rameshta.photocompressor.ui.components.ImagePreviewBox
@@ -50,8 +59,7 @@ import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
 import com.rameshta.photocompressor.ui.components.ProcessedImageCard
 import com.rameshta.photocompressor.ui.theme.AppSpacing
 import com.rameshta.photocompressor.util.CompressionStatsCalculator
-import com.rameshta.photocompressor.util.FileSizeFormatter
-import java.util.Locale
+import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,7 +77,10 @@ fun ResultScreen(
     onCompressAnother: () -> Unit,
 ) {
     val selected = state.results.firstOrNull { it.id == state.selectedResultId } ?: state.results.firstOrNull()
-    var requestedName by rememberSaveable(selected?.id) { mutableStateOf(selected?.displayName.orEmpty()) }
+    val fallbackOutputName = stringResource(R.string.processed_image)
+    var requestedName by rememberSaveable(selected?.id) {
+        mutableStateOf(selected?.displayName.orEmpty().ifBlank { fallbackOutputName })
+    }
     val actionInProgress = state.isSaving || state.pendingAdAction !is PendingAdAction.None
 
     AdScreenScaffold(
@@ -79,7 +90,7 @@ fun ResultScreen(
         showBottomBanner = true,
         topBar = {
             PremiumTopAppBar(
-                title = "Compare result",
+                title = stringResource(R.string.compare_result),
                 navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
                 onNavigationClick = onBack,
             )
@@ -102,7 +113,7 @@ fun ResultScreen(
 
             if (state.results.size > 1) {
                 item {
-                    Text("Batch results", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.batch_results), style = MaterialTheme.typography.titleMedium)
                 }
                 items(state.results, key = { it.id }) { image ->
                     ProcessedImageCard(
@@ -135,7 +146,7 @@ fun ResultScreen(
             selected.warning?.let { warning ->
                 item {
                     Text(
-                        text = warning,
+                        text = warning.asString(),
                         color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.bodyMedium,
                     )
@@ -148,18 +159,22 @@ fun ResultScreen(
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(AppSpacing.sm),
                     ) {
-                        Text("Save and share", style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.save_and_share), style = MaterialTheme.typography.titleMedium)
                         OutlinedTextField(
                             value = requestedName,
                             onValueChange = { requestedName = it },
-                            label = { Text("Output filename") },
+                            label = { Text(stringResource(R.string.output_filename)) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true,
                         )
                         ResultActionPair(
                             first = { modifier ->
                                 PremiumPrimaryButton(
-                                    text = if (state.isSaving) "Saving..." else "Save",
+                                    text = if (state.isSaving) {
+                                        stringResource(R.string.saving)
+                                    } else {
+                                        stringResource(R.string.save)
+                                    },
                                     onClick = { onSaveSelected(requestedName) },
                                     enabled = !actionInProgress,
                                     loading = state.isSaving,
@@ -169,7 +184,7 @@ fun ResultScreen(
                             },
                             second = { modifier ->
                                 PremiumOutlinedButton(
-                                    text = "Share",
+                                    text = stringResource(R.string.share),
                                     onClick = onShareSelected,
                                     enabled = !actionInProgress,
                                     modifier = modifier,
@@ -180,7 +195,7 @@ fun ResultScreen(
                         ResultActionPair(
                             first = { modifier ->
                                 PremiumOutlinedButton(
-                                    text = "Open",
+                                    text = stringResource(R.string.open),
                                     onClick = onOpenImage,
                                     enabled = !actionInProgress,
                                     modifier = modifier,
@@ -189,7 +204,7 @@ fun ResultScreen(
                             },
                             second = { modifier ->
                                 PremiumSecondaryButton(
-                                    text = "Another",
+                                    text = stringResource(R.string.another),
                                     onClick = onCompressAnother,
                                     modifier = modifier,
                                     icon = Icons.Outlined.AddPhotoAlternate,
@@ -200,7 +215,7 @@ fun ResultScreen(
                             ResultActionPair(
                                 first = { modifier ->
                                     PremiumOutlinedButton(
-                                        text = "Save all",
+                                        text = stringResource(R.string.save_all),
                                         onClick = onSaveAll,
                                         enabled = !actionInProgress,
                                         modifier = modifier,
@@ -208,7 +223,7 @@ fun ResultScreen(
                                 },
                                 second = { modifier ->
                                     PremiumOutlinedButton(
-                                        text = "Share all",
+                                        text = stringResource(R.string.share_all),
                                         onClick = onShareAll,
                                         enabled = !actionInProgress,
                                         modifier = modifier,
@@ -257,25 +272,33 @@ private fun ComparisonPanel(image: ProcessedImage) {
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(Modifier.weight(1f)) {
-                Text("Result ready", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.result_ready), style = MaterialTheme.typography.titleMedium)
                 Text(
-                    "Compare the original and processed output before saving.",
+                    stringResource(R.string.compare_before_saving),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            PremiumSuccessPill("Processed")
+            PremiumSuccessPill(stringResource(R.string.processed))
         }
         BoxWithConstraints {
             if (maxWidth > 700.dp) {
                 Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.sm), modifier = Modifier.fillMaxWidth()) {
-                    PreviewColumn("Original", image.original.uriString, modifier = Modifier.weight(1f))
-                    PreviewColumn("Processed", image.filePath, modifier = Modifier.weight(1f))
+                    PreviewColumn(
+                        stringResource(R.string.original),
+                        image.original.uriString,
+                        modifier = Modifier.weight(1f),
+                    )
+                    PreviewColumn(
+                        stringResource(R.string.processed),
+                        image.filePath,
+                        modifier = Modifier.weight(1f),
+                    )
                 }
             } else {
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.sm)) {
-                    PreviewColumn("Original", image.original.uriString)
-                    PreviewColumn("Processed", image.filePath)
+                    PreviewColumn(stringResource(R.string.original), image.original.uriString)
+                    PreviewColumn(stringResource(R.string.processed), image.filePath)
                 }
             }
         }
@@ -291,46 +314,89 @@ private fun PreviewColumn(
     Column(modifier = modifier) {
         Text(label, style = MaterialTheme.typography.titleSmall)
         Spacer(Modifier.height(AppSpacing.xs))
-        ImagePreviewBox(model = model, contentDescription = "$label image preview")
+        ImagePreviewBox(
+            model = model,
+            contentDescription = stringResource(R.string.image_preview, label),
+        )
     }
 }
 
 @Composable
 private fun StatsPanel(image: ProcessedImage) {
     val stats = CompressionStatsCalculator.calculate(image.original.sizeBytes, image.sizeBytes)
+    val context = LocalContext.current
     PremiumCard {
-        Text("Details", style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.details), style = MaterialTheme.typography.titleMedium)
         Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
-            InfoRow("Original size", FileSizeFormatter.format(stats.originalSizeBytes))
-            InfoRow("Processed size", FileSizeFormatter.format(stats.processedSizeBytes))
+            InfoRow(
+                stringResource(R.string.original_size),
+                Formatter.formatFileSize(context, stats.originalSizeBytes),
+            )
+            InfoRow(
+                stringResource(R.string.processed_size),
+                Formatter.formatFileSize(context, stats.processedSizeBytes),
+            )
             image.requestedTargetBytes?.let { target ->
-                InfoRow("Requested target", FileSizeFormatter.format(target))
+                InfoRow(
+                    stringResource(R.string.requested_target),
+                    Formatter.formatFileSize(context, target),
+                )
             }
             image.targetReached?.let { reached ->
                 InfoRow(
-                    "Target status",
+                    stringResource(R.string.target_status),
                     if (reached) {
-                        "Reached within tolerance"
+                        stringResource(R.string.reached_within_tolerance)
                     } else {
-                        "Not safely achievable"
+                        stringResource(R.string.not_safely_achievable)
                     },
                 )
             }
             if (stats.savedBytes >= 0) {
-                InfoRow("Space saved", FileSizeFormatter.format(stats.savedBytes))
-                InfoRow("Percentage saved", String.format(Locale.US, "%.1f%%", stats.percentageSaved))
+                InfoRow(
+                    stringResource(R.string.space_saved),
+                    Formatter.formatFileSize(context, stats.savedBytes),
+                )
+                InfoRow(
+                    stringResource(R.string.percentage_saved),
+                    stringResource(
+                        R.string.percentage_saved_value,
+                        localizedPercent(stats.percentageSaved),
+                    ),
+                )
             } else {
-                InfoRow("Size increase", FileSizeFormatter.format(-stats.savedBytes))
-                InfoRow("Percentage saved", "0%")
+                InfoRow(
+                    stringResource(R.string.size_increase),
+                    Formatter.formatFileSize(context, -stats.savedBytes),
+                )
+                InfoRow(
+                    stringResource(R.string.percentage_saved),
+                    stringResource(R.string.percentage_saved_value, localizedPercent(0.0)),
+                )
             }
-            InfoRow("Compression ratio", String.format(Locale.US, "%.2f:1", stats.compressionRatio))
-            InfoRow("Original resolution", image.original.resolutionLabel)
-            InfoRow("Processed resolution", image.resolutionLabel)
-            InfoRow("Output format", image.format.displayName)
+            InfoRow(
+                stringResource(R.string.compression_ratio),
+                stringResource(
+                    R.string.compression_ratio_value,
+                    localizedDecimal(stats.compressionRatio),
+                ),
+            )
+            InfoRow(
+                stringResource(R.string.original_resolution),
+                stringResource(R.string.image_resolution, image.original.width, image.original.height),
+            )
+            InfoRow(
+                stringResource(R.string.processed_resolution),
+                stringResource(R.string.image_resolution, image.width, image.height),
+            )
+            InfoRow(stringResource(R.string.output_format), image.format.localizedDisplayName())
             image.compressionMode?.let {
-                InfoRow("Quality mode", it.title)
+                InfoRow(stringResource(R.string.quality_mode), it.localizedTitle())
             }
-            InfoRow("Output quality", image.outputQuality?.toString() ?: "Lossless")
+            InfoRow(
+                stringResource(R.string.output_quality),
+                image.outputQuality?.let { localizedInteger(it) } ?: stringResource(R.string.lossless),
+            )
         }
     }
 }
@@ -341,10 +407,61 @@ private fun EmptyResult(
     onCompressAnother: () -> Unit,
 ) {
     PremiumEmptyState(
-        title = "No compressed result is available.",
-        message = "Select an image and run compression to compare results here.",
-        actionLabel = "Select an image",
+        title = stringResource(R.string.no_result_title),
+        message = stringResource(R.string.no_result_message),
+        actionLabel = stringResource(R.string.select_an_image),
         onAction = onCompressAnother,
         modifier = modifier,
     )
+}
+
+@Composable
+private fun localizedPercent(value: Double): String {
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) {
+        NumberFormat.getPercentInstance(locale).apply {
+            minimumFractionDigits = 1
+            maximumFractionDigits = 1
+        }
+    }
+    return formatter.format(value.coerceAtLeast(0.0) / 100.0)
+}
+
+@Composable
+private fun localizedDecimal(value: Double): String {
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) {
+        NumberFormat.getNumberInstance(locale).apply {
+            minimumFractionDigits = 2
+            maximumFractionDigits = 2
+        }
+    }
+    return formatter.format(value)
+}
+
+@Composable
+private fun localizedInteger(value: Int): String {
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) { NumberFormat.getIntegerInstance(locale) }
+    return formatter.format(value)
+}
+
+@Composable
+private fun CompressionMode.localizedTitle(): String {
+    return stringResource(
+        when (this) {
+            CompressionMode.BEST_QUALITY -> R.string.quality_best_title
+            CompressionMode.BALANCED -> R.string.quality_balanced_title
+            CompressionMode.SMALLEST_SIZE -> R.string.quality_smallest_title
+        },
+    )
+}
+
+@Composable
+private fun ImageFormat.localizedDisplayName(): String {
+    return if (this == ImageFormat.UNKNOWN) {
+        stringResource(R.string.format_unknown)
+    } else {
+        displayName
+    }
 }

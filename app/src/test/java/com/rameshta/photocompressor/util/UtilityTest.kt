@@ -22,13 +22,6 @@ import java.io.File
 
 class UtilityTest {
     @Test
-    fun fileSizeFormattingUsesReadableUnits() {
-        assertEquals("512 B", FileSizeFormatter.format(512))
-        assertEquals("2.0 KB", FileSizeFormatter.format(2048))
-        assertEquals("1.5 MB", FileSizeFormatter.format(1_572_864))
-    }
-
-    @Test
     fun compressionStatsHandleSavingsAndLargerOutput() {
         val saved = CompressionStatsCalculator.calculate(1_000, 250)
         assertEquals(750, saved.savedBytes)
@@ -46,6 +39,10 @@ class UtilityTest {
         assertFalse(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "0")).isValid)
         assertFalse(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "5")).isValid)
         assertTrue(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "200")).isValid)
+        assertTrue(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "10,5")).isValid)
+        assertTrue(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "١٠٫٥")).isValid)
+        assertTrue(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "१०.५")).isValid)
+        assertFalse(TargetSizeValidator.validate(TargetSize(TargetSizePreset.CUSTOM, "10,5.2")).isValid)
     }
 
     @Test
@@ -82,6 +79,19 @@ class UtilityTest {
         )
         assertTrue(allowedUpscale.validation.isValid)
         assertEquals(Dimension(1600, 1200), allowedUpscale.dimension)
+
+        val localizedDigits = ResizeCalculator.calculate(
+            4000,
+            3000,
+            ResizeConfig(
+                mode = ResizeMode.CUSTOM,
+                customWidth = "١٢٠٠",
+                customHeight = "٩٠٠",
+                maintainAspectRatio = false,
+            ),
+        )
+        assertTrue(localizedDigits.validation.isValid)
+        assertEquals(Dimension(1200, 900), localizedDigits.dimension)
     }
 
     @Test

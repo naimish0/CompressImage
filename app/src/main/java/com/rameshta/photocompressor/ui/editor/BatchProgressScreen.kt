@@ -20,8 +20,12 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ui.BatchItemStatus
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
@@ -32,8 +36,8 @@ import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
 import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
-import com.rameshta.photocompressor.ui.percentText
 import com.rameshta.photocompressor.ui.theme.AppSpacing
+import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,7 +60,11 @@ fun BatchProgressScreen(
         hasBottomContent = true,
         topBar = {
             PremiumTopAppBar(
-                title = if (state.batch.isRunning) "Compressing" else "Batch summary",
+                title = if (state.batch.isRunning) {
+                    stringResource(R.string.compressing)
+                } else {
+                    stringResource(R.string.batch_summary)
+                },
                 navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
                 onNavigationClick = onBack.takeUnless { state.batch.isRunning },
             )
@@ -68,7 +76,7 @@ fun BatchProgressScreen(
             ) {
                 if (state.batch.isRunning) {
                     PremiumOutlinedButton(
-                        text = "Cancel",
+                        text = stringResource(R.string.cancel),
                         onClick = onCancel,
                         modifier = Modifier.fillMaxWidth(),
                         icon = Icons.Outlined.Cancel,
@@ -76,14 +84,14 @@ fun BatchProgressScreen(
                 } else {
                     if (failedCount > 0) {
                         PremiumOutlinedButton(
-                            text = "Retry failed",
+                            text = stringResource(R.string.retry_failed),
                             onClick = onRetryFailed,
                             modifier = Modifier.fillMaxWidth(),
                             icon = Icons.Outlined.Refresh,
                         )
                     }
                     PremiumPrimaryButton(
-                        text = "Compare results",
+                        text = stringResource(R.string.compare_results),
                         onClick = onViewResults,
                         enabled = successCount > 0,
                         modifier = Modifier.fillMaxWidth(),
@@ -102,8 +110,15 @@ fun BatchProgressScreen(
             item {
                 PremiumCard {
                     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                        Text("Total progress", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
-                        Text(state.totalProgress.percentText(), style = MaterialTheme.typography.labelLarge)
+                        Text(
+                            stringResource(R.string.total_progress),
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold,
+                        )
+                        Text(
+                            stringResource(R.string.progress_percentage, localizedPercent(state.totalProgress)),
+                            style = MaterialTheme.typography.labelLarge,
+                        )
                     }
                     Spacer(Modifier.height(AppSpacing.xs))
                     LinearProgressIndicator(
@@ -113,8 +128,19 @@ fun BatchProgressScreen(
                     state.batch.summary?.let { summary ->
                         Spacer(Modifier.height(AppSpacing.xs))
                         Text(
-                            text = "Done: ${summary.successful} • Failed: ${summary.failed}" +
-                                if (summary.cancelled) " • Cancelled" else "",
+                            text = if (summary.cancelled) {
+                                stringResource(
+                                    R.string.batch_summary_counts_cancelled,
+                                    summary.successful,
+                                    summary.failed,
+                                )
+                            } else {
+                                stringResource(
+                                    R.string.batch_summary_counts,
+                                    summary.successful,
+                                    summary.failed,
+                                )
+                            },
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -134,4 +160,16 @@ fun BatchProgressScreen(
             }
         }
     }
+}
+
+@Composable
+private fun localizedPercent(value: Float): String {
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) {
+        NumberFormat.getPercentInstance(locale).apply {
+            minimumFractionDigits = 0
+            maximumFractionDigits = 0
+        }
+    }
+    return formatter.format(value.coerceIn(0f, 1f).toDouble())
 }

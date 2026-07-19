@@ -1,101 +1,184 @@
 # Privacy Policy
 
-Effective date: July 18, 2026
-Developer: Photo Compressor developer
-Contact: Use the developer contact published on Photo Compressor's Google Play
-listing.
+Effective date: July 19, 2026
 App: Photo Compressor
+
+> **Publisher action required before release**
+>
+> - **Developer/publisher:** Replace this item with the exact legal developer or
+>   entity name used for the Google Play listing.
+> - **Privacy contact:** Add a direct, monitored privacy email address or other
+>   direct contact method. A reference to the Play listing alone is not enough.
+> - **Public policy URL:** Host the completed policy as an active, publicly
+>   accessible, non-geofenced, non-editable HTTPS webpage (not a PDF), and enter
+>   that URL in Google Play Console. Keep the same current policy in Play and in
+>   the app.
+
+The publication fields above are intentionally not populated because the
+repository does not contain verified publisher identity, contact, or hosting
+information. They must be completed before this policy or the app is published.
 
 ## Summary
 
 Photo Compressor is an image utility for selecting, compressing, resizing,
-converting, saving, opening, sharing, and removing backgrounds from images.
-Image processing happens entirely on your device. An internet connection may be
-used to load advertisements and advertising consent information.
+converting, saving, opening, sharing, and removing or replacing image
+backgrounds. Image processing, including ONNX background removal, happens on
+the device. The app does not create user accounts and does not use a developer
+backend to upload or process images. Internet access is used by Google
+advertising and advertising-consent services.
 
-## Images And Files
+## Images And File Access
 
-The app uses Android's system Photo Picker so you choose the specific images the
-app can access. The app reads selected image content from Android content URIs
-and processes it locally on the device.
+The app uses Android's system Photo Picker so the user chooses the specific
+images the app can access. It reads each selected content URI and local metadata
+needed to display and process the image, including the display name, media type,
+file size, dimensions, format, transparency information, and EXIF orientation.
+When the content provider permits it, the app takes a persisted read permission
+so a source referenced by local History can be opened again. The current
+implementation does not release that persisted permission when History is
+cleared.
 
-App code does not upload user-selected images, generated images, filenames,
-content URIs, EXIF metadata, or image-processing data to Google AdMob or any
-other server.
+App code does not upload selected images, generated images, filenames, content
+URIs, EXIF metadata, or image-processing data to Google Mobile Ads or another
+server. This statement concerns image handling by app code; Google's automatic
+advertising-SDK data practices are disclosed separately below.
 
-Generated images can be saved by you to `Pictures/Photo Compressor` through
-Android MediaStore, opened in another app, or shared using Android share intents.
-The app keeps a local History list with source and output content references,
-display name, MIME type, size, dimensions, operation type, and timestamp so
-saved and processed outputs can remain visible after the app restarts. The
-History list does not store full-resolution bitmap data.
+Processing creates temporary output files in the app cache. A generated image
+is opened in another app or shared through Android intents only after the user
+chooses the corresponding action. When the user chooses Save, the app writes
+the output through Android MediaStore. Saved images are placed in
+`Pictures/Photo Compressor` and remain under the user's control in the device
+gallery or file manager.
 
-Temporary processing files can be stored in the app cache. The operating system
-or clearing app storage may remove app-cache files. Saved gallery outputs remain
-under your control in your device gallery.
+On Android 9 (API 28) and earlier only, a user-initiated Save requests the
+legacy `WRITE_EXTERNAL_STORAGE` permission so the output can be written to the
+public Pictures folder. The manifest limits that permission to API 28 and
+earlier; it is not requested for Save on Android 10 or later.
+
+## Local History, Retention, And Deletion
+
+The app keeps up to 200 History records in app-private Android DataStore. A
+record can include source and output content references or paths, display names,
+MIME types and formats, file sizes, dimensions, transparency information,
+operation and compression details, result or warning information, a saved
+output reference, and a timestamp. History stores metadata and references; the
+actual temporary output image file is stored separately in the app cache. History
+DataStore is excluded from the app's configured cloud-backup and device-transfer
+rules.
+
+Temporary processing outputs may remain in the app cache until Android evicts
+them, the user clears the app cache or storage, the app is uninstalled, or a
+referenced file is successfully deleted by the History cleanup described below.
+Files that are no longer referenced by History may remain in cache until one of
+the system-level cleanup events occurs.
+
+- Removing one History item or using Clear History removes the corresponding
+  local record and attempts to delete only the app-owned temporary output file
+  referenced by that record.
+- Clear History does not delete images already saved in the device gallery,
+  does not guarantee deletion of orphaned or otherwise unreferenced cache files,
+  and does not release persisted read permissions for selected source images.
+- Clearing the app's storage through Android settings removes app-local History
+  and cache data. Clearing only the cache can remove temporary outputs without
+  clearing every stored History record.
+- Saved gallery images must be deleted through the gallery or file manager.
+
+There is no app account and therefore no account-deletion process.
 
 ## Advertising And Consent
 
-The app uses Google AdMob to show a single banner advertisement on eligible
-content screens. Capped interstitial advertisements may appear at a natural
-section transition or before Save, Share, and Open actions after repeated
-completed workflows. Interstitials do not interrupt image selection, processing,
-Back, or exit. App-open ads are skipped on the first app foreground and are limited to
-eligible returns after the app has been in the background. Ads are optional
-content and image processing remains usable if ads fail to load, the device is
-offline, or consent information cannot be loaded.
+The release configuration uses Google AdMob through Google Mobile Ads SDK
+25.4.0. The app implements banner, native, interstitial, and app-open ad formats.
 
-The app uses Google's User Messaging Platform SDK to request consent information,
-display consent forms where required, and provide privacy choices where required.
-Users are not required to consent to personalized advertising to use the core
-image-processing features.
+- Banner ads may appear in eligible content areas, and native ads may appear in
+  eligible inline placements.
+- Interstitial ads are eligible when History is opened and immediately before
+  Save, Share, or Open actions. The current successful-action threshold is zero,
+  so no previously completed workflow is required for the first eligible
+  interstitial opportunity.
+- Once an interstitial reports that it has been shown, another interstitial is
+  blocked for at least three minutes. No more than three interstitials are shown
+  per app-process session.
+- App-open ads may appear on a foreground return after an ad has loaded and the
+  current consent and full-screen eligibility checks pass. The three-minute and
+  three-per-session interstitial limits do not apply to app-open ads.
+- A requested image action continues if an interstitial is unavailable or fails
+  to display. Full-screen ads are suppressed while the app marks image
+  processing as active.
 
-Google and its partners may process advertising-related data, including where
-applicable:
+Core image processing remains usable if ads fail to load, the device is
+offline, or personalized-ad consent is not given.
 
-- IP address, which may be used to estimate approximate location.
-- Advertising ID and other device/account identifiers where permitted.
-- App interactions related to ad serving.
-- Diagnostic information about SDK/app performance.
-- Advertising and consent-related signals.
+The app uses Google User Messaging Platform SDK 4.0.0 to request current consent
+information, display a consent form when Google reports that one is required,
+and offer a privacy-options form when required. Google handles the consent form,
+participating advertising partners, and the resulting consent or privacy-choice
+signals.
 
-Google's privacy information is available at:
+### Data automatically collected and shared by Google Mobile Ads
+
+According to Google's disclosure for Mobile Ads SDK 25.4.0, the SDK
+automatically collects and shares these categories when used:
+
+- **Approximate location:** derived from the device IP address.
+- **App interactions:** user product interactions such as app launches, taps,
+  and ad or video views.
+- **Diagnostics:** SDK and app performance information such as app launch time,
+  hang rate, and energy usage.
+- **Device or other identifiers:** the Android Advertising ID, App Set ID, and,
+  when applicable, other identifiers related to accounts signed in on the
+  device.
+
+Google states that these data are used for advertising or marketing, analytics,
+and fraud prevention, security, and compliance, and that data transmitted by
+the SDK is encrypted in transit using TLS. Collection of particular identifiers
+and the ads delivered can depend on device settings, region, consent choices,
+and Google configuration.
+
+Google's applicable information is available at:
 
 - https://policies.google.com/privacy
 - https://developers.google.com/admob/android/privacy/play-data-disclosure
+- https://developers.google.com/admob/android/privacy
+
+Google controls retention and deletion for data handled by its advertising and
+consent services, subject to Google's policies and the privacy choices it makes
+available.
+
+## Data Security
+
+Local History and configuration are stored in the app's private Android storage,
+while saved images are stored in user-accessible device media storage. Security
+of device-local and saved media also depends on the device, operating system,
+backups, and user settings. As noted above, Google states that Mobile Ads SDK
+network data is encrypted in transit using TLS.
 
 ## On-Device Background Removal
 
-Background removal uses a bundled ONNX model and ONNX Runtime on the device. The
-model is packaged with the app and no remote model download is performed by app
-code.
+Background removal uses a bundled U2-NetP ONNX model and ONNX Runtime on the
+device. The model is packaged with the app. App code does not download a remote
+model or upload an image for this feature.
 
 ## Third-Party Components
 
 The app uses AndroidX, Jetpack Compose, Kotlin coroutines, Hilt/Dagger, Coil,
-OkHttp/Okio transitively through Coil/DataStore, ONNX Runtime Android, Google
-Mobile Ads SDK, and Google User Messaging Platform SDK. Additional notices are
-maintained in `legal/THIRD_PARTY_NOTICES.md`.
-
-## Data Retention And Deletion
-
-The app does not create a user account. To delete app-local temporary data, use
-Android system settings to clear the app's storage/cache. To delete saved output
-images, delete them from your device gallery or file manager.
-
-Advertising and consent data handled by Google is governed by Google's privacy
-terms and the choices available through the consent/privacy options flow where
-required.
+OkHttp/Okio transitively, ONNX Runtime Android, Google Mobile Ads SDK, and Google
+User Messaging Platform SDK. Focused notices for key privacy and model
+components are maintained in `legal/THIRD_PARTY_NOTICES.md` and the other files
+in `legal/`; that focused notice is not an exhaustive dependency inventory.
 
 ## Children
 
 Photo Compressor is a general-purpose utility and is not directed to children
-under 13. The developer does not knowingly collect personal information from
-children through app code. The Play Console target-audience and advertising
-settings must remain consistent with this statement.
+under 13. The automatic Google advertising-SDK practices described above apply
+whenever the SDK is allowed to request ads. The publisher must configure the
+Google Play target-audience and advertising settings consistently with this
+statement and must reassess the implementation and policy before offering the
+app to a child-directed audience.
 
 ## Changes
 
-This policy may be updated to reflect app, legal, or advertising configuration
-changes. The Play Store privacy-policy URL and in-app policy reference must point
-to the same current policy.
+This policy may be updated to reflect changes to the app, law, or advertising
+configuration. The effective date will be changed when the policy is updated.
+The hosted Google Play privacy-policy URL and the in-app policy must contain the
+same current disclosures.

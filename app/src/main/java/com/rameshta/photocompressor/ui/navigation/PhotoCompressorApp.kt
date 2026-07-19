@@ -18,13 +18,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.AppOpenAdManager
 import com.rameshta.photocompressor.ads.AdsInitializer
 import com.rameshta.photocompressor.ads.BannerAdController
@@ -34,12 +40,14 @@ import com.rameshta.photocompressor.ads.InterstitialPlacement
 import com.rameshta.photocompressor.data.storage.ImageShareController
 import com.rameshta.photocompressor.ui.PendingAdAction
 import com.rameshta.photocompressor.ui.PhotoCompressorViewModel
+import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.background.BackgroundReplacementScreen
 import com.rameshta.photocompressor.ui.comparison.ResultScreen
 import com.rameshta.photocompressor.ui.editor.BatchProgressScreen
 import com.rameshta.photocompressor.ui.editor.EditorScreen
 import com.rameshta.photocompressor.ui.history.HistoryScreen
 import com.rameshta.photocompressor.ui.home.HomeScreen
+import com.rameshta.photocompressor.ui.settings.LanguageScreen
 import com.rameshta.photocompressor.ui.settings.SettingsScreen
 import com.rameshta.photocompressor.ui.settings.PrivacyPolicyScreen
 import com.rameshta.photocompressor.ui.theme.AppMotion
@@ -62,9 +70,22 @@ fun PhotoCompressorApp(
     val adsInitializationState by adsInitializer.state.collectAsStateWithLifecycle()
     val fullScreenAdVisible by interstitialAdManager.isFullScreenAdShowing.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val resolvedMessage = state.message?.asString()
+    val layoutDirection = LocalLayoutDirection.current
+    val selectedLanguageTag = AppCompatDelegate.getApplicationLocales().get(0)?.toLanguageTag()
+    val forwardSlideDirection = if (layoutDirection == LayoutDirection.Rtl) {
+        AnimatedContentTransitionScope.SlideDirection.Right
+    } else {
+        AnimatedContentTransitionScope.SlideDirection.Left
+    }
+    val backwardSlideDirection = if (layoutDirection == LayoutDirection.Rtl) {
+        AnimatedContentTransitionScope.SlideDirection.Left
+    } else {
+        AnimatedContentTransitionScope.SlideDirection.Right
+    }
     var pendingLegacySaveAction by remember { mutableStateOf<(() -> Unit)?>(null) }
     var onLegacySavePermissionDenied by remember { mutableStateOf<(() -> Unit)?>(null) }
-    var lastRecordedSuccessfulResultKey by remember { mutableStateOf<String?>(null) }
+    var lastRecordedSuccessfulResultKey by rememberSaveable { mutableStateOf<String?>(null) }
 
     val legacyStoragePermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
@@ -138,6 +159,16 @@ fun PhotoCompressorApp(
         interstitialAdManager.recordSuccessfulAction()
     }
 
+    fun selectAppLanguage(languageTag: String?) {
+        val requestedLocales = languageTag?.let(LocaleListCompat::forLanguageTags)
+            ?: LocaleListCompat.getEmptyLocaleList()
+        if (AppCompatDelegate.getApplicationLocales().toLanguageTags() == requestedLocales.toLanguageTags()) {
+            return
+        }
+        context.findActivity()?.let(appOpenAdManager::suppressForLocaleRecreation)
+        AppCompatDelegate.setApplicationLocales(requestedLocales)
+    }
+
     LaunchedEffect(Unit) {
         context.findActivity()?.let { activity ->
             consentManager.requestConsentInfoUpdate(activity) {
@@ -167,7 +198,7 @@ fun PhotoCompressorApp(
     }
 
     LaunchedEffect(state.message) {
-        state.message?.let { message ->
+        resolvedMessage?.let { message ->
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
             viewModel.consumeMessage()
         }
@@ -204,25 +235,25 @@ fun PhotoCompressorApp(
         startDestination = Routes.HOME,
         enterTransition = {
             slideIntoContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                towards = forwardSlideDirection,
                 animationSpec = tween(AppMotion.screen),
             ) + fadeIn(animationSpec = tween(AppMotion.standard))
         },
         exitTransition = {
             slideOutOfContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Left,
+                towards = forwardSlideDirection,
                 animationSpec = tween(AppMotion.screen),
             ) + fadeOut(animationSpec = tween(AppMotion.fast))
         },
         popEnterTransition = {
             slideIntoContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                towards = backwardSlideDirection,
                 animationSpec = tween(AppMotion.screen),
             ) + fadeIn(animationSpec = tween(AppMotion.standard))
         },
         popExitTransition = {
             slideOutOfContainer(
-                towards = AnimatedContentTransitionScope.SlideDirection.Right,
+                towards = backwardSlideDirection,
                 animationSpec = tween(AppMotion.screen),
             ) + fadeOut(animationSpec = tween(AppMotion.fast))
         },
@@ -269,7 +300,11 @@ fun PhotoCompressorApp(
         }
         composable(Routes.PROGRESS) {
             BackHandler(enabled = state.batch.isRunning) {
-                Toast.makeText(context, "Cancel compression before leaving this screen.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.cancel_compression_before_leaving),
+                    Toast.LENGTH_SHORT,
+                ).show()
             }
             BatchProgressScreen(
                 state = state,
@@ -379,8 +414,10 @@ fun PhotoCompressorApp(
         composable(Routes.SETTINGS) {
             SettingsScreen(
                 privacyOptionsRequired = consentState.privacyOptionsRequired,
+                selectedLanguageTag = selectedLanguageTag,
                 bannerAdController = bannerAdController,
                 fullScreenAdVisible = fullScreenAdVisible,
+                onChooseLanguage = { navController.navigate(Routes.LANGUAGE) },
                 onPrivacyOptions = {
                     context.findActivity()?.let { activity ->
                         appOpenAdManager.suppressNextForegroundAd()
@@ -395,6 +432,13 @@ fun PhotoCompressorApp(
                 onBack = { navController.popBackStack() },
             )
         }
+        composable(Routes.LANGUAGE) {
+            LanguageScreen(
+                selectedLanguageTag = selectedLanguageTag,
+                onLanguageSelected = ::selectAppLanguage,
+                onBack = { navController.popBackStack() },
+            )
+        }
         composable(Routes.PRIVACY) {
             PrivacyPolicyScreen(onBack = { navController.popBackStack() })
         }
@@ -405,8 +449,8 @@ private fun startSafely(context: Context, block: () -> Unit) {
     try {
         block()
     } catch (error: ActivityNotFoundException) {
-        Toast.makeText(context, "No app can handle this action.", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getString(R.string.no_app_can_handle_action), Toast.LENGTH_LONG).show()
     } catch (error: IllegalArgumentException) {
-        Toast.makeText(context, "The image is no longer available.", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getString(R.string.image_no_longer_available), Toast.LENGTH_LONG).show()
     }
 }

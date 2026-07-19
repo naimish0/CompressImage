@@ -1,5 +1,7 @@
 package com.rameshta.photocompressor.backgroundremoval
 
+import com.rameshta.photocompressor.domain.model.BackgroundFailure
+
 data class BackgroundRemovalConfig(
     val inputSize: Int = 320,
     val foregroundThreshold: Float = 0.52f,
@@ -54,12 +56,29 @@ data class ModelMetadata(
     }
 }
 
-sealed class BackgroundRemovalError(message: String, cause: Throwable? = null) : Exception(message, cause) {
-    class MissingModel(cause: Throwable? = null) : BackgroundRemovalError("Background-removal model is missing.", cause)
-    class ModelLoadFailed(cause: Throwable? = null) : BackgroundRemovalError("Could not initialize the background-removal model.", cause)
-    class TensorContractMismatch(message: String) : BackgroundRemovalError(message)
-    class DecodeFailed(cause: Throwable? = null) : BackgroundRemovalError("Could not read the selected image.", cause)
-    class InsufficientMemory(cause: Throwable? = null) : BackgroundRemovalError("The image is too large to process on this device.", cause)
-    class InferenceFailed(cause: Throwable? = null) : BackgroundRemovalError("Background removal failed while running the model.", cause)
-    class ExportFailed(cause: Throwable? = null) : BackgroundRemovalError("Could not create the transparent PNG result.", cause)
+sealed class BackgroundRemovalError(
+    val failure: BackgroundFailure,
+    diagnosticMessage: String = failure.name,
+    cause: Throwable? = null,
+) : Exception(diagnosticMessage, cause) {
+    class MissingModel(cause: Throwable? = null) :
+        BackgroundRemovalError(BackgroundFailure.MODEL_MISSING, cause = cause)
+
+    class ModelLoadFailed(cause: Throwable? = null) :
+        BackgroundRemovalError(BackgroundFailure.MODEL_LOAD_FAILED, cause = cause)
+
+    class TensorContractMismatch(message: String) :
+        BackgroundRemovalError(BackgroundFailure.MODEL_INCOMPATIBLE, message)
+
+    class DecodeFailed(cause: Throwable? = null) :
+        BackgroundRemovalError(BackgroundFailure.DECODE_FAILED, cause = cause)
+
+    class InsufficientMemory(cause: Throwable? = null) :
+        BackgroundRemovalError(BackgroundFailure.OUT_OF_MEMORY, cause = cause)
+
+    class InferenceFailed(cause: Throwable? = null) :
+        BackgroundRemovalError(BackgroundFailure.INFERENCE_FAILED, cause = cause)
+
+    class ExportFailed(cause: Throwable? = null) :
+        BackgroundRemovalError(BackgroundFailure.EXPORT_FAILED, cause = cause)
 }

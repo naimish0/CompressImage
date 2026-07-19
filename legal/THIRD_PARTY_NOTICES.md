@@ -1,9 +1,10 @@
 # Third-Party Notices
 
-Review date: 2026-07-17
+Review date: 2026-07-19
 
-This build includes Google advertising/consent SDKs, ONNX Runtime Android, and
-a U2-NetP ONNX model for offline background removal.
+This focused notice records key privacy and model components in the build:
+Google advertising/consent SDKs, ONNX Runtime Android, and a U2-NetP ONNX model
+for offline background removal. It is not an exhaustive dependency inventory.
 
 ## Advertising And Consent
 
@@ -19,11 +20,21 @@ publisher's production units.
 
 Data disclosure reference: https://developers.google.com/admob/android/privacy/play-data-disclosure
 
-Important note: Google states that the SDK may automatically collect and share
-advertising-related data such as IP address, user product interactions,
-diagnostics, and device/account identifiers for advertising, analytics, and
-fraud-prevention purposes. This app must reflect that in Play Console Data
-Safety and the public privacy policy.
+Google's data disclosure for this SDK version states that the SDK automatically
+collects and shares:
+
+- IP address, which may be used to estimate approximate location.
+- User product interactions such as app launches, taps, and video views.
+- Diagnostic information such as app launch time, hang rate, and energy usage.
+- Device and account identifiers, including Android Advertising ID, App Set ID,
+  and, when applicable, identifiers related to accounts signed in on the device.
+
+Google lists advertising or marketing, analytics, and fraud prevention,
+security, and compliance as purposes for these data. Google also states that
+data transmitted by the SDK is encrypted in transit using TLS. The categories
+must be reflected in Play Console Data Safety and the public and in-app privacy
+policies. App code does not provide selected images, generated images,
+filenames, content URIs, EXIF metadata, or image-processing data to this SDK.
 
 ### Google User Messaging Platform SDK
 
@@ -31,8 +42,11 @@ Source: https://developers.google.com/admob/android/privacy
 
 Maven coordinate reviewed: `com.google.android.ump:user-messaging-platform:4.0.0`
 
-Usage: Requests consent information, displays required consent forms, and
-provides privacy-options access where required before requesting ads.
+Usage: Requests consent information from Google, displays a consent form when
+Google reports that one is required, and provides privacy-options access when
+required. Google handles the form, participating advertising partners, and the
+resulting consent or privacy-choice signals. Core image processing does not
+require consent to personalized advertising.
 
 ## Background Removal
 

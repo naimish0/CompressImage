@@ -64,8 +64,9 @@ fun InlineNativeAdvancedAd(
     }
 
     DisposableEffect(nativeAd) {
+        val adToDispose = nativeAd
         onDispose {
-            nativeAd?.destroy()
+            adToDispose?.destroy()
         }
     }
 
@@ -103,6 +104,11 @@ fun InlineNativeAdvancedAd(
     AndroidView(
         factory = { createNativeAdView(it) },
         update = { adView -> bindNativeAd(adView, loadedAd, colorScheme) },
+        onRelease = { adView ->
+            (adView.parent as? ViewGroup)?.removeView(adView)
+            adView.removeAllViews()
+            adView.destroy()
+        },
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = MIN_INLINE_NATIVE_AD_HEIGHT_DP.dp),
@@ -280,7 +286,7 @@ private fun bindNativeAd(
     views.headline.text = nativeAd.headline
     views.body.bindOptionalText(nativeAd.body)
     views.callToAction.bindOptionalText(nativeAd.callToAction)
-    views.advertiser.bindOptionalText(nativeAd.advertiser ?: "Sponsored")
+    views.advertiser.bindOptionalText(nativeAd.advertiser ?: context.getString(R.string.sponsored))
     nativeAd.icon?.drawable?.let { drawable ->
         views.icon.setImageDrawable(drawable)
         views.icon.visibility = View.VISIBLE

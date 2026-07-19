@@ -6,15 +6,16 @@ import android.content.Context
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.rameshta.photocompressor.BuildConfig
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
+import com.rameshta.photocompressor.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -36,6 +37,8 @@ class AppOpenAdManager @Inject constructor(
     private var loadTimeMs = 0L
     private var lastShownAtMs = 0L
     private var backgroundedAtMs: Long? = null
+    private var backgroundedLocaleTags: String? = null
+    private var localeRecreationSourceActivityId: Int? = null
     private var activeOperation = false
     private var suppressNextForegroundAd = false
     private var hasSeenProcessStart = false
@@ -81,16 +84,31 @@ class AppOpenAdManager @Inject constructor(
         suppressNextForegroundAd = true
     }
 
+    fun suppressForLocaleRecreation(activity: Activity) {
+        localeRecreationSourceActivityId = System.identityHashCode(activity)
+    }
+
     override fun onStart(owner: LifecycleOwner) {
         val coldStart = !hasSeenProcessStart
         hasSeenProcessStart = true
         val backgroundedAt = backgroundedAtMs
         backgroundedAtMs = null
-        showIfEligible(coldStart = coldStart, backgroundedAt = backgroundedAt)
+        val localeChangedWhileBackgrounded = backgroundedLocaleTags?.let { previousLocaleTags ->
+            previousLocaleTags != currentLocaleTags()
+        } == true
+        backgroundedLocaleTags = null
+        val localeRecreationPending = localeRecreationSourceActivityId != null
+        localeRecreationSourceActivityId = null
+        showIfEligible(
+            coldStart = coldStart,
+            backgroundedAt = backgroundedAt,
+            suppressForLocaleChange = localeChangedWhileBackgrounded || localeRecreationPending,
+        )
     }
 
     override fun onStop(owner: LifecycleOwner) {
         backgroundedAtMs = SystemClock.elapsedRealtime()
+        backgroundedLocaleTags = currentLocaleTags()
     }
 
     override fun onActivityStarted(activity: Activity) {
@@ -99,6 +117,10 @@ class AppOpenAdManager @Inject constructor(
 
     override fun onActivityResumed(activity: Activity) {
         updateCurrentActivity(activity)
+        val sourceActivityId = localeRecreationSourceActivityId
+        if (sourceActivityId != null && sourceActivityId != System.identityHashCode(activity)) {
+            localeRecreationSourceActivityId = null
+        }
     }
 
     override fun onActivityDestroyed(activity: Activity) {
@@ -118,11 +140,16 @@ class AppOpenAdManager @Inject constructor(
     private fun showIfEligible(
         coldStart: Boolean,
         backgroundedAt: Long?,
+        suppressForLocaleChange: Boolean,
     ) {
         if (!canRequestAppOpenAd()) return
         val now = SystemClock.elapsedRealtime()
         if (suppressNextForegroundAd) {
             suppressNextForegroundAd = false
+            loadAdIfPossible()
+            return
+        }
+        if (suppressForLocaleChange) {
             loadAdIfPossible()
             return
         }
@@ -202,6 +229,14 @@ class AppOpenAdManager @Inject constructor(
         if (isValidHostActivity(activity)) {
             currentActivity = WeakReference(activity)
         }
+    }
+
+    private fun currentLocaleTags(): String {
+        return ContextCompat.getContextForLanguage(context)
+            .resources
+            .configuration
+            .locales
+            .toLanguageTags()
     }
 
     private fun isValidHostActivity(activity: Activity): Boolean {

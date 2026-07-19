@@ -22,7 +22,7 @@ object ResizeCalculator {
         resize: ResizeConfig,
     ): ResizeValidation {
         if (originalWidth <= 0 || originalHeight <= 0) {
-            return ResizeValidation(null, ValidationResult(false, "Original image dimensions are unavailable."))
+            return ResizeValidation(null, ValidationResult(false, ValidationMessage.ORIGINAL_DIMENSIONS_UNAVAILABLE))
         }
 
         val target = when (resize.mode) {
@@ -31,20 +31,20 @@ object ResizeCalculator {
             ResizeMode.PERCENT_50 -> scale(originalWidth, originalHeight, 0.50)
             ResizeMode.PERCENT_75 -> scale(originalWidth, originalHeight, 0.75)
             ResizeMode.CUSTOM -> custom(originalWidth, originalHeight, resize)
-                ?: return ResizeValidation(null, ValidationResult(false, "Enter valid width and height."))
+                ?: return ResizeValidation(null, ValidationResult(false, ValidationMessage.ENTER_VALID_WIDTH_AND_HEIGHT))
         }
 
         if (target.width < MIN_DIMENSION || target.height < MIN_DIMENSION) {
-            return ResizeValidation(target, ValidationResult(false, "Output dimensions are too small."))
+            return ResizeValidation(target, ValidationResult(false, ValidationMessage.OUTPUT_DIMENSIONS_TOO_SMALL))
         }
         if (target.width > MAX_DIMENSION || target.height > MAX_DIMENSION) {
-            return ResizeValidation(target, ValidationResult(false, "Output dimensions are too large."))
+            return ResizeValidation(target, ValidationResult(false, ValidationMessage.OUTPUT_DIMENSIONS_TOO_LARGE))
         }
         val upscales = target.width > originalWidth || target.height > originalHeight
         if (upscales && !resize.allowUpscale) {
             return ResizeValidation(
                 target,
-                ValidationResult(false, "Upscaling is off. Enable it to make the image larger."),
+                ValidationResult(false, ValidationMessage.UPSCALING_IS_OFF),
                 upscales = true,
             )
         }
@@ -73,8 +73,8 @@ object ResizeCalculator {
         originalHeight: Int,
         resize: ResizeConfig,
     ): Dimension? {
-        val width = resize.customWidth.trim().toIntOrNull()
-        val height = resize.customHeight.trim().toIntOrNull()
+        val width = resize.customWidth.toLocalizedIntOrNull()
+        val height = resize.customHeight.toLocalizedIntOrNull()
         return when {
             resize.maintainAspectRatio && width != null && height != null -> fitInside(
                 originalWidth = originalWidth,

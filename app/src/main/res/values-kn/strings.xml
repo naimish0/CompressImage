@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Language selector -->
+    <string name="language">ಭಾಷೆ</string>
+    <string name="choose_language">ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="current_language">ಪ್ರಸ್ತುತ ಭಾಷೆ: %1$s</string>
+    <string name="search_languages">ಭಾಷೆಗಳನ್ನು ಹುಡುಕಿ</string>
+    <string name="search_languages_hint">ಭಾಷೆಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="no_languages_found">ಹೊಂದಿಕೆಯಾಗುವ ಯಾವುದೇ ಭಾಷೆ ಕಂಡುಬಂದಿಲ್ಲ</string>
+    <string name="system_default">ಸಿಸ್ಟಮ್ ಡೀಫಾಲ್ಟ್</string>
+
+    <!-- Common actions and accessibility -->
+    <string name="share_results_chooser">ಸಂಕುಚಿತ ಚಿತ್ರವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="share_multiple_results_chooser">ಸಂಕುಚಿತ ಚಿತ್ರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="ad_label">ಜಾಹೀರಾತು</string>
+    <string name="sponsored">ಪ್ರಾಯೋಜಿತ</string>
+    <string name="cd_go_back">ಹಿಂದಕ್ಕೆ ಹೋಗಿ</string>
+    <string name="retry">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="unknown_size">ತಿಳಿಯದ ಗಾತ್ರ</string>
+    <string name="format_unknown">ತಿಳಿಯದ ಸ್ವರೂಪ</string>
+    <string name="select_an_image">ಒಂದು ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="select_images">ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="add_more">ಇನ್ನಷ್ಟು ಸೇರಿಸಿ</string>
+    <string name="remove">ತೆಗೆದುಹಾಕಿ</string>
+    <string name="cancel">ರದ್ದುಮಾಡಿ</string>
+    <string name="save">ಉಳಿಸಿ</string>
+    <string name="share">ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="open">ತೆರೆಯಿರಿ</string>
+    <string name="another">ಮತ್ತೊಂದು</string>
+    <string name="save_all">ಎಲ್ಲವನ್ನೂ ಉಳಿಸಿ</string>
+    <string name="share_all">ಎಲ್ಲವನ್ನೂ ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="processed">ಸಂಸ್ಕರಿಸಿದ್ದು</string>
+    <string name="original">ಮೂಲ</string>
+    <string name="custom">ಕಸ್ಟಮ್</string>
+    <string name="failed">ವಿಫಲವಾಗಿದೆ</string>
+    <string name="cancelled">ರದ್ದಾಗಿದೆ</string>
+    <string name="done">ಮುಗಿದಿದೆ</string>
+    <string name="complete">ಪೂರ್ಣ</string>
+    <string name="processing">ಸಂಸ್ಕರಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="saving">ಉಳಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="exporting">ರಫ್ತು ಮಾಡಲಾಗುತ್ತಿದೆ</string>
+    <string name="lossless">ನಷ್ಟರಹಿತ</string>
+    <string name="cd_open_history">ಇತಿಹಾಸವನ್ನು ತೆರೆಯಿರಿ</string>
+    <string name="cd_open_settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ</string>
+    <string name="cd_clear_history">ಇತಿಹಾಸವನ್ನು ಅಳಿಸಿ</string>
+    <string name="preview_of_image">%1$s ಚಿತ್ರದ ಮುನ್ನೋಟ</string>
+    <string name="processed_preview_of_image">ಸಂಸ್ಕರಿಸಿದ %1$s ಚಿತ್ರದ ಮುನ್ನೋಟ</string>
+    <string name="remove_image">%1$s ಚಿತ್ರವನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+    <string name="image_preview">%1$s ಚಿತ್ರದ ಮುನ್ನೋಟ</string>
+
+    <!-- Home -->
+    <string name="preview_and_configure">ಮುನ್ನೋಟ ನೋಡಿ ಮತ್ತು ಹೊಂದಿಸಿ</string>
+    <string name="home_intro">ಒಂದು ಚಿತ್ರವನ್ನು ಅಥವಾ ಹಲವು ಚಿತ್ರಗಳನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಿ, ಅಥವಾ ಹಿನ್ನೆಲೆಯನ್ನು ತೆಗೆದುಹಾಕಿ.</string>
+    <string name="home_formats_privacy">JPG, PNG ಅಥವಾ WEBP ಆಯ್ಕೆಮಾಡಿ. ನೀವು ಹಂಚಿಕೊಳ್ಳುವ ಅಥವಾ ಉಳಿಸುವವರೆಗೆ ನಿಮ್ಮ ಚಿತ್ರಗಳು ಸಾಧನದಲ್ಲಿಯೇ ಇರುತ್ತವೆ.</string>
+    <string name="reading_image_details">ಚಿತ್ರದ ವಿವರಗಳನ್ನು ಓದಲಾಗುತ್ತಿದೆ…</string>
+    <plurals name="selected_images">
+        <item quantity="one">%1$d ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ</item>
+        <item quantity="other">%1$d ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ</item>
+    </plurals>
+
+    <!-- Editor -->
+    <string name="selected_images_heading">ಆಯ್ಕೆಮಾಡಿದ ಚಿತ್ರಗಳು</string>
+    <string name="count">ಸಂಖ್ಯೆ</string>
+    <string name="original_total">ಮೂಲದ ಒಟ್ಟು ಗಾತ್ರ</string>
+    <string name="first_image">ಮೊದಲ ಚಿತ್ರ</string>
+    <string name="output_resolution">ಔಟ್‌ಪುಟ್ ರೆಸಲ್ಯೂಶನ್</string>
+    <string name="image_resolution">%1$d × %2$d</string>
+    <string name="image_resolution_and_format">%1$s • %2$s</string>
+    <string name="image_metadata_summary">%1$s • %2$s • %3$s</string>
+    <string name="target_size">ಗುರಿ ಗಾತ್ರ</string>
+    <string name="target_size_note">ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಗಾತ್ರದತ್ತ ಸಂಕುಚಿತಗೊಳಿಸುತ್ತದೆ. ಗುಣಮಟ್ಟವನ್ನು ಕಾಪಾಡಲು ನಿಜವಾದ ಔಟ್‌ಪುಟ್ ಬದಲಾಗಬಹುದು.</string>
+    <string name="quality_mode">ಗುಣಮಟ್ಟದ ಮೋಡ್</string>
+    <string name="resize">ಗಾತ್ರ ಬದಲಿಸಿ</string>
+    <string name="width">ಅಗಲ</string>
+    <string name="height">ಎತ್ತರ</string>
+    <string name="maintain_aspect_ratio">ಆಕಾರ ಅನುಪಾತವನ್ನು ಉಳಿಸಿಕೊಳ್ಳಿ</string>
+    <string name="allow_upscaling">ಗಾತ್ರ ಹೆಚ್ಚಿಸಲು ಅನುಮತಿಸಿ</string>
+    <string name="output_format">ಔಟ್‌ಪುಟ್ ಸ್ವರೂಪ</string>
+    <string name="low_size_format_tip">ಕಡಿಮೆ ಗಾತ್ರಕ್ಕೆ ಸಂಕುಚಿತಗೊಳಿಸುವಾಗ PNG ಬಳಸಬೇಡಿ. JPG ಅಥವಾ WEBP ಸಾಮಾನ್ಯವಾಗಿ ಚಿಕ್ಕ ಫೈಲ್‌ಗಳನ್ನು ಸೃಷ್ಟಿಸುತ್ತವೆ.</string>
+    <string name="jpg_background">JPG ಹಿನ್ನೆಲೆ</string>
+    <string name="compress_image">ಚಿತ್ರವನ್ನು ಸಂಕುಚಿತಗೊಳಿಸಿ</string>
+    <string name="remove_background">ಹಿನ್ನೆಲೆಯನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+    <string name="quality_best_title">ಅತ್ಯುತ್ತಮ ಗುಣಮಟ್ಟ</string>
+    <string name="quality_best_description">ವಿವರಕ್ಕೆ ಆದ್ಯತೆ ನೀಡಿ, ಕಾಣಿಸುವ ಮಸುಕನ್ನು ತಪ್ಪಿಸುತ್ತದೆ.</string>
+    <string name="quality_balanced_title">ಸಮತೋಲಿತ</string>
+    <string name="quality_balanced_description">ಗಾತ್ರವನ್ನು ಗಮನಾರ್ಹವಾಗಿ ಕಡಿಮೆ ಮಾಡುತ್ತಾ ಉತ್ತಮ ಗುಣಮಟ್ಟ ನೀಡುತ್ತದೆ.</string>
+    <string name="quality_smallest_title">ಅತ್ಯಂತ ಚಿಕ್ಕ ಫೈಲ್</string>
+    <string name="quality_smallest_description">ಬಳಕೆಗೆ ಯೋಗ್ಯವಾಗಿರುವಂತೆ ಹೆಚ್ಚು ಬಲವಾಗಿ ಸಂಕುಚಿತಗೊಳಿಸುತ್ತದೆ.</string>
+    <string name="alpha_to_jpg_warning">JPG ಪಾರದರ್ಶಕತೆಯನ್ನು ಉಳಿಸುವುದಿಲ್ಲ. ಪಾರದರ್ಶಕ ಪ್ರದೇಶಗಳು ಆಯ್ಕೆಮಾಡಿದ ಹಿನ್ನೆಲೆ ಬಣ್ಣದಿಂದ ತುಂಬಲ್ಪಡುತ್ತವೆ.</string>
+
+    <!-- Validation -->
+    <string name="validation_enter_target_size">ಗುರಿ ಗಾತ್ರವನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="validation_target_size_greater_than_zero">ಗುರಿ ಗಾತ್ರವು ಸೊನ್ನೆಗಿಂತ ಹೆಚ್ಚಿರಬೇಕು.</string>
+    <string name="validation_target_size_too_small">ವಿಶ್ವಾಸಾರ್ಹ ಚಿತ್ರ ಔಟ್‌ಪುಟ್‌ಗೆ ಗುರಿ ಗಾತ್ರ ತುಂಬಾ ಚಿಕ್ಕದಾಗಿದೆ.</string>
+    <string name="validation_target_size_too_large">ಗುರಿ ಗಾತ್ರವು ಈ ಅಪ್ಲಿಕೇಶನ್ ಬೆಂಬಲಿಸುವ ಮಿತಿಗಿಂತ ದೊಡ್ಡದಾಗಿದೆ.</string>
+    <string name="validation_enter_valid_number">ಮಾನ್ಯ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="validation_use_mb_for_large_targets">ದೊಡ್ಡ ಗುರಿಗಳಿಗೆ MB ಬಳಸಿ.</string>
+    <string name="validation_original_dimensions_unavailable">ಮೂಲ ಆಯಾಮಗಳು ಲಭ್ಯವಿಲ್ಲ.</string>
+    <string name="validation_enter_valid_width_and_height">ಮಾನ್ಯ ಅಗಲ ಮತ್ತು ಎತ್ತರವನ್ನು ನಮೂದಿಸಿ.</string>
+    <string name="validation_output_dimensions_too_small">ಔಟ್‌ಪುಟ್ ಆಯಾಮಗಳು ತುಂಬಾ ಚಿಕ್ಕದಾಗಿವೆ.</string>
+    <string name="validation_output_dimensions_too_large">ಔಟ್‌ಪುಟ್ ಆಯಾಮಗಳು ತುಂಬಾ ದೊಡ್ಡದಾಗಿವೆ.</string>
+    <string name="validation_upscaling_is_off">ಗಾತ್ರ ಹೆಚ್ಚಿಸುವಿಕೆ ಆಫ್ ಆಗಿದೆ. ಚಿತ್ರವನ್ನು ದೊಡ್ಡದಾಗಿಸಲು ಅದನ್ನು ಆನ್ ಮಾಡಿ.</string>
+    <string name="error_invalid_output_size">ಔಟ್‌ಪುಟ್ ಗಾತ್ರ ಅಮಾನ್ಯವಾಗಿದೆ.</string>
+
+    <!-- Batch processing -->
+    <string name="compressing">ಸಂಕುಚಿತಗೊಳಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="batch_summary">ಬ್ಯಾಚ್ ಸಾರಾಂಶ</string>
+    <string name="retry_failed">ವಿಫಲವಾದವುಗಳನ್ನು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="compare_results">ಫಲಿತಾಂಶಗಳನ್ನು ಹೋಲಿಸಿ</string>
+    <string name="total_progress">ಒಟ್ಟು ಪ್ರಗತಿ</string>
+    <string name="batch_summary_counts">%1$d ಪೂರ್ಣಗೊಂಡಿವೆ • %2$d ವಿಫಲವಾಗಿವೆ</string>
+    <string name="batch_summary_counts_cancelled">%1$d ಪೂರ್ಣಗೊಂಡಿವೆ • %2$d ವಿಫಲವಾಗಿವೆ • ರದ್ದಾಗಿದೆ</string>
+    <string name="queued">ಸರದಿಯಲ್ಲಿದೆ</string>
+    <string name="reading_image">ಚಿತ್ರವನ್ನು ಓದಲಾಗುತ್ತಿದೆ</string>
+    <string name="optimizing_resolution">ರೆಸಲ್ಯೂಶನ್ ಉತ್ತಮಗೊಳಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="validating_result">ಫಲಿತಾಂಶವನ್ನು ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="preparing_image">ಚಿತ್ರವನ್ನು ಸಿದ್ಧಪಡಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="removing_background">ಹಿನ್ನೆಲೆಯನ್ನು ತೆಗೆದುಹಾಕಲಾಗುತ್ತಿದೆ</string>
+    <string name="refining_edges">ಅಂಚುಗಳನ್ನು ಸುಧಾರಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="finalizing">ಅಂತಿಮಗೊಳಿಸಲಾಗುತ್ತಿದೆ</string>
+    <string name="processing_item">%2$d ರಲ್ಲಿ %1$d ಅನ್ನು ಸಂಸ್ಕರಿಸಲಾಗುತ್ತಿದೆ</string>
+
+    <!-- Background removal -->
+    <string name="background">ಹಿನ್ನೆಲೆ</string>
+    <string name="background_removal_cancelled">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ರದ್ದಾಗಿದೆ</string>
+    <string name="background_cancelled_message">ಮೂಲ ಚಿತ್ರ ಬದಲಾಗಿಲ್ಲ. ನೀವು ಸಿದ್ಧರಾದಾಗ ಮತ್ತೆ ಪ್ರಾರಂಭಿಸಿ.</string>
+    <string name="background_removal_unavailable">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="background_removal_failed">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ವಿಫಲವಾಗಿದೆ</string>
+    <string name="preview">ಮುನ್ನೋಟ</string>
+    <string name="transparent_background_preview">ಪಾರದರ್ಶಕ ಹಿನ್ನೆಲೆಯ ಮುನ್ನೋಟ</string>
+    <string name="selected_background_preview">ಆಯ್ಕೆಮಾಡಿದ ಹಿನ್ನೆಲೆ ಬಣ್ಣದೊಂದಿಗೆ ಚಿತ್ರದ ಮುನ್ನೋಟ</string>
+    <string name="replacement_color">ಬದಲಿ ಬಣ್ಣ</string>
+    <string name="custom_color">ಕಸ್ಟಮ್ ಬಣ್ಣ</string>
+    <string name="red">ಕೆಂಪು</string>
+    <string name="green">ಹಸಿರು</string>
+    <string name="blue">ನೀಲಿ</string>
+    <string name="export_format">ರಫ್ತು ಸ್ವರೂಪ</string>
+    <string name="export_background">ಹಿನ್ನೆಲೆಯನ್ನು ರಫ್ತುಮಾಡಿ</string>
+    <string name="background_offline_note">ಈ ಸಾಧನದಲ್ಲಿಯೇ ಕಾರ್ಯನಿರ್ವಹಿಸಿ ಪಾರದರ್ಶಕ PNG ರಫ್ತು ಮಾಡುತ್ತದೆ. ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದಿಲ್ಲ.</string>
+    <string name="start_removal">ತೆಗೆದುಹಾಕುವಿಕೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ</string>
+    <string name="transparent">ಪಾರದರ್ಶಕ</string>
+    <string name="background_color_accessibility">%1$s ಹಿನ್ನೆಲೆ ಬಣ್ಣ</string>
+    <string name="color_white">ಬಿಳಿ</string>
+    <string name="color_black">ಕಪ್ಪು</string>
+    <string name="color_blue">ನೀಲಿ</string>
+    <string name="color_red">ಕೆಂಪು</string>
+    <string name="color_green">ಹಸಿರು</string>
+    <string name="color_yellow">ಹಳದಿ</string>
+    <string name="color_gray">ಬೂದು</string>
+    <string name="color_orange">ಕಿತ್ತಳೆ</string>
+    <string name="color_purple">ನೇರಳೆ</string>
+    <string name="color_cyan">ಸಯಾನ್</string>
+    <string name="color_brown">ಕಂದು</string>
+    <string name="color_pink">ಗುಲಾಬಿ</string>
+
+    <!-- Results -->
+    <string name="compare_result">ಫಲಿತಾಂಶವನ್ನು ಹೋಲಿಸಿ</string>
+    <string name="batch_results">ಬ್ಯಾಚ್ ಫಲಿತಾಂಶಗಳು</string>
+    <string name="save_and_share">ಉಳಿಸಿ ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="output_filename">ಔಟ್‌ಪುಟ್ ಫೈಲ್ ಹೆಸರು</string>
+    <string name="result_ready">ಫಲಿತಾಂಶ ಸಿದ್ಧವಾಗಿದೆ</string>
+    <string name="compare_before_saving">ಉಳಿಸುವ ಮೊದಲು ಮೂಲ ಮತ್ತು ಸಂಸ್ಕರಿಸಿದ ಔಟ್‌ಪುಟ್ ಅನ್ನು ಹೋಲಿಸಿ.</string>
+    <string name="details">ವಿವರಗಳು</string>
+    <string name="original_size">ಮೂಲ ಗಾತ್ರ</string>
+    <string name="processed_size">ಸಂಸ್ಕರಿಸಿದ ಗಾತ್ರ</string>
+    <string name="requested_target">ಕೋರಿದ ಗುರಿ</string>
+    <string name="target_status">ಗುರಿಯ ಸ್ಥಿತಿ</string>
+    <string name="reached_within_tolerance">ಅನುಮತಿಸಿದ ಮಿತಿಯೊಳಗೆ ತಲುಪಿದೆ</string>
+    <string name="not_safely_achievable">ಸುರಕ್ಷಿತವಾಗಿ ಸಾಧಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ</string>
+    <string name="space_saved">ಉಳಿಸಿದ ಸ್ಥಳ</string>
+    <string name="percentage_saved">ಉಳಿಸಿದ ಶೇಕಡಾವಾರು</string>
+    <string name="size_increase">ಗಾತ್ರದ ಹೆಚ್ಚಳ</string>
+    <string name="compression_ratio">ಸಂಕುಚನ ಅನುಪಾತ</string>
+    <string name="original_resolution">ಮೂಲ ರೆಸಲ್ಯೂಶನ್</string>
+    <string name="processed_resolution">ಸಂಸ್ಕರಿಸಿದ ರೆಸಲ್ಯೂಶನ್</string>
+    <string name="output_quality">ಔಟ್‌ಪುಟ್ ಗುಣಮಟ್ಟ</string>
+    <string name="no_result_title">ಯಾವುದೇ ಸಂಕುಚಿತ ಫಲಿತಾಂಶ ಲಭ್ಯವಿಲ್ಲ.</string>
+    <string name="no_result_message">ಇಲ್ಲಿ ಫಲಿತಾಂಶಗಳನ್ನು ಹೋಲಿಸಲು ಒಂದು ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ ಮತ್ತು ಸಂಕುಚನವನ್ನು ಚಲಾಯಿಸಿ.</string>
+    <string name="original_size_value">ಮೂಲ ಗಾತ್ರ: %1$s</string>
+    <string name="compressed_size_value">ಸಂಕುಚಿತ ಗಾತ್ರ: %1$s</string>
+    <string name="percentage_saved_value">%1$s ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="compression_ratio_value">%1$s:1</string>
+    <string name="progress_percentage">%1$s</string>
+
+    <!-- History -->
+    <string name="history">ಇತಿಹಾಸ</string>
+    <string name="loading_history">ಇತಿಹಾಸವನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
+    <string name="history_empty_title">ಇನ್ನೂ ಯಾವುದೇ ಸಂಸ್ಕರಿಸಿದ ಚಿತ್ರಗಳಿಲ್ಲ.</string>
+    <string name="history_empty_message">ಯಶಸ್ವಿ ಕಾರ್ಯದ ನಂತರ ಸಂಕುಚಿತ ಮತ್ತು ಹಿನ್ನೆಲೆ ತೆಗೆದ ಚಿತ್ರಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ.</string>
+    <string name="history_load_error_title">ಇತಿಹಾಸವನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="history_operation_compressed">ಸಂಕುಚಿತಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="history_operation_background_removed">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
+    <string name="history_operation_resized">ಗಾತ್ರ ಬದಲಿಸಲಾಗಿದೆ</string>
+    <string name="history_operation_format_converted">ಸ್ವರೂಪ ಬದಲಿಸಲಾಗಿದೆ</string>
+    <string name="history_operation_enhanced">ಸುಧಾರಿಸಲಾಗಿದೆ</string>
+    <string name="history_operation_collage">ಕೊಲಾಜ್</string>
+    <string name="processed_image">ಸಂಸ್ಕರಿಸಿದ ಚಿತ್ರ</string>
+    <string name="original_image">ಮೂಲ ಚಿತ್ರ</string>
+    <string name="history_operation_timestamp">%1$s • %2$s</string>
+
+    <!-- Settings and privacy -->
+    <string name="settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="privacy">ಗೌಪ್ಯತೆ</string>
+    <string name="settings_privacy_processing">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ಸೇರಿದಂತೆ ಚಿತ್ರ ಸಂಸ್ಕರಣೆ ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿಯೇ ನಡೆಯುತ್ತದೆ. ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಬಳಕೆದಾರ ಖಾತೆಗಳು ಅಥವಾ ದೂರಸ್ಥ ಚಿತ್ರ-ಸಂಸ್ಕರಣೆ ಬ್ಯಾಕೆಂಡ್ ಇಲ್ಲ. Google ಜಾಹೀರಾತು ಮತ್ತು ಸಮ್ಮತಿ ಸೇವೆಗಳು ಇಂಟರ್ನೆಟ್ ಪ್ರವೇಶವನ್ನು ಬಳಸುತ್ತವೆ.</string>
+    <string name="settings_privacy_ad_sdk">ಅಪ್ಲಿಕೇಶನ್ ಕೋಡ್ ಆಯ್ಕೆಮಾಡಿದ ಅಥವಾ ಸೃಷ್ಟಿಸಿದ ಚಿತ್ರಗಳು, ಫೈಲ್ ಹೆಸರುಗಳು, ಕಂಟೆಂಟ್ URIಗಳು, EXIF ಮೆಟಾಡೇಟಾ ಅಥವಾ ಚಿತ್ರ-ಸಂಸ್ಕರಣೆ ಡೇಟಾವನ್ನು Google Mobile Adsಗೆ ಕಳುಹಿಸುವುದಿಲ್ಲ. ಜಾಹೀರಾತು, ವಿಶ್ಲೇಷಣೆ ಮತ್ತು ವಂಚನೆ ತಡೆಗಾಗಿ SDK IPಯಿಂದ ಅಂದಾಜಿಸಿದ ಸ್ಥೂಲ ಸ್ಥಳ, ಉತ್ಪನ್ನ ಸಂವಹನಗಳು, ರೋಗನಿರ್ಣಯ ಮಾಹಿತಿ ಹಾಗೂ ಸಾಧನ ಅಥವಾ ಖಾತೆ ಗುರುತುಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಂಗ್ರಹಿಸಿ ಹಂಚಿಕೊಳ್ಳುತ್ತದೆ.</string>
+    <string name="privacy_policy">ಗೌಪ್ಯತಾ ನೀತಿ</string>
+    <string name="privacy_choices">ಗೌಪ್ಯತಾ ಆಯ್ಕೆಗಳು</string>
+    <string name="advertising">ಜಾಹೀರಾತು</string>
+    <string name="settings_ads_placement">ಈ ಅಪ್ಲಿಕೇಶನ್ Google AdMob ಬ್ಯಾನರ್, ನೇಟಿವ್, ಇಂಟರ್‌ಸ್ಟೀಷಿಯಲ್ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್-ಓಪನ್ ಜಾಹೀರಾತುಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಇತಿಹಾಸವನ್ನು ತೆರೆದಾಗ ಮತ್ತು ಉಳಿಸಿ, ಹಂಚಿಕೊಳ್ಳಿ ಅಥವಾ ತೆರೆಯಿರಿ ಕ್ರಿಯೆಗೆ ತಕ್ಷಣ ಮೊದಲು ಇಂಟರ್‌ಸ್ಟೀಷಿಯಲ್ ಜಾಹೀರಾತಿಗೆ ಅರ್ಹತೆ ಇರುತ್ತದೆ. ಪ್ರಸ್ತುತ ಮಿತಿಗೆ ಮುಂಚಿನ ಯಶಸ್ವಿ ಕ್ರಿಯೆಯ ಅಗತ್ಯವಿಲ್ಲ.</string>
+    <string name="settings_ads_lifecycle">ಒಂದು ಇಂಟರ್‌ಸ್ಟೀಷಿಯಲ್ ಜಾಹೀರಾತು ತೋರಿಸಿದ ನಂತರ ಕನಿಷ್ಠ ಮೂರು ನಿಮಿಷಗಳವರೆಗೆ ಮತ್ತೊಂದನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗುತ್ತದೆ; ಪ್ರತಿ ಅಪ್ಲಿಕೇಶನ್-ಪ್ರಕ್ರಿಯೆ ಸೆಷನ್‌ನಲ್ಲಿ ಗರಿಷ್ಠ ಮೂರು ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. ಈ ಮಿತಿಗಳು ಅಪ್ಲಿಕೇಶನ್-ಓಪನ್ ಜಾಹೀರಾತುಗಳಿಗೆ ಅನ್ವಯಿಸುವುದಿಲ್ಲ; ಅವು ಲೋಡ್ ಆದ ನಂತರ ಅಪ್ಲಿಕೇಶನ್ ಮತ್ತೆ ಮುಂಭಾಗಕ್ಕೆ ಬಂದಾಗ ಕಾಣಿಸಬಹುದು. ಸಕ್ರಿಯ ಚಿತ್ರ ಸಂಸ್ಕರಣೆಯ ಸಮಯದಲ್ಲಿ ಪೂರ್ಣ-ಪರದೆ ಜಾಹೀರಾತುಗಳನ್ನು ತಡೆಯಲಾಗುತ್ತದೆ ಮತ್ತು ಜಾಹೀರಾತು ಲಭ್ಯವಿಲ್ಲದಿದ್ದರೂ ವಿನಂತಿಸಿದ ಕ್ರಿಯೆಗಳು ಮುಂದುವರಿಯುತ್ತವೆ.</string>
+    <string name="settings_background_model">ಅಪ್ಲಿಕೇಶನ್‌ನೊಂದಿಗೆ ನೀಡಿದ ONNX U2-NetP ಮಾದರಿಯಿಂದ ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ ನಡೆಯುತ್ತದೆ. ಚಿತ್ರಗಳನ್ನು ಸಾಧನದಲ್ಲಿಯೇ ಸಂಸ್ಕರಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ಈ ವೈಶಿಷ್ಟ್ಯವು ಅವುಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದಿಲ್ಲ.</string>
+    <string name="open_source_notices">ಮುಕ್ತ ಮೂಲ ಸೂಚನೆಗಳನ್ನು ಅಪ್ಲಿಕೇಶನ್‌ನೊಂದಿಗೆ ಪ್ಯಾಕ್ ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="privacy_effective_date">%1$s ರಿಂದ ಜಾರಿಗೆ ಬರುತ್ತದೆ</string>
+
+    <!-- Privacy policy -->
+    <string name="policy_overview_title">ಅವಲೋಕನ</string>
+    <string name="policy_overview_body">Photo Compressor ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡುತ್ತದೆ, ಸಂಕುಚಿತಗೊಳಿಸುತ್ತದೆ, ಗಾತ್ರ ಮತ್ತು ಸ್ವರೂಪ ಬದಲಿಸುತ್ತದೆ, ಉಳಿಸುತ್ತದೆ, ತೆರೆಯುತ್ತದೆ, ಹಂಚಿಕೊಳ್ಳುತ್ತದೆ ಹಾಗೂ ಚಿತ್ರದ ಹಿನ್ನೆಲೆಗಳನ್ನು ತೆಗೆದುಹಾಕುತ್ತದೆ ಅಥವಾ ಬದಲಿಸುತ್ತದೆ. ಚಿತ್ರ ಸಂಸ್ಕರಣೆ ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿಯೇ ನಡೆಯುತ್ತದೆ. ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಬಳಕೆದಾರ ಖಾತೆಗಳು ಅಥವಾ ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮತ್ತು ಸಂಸ್ಕರಣೆಗೆ ಡೆವಲಪರ್ ಬ್ಯಾಕೆಂಡ್ ಇಲ್ಲ. Google ಜಾಹೀರಾತು ಮತ್ತು ಸಮ್ಮತಿ ಸೇವೆಗಳು ಇಂಟರ್ನೆಟ್ ಪ್ರವೇಶವನ್ನು ಬಳಸುತ್ತವೆ. ಅಪ್ಲಿಕೇಶನ್‌ನ ಖಾಸಗಿ ಡೇಟಾವನ್ನು Android ಅಪ್ಲಿಕೇಶನ್ ಸ್ಯಾಂಡ್‌ಬಾಕ್ಸ್ ರಕ್ಷಿಸುತ್ತದೆ; Mobile Ads SDK ನೆಟ್‌ವರ್ಕ್ ಡೇಟಾವನ್ನು TLS ಬಳಸಿ ಸಾಗಿಸುವಾಗ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತದೆ ಎಂದು Google ಹೇಳುತ್ತದೆ.</string>
+    <string name="policy_images_files_title">ಚಿತ್ರಗಳು ಮತ್ತು ಫೈಲ್‌ಗಳು</string>
+    <string name="policy_images_files_body">ನೀವು Android ಸಿಸ್ಟಂ Photo Picker ಮೂಲಕ ಚಿತ್ರಗಳನ್ನು ಆಯ್ಕೆಮಾಡುತ್ತೀರಿ. ಅಪ್ಲಿಕೇಶನ್ ಸಂಸ್ಕರಣೆಗೆ ಬೇಕಾದ ಪ್ರತಿ ಕಂಟೆಂಟ್ URI ಮತ್ತು ಸ್ಥಳೀಯ ಮೆಟಾಡೇಟಾವನ್ನು ಓದುತ್ತದೆ; ಇದರಲ್ಲಿ ಪ್ರದರ್ಶನ ಹೆಸರು, ಮಾಧ್ಯಮ ಪ್ರಕಾರ, ಗಾತ್ರ, ಆಯಾಮಗಳು, ಸ್ವರೂಪ, ಪಾರದರ್ಶಕತೆ ಮಾಹಿತಿ ಮತ್ತು EXIF ದಿಕ್ಕು ಸೇರಿವೆ. ಪೂರೈಕೆದಾರ ಅನುಮತಿಸಿದಾಗ ಸ್ಥಳೀಯ ಇತಿಹಾಸವು ಮೂಲವನ್ನು ಮತ್ತೆ ತೆರೆಯಲು ಅಪ್ಲಿಕೇಶನ್ ಶಾಶ್ವತ ಓದುವ ಅನುಮತಿಯನ್ನು ಉಳಿಸಿಕೊಳ್ಳುತ್ತದೆ; ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸುವಿಕೆ ಪ್ರಸ್ತುತ ಅದನ್ನು ಬಿಡುಗಡೆ ಮಾಡುವುದಿಲ್ಲ. ಅಪ್ಲಿಕೇಶನ್ ಕೋಡ್ ಆಯ್ಕೆಮಾಡಿದ ಅಥವಾ ಸೃಷ್ಟಿಸಿದ ಚಿತ್ರಗಳು ಅಥವಾ ಅವುಗಳ ಮೆಟಾಡೇಟಾವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದಿಲ್ಲ. ನೀವು ಸಂಬಂಧಿತ ಕ್ರಿಯೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿದ ನಂತರ ಮಾತ್ರ ಔಟ್‌ಪುಟ್‌ಗಳನ್ನು ತೆರೆಯಲಾಗುತ್ತದೆ ಅಥವಾ ಹಂಚಿಕೊಳ್ಳಲಾಗುತ್ತದೆ. ಉಳಿಸಿ ಕ್ರಿಯೆಯು Android MediaStore ಮೂಲಕ Pictures/Photo Compressorಗೆ ಬರೆಯುತ್ತದೆ. Android 9 ಅಥವಾ ಅದಕ್ಕಿಂತ ಹಿಂದಿನ ಆವೃತ್ತಿಯಲ್ಲಿ ಮಾತ್ರ ಬಳಕೆದಾರರು ಆರಂಭಿಸಿದ ಉಳಿಸಿ ಕ್ರಿಯೆಯು ಹಳೆಯ ಹಂಚಿಕೆಯ-ಸಂಗ್ರಹಣೆ ಬರೆಯುವ ಅನುಮತಿಯನ್ನು ಕೇಳುತ್ತದೆ; Android 10 ಅಥವಾ ನಂತರದ ಆವೃತ್ತಿಯಲ್ಲಿ ಅದನ್ನು ಕೇಳುವುದಿಲ್ಲ.</string>
+    <string name="policy_local_history_title">ಸ್ಥಳೀಯ ಇತಿಹಾಸ ಮತ್ತು ಉಳಿಕೆ ಅವಧಿ</string>
+    <string name="policy_local_history_body">ಅಪ್ಲಿಕೇಶನ್ ಖಾಸಗಿ DataStoreನಲ್ಲಿ ಗರಿಷ್ಠ 200 ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತದೆ; ಇವುಗಳಲ್ಲಿ ಮೂಲ ಮತ್ತು ಔಟ್‌ಪುಟ್ ಉಲ್ಲೇಖಗಳು, ಹೆಸರುಗಳು, ಪ್ರಕಾರಗಳು, ಗಾತ್ರಗಳು, ಆಯಾಮಗಳು, ಸ್ವರೂಪಗಳು, ಕಾರ್ಯ ಮತ್ತು ಸಂಕುಚನ ವಿವರಗಳು, ಫಲಿತಾಂಶ ಅಥವಾ ಎಚ್ಚರಿಕೆ ಮಾಹಿತಿ, ಉಳಿಸಿದ ಔಟ್‌ಪುಟ್ ಉಲ್ಲೇಖಗಳು ಮತ್ತು ಸಮಯಮುದ್ರೆಗಳು ಸೇರಿವೆ. ಈ DataStore ಅನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿದ ಕ್ಲೌಡ್ ಬ್ಯಾಕಪ್ ಮತ್ತು ಸಾಧನ ವರ್ಗಾವಣೆಯಿಂದ ಹೊರಗಿಡಲಾಗಿದೆ. ತಾತ್ಕಾಲಿಕ ಔಟ್‌ಪುಟ್‌ಗಳು ಕ್ಯಾಶ್‌ನಲ್ಲಿ ಉಳಿಯಬಹುದು. ಒಂದು ಅಂಶವನ್ನು ತೆಗೆದುಹಾಕುವುದು ಅಥವಾ ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸುವಿಕೆ ಬಳಸುವುದು ಅದರ ದಾಖಲೆಯನ್ನು ತೆಗೆದುಹಾಕಿ, ಅದು ಉಲ್ಲೇಖಿಸುವ ಅಪ್ಲಿಕೇಶನ್ ಒಡೆತನದ ತಾತ್ಕಾಲಿಕ ಔಟ್‌ಪುಟ್ ಅನ್ನು ಮಾತ್ರ ಅಳಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತದೆ. ಇತಿಹಾಸ ತೆರವುಗೊಳಿಸುವಿಕೆ ಗ್ಯಾಲರಿ ಚಿತ್ರಗಳನ್ನು ಅಳಿಸುವುದಿಲ್ಲ, ಉಲ್ಲೇಖವಿಲ್ಲದ ಕ್ಯಾಶ್ ಫೈಲ್‌ಗಳ ಅಳಿಸುವಿಕೆಯನ್ನು ಖಾತರಿಪಡಿಸುವುದಿಲ್ಲ ಅಥವಾ ಮೂಲಗಳ ಶಾಶ್ವತ ಓದುವ ಅನುಮತಿಗಳನ್ನು ಬಿಡುಗಡೆ ಮಾಡುವುದಿಲ್ಲ. Androidನಲ್ಲಿ ಕ್ಯಾಶ್ ತೆರವುಗೊಳಿಸುವಿಕೆ ತಾತ್ಕಾಲಿಕ ಫೈಲ್‌ಗಳನ್ನು ಅಳಿಸಬಹುದು; ಸಂಗ್ರಹಣೆ ತೆರವುಗೊಳಿಸುವಿಕೆ ಅಪ್ಲಿಕೇಶನ್‌ನ ಸ್ಥಳೀಯ ದಾಖಲೆಗಳು ಮತ್ತು ಕ್ಯಾಶ್ ಅನ್ನು ಅಳಿಸುತ್ತದೆ. ಉಳಿಸಿದ ಚಿತ್ರಗಳನ್ನು ಗ್ಯಾಲರಿ ಅಥವಾ ಫೈಲ್ ಮ್ಯಾನೇಜರ್ ಮೂಲಕ ಅಳಿಸಿ. ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಬಳಕೆದಾರ ಖಾತೆಗಳಿಲ್ಲ.</string>
+    <string name="policy_advertising_consent_title">ಜಾಹೀರಾತು ಮತ್ತು ಸಮ್ಮತಿ</string>
+    <string name="policy_advertising_consent_body">Google AdMob ಬ್ಯಾನರ್, ನೇಟಿವ್, ಇಂಟರ್‌ಸ್ಟೀಷಿಯಲ್ ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್-ಓಪನ್ ಜಾಹೀರಾತುಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. ಇತಿಹಾಸವನ್ನು ತೆರೆದಾಗ ಮತ್ತು ಉಳಿಸಿ, ಹಂಚಿಕೊಳ್ಳಿ ಅಥವಾ ತೆರೆಯಿರಿ ಕ್ರಿಯೆಗೆ ತಕ್ಷಣ ಮೊದಲು ಇಂಟರ್‌ಸ್ಟೀಷಿಯಲ್ ಜಾಹೀರಾತಿಗೆ ಅರ್ಹತೆ ಇರುತ್ತದೆ; ಮುಂಚಿನ ಯಶಸ್ವಿ ಕ್ರಿಯೆ ಅಗತ್ಯವಿಲ್ಲ. ಒಂದನ್ನು ತೋರಿಸಿದ ನಂತರ ಕನಿಷ್ಠ ಮೂರು ನಿಮಿಷಗಳವರೆಗೆ ಮತ್ತೊಂದನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗುತ್ತದೆ; ಪ್ರತಿ ಅಪ್ಲಿಕೇಶನ್-ಪ್ರಕ್ರಿಯೆ ಸೆಷನ್‌ನಲ್ಲಿ ಗರಿಷ್ಠ ಮೂರು ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. ಈ ಮಿತಿಗಳು ಅಪ್ಲಿಕೇಶನ್-ಓಪನ್ ಜಾಹೀರಾತುಗಳಿಗೆ ಅನ್ವಯಿಸುವುದಿಲ್ಲ; ಅವು ಲೋಡ್ ಆದ ನಂತರ ಅಪ್ಲಿಕೇಶನ್ ಮತ್ತೆ ಮುಂಭಾಗಕ್ಕೆ ಬಂದಾಗ ಕಾಣಿಸಬಹುದು. Google Mobile Ads SDK 25.4.0 IPಯಿಂದ ಅಂದಾಜಿಸಿದ ಸ್ಥೂಲ ಸ್ಥಳ; ಅಪ್ಲಿಕೇಶನ್ ಆರಂಭಗಳು, ಟ್ಯಾಪ್‌ಗಳು, ಜಾಹೀರಾತು ಅಥವಾ ವೀಡಿಯೊ ವೀಕ್ಷಣೆಗಳಂತಹ ಉತ್ಪನ್ನ ಸಂವಹನಗಳು; ಅಪ್ಲಿಕೇಶನ್ ಆರಂಭದ ಸಮಯ, ಸ್ಥಗಿತದ ಪ್ರಮಾಣ ಮತ್ತು ಶಕ್ತಿಯ ಬಳಕೆಯಂತಹ ರೋಗನಿರ್ಣಯ ಮಾಹಿತಿ; Advertising ID ಮತ್ತು App Set IDಯಂತಹ ಸಾಧನ ಅಥವಾ ಖಾತೆ ಗುರುತುಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಂಗ್ರಹಿಸಿ ಹಂಚಿಕೊಳ್ಳುತ್ತದೆ. ಈ ಡೇಟಾವನ್ನು ಜಾಹೀರಾತು ಅಥವಾ ಮಾರುಕಟ್ಟೆ, ವಿಶ್ಲೇಷಣೆ, ವಂಚನೆ ತಡೆ, ಸುರಕ್ಷತೆ ಮತ್ತು ನಿಯಮ ಪಾಲನೆಗೆ ಬಳಸುವುದಾಗಿ ಹಾಗೂ SDK ಡೇಟಾವನ್ನು TLS ಮೂಲಕ ಸಾಗಿಸುವಾಗ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡುವುದಾಗಿ Google ಹೇಳುತ್ತದೆ. User Messaging Platform SDK 4.0.0 ಸಮ್ಮತಿ ಮಾಹಿತಿಯನ್ನು ಕೇಳುತ್ತದೆ ಮತ್ತು ಅವು ಅಗತ್ಯವೆಂದು Google ತಿಳಿಸಿದಾಗ ಸಮ್ಮತಿ ಅಥವಾ ಗೌಪ್ಯತಾ-ಆಯ್ಕೆ ಫಾರ್ಮ್‌ಗಳನ್ನು ತೋರಿಸುತ್ತದೆ. ವೈಯಕ್ತಿಕಗೊಳಿಸಿದ ಜಾಹೀರಾತು ಸಮ್ಮತಿಯಿಲ್ಲದಿದ್ದರೂ, ಜಾಹೀರಾತುಗಳು ಲಭ್ಯವಿಲ್ಲದಿದ್ದರೂ ಅಥವಾ ಸಾಧನ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿದ್ದರೂ ಪ್ರಮುಖ ಚಿತ್ರ ಸಂಸ್ಕರಣೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.</string>
+    <string name="policy_background_removal_title">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ</string>
+    <string name="policy_background_removal_body">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ಅಪ್ಲಿಕೇಶನ್‌ನೊಂದಿಗೆ ನೀಡಿದ U2-NetP ONNX ಮಾದರಿ ಮತ್ತು ONNX Runtime ಅನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಸಾಧನದಲ್ಲಿಯೇ ಬಳಸುತ್ತದೆ. ಈ ವೈಶಿಷ್ಟ್ಯಕ್ಕಾಗಿ ಅಪ್ಲಿಕೇಶನ್ ಕೋಡ್ ದೂರಸ್ಥ ಮಾದರಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡುವುದಿಲ್ಲ ಅಥವಾ ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡುವುದಿಲ್ಲ.</string>
+    <string name="policy_children_title">ಮಕ್ಕಳು</string>
+    <string name="policy_children_body">Photo Compressor ಸಾಮಾನ್ಯ ಉದ್ದೇಶದ ಉಪಯುಕ್ತತೆಯಾಗಿದ್ದು, 13 ವರ್ಷಕ್ಕಿಂತ ಕಡಿಮೆ ವಯಸ್ಸಿನ ಮಕ್ಕಳನ್ನು ಗುರಿಯಾಗಿಸಿಕೊಂಡಿಲ್ಲ. SDKಗೆ ಜಾಹೀರಾತುಗಳನ್ನು ಕೇಳಲು ಅನುಮತಿ ಇದ್ದಾಗಲೆಲ್ಲ ಮೇಲಿನ ಸ್ವಯಂಚಾಲಿತ Google ಜಾಹೀರಾತು-SDK ಪದ್ಧತಿಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ಬಿಡುಗಡೆಗೂ ಮೊದಲು ಪ್ರಕಾಶಕರು ಮಾಡಬೇಕಾದ ಕೆಲಸ: ಈ ಹೇಳಿಕೆಗೆ ಹೊಂದುವಂತೆ Play ಗುರಿ-ಪ್ರೇಕ್ಷಕರು ಮತ್ತು ಜಾಹೀರಾತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ, ಮಕ್ಕಳನ್ನು ಗುರಿಯಾಗಿಸಿದ ಪ್ರೇಕ್ಷಕರಿಗೆ ನೀಡುವ ಮೊದಲು ಅಪ್ಲಿಕೇಶನ್ ಮತ್ತು ನೀತಿಯನ್ನು ಮರುಮೌಲ್ಯಮಾಪನ ಮಾಡಿ.</string>
+    <string name="policy_third_parties_title">ಮೂರನೇ ವ್ಯಕ್ತಿಗಳು ಮತ್ತು ಸಂಪರ್ಕ</string>
+    <string name="policy_third_parties_body">Google ಗೌಪ್ಯತಾ ನೀತಿ ಮತ್ತು Mobile Ads ಡೇಟಾ ಬಹಿರಂಗಪಡಿಸುವಿಕೆಯು Google ಜಾಹೀರಾತು ಸೇವೆಗಳು ನಿರ್ವಹಿಸುವ ಡೇಟಾಗೆ ಅನ್ವಯಿಸುತ್ತವೆ: policies.google.com/privacy ಮತ್ತು developers.google.com/admob/android/privacy/play-data-disclosure. ಪ್ರಮುಖ ಗೌಪ್ಯತೆ ಮತ್ತು ಮಾದರಿ ಘಟಕಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ನಿರ್ದಿಷ್ಟ ಮುಕ್ತ ಮೂಲ ಸೂಚನೆಗಳನ್ನು ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಸೇರಿಸಲಾಗಿದೆ; ಅವು ಎಲ್ಲಾ ಅವಲಂಬನೆಗಳ ಸಂಪೂರ್ಣ ಪಟ್ಟಿಯಲ್ಲ. ಬಿಡುಗಡೆಗೂ ಮೊದಲು ಪ್ರಕಾಶಕರು ಮಾಡಬೇಕಾದ ಕೆಲಸ: ಪರಿಶೀಲಿಸಿದ ಕಾನೂನುಬದ್ಧ ಡೆವಲಪರ್ ಅಥವಾ ಸಂಸ್ಥೆಯ ಹೆಸರು, ನೇರವಾಗಿ ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡುವ ಗೌಪ್ಯತಾ ಸಂಪರ್ಕ ಮತ್ತು PDF ಅಲ್ಲದ, ಸಕ್ರಿಯ, ಸಾರ್ವಜನಿಕವಾಗಿ ಪ್ರವೇಶಿಸಬಹುದಾದ, ಭೌಗೋಳಿಕ ನಿರ್ಬಂಧವಿಲ್ಲದ, ಸಂಪಾದಿಸಲಾಗದ HTTPS ಗೌಪ್ಯತಾ-ನೀತಿ ವೆಬ್‌ಪುಟವನ್ನು ಸೇರಿಸಿ. Play ಮತ್ತು ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಇದೇ ಪ್ರಸ್ತುತ ನೀತಿಯನ್ನು ಬಳಸಿ, ಅಪ್ಲಿಕೇಶನ್ ಅಥವಾ ಅದರ ಸೇವೆಗಳು ಬದಲಾದಾಗ ಜಾರಿಗೆ ಬರುವ ದಿನಾಂಕವನ್ನು ನವೀಕರಿಸಿ.</string>
+
+    <!-- View-model and repository messages -->
+    <string name="cancel_compression_before_leaving">ಹಿಂದಕ್ಕೆ ಹೋಗುವ ಮೊದಲು ಸಂಕುಚನವನ್ನು ರದ್ದುಮಾಡಿ.</string>
+    <string name="no_app_can_handle_action">ಈ ಕ್ರಿಯೆಯನ್ನು ನಿರ್ವಹಿಸಬಲ್ಲ ಯಾವುದೇ ಅಪ್ಲಿಕೇಶನ್ ಲಭ್ಯವಿಲ್ಲ.</string>
+    <string name="image_no_longer_available">ಈ ಚಿತ್ರ ಇನ್ನು ಮುಂದೆ ಲಭ್ಯವಿಲ್ಲ.</string>
+    <string name="error_could_not_read_image">ಚಿತ್ರವನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_select_one_image_for_background">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕಲು ಒಂದು ಚಿತ್ರವನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="error_background_generic">ಹಿನ್ನೆಲೆಯನ್ನು ತೆಗೆದುಹಾಕಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_background_replace_failed">ಹಿನ್ನೆಲೆಯನ್ನು ಬದಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="background_exported">ಹಿನ್ನೆಲೆ ಚಿತ್ರವನ್ನು ರಫ್ತು ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="error_check_target_size">ಗುರಿ ಗಾತ್ರವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="error_compression_failed">ಸಂಕುಚನ ವಿಫಲವಾಗಿದೆ.</string>
+    <string name="error_history_retry_or_remove">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಪ್ರವೇಶಿಸಲಾಗದ ಇತಿಹಾಸದ ಅಂಶಗಳನ್ನು ತೆಗೆದುಹಾಕಿ.</string>
+    <string name="save_success">ಚಿತ್ರವನ್ನು ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="save_failure">ಚಿತ್ರವನ್ನು ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="history_update_failed">ಚಿತ್ರವನ್ನು ಉಳಿಸಲಾಗಿದೆ, ಆದರೆ ಇತಿಹಾಸವನ್ನು ನವೀಕರಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_legacy_storage_permission">Android 9 ಅಥವಾ ಅದಕ್ಕಿಂತ ಹಿಂದಿನ ಆವೃತ್ತಿಯಲ್ಲಿ ಚಿತ್ರಗಳನ್ನು ಉಳಿಸಲು ಸಂಗ್ರಹಣೆಯ ಪ್ರವೇಶ ಅಗತ್ಯ.</string>
+    <string name="error_file_not_readable">ಈ ಫೈಲ್ ಓದಬಹುದಾದ ಚಿತ್ರವಲ್ಲ.</string>
+    <string name="error_unsupported_image_format">ಬೆಂಬಲಿಸದ ಚಿತ್ರ ಸ್ವರೂಪ. JPG, PNG ಅಥವಾ WEBP ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="selected_image">ಆಯ್ಕೆಮಾಡಿದ ಚಿತ್ರ</string>
+    <string name="error_image_too_large">ಈ ಸಾಧನದಲ್ಲಿ ಸುರಕ್ಷಿತವಾಗಿ ಸಂಸ್ಕರಿಸಲು ಈ ಚಿತ್ರ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ. ಚಿಕ್ಕ ಗಾತ್ರ ಬದಲಾವಣೆ ಶೇಕಡಾವನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="error_processed_image_unavailable">ಸಂಸ್ಕರಿಸಿದ ಚಿತ್ರ ಇನ್ನು ಲಭ್ಯವಿಲ್ಲ.</string>
+    <string name="error_create_pictures_folder">Picturesನಲ್ಲಿ Photo Compressor ಫೋಲ್ಡರ್ ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_create_media_entry">MediaStore ದಾಖಲೆಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_open_save_destination">ಉಳಿಸುವ ಸ್ಥಳವನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_image_decode_failed">ಚಿತ್ರವನ್ನು ಡಿಕೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_dimensions_too_large">%1$d × %2$d ಈ ಸಾಧನದಲ್ಲಿ ಸುರಕ್ಷಿತವಾಗಿ ಸಂಸ್ಕರಿಸಲು ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ. ಚಿಕ್ಕ ಗಾತ್ರ ಬದಲಾವಣೆ ಶೇಕಡಾವನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="error_image_read_failed">ಈ ಚಿತ್ರವನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_no_readable_image_stream">ಆಯ್ಕೆಮಾಡಿದ ಚಿತ್ರಕ್ಕೆ ಓದಬಹುದಾದ ಸ್ಟ್ರೀಮ್ ಇಲ್ಲ.</string>
+    <string name="error_photo_access_denied">ಫೋಟೋ ಪ್ರವೇಶವನ್ನು ನಿರಾಕರಿಸಲಾಗಿದೆ. ಚಿತ್ರವನ್ನು ಮತ್ತೆ ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="error_cloud_image_unavailable">ಚಿತ್ರ ಲಭ್ಯವಿಲ್ಲ. ಅದು ಕ್ಲೌಡ್‌ನಲ್ಲಿ ಇದ್ದರೆ, ಸ್ಥಳೀಯವಾಗಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ ಅಥವಾ Filesನಿಂದ ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="error_image_encode_failed">ಚಿತ್ರವನ್ನು ಎನ್‌ಕೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_compressed_image_validation_failed">ಸಂಕುಚಿತ ಚಿತ್ರವನ್ನು ಪರಿಶೀಲಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_allow_storage_access">Android 9 ಅಥವಾ ಅದಕ್ಕಿಂತ ಹಿಂದಿನ ಆವೃತ್ತಿಯಲ್ಲಿ ಚಿತ್ರಗಳನ್ನು ಉಳಿಸಲು ಸಂಗ್ರಹಣೆಯ ಪ್ರವೇಶವನ್ನು ಅನುಮತಿಸಿ.</string>
+    <string name="error_shared_storage_unavailable">ಹಂಚಿಕೆಯ ಸಂಗ್ರಹಣೆ ಲಭ್ಯವಿಲ್ಲ. ಸಾಧನದ ಸಂಗ್ರಹಣೆಯನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+
+    <!-- Compression warnings -->
+    <string name="warning_png_lossless_original_preserved">PNG ನಷ್ಟರಹಿತವಾಗಿದೆ ಮತ್ತು ಮೂಲ ರೆಸಲ್ಯೂಶನ್ ಅನ್ನು ಉಳಿಸಲಾಗಿದೆ.</string>
+    <string name="warning_png_lossless_safe_resize">PNG ನಷ್ಟರಹಿತವಾಗಿದೆ, ಆದ್ದರಿಂದ ಸುರಕ್ಷಿತ ಗಾತ್ರ ಬದಲಿಸುವಿಕೆಯ ಮೂಲಕ ಫೈಲ್ ಗಾತ್ರವನ್ನು ಕಡಿಮೆ ಮಾಡಲಾಗಿದೆ.</string>
+    <string name="warning_png_target_unreached_original">PNG ನಷ್ಟರಹಿತವಾಗಿದೆ. ಮೂಲ ರೆಸಲ್ಯೂಶನ್ ಉಳಿಸಿದ್ದರಿಂದ ನಿಖರವಾದ ಗುರಿಯನ್ನು ತಲುಪಲಾಗಲಿಲ್ಲ.</string>
+    <string name="warning_png_target_unreached_best_quality">PNG ನಷ್ಟರಹಿತವಾಗಿದೆ. ಅತ್ಯುತ್ತಮ ಗುಣಮಟ್ಟದ ಫಲಿತಾಂಶ ಸೃಷ್ಟಿಸಲಾಗಿದೆ, ಆದರೆ ರೆಸಲ್ಯೂಶನ್ ಅನ್ನು ಗಮನಾರ್ಹವಾಗಿ ಕಡಿಮೆ ಮಾಡದೆ ನಿಖರವಾದ ಗುರಿಯನ್ನು ತಲುಪಲಾಗಲಿಲ್ಲ.</string>
+    <string name="warning_target_unreached_original">ಮೂಲ ರೆಸಲ್ಯೂಶನ್ ಉಳಿಸಲಾಗಿದೆ. ಸ್ವೀಕಾರಾರ್ಹ ಎನ್‌ಕೋಡರ್ ಗುಣಮಟ್ಟದಲ್ಲಿ ನಿಖರವಾದ ಗುರಿಯನ್ನು ತಲುಪಲಾಗಲಿಲ್ಲ.</string>
+    <string name="warning_target_unreached_best_quality">ಅತ್ಯುತ್ತಮ ಗುಣಮಟ್ಟದ ಫಲಿತಾಂಶ ಸೃಷ್ಟಿಸಲಾಗಿದೆ. ಗುಣಮಟ್ಟವನ್ನು ಗಮನಾರ್ಹವಾಗಿ ಕಡಿಮೆ ಮಾಡದೆ ನಿಖರವಾದ ಗುರಿಯನ್ನು ತಲುಪಲಾಗಲಿಲ್ಲ.</string>
+    <string name="warning_target_reached_reduced_resolution">ಸ್ವೀಕಾರಾರ್ಹ ಎನ್‌ಕೋಡರ್ ಗುಣಮಟ್ಟವನ್ನು ಉಳಿಸಿಕೊಂಡು ರೆಸಲ್ಯೂಶನ್ ಕಡಿಮೆ ಮಾಡುವ ಮೂಲಕ ಗುರಿ ತಲುಪಲಾಗಿದೆ.</string>
+    <string name="warning_background_safe_resolution">ಈ ಸಾಧನದಲ್ಲಿ ಮೆಮೊರಿ ಮುಗಿಯದಂತೆ ಸುರಕ್ಷಿತ ರೆಸಲ್ಯೂಶನ್‌ನಲ್ಲಿ ಸಂಸ್ಕರಿಸಲಾಗಿದೆ.</string>
+
+    <!-- Background-removal errors -->
+    <string name="error_background_model_missing">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವ ಮಾದರಿ ಕಾಣೆಯಾಗಿದೆ.</string>
+    <string name="error_background_model_load_failed">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವ ಮಾದರಿಯನ್ನು ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_background_decode_failed">ಆಯ್ಕೆಮಾಡಿದ ಚಿತ್ರವನ್ನು ಓದಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_background_out_of_memory">ಈ ಸಾಧನದಲ್ಲಿ ಸಂಸ್ಕರಿಸಲು ಚಿತ್ರ ತುಂಬಾ ದೊಡ್ಡದಾಗಿದೆ.</string>
+    <string name="error_background_inference_failed">ಮಾದರಿಯನ್ನು ಚಲಾಯಿಸುವಾಗ ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ವಿಫಲವಾಗಿದೆ.</string>
+    <string name="error_background_export_failed">ಪಾರದರ್ಶಕ PNG ಫಲಿತಾಂಶವನ್ನು ಸೃಷ್ಟಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
+    <string name="error_background_model_incompatible">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವ ಮಾದರಿ ಈ ಅಪ್ಲಿಕೇಶನ್ ಆವೃತ್ತಿಗೆ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ.</string>
+    <string name="error_background_try_smaller">ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ವಿಫಲವಾಗಿದೆ. ಚಿಕ್ಕ ಚಿತ್ರ ಅಥವಾ ಮತ್ತೊಂದು ಫೋಟೋ ಬಳಸಿ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="error_background_feature_unavailable">ಈ ಸಾಧನದಲ್ಲಿ ಹಿನ್ನೆಲೆ ತೆಗೆದುಹಾಕುವಿಕೆ ಲಭ್ಯವಿಲ್ಲ.</string>
+    <string name="image_unavailable">ಚಿತ್ರ ಲಭ್ಯವಿಲ್ಲ.</string>
+</resources>

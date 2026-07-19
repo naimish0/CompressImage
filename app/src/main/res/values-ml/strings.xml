@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Language selector -->
+    <string name="language">ഭാഷ</string>
+    <string name="choose_language">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="current_language">നിലവിലെ ഭാഷ: %1$s</string>
+    <string name="search_languages">ഭാഷകൾ തിരയുക</string>
+    <string name="search_languages_hint">ഭാഷയുടെ പേര് ടൈപ്പ് ചെയ്യുക</string>
+    <string name="no_languages_found">പൊരുത്തപ്പെടുന്ന ഭാഷകളൊന്നും കണ്ടെത്തിയില്ല</string>
+    <string name="system_default">സിസ്റ്റം ഡിഫോൾട്ട്</string>
+
+    <!-- Common actions and accessibility -->
+    <string name="share_results_chooser">കംപ്രസ് ചെയ്ത ചിത്രം പങ്കിടുക</string>
+    <string name="share_multiple_results_chooser">കംപ്രസ് ചെയ്ത ചിത്രങ്ങൾ പങ്കിടുക</string>
+    <string name="ad_label">പരസ്യം</string>
+    <string name="sponsored">സ്പോൺസർ ചെയ്തത്</string>
+    <string name="cd_go_back">പിന്നിലേക്ക് പോകുക</string>
+    <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="unknown_size">അറിയാത്ത വലുപ്പം</string>
+    <string name="format_unknown">അറിയാത്ത ഫോർമാറ്റ്</string>
+    <string name="select_an_image">ഒരു ചിത്രം തിരഞ്ഞെടുക്കുക</string>
+    <string name="select_images">ചിത്രങ്ങൾ തിരഞ്ഞെടുക്കുക</string>
+    <string name="add_more">കൂടുതൽ ചേർക്കുക</string>
+    <string name="remove">നീക്കം ചെയ്യുക</string>
+    <string name="cancel">റദ്ദാക്കുക</string>
+    <string name="save">സംരക്ഷിക്കുക</string>
+    <string name="share">പങ്കിടുക</string>
+    <string name="open">തുറക്കുക</string>
+    <string name="another">മറ്റൊന്ന്</string>
+    <string name="save_all">എല്ലാം സംരക്ഷിക്കുക</string>
+    <string name="share_all">എല്ലാം പങ്കിടുക</string>
+    <string name="processed">പ്രോസസ്സ് ചെയ്തത്</string>
+    <string name="original">യഥാർത്ഥം</string>
+    <string name="custom">ഇഷ്ടാനുസൃതം</string>
+    <string name="failed">പരാജയപ്പെട്ടു</string>
+    <string name="cancelled">റദ്ദാക്കി</string>
+    <string name="done">പൂർത്തിയായി</string>
+    <string name="complete">പൂർത്തിയായത്</string>
+    <string name="processing">പ്രോസസ്സ് ചെയ്യുന്നു</string>
+    <string name="saving">സംരക്ഷിക്കുന്നു</string>
+    <string name="exporting">എക്‌സ്‌പോർട്ട് ചെയ്യുന്നു</string>
+    <string name="lossless">നഷ്ടരഹിതം</string>
+    <string name="cd_open_history">ചരിത്രം തുറക്കുക</string>
+    <string name="cd_open_settings">ക്രമീകരണങ്ങൾ തുറക്കുക</string>
+    <string name="cd_clear_history">ചരിത്രം മായ്ക്കുക</string>
+    <string name="preview_of_image">%1$s ചിത്രത്തിന്റെ പ്രിവ്യൂ</string>
+    <string name="processed_preview_of_image">പ്രോസസ്സ് ചെയ്ത %1$s ചിത്രത്തിന്റെ പ്രിവ്യൂ</string>
+    <string name="remove_image">%1$s ചിത്രം നീക്കം ചെയ്യുക</string>
+    <string name="image_preview">%1$s ചിത്രത്തിന്റെ പ്രിവ്യൂ</string>
+
+    <!-- Home -->
+    <string name="preview_and_configure">പ്രിവ്യൂ ചെയ്ത് ക്രമീകരിക്കുക</string>
+    <string name="home_intro">ഒരു ചിത്രമോ നിരവധി ചിത്രങ്ങളോ കംപ്രസ് ചെയ്യുക, അല്ലെങ്കിൽ പശ്ചാത്തലം നീക്കം ചെയ്യുക.</string>
+    <string name="home_formats_privacy">JPG, PNG അല്ലെങ്കിൽ WEBP തിരഞ്ഞെടുക്കുക. നിങ്ങൾ പങ്കിടുകയോ സംരക്ഷിക്കുകയോ ചെയ്യുന്നതുവരെ ചിത്രങ്ങൾ ഉപകരണത്തിൽ തന്നെ തുടരും.</string>
+    <string name="reading_image_details">ചിത്രത്തിന്റെ വിശദാംശങ്ങൾ വായിക്കുന്നു…</string>
+    <plurals name="selected_images">
+        <item quantity="one">%1$d ചിത്രം തിരഞ്ഞെടുത്തു</item>
+        <item quantity="other">%1$d ചിത്രങ്ങൾ തിരഞ്ഞെടുത്തു</item>
+    </plurals>
+
+    <!-- Editor -->
+    <string name="selected_images_heading">തിരഞ്ഞെടുത്ത ചിത്രങ്ങൾ</string>
+    <string name="count">എണ്ണം</string>
+    <string name="original_total">യഥാർത്ഥ ആകെ വലുപ്പം</string>
+    <string name="first_image">ആദ്യ ചിത്രം</string>
+    <string name="output_resolution">ഔട്ട്‌പുട്ട് റെസല്യൂഷൻ</string>
+    <string name="image_resolution">%1$d × %2$d</string>
+    <string name="image_resolution_and_format">%1$s • %2$s</string>
+    <string name="image_metadata_summary">%1$s • %2$s • %3$s</string>
+    <string name="target_size">ലക്ഷ്യ വലുപ്പം</string>
+    <string name="target_size_note">നിങ്ങൾ തിരഞ്ഞെടുത്ത വലുപ്പത്തിലേക്ക് കംപ്രസ് ചെയ്യുന്നു. ഗുണനിലവാരം നിലനിർത്താൻ യഥാർത്ഥ ഔട്ട്‌പുട്ട് വ്യത്യാസപ്പെടാം.</string>
+    <string name="quality_mode">ഗുണനിലവാര മോഡ്</string>
+    <string name="resize">വലുപ്പം മാറ്റുക</string>
+    <string name="width">വീതി</string>
+    <string name="height">ഉയരം</string>
+    <string name="maintain_aspect_ratio">വീക്ഷണാനുപാതം നിലനിർത്തുക</string>
+    <string name="allow_upscaling">വലുപ്പം കൂട്ടാൻ അനുവദിക്കുക</string>
+    <string name="output_format">ഔട്ട്‌പുട്ട് ഫോർമാറ്റ്</string>
+    <string name="low_size_format_tip">കുറഞ്ഞ വലുപ്പത്തിലേക്ക് കംപ്രസ് ചെയ്യുമ്പോൾ PNG ഒഴിവാക്കുക. JPG അല്ലെങ്കിൽ WEBP സാധാരണയായി ചെറിയ ഫയലുകൾ സൃഷ്ടിക്കും.</string>
+    <string name="jpg_background">JPG പശ്ചാത്തലം</string>
+    <string name="compress_image">ചിത്രം കംപ്രസ് ചെയ്യുക</string>
+    <string name="remove_background">പശ്ചാത്തലം നീക്കം ചെയ്യുക</string>
+    <string name="quality_best_title">മികച്ച ഗുണനിലവാരം</string>
+    <string name="quality_best_description">വിശദാംശങ്ങൾക്ക് മുൻഗണന നൽകുകയും ദൃശ്യമാകുന്ന മങ്ങൽ ഒഴിവാക്കുകയും ചെയ്യുന്നു.</string>
+    <string name="quality_balanced_title">സന്തുലിതം</string>
+    <string name="quality_balanced_description">വലുപ്പം കാര്യമായി കുറയ്ക്കുന്നതിനൊപ്പം നല്ല ഗുണനിലവാരം നൽകുന്നു.</string>
+    <string name="quality_smallest_title">ഏറ്റവും ചെറിയ ഫയൽ</string>
+    <string name="quality_smallest_description">ഉപയോഗയോഗ്യമായി തുടരുന്നതിനൊപ്പം കൂടുതൽ ശക്തമായി കംപ്രസ് ചെയ്യുന്നു.</string>
+    <string name="alpha_to_jpg_warning">JPG സുതാര്യത നിലനിർത്തില്ല. സുതാര്യ ഭാഗങ്ങൾ തിരഞ്ഞെടുത്ത പശ്ചാത്തല നിറം കൊണ്ട് നിറയ്ക്കപ്പെടും.</string>
+
+    <!-- Validation -->
+    <string name="validation_enter_target_size">ലക്ഷ്യ വലുപ്പം നൽകുക.</string>
+    <string name="validation_target_size_greater_than_zero">ലക്ഷ്യ വലുപ്പം പൂജ്യത്തേക്കാൾ കൂടുതലായിരിക്കണം.</string>
+    <string name="validation_target_size_too_small">വിശ്വസനീയമായ ചിത്ര ഔട്ട്‌പുട്ടിന് ലക്ഷ്യ വലുപ്പം വളരെ ചെറുതാണ്.</string>
+    <string name="validation_target_size_too_large">ലക്ഷ്യ വലുപ്പം ഈ ആപ്പ് പിന്തുണയ്ക്കുന്നതിലും വലുതാണ്.</string>
+    <string name="validation_enter_valid_number">സാധുവായ ഒരു സംഖ്യ നൽകുക.</string>
+    <string name="validation_use_mb_for_large_targets">വലിയ ലക്ഷ്യങ്ങൾക്ക് MB ഉപയോഗിക്കുക.</string>
+    <string name="validation_original_dimensions_unavailable">യഥാർത്ഥ അളവുകൾ ലഭ്യമല്ല.</string>
+    <string name="validation_enter_valid_width_and_height">സാധുവായ വീതിയും ഉയരവും നൽകുക.</string>
+    <string name="validation_output_dimensions_too_small">ഔട്ട്‌പുട്ട് അളവുകൾ വളരെ ചെറുതാണ്.</string>
+    <string name="validation_output_dimensions_too_large">ഔട്ട്‌പുട്ട് അളവുകൾ വളരെ വലുതാണ്.</string>
+    <string name="validation_upscaling_is_off">വലുപ്പം കൂട്ടൽ ഓഫാണ്. ചിത്രം വലുതാക്കാൻ അത് ഓൺ ചെയ്യുക.</string>
+    <string name="error_invalid_output_size">ഔട്ട്‌പുട്ട് വലുപ്പം അസാധുവാണ്.</string>
+
+    <!-- Batch processing -->
+    <string name="compressing">കംപ്രസ് ചെയ്യുന്നു</string>
+    <string name="batch_summary">ബാച്ച് സംഗ്രഹം</string>
+    <string name="retry_failed">പരാജയപ്പെട്ടവ വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="compare_results">ഫലങ്ങൾ താരതമ്യം ചെയ്യുക</string>
+    <string name="total_progress">ആകെ പുരോഗതി</string>
+    <string name="batch_summary_counts">%1$d പൂർത്തിയായി • %2$d പരാജയപ്പെട്ടു</string>
+    <string name="batch_summary_counts_cancelled">%1$d പൂർത്തിയായി • %2$d പരാജയപ്പെട്ടു • റദ്ദാക്കി</string>
+    <string name="queued">ക്യൂവിൽ</string>
+    <string name="reading_image">ചിത്രം വായിക്കുന്നു</string>
+    <string name="optimizing_resolution">റെസല്യൂഷൻ മെച്ചപ്പെടുത്തുന്നു</string>
+    <string name="validating_result">ഫലം പരിശോധിക്കുന്നു</string>
+    <string name="preparing_image">ചിത്രം തയ്യാറാക്കുന്നു</string>
+    <string name="removing_background">പശ്ചാത്തലം നീക്കം ചെയ്യുന്നു</string>
+    <string name="refining_edges">അരികുകൾ മെച്ചപ്പെടുത്തുന്നു</string>
+    <string name="finalizing">അന്തിമമാക്കുന്നു</string>
+    <string name="processing_item">%2$d-ൽ %1$d പ്രോസസ്സ് ചെയ്യുന്നു</string>
+
+    <!-- Background removal -->
+    <string name="background">പശ്ചാത്തലം</string>
+    <string name="background_removal_cancelled">പശ്ചാത്തലം നീക്കം ചെയ്യൽ റദ്ദാക്കി</string>
+    <string name="background_cancelled_message">യഥാർത്ഥ ചിത്രം മാറ്റിയിട്ടില്ല. തയ്യാറാകുമ്പോൾ വീണ്ടും ആരംഭിക്കുക.</string>
+    <string name="background_removal_unavailable">പശ്ചാത്തലം നീക്കം ചെയ്യൽ ലഭ്യമല്ല</string>
+    <string name="background_removal_failed">പശ്ചാത്തലം നീക്കം ചെയ്യൽ പരാജയപ്പെട്ടു</string>
+    <string name="preview">പ്രിവ്യൂ</string>
+    <string name="transparent_background_preview">സുതാര്യ പശ്ചാത്തലത്തിന്റെ പ്രിവ്യൂ</string>
+    <string name="selected_background_preview">തിരഞ്ഞെടുത്ത പശ്ചാത്തല നിറമുള്ള ചിത്രത്തിന്റെ പ്രിവ്യൂ</string>
+    <string name="replacement_color">പകരം നിറം</string>
+    <string name="custom_color">ഇഷ്ടാനുസൃത നിറം</string>
+    <string name="red">ചുവപ്പ്</string>
+    <string name="green">പച്ച</string>
+    <string name="blue">നീല</string>
+    <string name="export_format">എക്‌സ്‌പോർട്ട് ഫോർമാറ്റ്</string>
+    <string name="export_background">പശ്ചാത്തലം എക്‌സ്‌പോർട്ട് ചെയ്യുക</string>
+    <string name="background_offline_note">ഈ ഉപകരണത്തിൽ തന്നെ പ്രവർത്തിച്ച് സുതാര്യമായ PNG എക്‌സ്‌പോർട്ട് ചെയ്യുന്നു. ചിത്രങ്ങൾ അപ്‌ലോഡ് ചെയ്യുന്നില്ല.</string>
+    <string name="start_removal">നീക്കം ചെയ്യൽ ആരംഭിക്കുക</string>
+    <string name="transparent">സുതാര്യം</string>
+    <string name="background_color_accessibility">%1$s പശ്ചാത്തല നിറം</string>
+    <string name="color_white">വെള്ള</string>
+    <string name="color_black">കറുപ്പ്</string>
+    <string name="color_blue">നീല</string>
+    <string name="color_red">ചുവപ്പ്</string>
+    <string name="color_green">പച്ച</string>
+    <string name="color_yellow">മഞ്ഞ</string>
+    <string name="color_gray">ചാരനിറം</string>
+    <string name="color_orange">ഓറഞ്ച്</string>
+    <string name="color_purple">പർപ്പിൾ</string>
+    <string name="color_cyan">സയാൻ</string>
+    <string name="color_brown">തവിട്ട്</string>
+    <string name="color_pink">പിങ്ക്</string>
+
+    <!-- Results -->
+    <string name="compare_result">ഫലം താരതമ്യം ചെയ്യുക</string>
+    <string name="batch_results">ബാച്ച് ഫലങ്ങൾ</string>
+    <string name="save_and_share">സംരക്ഷിച്ച് പങ്കിടുക</string>
+    <string name="output_filename">ഔട്ട്‌പുട്ട് ഫയൽ പേര്</string>
+    <string name="result_ready">ഫലം തയ്യാറാണ്</string>
+    <string name="compare_before_saving">സംരക്ഷിക്കുന്നതിന് മുമ്പ് യഥാർത്ഥ ഔട്ട്‌പുട്ടും പ്രോസസ്സ് ചെയ്ത ഔട്ട്‌പുട്ടും താരതമ്യം ചെയ്യുക.</string>
+    <string name="details">വിശദാംശങ്ങൾ</string>
+    <string name="original_size">യഥാർത്ഥ വലുപ്പം</string>
+    <string name="processed_size">പ്രോസസ്സ് ചെയ്ത വലുപ്പം</string>
+    <string name="requested_target">ആവശ്യപ്പെട്ട ലക്ഷ്യം</string>
+    <string name="target_status">ലക്ഷ്യ നില</string>
+    <string name="reached_within_tolerance">അനുവദിച്ച പരിധിക്കുള്ളിൽ എത്തി</string>
+    <string name="not_safely_achievable">സുരക്ഷിതമായി നേടാനാകില്ല</string>
+    <string name="space_saved">ലാഭിച്ച സ്ഥലം</string>
+    <string name="percentage_saved">ലാഭിച്ച ശതമാനം</string>
+    <string name="size_increase">വലുപ്പത്തിലെ വർധന</string>
+    <string name="compression_ratio">കംപ്രഷൻ അനുപാതം</string>
+    <string name="original_resolution">യഥാർത്ഥ റെസല്യൂഷൻ</string>
+    <string name="processed_resolution">പ്രോസസ്സ് ചെയ്ത റെസല്യൂഷൻ</string>
+    <string name="output_quality">ഔട്ട്‌പുട്ട് ഗുണനിലവാരം</string>
+    <string name="no_result_title">കംപ്രസ് ചെയ്ത ഫലമൊന്നും ലഭ്യമല്ല.</string>
+    <string name="no_result_message">ഇവിടെ ഫലങ്ങൾ താരതമ്യം ചെയ്യാൻ ഒരു ചിത്രം തിരഞ്ഞെടുത്ത് കംപ്രഷൻ പ്രവർത്തിപ്പിക്കുക.</string>
+    <string name="original_size_value">യഥാർത്ഥ വലുപ്പം: %1$s</string>
+    <string name="compressed_size_value">കംപ്രസ് ചെയ്ത വലുപ്പം: %1$s</string>
+    <string name="percentage_saved_value">%1$s ലാഭിച്ചു</string>
+    <string name="compression_ratio_value">%1$s:1</string>
+    <string name="progress_percentage">%1$s</string>
+
+    <!-- History -->
+    <string name="history">ചരിത്രം</string>
+    <string name="loading_history">ചരിത്രം ലോഡ് ചെയ്യുന്നു…</string>
+    <string name="history_empty_title">ഇതുവരെ പ്രോസസ്സ് ചെയ്ത ചിത്രങ്ങളില്ല.</string>
+    <string name="history_empty_message">ഒരു പ്രവർത്തനം വിജയിച്ചതിന് ശേഷം കംപ്രസ് ചെയ്തതും പശ്ചാത്തലം നീക്കം ചെയ്തതുമായ ചിത്രങ്ങൾ ഇവിടെ ദൃശ്യമാകും.</string>
+    <string name="history_load_error_title">ചരിത്രം ലോഡ് ചെയ്യാനായില്ല.</string>
+    <string name="history_operation_compressed">കംപ്രസ് ചെയ്തത്</string>
+    <string name="history_operation_background_removed">പശ്ചാത്തലം നീക്കം ചെയ്തത്</string>
+    <string name="history_operation_resized">വലുപ്പം മാറ്റിയത്</string>
+    <string name="history_operation_format_converted">ഫോർമാറ്റ് മാറ്റിയത്</string>
+    <string name="history_operation_enhanced">മെച്ചപ്പെടുത്തിയത്</string>
+    <string name="history_operation_collage">കൊളാഷ്</string>
+    <string name="processed_image">പ്രോസസ്സ് ചെയ്ത ചിത്രം</string>
+    <string name="original_image">യഥാർത്ഥ ചിത്രം</string>
+    <string name="history_operation_timestamp">%1$s • %2$s</string>
+
+    <!-- Settings and privacy -->
+    <string name="settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="privacy">സ്വകാര്യത</string>
+    <string name="settings_privacy_processing">പശ്ചാത്തലം നീക്കം ചെയ്യൽ ഉൾപ്പെടെയുള്ള ചിത്ര പ്രോസസ്സിംഗ് നിങ്ങളുടെ ഉപകരണത്തിൽ തന്നെ നടക്കുന്നു. ആപ്പിന് ഉപയോക്തൃ അക്കൗണ്ടുകളോ വിദൂര ചിത്ര-പ്രോസസ്സിംഗ് ബാക്കെൻഡോ ഇല്ല. Google പരസ്യ, സമ്മത സേവനങ്ങൾ ഇന്റർനെറ്റ് ആക്‌സസ് ഉപയോഗിക്കുന്നു.</string>
+    <string name="settings_privacy_ad_sdk">ആപ്പ് കോഡ് തിരഞ്ഞെടുത്തതോ സൃഷ്ടിച്ചതോ ആയ ചിത്രങ്ങൾ, ഫയൽ പേരുകൾ, കണ്ടന്റ് URI-കൾ, EXIF മെറ്റാഡാറ്റ അല്ലെങ്കിൽ ചിത്ര-പ്രോസസ്സിംഗ് ഡാറ്റ Google Mobile Ads-ലേക്ക് അയയ്ക്കുന്നില്ല. പരസ്യം, വിശകലനം, തട്ടിപ്പ് തടയൽ എന്നിവയ്ക്കായി SDK IP-യിൽ നിന്ന് കണക്കാക്കുന്ന ഏകദേശ സ്ഥാനം, ഉൽപ്പന്ന ഇടപെടലുകൾ, ഡയഗ്നോസ്റ്റിക് വിവരങ്ങൾ, ഉപകരണ അല്ലെങ്കിൽ അക്കൗണ്ട് ഐഡന്റിഫയറുകൾ എന്നിവ സ്വയമേവ ശേഖരിക്കുകയും പങ്കിടുകയും ചെയ്യുന്നു.</string>
+    <string name="privacy_policy">സ്വകാര്യതാ നയം</string>
+    <string name="privacy_choices">സ്വകാര്യതാ തിരഞ്ഞെടുപ്പുകൾ</string>
+    <string name="advertising">പരസ്യം</string>
+    <string name="settings_ads_placement">ഈ ആപ്പ് Google AdMob ബാനർ, നേറ്റീവ്, ഇന്റർസ്റ്റീഷ്യൽ, ആപ്പ്-ഓപ്പൺ പരസ്യങ്ങൾ ഉപയോഗിക്കുന്നു. ചരിത്രം തുറക്കുമ്പോഴും സംരക്ഷിക്കുക, പങ്കിടുക അല്ലെങ്കിൽ തുറക്കുക എന്ന പ്രവർത്തനത്തിന് തൊട്ടുമുമ്പും ഇന്റർസ്റ്റീഷ്യൽ പരസ്യത്തിന് അർഹതയുണ്ട്. നിലവിലെ പരിധിക്ക് മുമ്പ് വിജയകരമായ പ്രവർത്തനം ആവശ്യമില്ല.</string>
+    <string name="settings_ads_lifecycle">ഒരു ഇന്റർസ്റ്റീഷ്യൽ പരസ്യം കാണിച്ചതിന് ശേഷം കുറഞ്ഞത് മൂന്ന് മിനിറ്റ് മറ്റൊന്ന് തടയപ്പെടും; ഓരോ ആപ്പ്-പ്രോസസ് സെഷനിലും പരമാവധി മൂന്ന് എണ്ണം മാത്രമേ കാണിക്കൂ. ഈ പരിധികൾ ആപ്പ്-ഓപ്പൺ പരസ്യങ്ങൾക്ക് ബാധകമല്ല; ലോഡ് ചെയ്ത ശേഷം ആപ്പ് വീണ്ടും മുൻനിരയിലേക്ക് വരുമ്പോൾ അവ പ്രത്യക്ഷപ്പെടാം. സജീവ ചിത്ര പ്രോസസ്സിംഗിനിടെ പൂർണ്ണ-സ്‌ക്രീൻ പരസ്യങ്ങൾ തടയപ്പെടുകയും പരസ്യം ലഭ്യമല്ലെങ്കിലും ആവശ്യപ്പെട്ട പ്രവർത്തനങ്ങൾ തുടരുകയും ചെയ്യും.</string>
+    <string name="settings_background_model">ആപ്പിനൊപ്പം നൽകിയ ONNX U2-NetP മോഡൽ ഉപയോഗിച്ച് പശ്ചാത്തലം നീക്കം ചെയ്യൽ ഓഫ്‌ലൈനായി പ്രവർത്തിക്കുന്നു. ചിത്രങ്ങൾ ഉപകരണത്തിൽ തന്നെ പ്രോസസ്സ് ചെയ്യപ്പെടുന്നു; ഈ സവിശേഷത അവ അപ്‌ലോഡ് ചെയ്യുന്നില്ല.</string>
+    <string name="open_source_notices">ഓപ്പൺ സോഴ്‌സ് അറിയിപ്പുകൾ ആപ്പിനൊപ്പം പാക്ക് ചെയ്തിരിക്കുന്നു.</string>
+    <string name="privacy_effective_date">%1$s മുതൽ പ്രാബല്യത്തിൽ</string>
+
+    <!-- Privacy policy -->
+    <string name="policy_overview_title">അവലോകനം</string>
+    <string name="policy_overview_body">Photo Compressor ചിത്രങ്ങൾ തിരഞ്ഞെടുക്കുകയും കംപ്രസ് ചെയ്യുകയും വലുപ്പവും ഫോർമാറ്റും മാറ്റുകയും സംരക്ഷിക്കുകയും തുറക്കുകയും പങ്കിടുകയും ചിത്ര പശ്ചാത്തലങ്ങൾ നീക്കം ചെയ്യുകയോ മാറ്റുകയോ ചെയ്യുന്നു. ചിത്ര പ്രോസസ്സിംഗ് നിങ്ങളുടെ ഉപകരണത്തിൽ തന്നെ നടക്കുന്നു. ചിത്രങ്ങൾ അപ്‌ലോഡ് ചെയ്യുന്നതിനോ പ്രോസസ്സ് ചെയ്യുന്നതിനോ ആപ്പിന് ഉപയോക്തൃ അക്കൗണ്ടുകളോ ഡെവലപ്പർ ബാക്കെൻഡോ ഇല്ല. Google പരസ്യ, സമ്മത സേവനങ്ങൾ ഇന്റർനെറ്റ് ആക്‌സസ് ഉപയോഗിക്കുന്നു. ആപ്പിന്റെ സ്വകാര്യ ഡാറ്റ Android ആപ്പ് സാൻഡ്‌ബോക്‌സ് സംരക്ഷിക്കുന്നു; Mobile Ads SDK നെറ്റ്‌വർക്ക് ഡാറ്റ TLS ഉപയോഗിച്ച് കൈമാറ്റത്തിനിടെ എൻക്രിപ്റ്റ് ചെയ്യപ്പെടുന്നുവെന്ന് Google പറയുന്നു.</string>
+    <string name="policy_images_files_title">ചിത്രങ്ങളും ഫയലുകളും</string>
+    <string name="policy_images_files_body">Android സിസ്റ്റം Photo Picker വഴി നിങ്ങൾ ചിത്രങ്ങൾ തിരഞ്ഞെടുക്കുന്നു. പ്രോസസ്സിംഗിന് ആവശ്യമായ ഓരോ കണ്ടന്റ് URI-യും പ്രാദേശിക മെറ്റാഡാറ്റയും ആപ്പ് വായിക്കുന്നു; അതിൽ പ്രദർശന പേര്, മീഡിയ തരം, വലുപ്പം, അളവുകൾ, ഫോർമാറ്റ്, സുതാര്യതാ വിവരം, EXIF ദിശ എന്നിവ ഉൾപ്പെടുന്നു. ദാതാവ് അനുവദിക്കുമ്പോൾ പ്രാദേശിക ചരിത്രത്തിന് ഉറവിടം വീണ്ടും തുറക്കാൻ കഴിയുന്ന വിധം ആപ്പ് സ്ഥിരമായ വായനാനുമതി നിലനിർത്തുന്നു; ചരിത്രം മായ്ക്കുക നിലവിൽ അത് ഒഴിവാക്കുന്നില്ല. ആപ്പ് കോഡ് തിരഞ്ഞെടുത്തതോ സൃഷ്ടിച്ചതോ ആയ ചിത്രങ്ങളോ അവയുടെ മെറ്റാഡാറ്റയോ അപ്‌ലോഡ് ചെയ്യുന്നില്ല. നിങ്ങൾ ബന്ധപ്പെട്ട പ്രവർത്തനം തിരഞ്ഞെടുത്തതിന് ശേഷം മാത്രമേ ഔട്ട്‌പുട്ടുകൾ തുറക്കുകയോ പങ്കിടുകയോ ചെയ്യൂ. സംരക്ഷിക്കുക എന്ന പ്രവർത്തനം Android MediaStore വഴി Pictures/Photo Compressor-ലേക്ക് എഴുതുന്നു. Android 9-ലോ അതിന് മുമ്പുള്ള പതിപ്പിലോ മാത്രം, ഉപയോക്താവ് ആരംഭിക്കുന്ന സംരക്ഷിക്കൽ പഴയ പങ്കിട്ട-സ്റ്റോറേജ് എഴുതൽ അനുമതി ചോദിക്കും; Android 10-ലോ അതിന് ശേഷമോ അത് ചോദിക്കില്ല.</string>
+    <string name="policy_local_history_title">പ്രാദേശിക ചരിത്രവും നിലനിർത്തൽ കാലവും</string>
+    <string name="policy_local_history_body">ആപ്പിന്റെ സ്വകാര്യ DataStore-ൽ പരമാവധി 200 രേഖകൾ സൂക്ഷിക്കുന്നു; ഉറവിട, ഔട്ട്‌പുട്ട് റഫറൻസുകൾ, പേരുകൾ, തരങ്ങൾ, വലുപ്പങ്ങൾ, അളവുകൾ, ഫോർമാറ്റുകൾ, പ്രവർത്തനത്തിന്റെയും കംപ്രഷന്റെയും വിശദാംശങ്ങൾ, ഫലമോ മുന്നറിയിപ്പോ സംബന്ധിച്ച വിവരം, സംരക്ഷിച്ച ഔട്ട്‌പുട്ട് റഫറൻസുകൾ, സമയമുദ്രകൾ എന്നിവ ഇതിൽ ഉൾപ്പെടുന്നു. കോൺഫിഗർ ചെയ്ത ക്ലൗഡ് ബാക്കപ്പിൽ നിന്നും ഉപകരണ കൈമാറ്റത്തിൽ നിന്നും ഈ DataStore ഒഴിവാക്കിയിരിക്കുന്നു. താൽക്കാലിക ഔട്ട്‌പുട്ടുകൾ കാഷിൽ തുടരാം. ഒരു ഇനം നീക്കം ചെയ്യുകയോ ചരിത്രം മായ്ക്കുക ഉപയോഗിക്കുകയോ ചെയ്യുമ്പോൾ അതിന്റെ രേഖ നീക്കം ചെയ്യുകയും അത് സൂചിപ്പിക്കുന്ന ആപ്പിന്റെ ഉടമസ്ഥതയിലുള്ള താൽക്കാലിക ഔട്ട്‌പുട്ട് മാത്രം ഇല്ലാതാക്കാൻ ശ്രമിക്കുകയും ചെയ്യും. ചരിത്രം മായ്ക്കുക ഗാലറി ചിത്രങ്ങൾ ഇല്ലാതാക്കുന്നില്ല, റഫറൻസ് ഇല്ലാത്ത കാഷ് ഫയലുകൾ ഇല്ലാതാകുമെന്ന് ഉറപ്പുനൽകുന്നില്ല, ഉറവിടങ്ങൾക്കുള്ള സ്ഥിരമായ വായനാനുമതികൾ ഒഴിവാക്കുന്നുമില്ല. Android-ലെ കാഷ് മായ്ക്കുക താൽക്കാലിക ഫയലുകൾ ഇല്ലാതാക്കാം; സ്റ്റോറേജ് മായ്ക്കുക ആപ്പിന്റെ പ്രാദേശിക രേഖകളും കാഷും ഇല്ലാതാക്കും. സംരക്ഷിച്ച ചിത്രങ്ങൾ ഗാലറിയോ ഫയൽ മാനേജറോ ഉപയോഗിച്ച് ഇല്ലാതാക്കുക. ആപ്പിന് ഉപയോക്തൃ അക്കൗണ്ടുകളില്ല.</string>
+    <string name="policy_advertising_consent_title">പരസ്യവും സമ്മതവും</string>
+    <string name="policy_advertising_consent_body">Google AdMob ബാനർ, നേറ്റീവ്, ഇന്റർസ്റ്റീഷ്യൽ, ആപ്പ്-ഓപ്പൺ പരസ്യങ്ങൾ നൽകുന്നു. ചരിത്രം തുറക്കുമ്പോഴും സംരക്ഷിക്കുക, പങ്കിടുക അല്ലെങ്കിൽ തുറക്കുക എന്ന പ്രവർത്തനത്തിന് തൊട്ടുമുമ്പും ഇന്റർസ്റ്റീഷ്യൽ പരസ്യത്തിന് അർഹതയുണ്ട്; മുമ്പ് വിജയകരമായ പ്രവർത്തനം ആവശ്യമില്ല. ഒന്ന് കാണിച്ചതിന് ശേഷം കുറഞ്ഞത് മൂന്ന് മിനിറ്റ് മറ്റൊന്ന് തടയപ്പെടും; ഓരോ ആപ്പ്-പ്രോസസ് സെഷനിലും പരമാവധി മൂന്ന് എണ്ണം മാത്രമേ കാണിക്കൂ. ഈ പരിധികൾ ആപ്പ്-ഓപ്പൺ പരസ്യങ്ങൾക്ക് ബാധകമല്ല; ലോഡ് ചെയ്ത ശേഷം ആപ്പ് വീണ്ടും മുൻനിരയിലേക്ക് വരുമ്പോൾ അവ പ്രത്യക്ഷപ്പെടാം. Google Mobile Ads SDK 25.4.0 IP-യിൽ നിന്ന് കണക്കാക്കുന്ന ഏകദേശ സ്ഥാനം; ആപ്പ് ആരംഭിക്കൽ, ടാപ്പുകൾ, പരസ്യ അല്ലെങ്കിൽ വീഡിയോ കാഴ്ചകൾ പോലുള്ള ഉൽപ്പന്ന ഇടപെടലുകൾ; ആപ്പ് ആരംഭ സമയവും പ്രതികരിക്കാതിരിക്കുന്ന നിരക്കും ഊർജ ഉപഭോഗവും പോലുള്ള ഡയഗ്നോസ്റ്റിക് വിവരങ്ങൾ; Advertising ID, App Set ID പോലുള്ള ഉപകരണ അല്ലെങ്കിൽ അക്കൗണ്ട് ഐഡന്റിഫയറുകൾ എന്നിവ സ്വയമേവ ശേഖരിക്കുകയും പങ്കിടുകയും ചെയ്യുന്നു. പരസ്യം അല്ലെങ്കിൽ വിപണനം, വിശകലനം, തട്ടിപ്പ് തടയൽ, സുരക്ഷ, നിയമാനുസരണം എന്നിവയ്ക്കായി ഈ ഡാറ്റ ഉപയോഗിക്കുന്നുവെന്നും SDK ഡാറ്റ TLS ഉപയോഗിച്ച് കൈമാറ്റത്തിനിടെ എൻക്രിപ്റ്റ് ചെയ്യുന്നുവെന്നും Google പറയുന്നു. User Messaging Platform SDK 4.0.0 സമ്മത വിവരങ്ങൾ ആവശ്യപ്പെടുകയും അവ ആവശ്യമാണെന്ന് Google അറിയിക്കുമ്പോൾ സമ്മത അല്ലെങ്കിൽ സ്വകാര്യതാ-തിരഞ്ഞെടുപ്പ് ഫോമുകൾ കാണിക്കുകയും ചെയ്യുന്നു. വ്യക്തിഗതമാക്കിയ പരസ്യ സമ്മതമില്ലാതെയും പരസ്യങ്ങൾ ലഭ്യമല്ലാത്തപ്പോഴും ഉപകരണം ഓഫ്‌ലൈനായിരിക്കുമ്പോഴും പ്രധാന ചിത്ര പ്രോസസ്സിംഗ് പ്രവർത്തിക്കും.</string>
+    <string name="policy_background_removal_title">പശ്ചാത്തലം നീക്കം ചെയ്യൽ</string>
+    <string name="policy_background_removal_body">പശ്ചാത്തലം നീക്കം ചെയ്യൽ ആപ്പിനൊപ്പം നൽകിയ U2-NetP ONNX മോഡലും ONNX Runtime-ഉം പൂർണ്ണമായും ഉപകരണത്തിൽ തന്നെ ഉപയോഗിക്കുന്നു. ഈ സവിശേഷതയ്ക്കായി ആപ്പ് കോഡ് വിദൂര മോഡൽ ഡൗൺലോഡ് ചെയ്യുകയോ ചിത്രം അപ്‌ലോഡ് ചെയ്യുകയോ ചെയ്യുന്നില്ല.</string>
+    <string name="policy_children_title">കുട്ടികൾ</string>
+    <string name="policy_children_body">Photo Compressor പൊതുവായ ഉപയോഗത്തിനുള്ള ഒരു ഉപകരണമാണ്; ഇത് 13 വയസ്സിന് താഴെയുള്ള കുട്ടികളെ ലക്ഷ്യമിടുന്നില്ല. SDK-യ്ക്ക് പരസ്യങ്ങൾ ആവശ്യപ്പെടാൻ അനുമതിയുള്ളപ്പോഴെല്ലാം മുകളിൽ വിവരിച്ച സ്വയമേവയുള്ള Google പരസ്യ-SDK രീതികൾ ബാധകമാണ്. പുറത്തിറക്കുന്നതിന് മുമ്പ് പ്രസാധകൻ ചെയ്യേണ്ടത്: ഈ പ്രസ്താവനയുമായി പൊരുത്തപ്പെടുന്ന വിധത്തിൽ Play ലക്ഷ്യ-പ്രേക്ഷക, പരസ്യ ക്രമീകരണങ്ങൾ കോൺഫിഗർ ചെയ്യുക; കുട്ടികളെ ലക്ഷ്യമിടുന്ന പ്രേക്ഷകർക്ക് നൽകുന്നതിന് മുമ്പ് ആപ്പും നയവും വീണ്ടും വിലയിരുത്തുക.</string>
+    <string name="policy_third_parties_title">മൂന്നാം കക്ഷികളും ബന്ധപ്പെടാനുള്ള വിവരവും</string>
+    <string name="policy_third_parties_body">Google സ്വകാര്യതാ നയവും Mobile Ads ഡാറ്റ വെളിപ്പെടുത്തലും Google പരസ്യ സേവനങ്ങൾ കൈകാര്യം ചെയ്യുന്ന ഡാറ്റയ്ക്ക് ബാധകമാണ്: policies.google.com/privacy, developers.google.com/admob/android/privacy/play-data-disclosure. പ്രധാന സ്വകാര്യതാ, മോഡൽ ഘടകങ്ങൾക്കായുള്ള നിർദിഷ്ട ഓപ്പൺ സോഴ്‌സ് അറിയിപ്പുകൾ ആപ്പിൽ ഉൾപ്പെടുത്തിയിട്ടുണ്ട്; അവ എല്ലാ ഡിപെൻഡൻസികളുടെയും സമ്പൂർണ്ണ പട്ടികയല്ല. പുറത്തിറക്കുന്നതിന് മുമ്പ് പ്രസാധകൻ ചെയ്യേണ്ടത്: പരിശോധിച്ച നിയമപരമായ ഡെവലപ്പർ അല്ലെങ്കിൽ സ്ഥാപനത്തിന്റെ പേര്, നേരിട്ട് നിരീക്ഷിക്കുന്ന സ്വകാര്യതാ ബന്ധപ്പെടൽ, PDF അല്ലാത്ത സജീവവും പൊതുവായി ആക്‌സസ് ചെയ്യാവുന്നതും ഭൗമപരിധിയില്ലാത്തതും എഡിറ്റ് ചെയ്യാനാവാത്തതുമായ HTTPS സ്വകാര്യതാ-നയ വെബ്‌പേജ് എന്നിവ ചേർക്കുക. Play-യിലും ആപ്പിലും ഇതേ നിലവിലെ നയം ഉപയോഗിക്കുക; ആപ്പോ അതിന്റെ സേവനങ്ങളോ മാറുമ്പോൾ പ്രാബല്യ തീയതി പുതുക്കുക.</string>
+
+    <!-- View-model and repository messages -->
+    <string name="cancel_compression_before_leaving">പിന്നിലേക്ക് പോകുന്നതിന് മുമ്പ് കംപ്രഷൻ റദ്ദാക്കുക.</string>
+    <string name="no_app_can_handle_action">ഈ പ്രവർത്തനം കൈകാര്യം ചെയ്യാൻ കഴിയുന്ന ആപ്പുകളൊന്നും ലഭ്യമല്ല.</string>
+    <string name="image_no_longer_available">ഈ ചിത്രം ഇനി ലഭ്യമല്ല.</string>
+    <string name="error_could_not_read_image">ചിത്രം വായിക്കാനായില്ല.</string>
+    <string name="error_select_one_image_for_background">പശ്ചാത്തലം നീക്കം ചെയ്യാൻ ഒരു ചിത്രം തിരഞ്ഞെടുക്കുക.</string>
+    <string name="error_background_generic">പശ്ചാത്തലം നീക്കം ചെയ്യാനായില്ല.</string>
+    <string name="error_background_replace_failed">പശ്ചാത്തലം മാറ്റാനായില്ല.</string>
+    <string name="background_exported">പശ്ചാത്തല ചിത്രം എക്‌സ്‌പോർട്ട് ചെയ്തു.</string>
+    <string name="error_check_target_size">ലക്ഷ്യ വലുപ്പം പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="error_compression_failed">കംപ്രഷൻ പരാജയപ്പെട്ടു.</string>
+    <string name="error_history_retry_or_remove">വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ ആക്‌സസ് ചെയ്യാനാകാത്ത ചരിത്ര ഇനങ്ങൾ നീക്കം ചെയ്യുക.</string>
+    <string name="save_success">ചിത്രം സംരക്ഷിച്ചു.</string>
+    <string name="save_failure">ചിത്രം സംരക്ഷിക്കാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="history_update_failed">ചിത്രം സംരക്ഷിച്ചു, പക്ഷേ ചരിത്രം പുതുക്കാനായില്ല.</string>
+    <string name="error_legacy_storage_permission">Android 9-ലോ അതിന് മുമ്പുള്ള പതിപ്പിലോ ചിത്രങ്ങൾ സംരക്ഷിക്കാൻ സ്റ്റോറേജ് ആക്‌സസ് ആവശ്യമാണ്.</string>
+    <string name="error_file_not_readable">ഈ ഫയൽ വായിക്കാവുന്ന ചിത്രമല്ല.</string>
+    <string name="error_unsupported_image_format">പിന്തുണയില്ലാത്ത ചിത്ര ഫോർമാറ്റ്. JPG, PNG അല്ലെങ്കിൽ WEBP തിരഞ്ഞെടുക്കുക.</string>
+    <string name="selected_image">തിരഞ്ഞെടുത്ത ചിത്രം</string>
+    <string name="error_image_too_large">ഈ ഉപകരണത്തിൽ സുരക്ഷിതമായി പ്രോസസ്സ് ചെയ്യാൻ ഈ ചിത്രം വളരെ വലുതാണ്. ചെറിയ വലുപ്പമാറ്റ ശതമാനം തിരഞ്ഞെടുക്കുക.</string>
+    <string name="error_processed_image_unavailable">പ്രോസസ്സ് ചെയ്ത ചിത്രം ഇനി ലഭ്യമല്ല.</string>
+    <string name="error_create_pictures_folder">Pictures-ൽ Photo Compressor ഫോൾഡർ സൃഷ്ടിക്കാനായില്ല.</string>
+    <string name="error_create_media_entry">MediaStore എൻട്രി സൃഷ്ടിക്കാനായില്ല.</string>
+    <string name="error_open_save_destination">സംരക്ഷിക്കേണ്ട സ്ഥലം തുറക്കാനായില്ല.</string>
+    <string name="error_image_decode_failed">ചിത്രം ഡീകോഡ് ചെയ്യാനായില്ല.</string>
+    <string name="error_dimensions_too_large">%1$d × %2$d ഈ ഉപകരണത്തിൽ സുരക്ഷിതമായി പ്രോസസ്സ് ചെയ്യാൻ വളരെ വലുതാണ്. ചെറിയ വലുപ്പമാറ്റ ശതമാനം തിരഞ്ഞെടുക്കുക.</string>
+    <string name="error_image_read_failed">ഈ ചിത്രം വായിക്കാനായില്ല.</string>
+    <string name="error_no_readable_image_stream">തിരഞ്ഞെടുത്ത ചിത്രത്തിന് വായിക്കാവുന്ന സ്ട്രീം ലഭ്യമല്ല.</string>
+    <string name="error_photo_access_denied">ഫോട്ടോ ആക്‌സസ് നിരസിച്ചു. ചിത്രം വീണ്ടും തിരഞ്ഞെടുക്കുക.</string>
+    <string name="error_cloud_image_unavailable">ചിത്രം ലഭ്യമല്ല. അത് ക്ലൗഡിലാണെങ്കിൽ, പ്രാദേശികമായി ഡൗൺലോഡ് ചെയ്യുക അല്ലെങ്കിൽ Files-ൽ നിന്ന് തിരഞ്ഞെടുക്കുക.</string>
+    <string name="error_image_encode_failed">ചിത്രം എൻകോഡ് ചെയ്യാനായില്ല.</string>
+    <string name="error_compressed_image_validation_failed">കംപ്രസ് ചെയ്ത ചിത്രം പരിശോധിക്കാനായില്ല.</string>
+    <string name="error_allow_storage_access">Android 9-ലോ അതിന് മുമ്പുള്ള പതിപ്പിലോ ചിത്രങ്ങൾ സംരക്ഷിക്കാൻ സ്റ്റോറേജ് ആക്‌സസ് അനുവദിക്കുക.</string>
+    <string name="error_shared_storage_unavailable">പങ്കിട്ട സ്റ്റോറേജ് ലഭ്യമല്ല. ഉപകരണ സ്റ്റോറേജ് പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
+
+    <!-- Compression warnings -->
+    <string name="warning_png_lossless_original_preserved">PNG നഷ്ടരഹിതമാണ്; യഥാർത്ഥ റെസല്യൂഷൻ നിലനിർത്തി.</string>
+    <string name="warning_png_lossless_safe_resize">PNG നഷ്ടരഹിതമായതിനാൽ സുരക്ഷിതമായി വലുപ്പം മാറ്റിയാണ് ഫയൽ വലുപ്പം കുറച്ചത്.</string>
+    <string name="warning_png_target_unreached_original">PNG നഷ്ടരഹിതമാണ്. യഥാർത്ഥ റെസല്യൂഷൻ നിലനിർത്തിയതിനാൽ കൃത്യമായ ലക്ഷ്യത്തിലെത്താനായില്ല.</string>
+    <string name="warning_png_target_unreached_best_quality">PNG നഷ്ടരഹിതമാണ്. മികച്ച ഗുണനിലവാരമുള്ള ഫലം സൃഷ്ടിച്ചു, എന്നാൽ റെസല്യൂഷൻ ഗണ്യമായി കുറയ്ക്കാതെ കൃത്യമായ ലക്ഷ്യത്തിലെത്താനായില്ല.</string>
+    <string name="warning_target_unreached_original">യഥാർത്ഥ റെസല്യൂഷൻ നിലനിർത്തി. സ്വീകാര്യമായ എൻകോഡർ ഗുണനിലവാരത്തിൽ കൃത്യമായ ലക്ഷ്യത്തിലെത്താനായില്ല.</string>
+    <string name="warning_target_unreached_best_quality">മികച്ച ഗുണനിലവാരമുള്ള ഫലം സൃഷ്ടിച്ചു. ഗുണനിലവാരം ഗണ്യമായി കുറയ്ക്കാതെ കൃത്യമായ ലക്ഷ്യത്തിലെത്താനായില്ല.</string>
+    <string name="warning_target_reached_reduced_resolution">സ്വീകാര്യമായ എൻകോഡർ ഗുണനിലവാരം നിലനിർത്തിക്കൊണ്ട് റെസല്യൂഷൻ കുറച്ച് ലക്ഷ്യത്തിലെത്തി.</string>
+    <string name="warning_background_safe_resolution">ഈ ഉപകരണത്തിൽ മെമ്മറി തീരാതിരിക്കാൻ സുരക്ഷിതമായ റെസല്യൂഷനിൽ പ്രോസസ്സ് ചെയ്തു.</string>
+
+    <!-- Background-removal errors -->
+    <string name="error_background_model_missing">പശ്ചാത്തലം നീക്കം ചെയ്യാനുള്ള മോഡൽ ലഭ്യമല്ല.</string>
+    <string name="error_background_model_load_failed">പശ്ചാത്തലം നീക്കം ചെയ്യാനുള്ള മോഡൽ ആരംഭിക്കാനായില്ല.</string>
+    <string name="error_background_decode_failed">തിരഞ്ഞെടുത്ത ചിത്രം വായിക്കാനായില്ല.</string>
+    <string name="error_background_out_of_memory">ഈ ഉപകരണത്തിൽ പ്രോസസ്സ് ചെയ്യാൻ ചിത്രം വളരെ വലുതാണ്.</string>
+    <string name="error_background_inference_failed">മോഡൽ പ്രവർത്തിപ്പിക്കുമ്പോൾ പശ്ചാത്തലം നീക്കം ചെയ്യൽ പരാജയപ്പെട്ടു.</string>
+    <string name="error_background_export_failed">സുതാര്യമായ PNG ഫലം സൃഷ്ടിക്കാനായില്ല.</string>
+    <string name="error_background_model_incompatible">പശ്ചാത്തലം നീക്കം ചെയ്യാനുള്ള മോഡൽ ഈ ആപ്പ് പതിപ്പുമായി പൊരുത്തപ്പെടുന്നില്ല.</string>
+    <string name="error_background_try_smaller">പശ്ചാത്തലം നീക്കം ചെയ്യൽ പരാജയപ്പെട്ടു. ചെറിയൊരു ചിത്രമോ മറ്റൊരു ഫോട്ടോയോ ഉപയോഗിച്ച് ശ്രമിക്കുക.</string>
+    <string name="error_background_feature_unavailable">ഈ ഉപകരണത്തിൽ പശ്ചാത്തലം നീക്കം ചെയ്യൽ ലഭ്യമല്ല.</string>
+    <string name="image_unavailable">ചിത്രം ലഭ്യമല്ല.</string>
+</resources>

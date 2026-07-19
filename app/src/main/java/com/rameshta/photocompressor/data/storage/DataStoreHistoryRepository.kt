@@ -13,6 +13,7 @@ import com.rameshta.photocompressor.domain.model.HistoryOperationType
 import com.rameshta.photocompressor.domain.model.ImageFormat
 import com.rameshta.photocompressor.domain.model.ImageInfo
 import com.rameshta.photocompressor.domain.model.ProcessedImage
+import com.rameshta.photocompressor.domain.model.ProcessingNotice
 import com.rameshta.photocompressor.domain.repository.HistoryRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -116,7 +117,7 @@ class DataStoreHistoryRepository @Inject constructor(
             id = json.optString("id").takeIf { it.isNotBlank() } ?: return null,
             original = original,
             filePath = json.optString("filePath").takeIf { it.isNotBlank() } ?: return null,
-            displayName = json.optString("displayName").takeIf { it.isNotBlank() } ?: "Processed image",
+            displayName = json.optString("displayName"),
             sizeBytes = json.optLong("sizeBytes", 0L),
             width = json.optInt("width", 0),
             height = json.optInt("height", 0),
@@ -130,7 +131,7 @@ class DataStoreHistoryRepository @Inject constructor(
             operationType = json.optEnum("operationType", HistoryOperationType.COMPRESSED),
             savedUriString = json.optNullableString("savedUriString"),
             createdTimestamp = json.optLong("createdTimestamp", System.currentTimeMillis()),
-            warning = json.optNullableString("warning"),
+            warning = decodeProcessingNotice(json.optNullableString("warning")),
         )
     }
 
@@ -153,7 +154,7 @@ class DataStoreHistoryRepository @Inject constructor(
             .put("operationType", image.operationType.name)
             .putNullable("savedUriString", image.savedUriString)
             .put("createdTimestamp", image.createdTimestamp)
-            .putNullable("warning", image.warning)
+            .putNullable("warning", image.warning?.name)
     }
 
     private fun decodeImageInfo(json: JSONObject): ImageInfo? {
@@ -161,7 +162,7 @@ class DataStoreHistoryRepository @Inject constructor(
         return ImageInfo(
             id = json.optString("id").takeIf { it.isNotBlank() } ?: return null,
             uriString = json.optString("uriString").takeIf { it.isNotBlank() } ?: return null,
-            displayName = json.optString("displayName").takeIf { it.isNotBlank() } ?: "Original image",
+            displayName = json.optString("displayName"),
             sizeBytes = json.optLong("sizeBytes", 0L),
             width = json.optInt("width", 0),
             height = json.optInt("height", 0),
@@ -182,6 +183,12 @@ class DataStoreHistoryRepository @Inject constructor(
             .put("format", image.format.name)
             .put("mimeType", image.mimeType)
             .put("hasAlpha", image.hasAlpha)
+    }
+
+    private fun decodeProcessingNotice(value: String?): ProcessingNotice? {
+        if (value == null) return null
+        return enumValues<ProcessingNotice>().firstOrNull { it.name == value }
+            ?: LEGACY_NOTICE_VALUES[value]
     }
 
     private fun outputExists(path: String): Boolean {
@@ -235,6 +242,24 @@ class DataStoreHistoryRepository @Inject constructor(
         val KEY_HISTORY = stringPreferencesKey("history_json")
         val FILE_PROVIDER_AUTHORITY = "${BuildConfig.APPLICATION_ID}.fileprovider"
         const val MAX_HISTORY_ITEMS = 200
+        val LEGACY_NOTICE_VALUES = mapOf(
+            "PNG is lossless and the original resolution was preserved." to
+                ProcessingNotice.PNG_LOSSLESS_ORIGINAL_PRESERVED,
+            "PNG is lossless, so size reduction was performed through safe resizing." to
+                ProcessingNotice.PNG_LOSSLESS_SAFE_RESIZE,
+            "PNG is lossless. The original resolution was preserved, so the exact target could not be reached." to
+                ProcessingNotice.PNG_TARGET_UNREACHED_ORIGINAL,
+            "PNG is lossless. Best quality result created, but the exact target could not be reached without significant resolution loss." to
+                ProcessingNotice.PNG_TARGET_UNREACHED_BEST_QUALITY,
+            "Original resolution preserved. The exact target could not be reached at an acceptable encoder quality." to
+                ProcessingNotice.TARGET_UNREACHED_ORIGINAL,
+            "Best quality result created. The exact target could not be reached without significant quality loss." to
+                ProcessingNotice.TARGET_UNREACHED_BEST_QUALITY,
+            "Target reached by reducing resolution while preserving acceptable encoder quality." to
+                ProcessingNotice.TARGET_REACHED_REDUCED_RESOLUTION,
+            "Processed at a safe resolution to avoid running out of memory on this device." to
+                ProcessingNotice.BACKGROUND_SAFE_RESOLUTION,
+        )
     }
 }
 

@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.rameshta.photocompressor.BuildConfig
 import com.rameshta.photocompressor.R
+import com.rameshta.photocompressor.domain.model.ImageErrorCode
 import com.rameshta.photocompressor.domain.model.ProcessedImage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -49,7 +51,7 @@ class ImageShareController @Inject constructor(
     fun shareIntent(
         uri: Uri,
         mimeType: String,
-        displayName: String = context.getString(R.string.share_results_chooser),
+        displayName: String = languageContext.getString(R.string.share_results_chooser),
     ): Intent {
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
             type = mimeType
@@ -60,7 +62,7 @@ class ImageShareController @Inject constructor(
         }
         return Intent.createChooser(
             sendIntent,
-            context.getString(R.string.share_results_chooser),
+            languageContext.getString(R.string.share_results_chooser),
         ).apply {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
@@ -74,7 +76,7 @@ class ImageShareController @Inject constructor(
     fun shareManyIntent(images: List<ProcessedImage>): Intent {
         val uris = ArrayList(images.map { contentUriFor(it) })
         val mimeType = images.firstOrNull()?.mimeType ?: "image/*"
-        val displayName = context.getString(R.string.share_results_chooser)
+        val displayName = languageContext.getString(R.string.share_multiple_results_chooser)
         val resolvedMimeType = if (images.map { it.mimeType }.distinct().size == 1) mimeType else "image/*"
         val clipData = uris.firstOrNull()?.let { firstUri ->
             ClipData.newUri(context.contentResolver, displayName, firstUri).apply {
@@ -89,7 +91,7 @@ class ImageShareController @Inject constructor(
                 putExtra(Intent.EXTRA_TITLE, displayName)
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             },
-            context.getString(R.string.share_results_chooser),
+            languageContext.getString(R.string.share_multiple_results_chooser),
         ).apply {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
@@ -107,7 +109,7 @@ class ImageShareController @Inject constructor(
     private fun requireAvailableFile(image: ProcessedImage): File {
         val file = File(image.filePath)
         require(file.isFile && file.length() > 0L) {
-            "The image is no longer available."
+            ImageErrorCode.PROCESSED_IMAGE_UNAVAILABLE.name
         }
         return file
     }
@@ -115,10 +117,13 @@ class ImageShareController @Inject constructor(
     private fun requireAllowedContentUri(uri: Uri): Uri {
         val authority = uri.authority.orEmpty()
         require(authority == MediaStore.AUTHORITY || authority == FILE_PROVIDER_AUTHORITY) {
-            "The image is no longer available."
+            ImageErrorCode.PROCESSED_IMAGE_UNAVAILABLE.name
         }
         return uri
     }
+
+    private val languageContext: Context
+        get() = ContextCompat.getContextForLanguage(context)
 
     private companion object {
         val FILE_PROVIDER_AUTHORITY = "${BuildConfig.APPLICATION_ID}.fileprovider"

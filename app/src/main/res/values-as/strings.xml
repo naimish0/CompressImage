@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Language selector -->
+    <string name="language">ভাষা</string>
+    <string name="choose_language">ভাষা বাছনি কৰক</string>
+    <string name="current_language">বৰ্তমান ভাষা: %1$s</string>
+    <string name="search_languages">ভাষা সন্ধান কৰক</string>
+    <string name="search_languages_hint">ভাষাৰ নাম লিখক</string>
+    <string name="no_languages_found">মিল থকা কোনো ভাষা পোৱা নগ’ল</string>
+    <string name="system_default">ছিষ্টেম ডিফল্ট</string>
+
+    <!-- Common actions and accessibility -->
+    <string name="share_results_chooser">সংকুচিত ছবি ভাগ-বতৰা কৰক</string>
+    <string name="share_multiple_results_chooser">সংকুচিত ছবিসমূহ ভাগ-বতৰা কৰক</string>
+    <string name="ad_label">বিজ্ঞাপন</string>
+    <string name="sponsored">প্ৰায়োজিত</string>
+    <string name="cd_go_back">পিছলৈ যাওক</string>
+    <string name="retry">পুনৰ চেষ্টা কৰক</string>
+    <string name="unknown_size">অজ্ঞাত আকাৰ</string>
+    <string name="format_unknown">অজ্ঞাত ফৰ্মেট</string>
+    <string name="select_an_image">এখন ছবি বাছনি কৰক</string>
+    <string name="select_images">ছবিসমূহ বাছনি কৰক</string>
+    <string name="add_more">আৰু যোগ কৰক</string>
+    <string name="remove">আঁতৰাওক</string>
+    <string name="cancel">বাতিল কৰক</string>
+    <string name="save">সংৰক্ষণ কৰক</string>
+    <string name="share">ভাগ-বতৰা কৰক</string>
+    <string name="open">খোলক</string>
+    <string name="another">আন এখন</string>
+    <string name="save_all">সকলো সংৰক্ষণ কৰক</string>
+    <string name="share_all">সকলো ভাগ-বতৰা কৰক</string>
+    <string name="processed">প্ৰক্ৰিয়া কৰা</string>
+    <string name="original">মূল</string>
+    <string name="custom">ইচ্ছানুযায়ী</string>
+    <string name="failed">বিফল</string>
+    <string name="cancelled">বাতিল কৰা হৈছে</string>
+    <string name="done">সম্পন্ন</string>
+    <string name="complete">সম্পূৰ্ণ</string>
+    <string name="processing">প্ৰক্ৰিয়া চলি আছে</string>
+    <string name="saving">সংৰক্ষণ কৰি থকা হৈছে…</string>
+    <string name="exporting">ৰপ্তানি কৰি থকা হৈছে…</string>
+    <string name="lossless">ক্ষতিহীন</string>
+    <string name="cd_open_history">ইতিহাস খোলক</string>
+    <string name="cd_open_settings">ছেটিংছ খোলক</string>
+    <string name="cd_clear_history">ইতিহাস মচক</string>
+    <string name="preview_of_image">%1$s-ৰ পূৰ্বদৃশ্য</string>
+    <string name="processed_preview_of_image">প্ৰক্ৰিয়া কৰা %1$s-ৰ পূৰ্বদৃশ্য</string>
+    <string name="remove_image">%1$s আঁতৰাওক</string>
+    <string name="image_preview">%1$s ছবিৰ পূৰ্বদৃশ্য</string>
+
+    <!-- Home -->
+    <string name="preview_and_configure">পূৰ্বদৃশ্য চাওক আৰু বিন্যাস কৰক</string>
+    <string name="home_intro">এখন ছবি সংকুচিত কৰক, একাধিক ছবি সংকুচিত কৰক বা পটভূমি আঁতৰাওক।</string>
+    <string name="home_formats_privacy">JPG, PNG বা WEBP বাছনি কৰক। ভাগ-বতৰা বা সংৰক্ষণ নকৰালৈকে আপোনাৰ ছবি ডিভাইচতেই থাকে।</string>
+    <string name="reading_image_details">ছবিৰ সবিশেষ পঢ়ি থকা হৈছে</string>
+    <plurals name="selected_images">
+        <item quantity="one">%1$d খন ছবি বাছনি কৰা হৈছে</item>
+        <item quantity="other">%1$d খন ছবি বাছনি কৰা হৈছে</item>
+    </plurals>
+
+    <!-- Editor -->
+    <string name="selected_images_heading">বাছনি কৰা ছবিসমূহ</string>
+    <string name="count">সংখ্যা</string>
+    <string name="original_total">মূল মুঠ আকাৰ</string>
+    <string name="first_image">প্ৰথম ছবি</string>
+    <string name="output_resolution">আউটপুট ৰিজ’লিউশ্যন</string>
+    <string name="image_resolution">%1$d × %2$d</string>
+    <string name="image_resolution_and_format">%1$s • %2$s</string>
+    <string name="image_metadata_summary">%1$s • %2$s • %3$s</string>
+    <string name="target_size">লক্ষ্য আকাৰ</string>
+    <string name="target_size_note">আপুনি বাছনি কৰা আকাৰৰ দিশে সংকুচিত কৰা হ’ব। গুণমান অক্ষুণ্ণ ৰাখিবলৈ প্ৰকৃত আউটপুটৰ আকাৰ ভিন্ন হ’ব পাৰে।</string>
+    <string name="quality_mode">গুণমান মোড</string>
+    <string name="resize">আকাৰ সলনি কৰক</string>
+    <string name="width">প্ৰস্থ</string>
+    <string name="height">উচ্চতা</string>
+    <string name="maintain_aspect_ratio">আকাৰৰ অনুপাত বজাই ৰাখক</string>
+    <string name="allow_upscaling">আকাৰ বৃদ্ধি কৰিবলৈ অনুমতি দিয়ক</string>
+    <string name="output_format">আউটপুট ফৰ্মেট</string>
+    <string name="low_size_format_tip">কম আকাৰৰ সংকোচনৰ বাবে PNG পৰিহাৰ কৰক। JPG বা WEBP-এ সাধাৰণতে সৰু ফাইল সৃষ্টি কৰে।</string>
+    <string name="jpg_background">JPG পটভূমি</string>
+    <string name="compress_image">ছবি সংকুচিত কৰক</string>
+    <string name="remove_background">পটভূমি আঁতৰাওক</string>
+    <string name="quality_best_title">শ্ৰেষ্ঠ গুণমান</string>
+    <string name="quality_best_description">সবিশেষক অগ্ৰাধিকাৰ দিয়ে আৰু চকুত পৰা অস্পষ্টতা এৰায়।</string>
+    <string name="quality_balanced_title">সন্তুলিত</string>
+    <string name="quality_balanced_description">ভাল গুণমানৰ সৈতে যথেষ্ট আকাৰ হ্ৰাস কৰে।</string>
+    <string name="quality_smallest_title">আটাইতকৈ সৰু আকাৰ</string>
+    <string name="quality_smallest_description">ব্যৱহাৰযোগ্যতা বজাই ৰাখি অধিক সংকোচন কৰে।</string>
+    <string name="alpha_to_jpg_warning">JPG ৰপ্তানিৰ সময়ত স্বচ্ছ পিক্সেলসমূহ বাছনি কৰা পটভূমিৰ ৰঙৰ ওপৰত স্থাপন কৰা হ’ব।</string>
+
+    <!-- Validation -->
+    <string name="validation_enter_target_size">লক্ষ্য আকাৰ লিখক।</string>
+    <string name="validation_target_size_greater_than_zero">লক্ষ্য আকাৰ শূন্যতকৈ ডাঙৰ হ’ব লাগিব।</string>
+    <string name="validation_target_size_too_small">নিৰ্ভৰযোগ্য ছবি আউটপুটৰ বাবে লক্ষ্য আকাৰ অতি সৰু।</string>
+    <string name="validation_target_size_too_large">লক্ষ্য আকাৰ এই এপে সমৰ্থন কৰাতকৈ ডাঙৰ।</string>
+    <string name="validation_enter_valid_number">এটা বৈধ সংখ্যা লিখক।</string>
+    <string name="validation_use_mb_for_large_targets">অতি ডাঙৰ লক্ষ্যৰ বাবে MB ব্যৱহাৰ কৰক।</string>
+    <string name="validation_original_dimensions_unavailable">মূল ছবিৰ মাত্ৰা উপলব্ধ নহয়।</string>
+    <string name="validation_enter_valid_width_and_height">বৈধ প্ৰস্থ আৰু উচ্চতা লিখক।</string>
+    <string name="validation_output_dimensions_too_small">আউটপুটৰ মাত্ৰা অতি সৰু।</string>
+    <string name="validation_output_dimensions_too_large">আউটপুটৰ মাত্ৰা অতি ডাঙৰ।</string>
+    <string name="validation_upscaling_is_off">আকাৰ বৃদ্ধি বন্ধ আছে। ছবিখন ডাঙৰ কৰিবলৈ ইয়াক সক্ৰিয় কৰক।</string>
+    <string name="error_invalid_output_size">আউটপুট আকাৰ বৈধ নহয়।</string>
+
+    <!-- Batch processing -->
+    <string name="compressing">সংকুচিত কৰি থকা হৈছে</string>
+    <string name="batch_summary">বেট্চৰ সাৰাংশ</string>
+    <string name="retry_failed">বিফলসমূহ পুনৰ চেষ্টা কৰক</string>
+    <string name="compare_results">ফলাফল তুলনা কৰক</string>
+    <string name="total_progress">মুঠ অগ্ৰগতি</string>
+    <string name="batch_summary_counts">সম্পন্ন: %1$d • বিফল: %2$d</string>
+    <string name="batch_summary_counts_cancelled">সম্পন্ন: %1$d • বিফল: %2$d • বাতিল</string>
+    <string name="queued">শাৰীত আছে</string>
+    <string name="reading_image">ছবি পঢ়ি থকা হৈছে</string>
+    <string name="optimizing_resolution">ৰিজ’লিউশ্যন উন্নত কৰি থকা হৈছে</string>
+    <string name="validating_result">ফলাফল যাচাই কৰি থকা হৈছে</string>
+    <string name="preparing_image">ছবি প্ৰস্তুত কৰি থকা হৈছে</string>
+    <string name="removing_background">পটভূমি আঁতৰাই থকা হৈছে</string>
+    <string name="refining_edges">কাষসমূহ উন্নত কৰি থকা হৈছে</string>
+    <string name="finalizing">চূড়ান্ত কৰি থকা হৈছে</string>
+    <string name="processing_item">%2$d-ৰ ভিতৰত %1$d প্ৰক্ৰিয়া কৰি থকা হৈছে</string>
+
+    <!-- Background removal -->
+    <string name="background">পটভূমি</string>
+    <string name="background_removal_cancelled">পটভূমি আঁতৰোৱা বাতিল কৰা হৈছে</string>
+    <string name="background_cancelled_message">মূল ছবিখন সলনি কৰা হোৱা নাই। সাজু হ’লে পুনৰ আৰম্ভ কৰক।</string>
+    <string name="background_removal_unavailable">পটভূমি আঁতৰোৱা উপলব্ধ নহয়</string>
+    <string name="background_removal_failed">পটভূমি আঁতৰোৱা বিফল হৈছে</string>
+    <string name="preview">পূৰ্বদৃশ্য</string>
+    <string name="transparent_background_preview">স্বচ্ছ পটভূমিৰ পূৰ্বদৃশ্য</string>
+    <string name="selected_background_preview">বাছনি কৰা পটভূমিৰ ৰঙৰ সৈতে ছবিৰ পূৰ্বদৃশ্য</string>
+    <string name="replacement_color">প্ৰতিস্থাপন ৰং</string>
+    <string name="custom_color">ইচ্ছানুযায়ী ৰং</string>
+    <string name="red">ৰঙা</string>
+    <string name="green">সেউজীয়া</string>
+    <string name="blue">নীলা</string>
+    <string name="export_format">ৰপ্তানি ফৰ্মেট</string>
+    <string name="export_background">পটভূমি ৰপ্তানি কৰক</string>
+    <string name="background_offline_note">এই ডিভাইচতেই চলে আৰু স্বচ্ছ PNG ৰপ্তানি কৰে। ছবি আপলোড কৰা নহয়।</string>
+    <string name="start_removal">আঁতৰোৱা আৰম্ভ কৰক</string>
+    <string name="transparent">স্বচ্ছ</string>
+    <string name="background_color_accessibility">%1$s পটভূমি</string>
+    <string name="color_white">বগা</string>
+    <string name="color_black">ক’লা</string>
+    <string name="color_blue">নীলা</string>
+    <string name="color_red">ৰঙা</string>
+    <string name="color_green">সেউজীয়া</string>
+    <string name="color_yellow">হালধীয়া</string>
+    <string name="color_gray">ধূসৰ</string>
+    <string name="color_orange">কমলা</string>
+    <string name="color_purple">বেঙুনীয়া</string>
+    <string name="color_cyan">চায়ান</string>
+    <string name="color_brown">মুগা</string>
+    <string name="color_pink">গুলপীয়া</string>
+
+    <!-- Results -->
+    <string name="compare_result">ফলাফল তুলনা কৰক</string>
+    <string name="batch_results">বেট্চৰ ফলাফল</string>
+    <string name="save_and_share">সংৰক্ষণ আৰু ভাগ-বতৰা কৰক</string>
+    <string name="output_filename">আউটপুট ফাইলৰ নাম</string>
+    <string name="result_ready">ফলাফল সাজু</string>
+    <string name="compare_before_saving">সংৰক্ষণ কৰাৰ আগতে মূল আৰু প্ৰক্ৰিয়া কৰা আউটপুট তুলনা কৰক।</string>
+    <string name="details">সবিশেষ</string>
+    <string name="original_size">মূল আকাৰ</string>
+    <string name="processed_size">প্ৰক্ৰিয়া কৰা আকাৰ</string>
+    <string name="requested_target">অনুৰোধ কৰা লক্ষ্য</string>
+    <string name="target_status">লক্ষ্যৰ স্থিতি</string>
+    <string name="reached_within_tolerance">সহনীয় সীমাৰ ভিতৰত উপনীত</string>
+    <string name="not_safely_achievable">নিৰাপদভাৱে লাভ কৰিব নোৱাৰি</string>
+    <string name="space_saved">ৰাহি হোৱা স্থান</string>
+    <string name="percentage_saved">ৰাহি হোৱা শতাংশ</string>
+    <string name="size_increase">আকাৰ বৃদ্ধি</string>
+    <string name="compression_ratio">সংকোচনৰ অনুপাত</string>
+    <string name="original_resolution">মূল ৰিজ’লিউশ্যন</string>
+    <string name="processed_resolution">প্ৰক্ৰিয়া কৰা ৰিজ’লিউশ্যন</string>
+    <string name="output_quality">আউটপুট গুণমান</string>
+    <string name="no_result_title">কোনো সংকুচিত ফলাফল উপলব্ধ নহয়।</string>
+    <string name="no_result_message">ইয়াত ফলাফল তুলনা কৰিবলৈ এখন ছবি বাছনি কৰি সংকোচন চলাওক।</string>
+    <string name="original_size_value">মূল আকাৰ: %1$s</string>
+    <string name="compressed_size_value">সংকুচিত আকাৰ: %1$s</string>
+    <string name="percentage_saved_value">%1$s ৰাহি হৈছে</string>
+    <string name="compression_ratio_value">%1$s:1</string>
+    <string name="progress_percentage">%1$s</string>
+
+    <!-- History -->
+    <string name="history">ইতিহাস</string>
+    <string name="loading_history">ইতিহাস লোড কৰি থকা হৈছে…</string>
+    <string name="history_empty_title">এতিয়াও কোনো প্ৰক্ৰিয়া কৰা ছবি নাই।</string>
+    <string name="history_empty_message">সফল কাৰ্যৰ পিছত সংকুচিত আৰু পটভূমি আঁতৰোৱা ছবি ইয়াত দেখা যাব।</string>
+    <string name="history_load_error_title">ইতিহাস লোড কৰিব পৰা নগ’ল।</string>
+    <string name="history_operation_compressed">সংকুচিত</string>
+    <string name="history_operation_background_removed">পটভূমি আঁতৰোৱা</string>
+    <string name="history_operation_resized">আকাৰ সলনি কৰা</string>
+    <string name="history_operation_format_converted">ফৰ্মেট সলনি কৰা</string>
+    <string name="history_operation_enhanced">উন্নত কৰা</string>
+    <string name="history_operation_collage">ক’লাজ</string>
+    <string name="processed_image">প্ৰক্ৰিয়া কৰা ছবি</string>
+    <string name="original_image">মূল ছবি</string>
+    <string name="history_operation_timestamp">%1$s • %2$s</string>
+
+    <!-- Settings and privacy -->
+    <string name="settings">ছেটিংছ</string>
+    <string name="privacy">গোপনীয়তা</string>
+    <string name="settings_privacy_processing">পটভূমি আঁতৰোৱাকে ধৰি ছবি প্ৰক্ৰিয়াকৰণ আপোনাৰ ডিভাইচতেই হয়। এপটোত ব্যৱহাৰকাৰীৰ একাউণ্ট বা দূৰৱৰ্তী ছবি-প্ৰক্ৰিয়াকৰণ বেকএণ্ড নাই। Google-ৰ বিজ্ঞাপন আৰু সন্মতি সেৱাই ইণ্টাৰনেট ব্যৱহাৰ কৰে।</string>
+    <string name="settings_privacy_ad_sdk">এপৰ ক’ডে বাছনি কৰা বা সৃষ্টি কৰা ছবি, ফাইলৰ নাম, কণ্টেণ্ট URI, EXIF মেটাডেটা বা ছবি-প্ৰক্ৰিয়াকৰণৰ তথ্য Google Mobile Ads-লৈ নপঠিয়ায়। বিজ্ঞাপন, বিশ্লেষণ আৰু জালিয়াতি ৰোধৰ বাবে SDK-এ IP-ৰ পৰা পোৱা আনুমানিক অৱস্থান, প্ৰডাক্ট ব্যৱহাৰ, ডায়েগনষ্টিক আৰু ডিভাইচ বা একাউণ্ট চিনাক্তকাৰী স্বয়ংক্ৰিয়ভাৱে সংগ্ৰহ আৰু ভাগ-বতৰা কৰে।</string>
+    <string name="privacy_policy">গোপনীয়তা নীতি</string>
+    <string name="privacy_choices">গোপনীয়তাৰ পছন্দ</string>
+    <string name="advertising">বিজ্ঞাপন</string>
+    <string name="settings_ads_placement">এই এপে Google AdMob-ৰ বেনাৰ, নেটিভ, ইণ্টাৰষ্টিশিয়েল আৰু এপ-খোলা বিজ্ঞাপন ব্যৱহাৰ কৰে। ইতিহাস খুলিলে আৰু Save, Share বা Open কৰাৰ ঠিক আগতে ইণ্টাৰষ্টিশিয়েল বিজ্ঞাপন দেখুৱাব পৰা যায়। বৰ্তমানৰ সীমাত আগতে সফল কাৰ্য থকাৰ প্ৰয়োজন নাই।</string>
+    <string name="settings_ads_lifecycle">এটা ইণ্টাৰষ্টিশিয়েল বিজ্ঞাপন দেখুওৱাৰ পিছত কমেও তিনি মিনিটলৈ আন এটা বন্ধ থাকে আৰু প্ৰতিটো এপ-প্ৰক্ৰিয়া ছেছনত সৰ্বাধিক তিনিটা দেখুওৱা হয়। এই সীমা এপ-খোলা বিজ্ঞাপনৰ ক্ষেত্ৰত প্ৰযোজ্য নহয়; লোড হোৱাৰ পিছত এপ সন্মুখলৈ আহিলে সেইবোৰ দেখা যাব পাৰে। সক্ৰিয় ছবি প্ৰক্ৰিয়াকৰণৰ সময়ত পূৰ্ণ-পৰ্দাৰ বিজ্ঞাপন বন্ধ থাকে আৰু বিজ্ঞাপন উপলব্ধ নহ’লেও অনুৰোধ কৰা কাৰ্য চলি থাকে।</string>
+    <string name="settings_background_model">পটভূমি আঁতৰোৱা বান্ধি দিয়া ONNX U2-NetP মডেলৰ সৈতে অফলাইন চলে। ছবি ডিভাইচতেই প্ৰক্ৰিয়া কৰা হয় আৰু এই সুবিধাই আপলোড নকৰে।</string>
+    <string name="open_source_notices">মুক্ত উৎসৰ জাননীসমূহ এপৰ সৈতে অন্তৰ্ভুক্ত কৰা হৈছে।</string>
+    <string name="privacy_effective_date">%1$s-ৰ পৰা কাৰ্যকৰী</string>
+
+    <!-- Privacy policy -->
+    <string name="policy_overview_title">সাৰাংশ</string>
+    <string name="policy_overview_body">Photo Compressor-এ ছবি বাছনি, সংকোচন, আকাৰ আৰু ফৰ্মেট সলনি, সংৰক্ষণ, খোলা, ভাগ-বতৰা আৰু ছবিৰ পটভূমি আঁতৰোৱা বা সলনি কৰে। ছবি প্ৰক্ৰিয়াকৰণ আপোনাৰ ডিভাইচতেই চলে। এপটোত ব্যৱহাৰকাৰীৰ একাউণ্ট বা ছবি আপলোড আৰু প্ৰক্ৰিয়াৰ বাবে ডেভেলপাৰৰ বেকএণ্ড নাই। Google-ৰ বিজ্ঞাপন আৰু সন্মতি সেৱাৰ বাবে ইণ্টাৰনেট ব্যৱহাৰ কৰা হয়। এপৰ ব্যক্তিগত তথ্য Android এপ ছেণ্ডবক্সে সুৰক্ষিত কৰে; Google-ৰ মতে Mobile Ads SDK-ৰ নেটৱৰ্ক তথ্য TLS-ৰ জৰিয়তে প্ৰেৰণৰ সময়ত এনক্ৰিপ্ট কৰা হয়।</string>
+    <string name="policy_images_files_title">ছবি আৰু ফাইল</string>
+    <string name="policy_images_files_body">আপুনি Android ছিষ্টেমৰ Photo Picker-ৰ জৰিয়তে ছবি বাছনি কৰে। এপে প্ৰক্ৰিয়াকৰণৰ বাবে প্ৰয়োজনীয় প্ৰতিটো কণ্টেণ্ট URI আৰু স্থানীয় মেটাডেটা পঢ়ে, য’ত প্ৰদৰ্শিত নাম, মিডিয়া প্ৰকাৰ, আকাৰ, মাত্ৰা, ফৰ্মেট, স্বচ্ছতাৰ তথ্য আৰু EXIF অৰিয়েণ্টেশ্যন অন্তৰ্ভুক্ত। প্ৰদানকাৰীয়ে অনুমতি দিলে স্থানীয় ইতিহাসে উৎস পুনৰ খুলিব পৰাকৈ এপে স্থায়ী পঢ়াৰ অনুমতি ৰাখে; ইতিহাস মচিলে বৰ্তমান সেই অনুমতি এৰা নহয়। এপৰ ক’ডে বাছনি কৰা বা সৃষ্টি কৰা ছবি বা মেটাডেটা আপলোড নকৰে। আপুনি বাছনি কৰাৰ পিছতহে আউটপুট খোলা বা ভাগ-বতৰা কৰা হয়। Save-এ Android MediaStore-ৰ জৰিয়তে Pictures/Photo Compressor-ত লিখে। কেৱল Android 9 বা তাৰ আগৰ সংস্কৰণত ব্যৱহাৰকাৰীয়ে Save কৰিলে পুৰণি শ্বেয়াৰ্ড-ষ্ট’ৰেজ লিখাৰ অনুমতি বিচৰা হয়; Android 10 বা তাৰ পিছত এই অনুমতি বিচৰা নহয়।</string>
+    <string name="policy_local_history_title">স্থানীয় ইতিহাস আৰু সংৰক্ষণকাল</string>
+    <string name="policy_local_history_body">এপে ব্যক্তিগত DataStore-ত সৰ্বাধিক 200টা ৰেকৰ্ড ৰাখে, য’ত উৎস আৰু আউটপুটৰ উল্লেখ, নাম, প্ৰকাৰ, আকাৰ, মাত্ৰা, ফৰ্মেট, কাৰ্য আৰু সংকোচনৰ সবিশেষ, ফলাফল বা সতৰ্কবাণী, সংৰক্ষিত আউটপুটৰ উল্লেখ আৰু সময়মোহৰ অন্তৰ্ভুক্ত। এই DataStore বিন্যাস কৰা ক্লাউড বেকআপ আৰু ডিভাইচ স্থানান্তৰৰ পৰা বাদ দিয়া হৈছে। অস্থায়ী আউটপুট কেশ্বত থাকিব পাৰে। কোনো আইটেম আঁতৰালে বা ইতিহাস মচিলে তাৰ ৰেকৰ্ড আঁতৰাই কেৱল তাত উল্লেখ কৰা এপ-মালিকানাধীন অস্থায়ী আউটপুট মচিবলৈ চেষ্টা কৰা হয়। ইতিহাস মচিলে গেলাৰীৰ ছবি মচি নাযায়, অনাথ কেশ্ব ফাইল মচাৰ নিশ্চয়তা নিদিয়ে বা উৎসৰ স্থায়ী পঢ়াৰ অনুমতি এৰি নিদিয়ে। Android-ৰ Clear Cache-এ অস্থায়ী ফাইল আৰু Clear Storage-এ এপৰ স্থানীয় ৰেকৰ্ড আৰু কেশ্ব মচিব পাৰে। সংৰক্ষিত ছবি গেলাৰী বা ফাইল মেনেজাৰৰ জৰিয়তে মচক। এপটোত ব্যৱহাৰকাৰীৰ একাউণ্ট নাই।</string>
+    <string name="policy_advertising_consent_title">বিজ্ঞাপন আৰু সন্মতি</string>
+    <string name="policy_advertising_consent_body">Google AdMob-এ বেনাৰ, নেটিভ, ইণ্টাৰষ্টিশিয়েল আৰু এপ-খোলা বিজ্ঞাপন প্ৰদান কৰে। ইতিহাস খোলাৰ সময়ত আৰু Save, Share বা Open কৰাৰ ঠিক আগতে ইণ্টাৰষ্টিশিয়েল বিজ্ঞাপন দেখুৱাব পৰা যায়, আৰু আগতে সফল কাৰ্যৰ প্ৰয়োজন নাই। এটা দেখুওৱাৰ পিছত কমেও তিনি মিনিটলৈ আন এটা বন্ধ থাকে আৰু প্ৰতিটো এপ-প্ৰক্ৰিয়া ছেছনত সৰ্বাধিক তিনিটা দেখুওৱা হয়। এই সীমাসমূহ এপ-খোলা বিজ্ঞাপনৰ ক্ষেত্ৰত প্ৰযোজ্য নহয়; লোড হোৱাৰ পিছত এপ সন্মুখলৈ আহিলে সেইবোৰ দেখা যাব পাৰে। Google Mobile Ads SDK 25.4.0-এ IP-ৰ পৰা পোৱা আনুমানিক অৱস্থান; এপ খোলা, টেপ কৰা আৰু বিজ্ঞাপন বা ভিডিঅ’ চোৱাৰ দৰে প্ৰডাক্ট ব্যৱহাৰ; এপ খোলাৰ সময়, হেং হোৱাৰ হাৰ আৰু শক্তি ব্যৱহাৰৰ দৰে ডায়েগনষ্টিক; আৰু Advertising ID আৰু App Set ID-ৰ দৰে ডিভাইচ বা একাউণ্ট চিনাক্তকাৰী স্বয়ংক্ৰিয়ভাৱে সংগ্ৰহ আৰু ভাগ-বতৰা কৰে। Google-ৰ মতে এই তথ্য বিজ্ঞাপন বা বিপণন, বিশ্লেষণ, জালিয়াতি ৰোধ, নিৰাপত্তা আৰু নিয়ম পালনৰ বাবে ব্যৱহাৰ কৰা হয় আৰু SDK তথ্য TLS-ৰ জৰিয়তে প্ৰেৰণৰ সময়ত এনক্ৰিপ্ট কৰা হয়। User Messaging Platform SDK 4.0.0-এ সন্মতিৰ তথ্য বিচাৰে আৰু Google-এ প্ৰয়োজন বুলি জনালে সন্মতি বা গোপনীয়তাৰ বিকল্প ফৰ্ম দেখুৱায়। ব্যক্তিগতকৃত বিজ্ঞাপনৰ সন্মতি নাথাকিলেও আৰু বিজ্ঞাপন বা ডিভাইচ অফলাইন হ’লেও মূল ছবি প্ৰক্ৰিয়াকৰণ চলে।</string>
+    <string name="policy_background_removal_title">পটভূমি আঁতৰোৱা</string>
+    <string name="policy_background_removal_body">পটভূমি আঁতৰোৱাত বান্ধি দিয়া U2-NetP ONNX মডেল আৰু ONNX Runtime সম্পূৰ্ণৰূপে ডিভাইচতেই ব্যৱহাৰ কৰা হয়। এই সুবিধাৰ বাবে এপৰ ক’ডে দূৰৱৰ্তী মডেল ডাউনলোড বা ছবি আপলোড নকৰে।</string>
+    <string name="policy_children_title">শিশু</string>
+    <string name="policy_children_body">Photo Compressor সাধাৰণ ব্যৱহাৰৰ উপযোগিতা আৰু 13 বছৰৰ তলৰ শিশুক লক্ষ্য কৰি নিৰ্মিত নহয়। ওপৰত বৰ্ণনা কৰা Google বিজ্ঞাপন SDK-ৰ স্বয়ংক্ৰিয় পদ্ধতিসমূহ SDK-ক বিজ্ঞাপন বিচাৰিবলৈ অনুমতি দিয়া প্ৰতিবাৰেই প্ৰযোজ্য। প্ৰকাশৰ আগতে প্ৰকাশকে কৰিবলগীয়া কাম: Play-ৰ লক্ষ্য দৰ্শক আৰু বিজ্ঞাপন ছেটিংছ এই বিবৃতিৰ সৈতে সামঞ্জস্যপূৰ্ণভাৱে বিন্যাস কৰক আৰু শিশুক লক্ষ্য কৰি আগবঢ়োৱাৰ আগতে এপ আৰু নীতি পুনৰ মূল্যায়ন কৰক।</string>
+    <string name="policy_third_parties_title">তৃতীয় পক্ষ আৰু যোগাযোগ</string>
+    <string name="policy_third_parties_body">Google-ৰ গোপনীয়তা নীতি আৰু Mobile Ads তথ্য প্ৰকাশ Google বিজ্ঞাপন সেৱাই পৰিচালনা কৰা তথ্যত প্ৰযোজ্য: policies.google.com/privacy আৰু developers.google.com/admob/android/privacy/play-data-disclosure। মূল গোপনীয়তা আৰু মডেলৰ উপাদানৰ বাবে নিৰ্দিষ্ট মুক্ত উৎসৰ জাননী এপৰ সৈতে অন্তৰ্ভুক্ত; এইবোৰ সকলো নিৰ্ভৰশীল উপাদানৰ সম্পূৰ্ণ তালিকা নহয়। প্ৰকাশৰ আগতে প্ৰকাশকে কৰিবলগীয়া কাম: যাচাই কৰা আইনী ডেভেলপাৰ বা প্ৰতিষ্ঠানৰ নাম, পোনপটীয়াকৈ নিৰীক্ষণ কৰা গোপনীয়তা যোগাযোগ আৰু PDF নহোৱা, সক্ৰিয়, ৰাজহুৱাভাৱে উপলব্ধ, ভৌগোলিক বাধাহীন, সম্পাদনা কৰিব নোৱাৰা HTTPS গোপনীয়তা-নীতি ৱেবপৃষ্ঠা যোগ কৰক। Play আৰু এপত একে বৰ্তমানৰ নীতি ব্যৱহাৰ কৰক আৰু এপ বা ইয়াৰ সেৱা সলনি হ’লে কাৰ্যকৰী তাৰিখ নবীকৰণ কৰক।</string>
+
+    <!-- View-model and repository messages -->
+    <string name="cancel_compression_before_leaving">এই পৰ্দা এৰাৰ আগতে সংকোচন বাতিল কৰক।</string>
+    <string name="no_app_can_handle_action">কোনো এপে এই কাৰ্য কৰিব নোৱাৰে।</string>
+    <string name="image_no_longer_available">ছবিখন আৰু উপলব্ধ নহয়।</string>
+    <string name="error_could_not_read_image">এখন ছবি পঢ়িব পৰা নগ’ল।</string>
+    <string name="error_select_one_image_for_background">পটভূমি আঁতৰোৱাৰ আগতে এখন ছবি বাছনি কৰক।</string>
+    <string name="error_background_generic">পটভূমি আঁতৰোৱা বিফল হৈছে।</string>
+    <string name="error_background_replace_failed">পটভূমি সলনি কৰিব পৰা নগ’ল।</string>
+    <string name="background_exported">পটভূমি ৰপ্তানি কৰা হৈছে।</string>
+    <string name="error_check_target_size">লক্ষ্য আকাৰ পৰীক্ষা কৰক।</string>
+    <string name="error_compression_failed">সংকোচন বিফল হৈছে।</string>
+    <string name="error_history_retry_or_remove">পুনৰ চেষ্টা কৰক বা পাব নোৱাৰা ইতিহাসৰ আইটেম আঁতৰাওক।</string>
+    <string name="save_success">ছবি সফলতাৰে সংৰক্ষণ কৰা হৈছে</string>
+    <string name="save_failure">ছবি সংৰক্ষণ কৰিব পৰা নগ’ল। পুনৰ চেষ্টা কৰক।</string>
+    <string name="history_update_failed">ছবি সংৰক্ষণ কৰা হৈছে, কিন্তু ইতিহাস নবীকৰণ কৰিব পৰা নগ’ল।</string>
+    <string name="error_legacy_storage_permission">Android 9 বা তাৰ আগৰ সংস্কৰণত ছবি সংৰক্ষণ কৰিবলৈ ষ্ট’ৰেজৰ অনুমতি প্ৰয়োজন।</string>
+    <string name="error_file_not_readable">এই ফাইলটো পঢ়িব পৰা ছবি নহয়।</string>
+    <string name="error_unsupported_image_format">অসমৰ্থিত ছবি ফৰ্মেট। JPG, PNG বা WEBP বাছনি কৰক।</string>
+    <string name="selected_image">বাছনি কৰা ছবি</string>
+    <string name="error_image_too_large">এই ছবিখন এই ডিভাইচত নিৰাপদভাৱে প্ৰক্ৰিয়া কৰিবলৈ অতি ডাঙৰ। আকাৰ সলনিৰ কম শতাংশ বাছনি কৰক।</string>
+    <string name="error_processed_image_unavailable">প্ৰক্ৰিয়া কৰা ছবিখন আৰু উপলব্ধ নহয়।</string>
+    <string name="error_create_pictures_folder">Pictures-ত Photo Compressor ফ’ল্ডাৰ সৃষ্টি কৰিব পৰা নগ’ল।</string>
+    <string name="error_create_media_entry">MediaStore এণ্ট্ৰি সৃষ্টি কৰিব পৰা নগ’ল।</string>
+    <string name="error_open_save_destination">সংৰক্ষণৰ গন্তব্য খোলিব পৰা নগ’ল।</string>
+    <string name="error_image_decode_failed">এই ছবিখন ডিকোড কৰিব পৰা নগ’ল।</string>
+    <string name="error_dimensions_too_large">%1$d × %2$d এই ডিভাইচত নিৰাপদভাৱে প্ৰক্ৰিয়া কৰিবলৈ অতি ডাঙৰ। আকাৰ সলনিৰ কম শতাংশ বাছনি কৰক।</string>
+    <string name="error_image_read_failed">এই ছবিখন পঢ়িব পৰা নগ’ল।</string>
+    <string name="error_no_readable_image_stream">বাছনি কৰা ছবিৰ বাবে পঢ়িব পৰা কোনো ষ্ট্ৰীম নাই।</string>
+    <string name="error_photo_access_denied">ফটো এক্সেছ নাকচ কৰা হৈছে। ছবিখন পুনৰ বাছনি কৰক।</string>
+    <string name="error_cloud_image_unavailable">ছবিখন উপলব্ধ নহয়। ক্লাউডত থাকিলে স্থানীয়ভাৱে ডাউনলোড কৰক বা Files-ৰ পৰা বাছনি কৰক।</string>
+    <string name="error_image_encode_failed">ছবিখন এনকোড কৰিব পৰা নগ’ল।</string>
+    <string name="error_compressed_image_validation_failed">সংকুচিত ছবিখন যাচাই কৰিব পৰা নগ’ল।</string>
+    <string name="error_allow_storage_access">Android 9 বা তাৰ আগৰ সংস্কৰণত ছবি সংৰক্ষণ কৰিবলৈ ষ্ট’ৰেজ এক্সেছৰ অনুমতি দিয়ক।</string>
+    <string name="error_shared_storage_unavailable">ভাগ-বতৰা কৰা ষ্ট’ৰেজ উপলব্ধ নহয়। ডিভাইচৰ ষ্ট’ৰেজ পৰীক্ষা কৰি পুনৰ চেষ্টা কৰক।</string>
+
+    <!-- Compression warnings -->
+    <string name="warning_png_lossless_original_preserved">PNG ক্ষতিহীন আৰু মূল ৰিজ’লিউশ্যন বজাই ৰখা হৈছে।</string>
+    <string name="warning_png_lossless_safe_resize">PNG ক্ষতিহীন, সেয়েহে নিৰাপদভাৱে আকাৰ সলনি কৰি ফাইলৰ আকাৰ হ্ৰাস কৰা হৈছে।</string>
+    <string name="warning_png_target_unreached_original">PNG ক্ষতিহীন। মূল ৰিজ’লিউশ্যন বজাই ৰখাৰ বাবে সঠিক লক্ষ্যত উপনীত হ’ব পৰা নগ’ল।</string>
+    <string name="warning_png_target_unreached_best_quality">PNG ক্ষতিহীন। শ্ৰেষ্ঠ গুণমানৰ ফলাফল সৃষ্টি কৰা হৈছে, কিন্তু ৰিজ’লিউশ্যনৰ যথেষ্ট ক্ষতি নকৰাকৈ সঠিক লক্ষ্যত উপনীত হ’ব পৰা নগ’ল।</string>
+    <string name="warning_target_unreached_original">মূল ৰিজ’লিউশ্যন বজাই ৰখা হৈছে। গ্ৰহণযোগ্য এনকোডাৰ গুণমানত সঠিক লক্ষ্যত উপনীত হ’ব পৰা নগ’ল।</string>
+    <string name="warning_target_unreached_best_quality">শ্ৰেষ্ঠ গুণমানৰ ফলাফল সৃষ্টি কৰা হৈছে। গুণমানৰ যথেষ্ট ক্ষতি নকৰাকৈ সঠিক লক্ষ্যত উপনীত হ’ব পৰা নগ’ল।</string>
+    <string name="warning_target_reached_reduced_resolution">গ্ৰহণযোগ্য এনকোডাৰ গুণমান বজাই ৰাখি ৰিজ’লিউশ্যন হ্ৰাস কৰি লক্ষ্যত উপনীত হৈছে।</string>
+    <string name="warning_background_safe_resolution">এই ডিভাইচৰ মেমৰি শেষ নহ’বলৈ নিৰাপদ ৰিজ’লিউশ্যনত প্ৰক্ৰিয়া কৰা হৈছে।</string>
+
+    <!-- Background-removal errors -->
+    <string name="error_background_model_missing">পটভূমি আঁতৰোৱা মডেল নাই।</string>
+    <string name="error_background_model_load_failed">পটভূমি আঁতৰোৱা মডেল আৰম্ভ কৰিব পৰা নগ’ল।</string>
+    <string name="error_background_decode_failed">বাছনি কৰা ছবিখন পঢ়িব পৰা নগ’ল।</string>
+    <string name="error_background_out_of_memory">এই ডিভাইচত প্ৰক্ৰিয়া কৰিবলৈ ছবিখন অতি ডাঙৰ।</string>
+    <string name="error_background_inference_failed">মডেল চলোৱাৰ সময়ত পটভূমি আঁতৰোৱা বিফল হৈছে।</string>
+    <string name="error_background_export_failed">স্বচ্ছ PNG ফলাফল সৃষ্টি কৰিব পৰা নগ’ল।</string>
+    <string name="error_background_model_incompatible">পটভূমি আঁতৰোৱা মডেলটো এপৰ এই সংস্কৰণৰ সৈতে সামঞ্জস্যপূৰ্ণ নহয়।</string>
+    <string name="error_background_try_smaller">পটভূমি আঁতৰোৱা বিফল হৈছে। সৰু ছবি বা অন্য ফটো ব্যৱহাৰ কৰি চেষ্টা কৰক।</string>
+    <string name="error_background_feature_unavailable">এই ডিভাইচত পটভূমি আঁতৰোৱা উপলব্ধ নহয়।</string>
+    <string name="image_unavailable">ছবি উপলব্ধ নহয়।</string>
+</resources>

@@ -1,6 +1,8 @@
 package com.rameshta.photocompressor.ui
 
 import com.rameshta.photocompressor.MainDispatcherRule
+import com.rameshta.photocompressor.R
+import com.rameshta.photocompressor.domain.model.BackgroundFailure
 import com.rameshta.photocompressor.domain.model.BackgroundRemovalResult
 import com.rameshta.photocompressor.domain.model.BackgroundReplacementConfig
 import com.rameshta.photocompressor.domain.model.CompressionConfig
@@ -111,7 +113,7 @@ class PhotoCompressorViewModelTest {
 
         val state = viewModel.historyUiState.value
         assertTrue(state is HistoryUiState.Error)
-        assertTrue((state as HistoryUiState.Error).message.contains("History unavailable"))
+        assertEquals(uiText(R.string.error_history_retry_or_remove), (state as HistoryUiState.Error).message)
     }
 
     @Test
@@ -437,7 +439,7 @@ class PhotoCompressorViewModelTest {
         advanceUntilIdle()
 
         assertEquals(1, repository.saveCalls)
-        assertEquals("Image saved successfully", viewModel.uiState.value.message)
+        assertEquals(uiText(R.string.save_success), viewModel.uiState.value.message)
         assertTrue(historyRepository.historyFlow.value.first().filePath.startsWith("content://saved/"))
     }
 
@@ -458,7 +460,7 @@ class PhotoCompressorViewModelTest {
 
         assertEquals(PendingAdAction.None, viewModel.uiState.value.pendingAdAction)
         assertEquals(0, repository.saveCalls)
-        assertTrue(viewModel.uiState.value.message.orEmpty().contains("Storage access"))
+        assertEquals(uiText(R.string.error_legacy_storage_permission), viewModel.uiState.value.message)
 
         // A stale permission callback must not cancel a later request.
         viewModel.saveSelected()
@@ -484,7 +486,7 @@ class PhotoCompressorViewModelTest {
 
         assertEquals(PendingAdAction.None, viewModel.uiState.value.pendingAdAction)
         assertEquals(1, repository.saveCalls)
-        assertEquals("Image saved successfully", viewModel.uiState.value.message)
+        assertEquals(uiText(R.string.save_success), viewModel.uiState.value.message)
         assertEquals("custom-name.jpg", historyRepository.historyFlow.value.first().displayName)
     }
 
@@ -719,7 +721,9 @@ private fun processedImage(id: String): ProcessedImage {
 }
 
 private class FakeBackgroundRemovalRepository(
-    private val result: BackgroundRemovalResult = BackgroundRemovalResult.Unavailable("No provider configured."),
+    private val result: BackgroundRemovalResult = BackgroundRemovalResult.Unavailable(
+        BackgroundFailure.FEATURE_UNAVAILABLE,
+    ),
     private val hang: Boolean = false,
 ) : BackgroundRemovalRepository {
     var calls: Int = 0

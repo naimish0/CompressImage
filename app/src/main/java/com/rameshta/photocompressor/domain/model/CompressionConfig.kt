@@ -1,16 +1,18 @@
 package com.rameshta.photocompressor.domain.model
 
+import com.rameshta.photocompressor.util.toLocalizedDecimalOrNull
+
 enum class TargetSizeUnit {
     KB,
     MB,
 }
 
-enum class TargetSizePreset(val label: String, val bytes: Long?) {
-    KB_100("100 KB", 100L * 1024L),
-    KB_200("200 KB", 200L * 1024L),
-    KB_500("500 KB", 500L * 1024L),
-    MB_1("1 MB", 1024L * 1024L),
-    CUSTOM("Custom", null),
+enum class TargetSizePreset(val bytes: Long?) {
+    KB_100(100L * 1024L),
+    KB_200(200L * 1024L),
+    KB_500(500L * 1024L),
+    MB_1(1024L * 1024L),
+    CUSTOM(null),
 }
 
 data class TargetSize(
@@ -20,7 +22,7 @@ data class TargetSize(
 ) {
     fun bytesOrNull(): Long? {
         preset.bytes?.let { return it }
-        val number = customValue.trim().toDoubleOrNull() ?: return null
+        val number = customValue.toLocalizedDecimalOrNull() ?: return null
         val multiplier = when (customUnit) {
             TargetSizeUnit.KB -> 1024.0
             TargetSizeUnit.MB -> 1024.0 * 1024.0
@@ -37,22 +39,10 @@ enum class ResizeMode {
     CUSTOM,
 }
 
-enum class CompressionMode(
-    val title: String,
-    val description: String,
-) {
-    BEST_QUALITY(
-        title = "Best Quality",
-        description = "Prioritizes detail and avoids visible blur.",
-    ),
-    BALANCED(
-        title = "Balanced",
-        description = "Good quality with meaningful size reduction.",
-    ),
-    SMALLEST_SIZE(
-        title = "Smallest Size",
-        description = "Stronger compression while staying usable.",
-    ),
+enum class CompressionMode {
+    BEST_QUALITY,
+    BALANCED,
+    SMALLEST_SIZE,
 }
 
 data class ResizeConfig(

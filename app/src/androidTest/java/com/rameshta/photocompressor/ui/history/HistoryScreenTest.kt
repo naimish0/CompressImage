@@ -5,12 +5,14 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.gms.ads.AdRequest
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.AdsUiState
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.BannerPlacement
 import com.rameshta.photocompressor.domain.model.ImageFormat
 import com.rameshta.photocompressor.domain.model.ImageInfo
 import com.rameshta.photocompressor.domain.model.ProcessedImage
+import com.rameshta.photocompressor.ui.uiText
 import com.rameshta.photocompressor.ui.theme.CompressImageTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,7 +32,7 @@ class HistoryScreenTest {
         setHistoryContent(HistoryUiState.Loading)
 
         composeRule.onNodeWithText("History").assertIsDisplayed()
-        composeRule.onNodeWithText("Loading history...").assertIsDisplayed()
+        composeRule.onNodeWithText("Loading history…").assertIsDisplayed()
     }
 
     @Test
@@ -54,7 +56,7 @@ class HistoryScreenTest {
 
     @Test
     fun errorStateRendersVisibleHistoryUi() {
-        setHistoryContent(HistoryUiState.Error("History unavailable"))
+        setHistoryContent(HistoryUiState.Error(uiText(R.string.error_history_retry_or_remove)))
 
         composeRule.onNodeWithText("History").assertIsDisplayed()
         composeRule.onNodeWithText("History could not be loaded.").assertIsDisplayed()

@@ -1,5 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Photo Compressor</string>
+    <!-- Brand and technical identifiers that must remain unchanged in every locale. -->
+    <string name="app_name" translatable="false">Photo Compressor</string>
+    <string name="output_folder_name" translatable="false">Photo Compressor</string>
+    <string name="format_jpg" translatable="false">JPG</string>
+    <string name="format_png" translatable="false">PNG</string>
+    <string name="format_webp" translatable="false">WEBP</string>
+    <string name="unit_b" translatable="false">B</string>
+    <string name="unit_kb" translatable="false">KB</string>
+    <string name="unit_mb" translatable="false">MB</string>
+    <string name="unit_gb" translatable="false">GB</string>
+
+    <!-- Native language names intentionally remain in their own language. -->
+    <string name="language_name_en" translatable="false">English</string>
+    <string name="language_name_hi" translatable="false">हिन्दी</string>
+    <string name="language_name_gu" translatable="false">ગુજરાતી</string>
+    <string name="language_name_mr" translatable="false">मराठी</string>
+    <string name="language_name_bn" translatable="false">বাংলা</string>
+    <string name="language_name_pa" translatable="false">ਪੰਜਾਬੀ</string>
+    <string name="language_name_ta" translatable="false">தமிழ்</string>
+    <string name="language_name_te" translatable="false">తెలుగు</string>
+    <string name="language_name_kn" translatable="false">ಕನ್ನಡ</string>
+    <string name="language_name_ml" translatable="false">മലയാളം</string>
+    <string name="language_name_as" translatable="false">অসমীয়া</string>
+    <string name="language_name_or" translatable="false">ଓଡ଼ିଆ</string>
+    <string name="language_name_ur" translatable="false">اردو</string>
+    <string name="language_name_ru" translatable="false">Русский</string>
+    <string name="language_name_es" translatable="false">Español</string>
+    <string name="language_name_fr" translatable="false">Français</string>
+    <string name="language_name_de" translatable="false">Deutsch</string>
+    <string name="language_name_pt" translatable="false">Português</string>
+    <string name="language_name_pt_br" translatable="false">Português (Brasil)</string>
+    <string name="language_name_it" translatable="false">Italiano</string>
+    <string name="language_name_id" translatable="false">Bahasa Indonesia</string>
+    <string name="language_name_ar" translatable="false">العربية</string>
+    <string name="language_name_ja" translatable="false">日本語</string>
+    <string name="language_name_ko" translatable="false">한국어</string>
+    <string name="language_name_zh_hans" translatable="false">简体中文</string>
+    <string name="language_name_zh_hant" translatable="false">繁體中文</string>
+
+    <!-- Language selector. -->
+    <string name="language">Language</string>
+    <string name="choose_language">Choose language</string>
+    <string name="current_language">Current: %1$s</string>
+    <string name="search_languages">Search languages</string>
+    <string name="search_languages_hint">Type a language name</string>
+    <string name="no_languages_found">No matching languages found.</string>
+    <string name="system_default">System Default</string>
+
+    <!-- Common actions, labels, and accessibility descriptions. -->
     <string name="share_results_chooser">Share compressed image</string>
+    <string name="share_multiple_results_chooser">Share compressed images</string>
     <string name="ad_label">Ad</string>
+    <string name="sponsored">Sponsored</string>
+    <string name="cd_go_back">Go back</string>
+    <string name="retry">Retry</string>
+    <string name="unknown_size">Unknown</string>
+    <string name="format_unknown">Unknown</string>
+    <string name="select_an_image">Select an image</string>
+    <string name="select_images">Select images</string>
+    <string name="add_more">Add more</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="open">Open</string>
+    <string name="another">Another</string>
+    <string name="save_all">Save all</string>
+    <string name="share_all">Share all</string>
+    <string name="processed">Processed</string>
+    <string name="original">Original</string>
+    <string name="custom">Custom</string>
+    <string name="failed">Failed</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="done">Done</string>
+    <string name="complete">Complete</string>
+    <string name="processing">Processing</string>
+    <string name="saving">Saving…</string>
+    <string name="exporting">Exporting…</string>
+    <string name="lossless">Lossless</string>
+    <string name="cd_open_history">Open history</string>
+    <string name="cd_open_settings">Open settings</string>
+    <string name="cd_clear_history">Clear history</string>
+    <string name="preview_of_image">Preview of %1$s</string>
+    <string name="processed_preview_of_image">Processed preview of %1$s</string>
+    <string name="remove_image">Remove %1$s</string>
+    <string name="image_preview">%1$s image preview</string>
+
+    <!-- Home. -->
+    <string name="preview_and_configure">Preview and configure</string>
+    <string name="home_intro">Compress one image, compress many images, or remove a background.</string>
+    <string name="home_formats_privacy">Choose JPG, PNG, or WEBP. Your images stay local unless you share or save them.</string>
+    <string name="reading_image_details">Reading image details</string>
+    <plurals name="selected_images">
+        <item quantity="one">%1$d image selected</item>
+        <item quantity="other">%1$d images selected</item>
+    </plurals>
+
+    <!-- Editor and compression configuration. -->
+    <string name="selected_images_heading">Selected images</string>
+    <string name="count">Count</string>
+    <string name="original_total">Original total</string>
+    <string name="first_image">First image</string>
+    <string name="output_resolution">Output resolution</string>
+    <string name="image_resolution">%1$d × %2$d</string>
+    <string name="image_resolution_and_format">%1$s • %2$s</string>
+    <string name="image_metadata_summary">%1$s • %2$s • %3$s</string>
+    <string name="target_size">Target size</string>
+    <string name="target_size_note">Compress toward your selected size. Actual output may vary to preserve quality.</string>
+    <string name="quality_mode">Quality mode</string>
+    <string name="resize">Resize</string>
+    <string name="width">Width</string>
+    <string name="height">Height</string>
+    <string name="maintain_aspect_ratio">Maintain aspect ratio</string>
+    <string name="allow_upscaling">Allow upscaling</string>
+    <string name="output_format">Output format</string>
+    <string name="low_size_format_tip">For low-size compression, avoid PNG. JPG or WEBP usually create smaller files.</string>
+    <string name="jpg_background">JPG background</string>
+    <string name="compress_image">Compress image</string>
+    <string name="remove_background">Remove background</string>
+    <string name="quality_best_title">Best Quality</string>
+    <string name="quality_best_description">Prioritizes detail and avoids visible blur.</string>
+    <string name="quality_balanced_title">Balanced</string>
+    <string name="quality_balanced_description">Good quality with meaningful size reduction.</string>
+    <string name="quality_smallest_title">Smallest Size</string>
+    <string name="quality_smallest_description">Stronger compression while staying usable.</string>
+    <string name="alpha_to_jpg_warning">Transparent pixels will be placed over the selected background color for JPG export.</string>
+
+    <!-- Validation. -->
+    <string name="validation_enter_target_size">Enter a target size.</string>
+    <string name="validation_target_size_greater_than_zero">Target size must be greater than zero.</string>
+    <string name="validation_target_size_too_small">Target size is too small for reliable image output.</string>
+    <string name="validation_target_size_too_large">Target size is larger than this app supports.</string>
+    <string name="validation_enter_valid_number">Enter a valid number.</string>
+    <string name="validation_use_mb_for_large_targets">Use MB for very large targets.</string>
+    <string name="validation_original_dimensions_unavailable">Original image dimensions are unavailable.</string>
+    <string name="validation_enter_valid_width_and_height">Enter valid width and height.</string>
+    <string name="validation_output_dimensions_too_small">Output dimensions are too small.</string>
+    <string name="validation_output_dimensions_too_large">Output dimensions are too large.</string>
+    <string name="validation_upscaling_is_off">Upscaling is off. Enable it to make the image larger.</string>
+    <string name="error_invalid_output_size">Invalid output size.</string>
+
+    <!-- Batch processing. -->
+    <string name="compressing">Compressing</string>
+    <string name="batch_summary">Batch summary</string>
+    <string name="retry_failed">Retry failed</string>
+    <string name="compare_results">Compare results</string>
+    <string name="total_progress">Total progress</string>
+    <string name="batch_summary_counts">Done: %1$d • Failed: %2$d</string>
+    <string name="batch_summary_counts_cancelled">Done: %1$d • Failed: %2$d • Cancelled</string>
+    <string name="queued">Queued</string>
+    <string name="reading_image">Reading image</string>
+    <string name="optimizing_resolution">Optimizing resolution</string>
+    <string name="validating_result">Validating result</string>
+    <string name="preparing_image">Preparing image</string>
+    <string name="removing_background">Removing background</string>
+    <string name="refining_edges">Refining edges</string>
+    <string name="finalizing">Finalizing</string>
+    <string name="processing_item">Processing %1$d of %2$d</string>
+
+    <!-- Background removal and replacement. -->
+    <string name="background">Background</string>
+    <string name="background_removal_cancelled">Background removal cancelled</string>
+    <string name="background_cancelled_message">The original image was not changed. Start again when you are ready.</string>
+    <string name="background_removal_unavailable">Background removal unavailable</string>
+    <string name="background_removal_failed">Background removal failed</string>
+    <string name="preview">Preview</string>
+    <string name="transparent_background_preview">Transparent background preview</string>
+    <string name="selected_background_preview">Image preview with selected background color</string>
+    <string name="replacement_color">Replacement color</string>
+    <string name="custom_color">Custom color</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="export_format">Export format</string>
+    <string name="export_background">Export background</string>
+    <string name="background_offline_note">Runs on this device and exports a transparent PNG. Images are not uploaded.</string>
+    <string name="start_removal">Start removal</string>
+    <string name="transparent">Transparent</string>
+    <string name="background_color_accessibility">%1$s background</string>
+    <string name="color_white">White</string>
+    <string name="color_black">Black</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
+    <string name="color_yellow">Yellow</string>
+    <string name="color_gray">Gray</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_purple">Purple</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_pink">Pink</string>
+
+    <!-- Result comparison and statistics. -->
+    <string name="compare_result">Compare result</string>
+    <string name="batch_results">Batch results</string>
+    <string name="save_and_share">Save and share</string>
+    <string name="output_filename">Output filename</string>
+    <string name="result_ready">Result ready</string>
+    <string name="compare_before_saving">Compare the original and processed output before saving.</string>
+    <string name="details">Details</string>
+    <string name="original_size">Original size</string>
+    <string name="processed_size">Processed size</string>
+    <string name="requested_target">Requested target</string>
+    <string name="target_status">Target status</string>
+    <string name="reached_within_tolerance">Reached within tolerance</string>
+    <string name="not_safely_achievable">Not safely achievable</string>
+    <string name="space_saved">Space saved</string>
+    <string name="percentage_saved">Percentage saved</string>
+    <string name="size_increase">Size increase</string>
+    <string name="compression_ratio">Compression ratio</string>
+    <string name="original_resolution">Original resolution</string>
+    <string name="processed_resolution">Processed resolution</string>
+    <string name="output_quality">Output quality</string>
+    <string name="no_result_title">No compressed result is available.</string>
+    <string name="no_result_message">Select an image and run compression to compare results here.</string>
+
+    <!-- Positional dynamic-value patterns. -->
+    <string name="original_size_value">Original size: %1$s</string>
+    <string name="compressed_size_value">Compressed size: %1$s</string>
+    <string name="percentage_saved_value">%1$s saved</string>
+    <string name="compression_ratio_value">%1$s:1</string>
+    <string name="progress_percentage">%1$s</string>
+
+    <!-- History. -->
+    <string name="history">History</string>
+    <string name="loading_history">Loading history…</string>
+    <string name="history_empty_title">No processed images yet.</string>
+    <string name="history_empty_message">Compressed and background-removed images appear here after a successful operation.</string>
+    <string name="history_load_error_title">History could not be loaded.</string>
+    <string name="history_operation_compressed">Compressed</string>
+    <string name="history_operation_background_removed">Background removed</string>
+    <string name="history_operation_resized">Resized</string>
+    <string name="history_operation_format_converted">Format converted</string>
+    <string name="history_operation_enhanced">Enhanced</string>
+    <string name="history_operation_collage">Collage</string>
+    <string name="processed_image">Processed image</string>
+    <string name="original_image">Original image</string>
+    <string name="history_operation_timestamp">%1$s • %2$s</string>
+
+    <!-- Settings and privacy entry points. -->
+    <string name="settings">Settings</string>
+    <string name="privacy">Privacy</string>
+    <string name="settings_privacy_processing">Image processing, including background removal, happens on your device. The app has no user accounts or remote image-processing backend. Internet access is used by Google advertising and consent services.</string>
+    <string name="settings_privacy_ad_sdk">App code does not send selected or generated images, filenames, content URIs, EXIF metadata, or image-processing data to Google Mobile Ads. The SDK automatically collects and shares IP-derived approximate location, product interactions, diagnostics, and device or account identifiers for advertising, analytics, and fraud prevention.</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="privacy_choices">Privacy choices</string>
+    <string name="advertising">Advertising</string>
+    <string name="settings_ads_placement">This app uses Google AdMob banner, native, interstitial, and app-open ads. Interstitials are eligible when History is opened and immediately before Save, Share, or Open. The current threshold requires no prior successful action.</string>
+    <string name="settings_ads_lifecycle">After an interstitial is shown, another is blocked for at least three minutes, with at most three interstitials per app-process session. Those limits do not apply to app-open ads, which may appear on a foreground return after loading. Full-screen ads are suppressed during active image processing, and requested actions continue if an ad is unavailable.</string>
+    <string name="settings_background_model">Background removal runs offline with a bundled ONNX U2-NetP model. Images are processed on-device and are not uploaded by this feature.</string>
+    <string name="open_source_notices">Open-source notices are packaged with the app.</string>
+    <string name="privacy_effective_date">Effective %1$s</string>
+
+    <!-- Privacy policy. -->
+    <string name="policy_overview_title">Overview</string>
+    <string name="policy_overview_body">Photo Compressor selects, compresses, resizes, converts, saves, opens, shares, and removes or replaces image backgrounds. Image processing runs on your device. The app has no user accounts or developer backend for image upload or processing. Internet access is used by Google advertising and consent services. App-private data is protected by the Android app sandbox; Google states that Mobile Ads SDK network data is encrypted in transit using TLS.</string>
+    <string name="policy_images_files_title">Images and files</string>
+    <string name="policy_images_files_body">You choose images through the Android system Photo Picker. The app reads each content URI and local metadata needed for processing, including the display name, media type, size, dimensions, format, transparency information, and EXIF orientation. When the provider permits, the app keeps a persisted read permission so local History can reopen the source; Clear History does not currently release it. App code does not upload selected or generated images or their metadata. Outputs are opened or shared only after you choose that action. Save writes through Android MediaStore to Pictures/Photo Compressor. On Android 9 or earlier only, a user-initiated Save requests legacy shared-storage write permission; it is not requested on Android 10 or later.</string>
+    <string name="policy_local_history_title">Local history and retention</string>
+    <string name="policy_local_history_body">The app keeps up to 200 records in app-private DataStore, including source and output references, names, types, sizes, dimensions, formats, operation and compression details, result or warning information, saved-output references, and timestamps. This DataStore is excluded from configured cloud backup and device transfer. Temporary outputs may remain in cache. Removing an item or using Clear History removes its record and attempts to delete only its referenced app-owned temporary output. Clear History does not delete gallery images, guarantee deletion of orphaned cache files, or release persisted source read permissions. Android Clear Cache can remove temporary files; Clear Storage removes app-local records and cache. Delete saved images through the gallery or file manager. The app has no user accounts.</string>
+    <string name="policy_advertising_consent_title">Advertising and consent</string>
+    <string name="policy_advertising_consent_body">Google AdMob provides banner, native, interstitial, and app-open ads. Interstitials are eligible when History is opened and immediately before Save, Share, or Open, with no prior successful action required. After one is shown, another is blocked for at least three minutes, with at most three per app-process session. These limits do not apply to app-open ads, which may appear on a foreground return after loading. Google Mobile Ads SDK 25.4.0 automatically collects and shares IP-derived approximate location; product interactions such as launches, taps, and ad or video views; diagnostics such as app launch time, hang rate, and energy usage; and device or account identifiers such as Advertising ID and App Set ID. Google states that it uses these data for advertising or marketing, analytics, and fraud prevention, security, and compliance, and encrypts SDK data in transit using TLS. User Messaging Platform SDK 4.0.0 requests consent information and displays consent or privacy-options forms when Google reports they are required. Core image processing works without personalized-ad consent and when ads are unavailable or the device is offline.</string>
+    <string name="policy_background_removal_title">Background removal</string>
+    <string name="policy_background_removal_body">Background removal uses a bundled U2-NetP ONNX model and ONNX Runtime entirely on the device. App code does not download a remote model or upload an image for this feature.</string>
+    <string name="policy_children_title">Children</string>
+    <string name="policy_children_body">Photo Compressor is a general-purpose utility and is not directed to children under 13. The automatic Google advertising-SDK practices described above apply whenever the SDK is allowed to request ads. Publisher action before release: configure the Play target-audience and advertising settings consistently with this statement, and reassess the app and policy before offering it to a child-directed audience.</string>
+    <string name="policy_third_parties_title">Third parties and contact</string>
+    <string name="policy_third_parties_body">Google\'s privacy policy and Mobile Ads data disclosure apply to data handled by Google advertising services: policies.google.com/privacy and developers.google.com/admob/android/privacy/play-data-disclosure. Focused open-source notices for key privacy and model components are included with the app; they are not an exhaustive dependency inventory. Publisher action required before release: add the verified legal developer or entity name, a direct monitored privacy contact, and an active, publicly accessible, non-geofenced, non-editable HTTPS privacy-policy webpage that is not a PDF. Use the same current policy in Play and in the app, and update its effective date when the app or its services change.</string>
+
+    <!-- ViewModel, repository, and user-facing error messages. -->
+    <string name="cancel_compression_before_leaving">Cancel compression before leaving this screen.</string>
+    <string name="no_app_can_handle_action">No app can handle this action.</string>
+    <string name="image_no_longer_available">The image is no longer available.</string>
+    <string name="error_could_not_read_image">Could not read one image.</string>
+    <string name="error_select_one_image_for_background">Select one image before removing a background.</string>
+    <string name="error_background_generic">Background removal failed.</string>
+    <string name="error_background_replace_failed">Could not replace the background.</string>
+    <string name="background_exported">Background exported.</string>
+    <string name="error_check_target_size">Check the target size.</string>
+    <string name="error_compression_failed">Compression failed.</string>
+    <string name="error_history_retry_or_remove">Please retry or remove inaccessible history items.</string>
+    <string name="save_success">Image saved successfully</string>
+    <string name="save_failure">Couldn\'t save image. Please try again.</string>
+    <string name="history_update_failed">Image saved, but couldn\'t update History.</string>
+    <string name="error_legacy_storage_permission">Storage access is required to save images on Android 9 or earlier.</string>
+    <string name="error_file_not_readable">This file is not a readable image.</string>
+    <string name="error_unsupported_image_format">Unsupported image format. Choose JPG, PNG, or WEBP.</string>
+    <string name="selected_image">Selected image</string>
+    <string name="error_image_too_large">This image is too large to process safely on this device. Choose a smaller resize percentage.</string>
+    <string name="error_processed_image_unavailable">The processed image is no longer available.</string>
+    <string name="error_create_pictures_folder">Could not create the Photo Compressor folder in Pictures.</string>
+    <string name="error_create_media_entry">Could not create a MediaStore entry.</string>
+    <string name="error_open_save_destination">Could not open the save destination.</string>
+    <string name="error_image_decode_failed">This image could not be decoded.</string>
+    <string name="error_dimensions_too_large">%1$d × %2$d is too large to process safely on this device. Choose a smaller resize percentage.</string>
+    <string name="error_image_read_failed">This image could not be read.</string>
+    <string name="error_no_readable_image_stream">No readable stream for selected image.</string>
+    <string name="error_photo_access_denied">Photo access was denied. Select the image again.</string>
+    <string name="error_cloud_image_unavailable">Image is unavailable. If it is stored in the cloud, download it locally or pick it from Files.</string>
+    <string name="error_image_encode_failed">Could not encode the image.</string>
+    <string name="error_compressed_image_validation_failed">The compressed image could not be validated.</string>
+    <string name="error_allow_storage_access">Allow storage access to save images on Android 9 or earlier.</string>
+    <string name="error_shared_storage_unavailable">Shared storage is unavailable. Check the device storage and try again.</string>
+
+    <!-- Compression outcome notices. -->
+    <string name="warning_png_lossless_original_preserved">PNG is lossless and the original resolution was preserved.</string>
+    <string name="warning_png_lossless_safe_resize">PNG is lossless, so size reduction was performed through safe resizing.</string>
+    <string name="warning_png_target_unreached_original">PNG is lossless. The original resolution was preserved, so the exact target could not be reached.</string>
+    <string name="warning_png_target_unreached_best_quality">PNG is lossless. Best quality result created, but the exact target could not be reached without significant resolution loss.</string>
+    <string name="warning_target_unreached_original">Original resolution preserved. The exact target could not be reached at an acceptable encoder quality.</string>
+    <string name="warning_target_unreached_best_quality">Best quality result created. The exact target could not be reached without significant quality loss.</string>
+    <string name="warning_target_reached_reduced_resolution">Target reached by reducing resolution while preserving acceptable encoder quality.</string>
+    <string name="warning_background_safe_resolution">Processed at a safe resolution to avoid running out of memory on this device.</string>
+
+    <!-- Background-removal failures exposed to the UI. -->
+    <string name="error_background_model_missing">Background-removal model is missing.</string>
+    <string name="error_background_model_load_failed">Could not initialize the background-removal model.</string>
+    <string name="error_background_decode_failed">Could not read the selected image.</string>
+    <string name="error_background_out_of_memory">The image is too large to process on this device.</string>
+    <string name="error_background_inference_failed">Background removal failed while running the model.</string>
+    <string name="error_background_export_failed">Could not create the transparent PNG result.</string>
+    <string name="error_background_model_incompatible">The background-removal model is incompatible with this app version.</string>
+    <string name="error_background_try_smaller">Background removal failed. Try a smaller image or another photo.</string>
+    <string name="error_background_feature_unavailable">Background removal is unavailable on this device.</string>
+    <string name="image_unavailable">Image is unavailable.</string>
 </resources>

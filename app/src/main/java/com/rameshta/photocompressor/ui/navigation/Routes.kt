@@ -8,5 +8,6 @@ object Routes {
     const val BACKGROUND = "background"
     const val HISTORY = "history"
     const val SETTINGS = "settings"
+    const val LANGUAGE = "language"
     const val PRIVACY = "privacy"
 }

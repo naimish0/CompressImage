@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Language selector -->
+    <string name="language">భాష</string>
+    <string name="choose_language">భాషను ఎంచుకోండి</string>
+    <string name="current_language">ప్రస్తుత భాష: %1$s</string>
+    <string name="search_languages">భాషలను వెతకండి</string>
+    <string name="search_languages_hint">భాష పేరును టైప్ చేయండి</string>
+    <string name="no_languages_found">సరిపోలే భాషలు ఏవీ కనుగొనబడలేదు</string>
+    <string name="system_default">సిస్టమ్ డిఫాల్ట్</string>
+
+    <!-- Common actions and accessibility -->
+    <string name="share_results_chooser">కుదించిన చిత్రాన్ని పంచుకోండి</string>
+    <string name="share_multiple_results_chooser">కుదించిన చిత్రాలను పంచుకోండి</string>
+    <string name="ad_label">ప్రకటన</string>
+    <string name="sponsored">ప్రాయోజితం</string>
+    <string name="cd_go_back">వెనుకకు వెళ్లండి</string>
+    <string name="retry">మళ్లీ ప్రయత్నించండి</string>
+    <string name="unknown_size">తెలియని పరిమాణం</string>
+    <string name="format_unknown">తెలియని ఫార్మాట్</string>
+    <string name="select_an_image">ఒక చిత్రాన్ని ఎంచుకోండి</string>
+    <string name="select_images">చిత్రాలను ఎంచుకోండి</string>
+    <string name="add_more">మరిన్ని జోడించండి</string>
+    <string name="remove">తొలగించండి</string>
+    <string name="cancel">రద్దు చేయండి</string>
+    <string name="save">సేవ్ చేయండి</string>
+    <string name="share">పంచుకోండి</string>
+    <string name="open">తెరవండి</string>
+    <string name="another">మరొకటి</string>
+    <string name="save_all">అన్నింటినీ సేవ్ చేయండి</string>
+    <string name="share_all">అన్నింటినీ పంచుకోండి</string>
+    <string name="processed">ప్రాసెస్ చేసినది</string>
+    <string name="original">అసలైనది</string>
+    <string name="custom">అనుకూలం</string>
+    <string name="failed">విఫలమైంది</string>
+    <string name="cancelled">రద్దయింది</string>
+    <string name="done">పూర్తయింది</string>
+    <string name="complete">పూర్తి</string>
+    <string name="processing">ప్రాసెస్ చేస్తోంది</string>
+    <string name="saving">సేవ్ చేస్తోంది</string>
+    <string name="exporting">ఎగుమతి చేస్తోంది</string>
+    <string name="lossless">నష్టరహితం</string>
+    <string name="cd_open_history">చరిత్రను తెరవండి</string>
+    <string name="cd_open_settings">సెట్టింగ్‌లను తెరవండి</string>
+    <string name="cd_clear_history">చరిత్రను తొలగించండి</string>
+    <string name="preview_of_image">%1$s చిత్రం యొక్క ప్రివ్యూ</string>
+    <string name="processed_preview_of_image">ప్రాసెస్ చేసిన %1$s చిత్రం యొక్క ప్రివ్యూ</string>
+    <string name="remove_image">%1$s చిత్రాన్ని తొలగించండి</string>
+    <string name="image_preview">%1$s చిత్రం ప్రివ్యూ</string>
+
+    <!-- Home -->
+    <string name="preview_and_configure">ప్రివ్యూ చూసి కాన్ఫిగర్ చేయండి</string>
+    <string name="home_intro">ఒక చిత్రాన్ని, అనేక చిత్రాలను కుదించండి లేదా నేపథ్యాన్ని తొలగించండి.</string>
+    <string name="home_formats_privacy">JPG, PNG లేదా WEBP ఎంచుకోండి. మీరు పంచుకునే లేదా సేవ్ చేసే వరకు మీ చిత్రాలు పరికరంలోనే ఉంటాయి.</string>
+    <string name="reading_image_details">చిత్ర వివరాలను చదువుతోంది…</string>
+    <plurals name="selected_images">
+        <item quantity="one">%1$d చిత్రం ఎంచుకోబడింది</item>
+        <item quantity="other">%1$d చిత్రాలు ఎంచుకోబడ్డాయి</item>
+    </plurals>
+
+    <!-- Editor -->
+    <string name="selected_images_heading">ఎంచుకున్న చిత్రాలు</string>
+    <string name="count">సంఖ్య</string>
+    <string name="original_total">అసలు మొత్తం</string>
+    <string name="first_image">మొదటి చిత్రం</string>
+    <string name="output_resolution">అవుట్‌పుట్ రిజల్యూషన్</string>
+    <string name="image_resolution">%1$d × %2$d</string>
+    <string name="image_resolution_and_format">%1$s • %2$s</string>
+    <string name="image_metadata_summary">%1$s • %2$s • %3$s</string>
+    <string name="target_size">లక్ష్య పరిమాణం</string>
+    <string name="target_size_note">మీరు ఎంచుకున్న పరిమాణానికి చేరువగా కుదిస్తుంది. నాణ్యతను కాపాడేందుకు వాస్తవ అవుట్‌పుట్ మారవచ్చు.</string>
+    <string name="quality_mode">నాణ్యత మోడ్</string>
+    <string name="resize">పరిమాణం మార్చండి</string>
+    <string name="width">వెడల్పు</string>
+    <string name="height">ఎత్తు</string>
+    <string name="maintain_aspect_ratio">దృశ్య నిష్పత్తిని కొనసాగించండి</string>
+    <string name="allow_upscaling">పరిమాణాన్ని పెంచడానికి అనుమతించండి</string>
+    <string name="output_format">అవుట్‌పుట్ ఫార్మాట్</string>
+    <string name="low_size_format_tip">తక్కువ పరిమాణానికి కుదించేటప్పుడు PNGని నివారించండి. JPG లేదా WEBP సాధారణంగా చిన్న ఫైళ్లను సృష్టిస్తాయి.</string>
+    <string name="jpg_background">JPG నేపథ్యం</string>
+    <string name="compress_image">చిత్రాన్ని కుదించండి</string>
+    <string name="remove_background">నేపథ్యాన్ని తొలగించండి</string>
+    <string name="quality_best_title">ఉత్తమ నాణ్యత</string>
+    <string name="quality_best_description">వివరాలకు ప్రాధాన్యం ఇచ్చి, కనిపించే అస్పష్టతను నివారిస్తుంది.</string>
+    <string name="quality_balanced_title">సమతుల్యం</string>
+    <string name="quality_balanced_description">పరిమాణాన్ని గణనీయంగా తగ్గిస్తూ మంచి నాణ్యతను అందిస్తుంది.</string>
+    <string name="quality_smallest_title">అతి చిన్న ఫైల్</string>
+    <string name="quality_smallest_description">ఉపయోగించదగిన నాణ్యతను ఉంచుతూ మరింత బలంగా కుదిస్తుంది.</string>
+    <string name="alpha_to_jpg_warning">JPG పారదర్శకతను నిలుపుకోదు. పారదర్శక ప్రాంతాలు ఎంచుకున్న నేపథ్య రంగుతో నింపబడతాయి.</string>
+
+    <!-- Validation -->
+    <string name="validation_enter_target_size">లక్ష్య పరిమాణాన్ని నమోదు చేయండి.</string>
+    <string name="validation_target_size_greater_than_zero">లక్ష్య పరిమాణం సున్నా కంటే ఎక్కువగా ఉండాలి.</string>
+    <string name="validation_target_size_too_small">నమ్మదగిన చిత్రం అవుట్‌పుట్‌కు లక్ష్య పరిమాణం చాలా చిన్నది.</string>
+    <string name="validation_target_size_too_large">లక్ష్య పరిమాణం ఈ యాప్ మద్దతిచ్చే పరిమితి కంటే పెద్దది.</string>
+    <string name="validation_enter_valid_number">చెల్లుబాటు అయ్యే సంఖ్యను నమోదు చేయండి.</string>
+    <string name="validation_use_mb_for_large_targets">పెద్ద లక్ష్యాల కోసం MB ఉపయోగించండి.</string>
+    <string name="validation_original_dimensions_unavailable">అసలు కొలతలు అందుబాటులో లేవు.</string>
+    <string name="validation_enter_valid_width_and_height">చెల్లుబాటు అయ్యే వెడల్పు మరియు ఎత్తును నమోదు చేయండి.</string>
+    <string name="validation_output_dimensions_too_small">అవుట్‌పుట్ కొలతలు చాలా చిన్నవి.</string>
+    <string name="validation_output_dimensions_too_large">అవుట్‌పుట్ కొలతలు చాలా పెద్దవి.</string>
+    <string name="validation_upscaling_is_off">పరిమాణాన్ని పెంచడం ఆఫ్‌లో ఉంది. చిత్రాన్ని పెద్దదిగా చేయడానికి దాన్ని ఆన్ చేయండి.</string>
+    <string name="error_invalid_output_size">అవుట్‌పుట్ పరిమాణం చెల్లదు.</string>
+
+    <!-- Batch processing -->
+    <string name="compressing">కుదిస్తోంది</string>
+    <string name="batch_summary">బ్యాచ్ సారాంశం</string>
+    <string name="retry_failed">విఫలమైనవాటిని మళ్లీ ప్రయత్నించండి</string>
+    <string name="compare_results">ఫలితాలను పోల్చండి</string>
+    <string name="total_progress">మొత్తం పురోగతి</string>
+    <string name="batch_summary_counts">%1$d పూర్తయ్యాయి • %2$d విఫలమయ్యాయి</string>
+    <string name="batch_summary_counts_cancelled">%1$d పూర్తయ్యాయి • %2$d విఫలమయ్యాయి • రద్దయింది</string>
+    <string name="queued">క్యూలో ఉంది</string>
+    <string name="reading_image">చిత్రాన్ని చదువుతోంది</string>
+    <string name="optimizing_resolution">రిజల్యూషన్‌ను మెరుగుపరుస్తోంది</string>
+    <string name="validating_result">ఫలితాన్ని ధృవీకరిస్తోంది</string>
+    <string name="preparing_image">చిత్రాన్ని సిద్ధం చేస్తోంది</string>
+    <string name="removing_background">నేపథ్యాన్ని తొలగిస్తోంది</string>
+    <string name="refining_edges">అంచులను మెరుగుపరుస్తోంది</string>
+    <string name="finalizing">పూర్తి చేస్తోంది</string>
+    <string name="processing_item">%2$d లో %1$d ప్రాసెస్ చేస్తోంది</string>
+
+    <!-- Background removal -->
+    <string name="background">నేపథ్యం</string>
+    <string name="background_removal_cancelled">నేపథ్య తొలగింపు రద్దయింది</string>
+    <string name="background_cancelled_message">అసలు చిత్రం మార్చబడలేదు. మీరు సిద్ధమైనప్పుడు మళ్లీ ప్రారంభించండి.</string>
+    <string name="background_removal_unavailable">నేపథ్య తొలగింపు అందుబాటులో లేదు</string>
+    <string name="background_removal_failed">నేపథ్య తొలగింపు విఫలమైంది</string>
+    <string name="preview">ప్రివ్యూ</string>
+    <string name="transparent_background_preview">పారదర్శక నేపథ్య ప్రివ్యూ</string>
+    <string name="selected_background_preview">ఎంచుకున్న నేపథ్య రంగుతో చిత్రం ప్రివ్యూ</string>
+    <string name="replacement_color">ప్రత్యామ్నాయ రంగు</string>
+    <string name="custom_color">అనుకూల రంగు</string>
+    <string name="red">ఎరుపు</string>
+    <string name="green">ఆకుపచ్చ</string>
+    <string name="blue">నీలం</string>
+    <string name="export_format">ఎగుమతి ఫార్మాట్</string>
+    <string name="export_background">నేపథ్యాన్ని ఎగుమతి చేయండి</string>
+    <string name="background_offline_note">ఈ పరికరంలోనే పని చేసి పారదర్శక PNGని ఎగుమతి చేస్తుంది. చిత్రాలు అప్‌లోడ్ చేయబడవు.</string>
+    <string name="start_removal">తొలగింపును ప్రారంభించండి</string>
+    <string name="transparent">పారదర్శకం</string>
+    <string name="background_color_accessibility">%1$s నేపథ్య రంగు</string>
+    <string name="color_white">తెలుపు</string>
+    <string name="color_black">నలుపు</string>
+    <string name="color_blue">నీలం</string>
+    <string name="color_red">ఎరుపు</string>
+    <string name="color_green">ఆకుపచ్చ</string>
+    <string name="color_yellow">పసుపు</string>
+    <string name="color_gray">బూడిద రంగు</string>
+    <string name="color_orange">నారింజ</string>
+    <string name="color_purple">ఊదా</string>
+    <string name="color_cyan">సయాన్</string>
+    <string name="color_brown">గోధుమ రంగు</string>
+    <string name="color_pink">గులాబీ</string>
+
+    <!-- Results -->
+    <string name="compare_result">ఫలితాన్ని పోల్చండి</string>
+    <string name="batch_results">బ్యాచ్ ఫలితాలు</string>
+    <string name="save_and_share">సేవ్ చేసి పంచుకోండి</string>
+    <string name="output_filename">అవుట్‌పుట్ ఫైల్ పేరు</string>
+    <string name="result_ready">ఫలితం సిద్ధంగా ఉంది</string>
+    <string name="compare_before_saving">సేవ్ చేసే ముందు అసలు మరియు ప్రాసెస్ చేసిన అవుట్‌పుట్‌ను పోల్చండి.</string>
+    <string name="details">వివరాలు</string>
+    <string name="original_size">అసలు పరిమాణం</string>
+    <string name="processed_size">ప్రాసెస్ చేసిన పరిమాణం</string>
+    <string name="requested_target">అభ్యర్థించిన లక్ష్యం</string>
+    <string name="target_status">లక్ష్య స్థితి</string>
+    <string name="reached_within_tolerance">అనుమతించిన పరిమితిలో చేరుకుంది</string>
+    <string name="not_safely_achievable">సురక్షితంగా సాధించడం సాధ్యం కాదు</string>
+    <string name="space_saved">ఆదా చేసిన స్థలం</string>
+    <string name="percentage_saved">ఆదా చేసిన శాతం</string>
+    <string name="size_increase">పరిమాణం పెరుగుదల</string>
+    <string name="compression_ratio">కుదింపు నిష్పత్తి</string>
+    <string name="original_resolution">అసలు రిజల్యూషన్</string>
+    <string name="processed_resolution">ప్రాసెస్ చేసిన రిజల్యూషన్</string>
+    <string name="output_quality">అవుట్‌పుట్ నాణ్యత</string>
+    <string name="no_result_title">కుదించిన ఫలితం ఏదీ అందుబాటులో లేదు.</string>
+    <string name="no_result_message">ఇక్కడ ఫలితాలను పోల్చడానికి ఒక చిత్రాన్ని ఎంచుకుని కుదింపును అమలు చేయండి.</string>
+    <string name="original_size_value">అసలు పరిమాణం: %1$s</string>
+    <string name="compressed_size_value">కుదించిన పరిమాణం: %1$s</string>
+    <string name="percentage_saved_value">%1$s ఆదా అయింది</string>
+    <string name="compression_ratio_value">%1$s:1</string>
+    <string name="progress_percentage">%1$s</string>
+
+    <!-- History -->
+    <string name="history">చరిత్ర</string>
+    <string name="loading_history">చరిత్రను లోడ్ చేస్తోంది…</string>
+    <string name="history_empty_title">ఇంకా ప్రాసెస్ చేసిన చిత్రాలు లేవు.</string>
+    <string name="history_empty_message">ఒక పని విజయవంతమైన తర్వాత కుదించిన మరియు నేపథ్యం తొలగించిన చిత్రాలు ఇక్కడ కనిపిస్తాయి.</string>
+    <string name="history_load_error_title">చరిత్రను లోడ్ చేయడం సాధ్యపడలేదు.</string>
+    <string name="history_operation_compressed">కుదించబడింది</string>
+    <string name="history_operation_background_removed">నేపథ్యం తొలగించబడింది</string>
+    <string name="history_operation_resized">పరిమాణం మార్చబడింది</string>
+    <string name="history_operation_format_converted">ఫార్మాట్ మార్చబడింది</string>
+    <string name="history_operation_enhanced">మెరుగుపరచబడింది</string>
+    <string name="history_operation_collage">కొలాజ్</string>
+    <string name="processed_image">ప్రాసెస్ చేసిన చిత్రం</string>
+    <string name="original_image">అసలు చిత్రం</string>
+    <string name="history_operation_timestamp">%1$s • %2$s</string>
+
+    <!-- Settings and privacy -->
+    <string name="settings">సెట్టింగ్‌లు</string>
+    <string name="privacy">గోప్యత</string>
+    <string name="settings_privacy_processing">నేపథ్య తొలగింపుతో సహా చిత్ర ప్రాసెసింగ్ మీ పరికరంలోనే జరుగుతుంది. యాప్‌లో వినియోగదారు ఖాతాలు లేదా దూరస్థ చిత్రం-ప్రాసెసింగ్ బ్యాకెండ్ లేదు. Google ప్రకటనలు మరియు సమ్మతి సేవలు ఇంటర్నెట్ యాక్సెస్‌ను ఉపయోగిస్తాయి.</string>
+    <string name="settings_privacy_ad_sdk">యాప్ కోడ్ ఎంచుకున్న లేదా సృష్టించిన చిత్రాలు, ఫైల్ పేర్లు, కంటెంట్ URIలు, EXIF మెటాడేటా లేదా చిత్రం-ప్రాసెసింగ్ డేటాను Google Mobile Adsకు పంపదు. ప్రకటనలు, విశ్లేషణ మరియు మోసాల నివారణ కోసం SDK IP నుంచి అంచనా వేసిన సుమారు స్థానం, ఉత్పత్తి పరస్పర చర్యలు, నిర్ధారణ డేటా మరియు పరికరం లేదా ఖాతా గుర్తింపులను స్వయంచాలకంగా సేకరించి పంచుకుంటుంది.</string>
+    <string name="privacy_policy">గోప్యతా విధానం</string>
+    <string name="privacy_choices">గోప్యతా ఎంపికలు</string>
+    <string name="advertising">ప్రకటనలు</string>
+    <string name="settings_ads_placement">ఈ యాప్ Google AdMob బ్యానర్, నేటివ్, ఇంటర్‌స్టీషియల్ మరియు యాప్-ఓపెన్ ప్రకటనలను ఉపయోగిస్తుంది. చరిత్రను తెరిచినప్పుడు, అలాగే సేవ్, షేర్ లేదా ఓపెన్ చర్యకు తక్షణం ముందు ఇంటర్‌స్టీషియల్ ప్రకటనకు అర్హత ఉంటుంది. ప్రస్తుత పరిమితి ప్రకారం ముందుగా విజయవంతమైన చర్య అవసరం లేదు.</string>
+    <string name="settings_ads_lifecycle">ఒక ఇంటర్‌స్టీషియల్ ప్రకటన చూపిన తర్వాత కనీసం మూడు నిమిషాలు మరొకటి నిరోధించబడుతుంది; ఒక్కో యాప్-ప్రాసెస్ సెషన్‌లో గరిష్టంగా మూడు మాత్రమే చూపబడతాయి. ఈ పరిమితులు యాప్-ఓపెన్ ప్రకటనలకు వర్తించవు; అవి లోడ్ అయిన తర్వాత యాప్ తిరిగి ముందుకు వచ్చినప్పుడు కనిపించవచ్చు. సక్రియ చిత్రం ప్రాసెసింగ్ సమయంలో పూర్తి-స్క్రీన్ ప్రకటనలు నిరోధించబడతాయి, ప్రకటన అందుబాటులో లేకపోయినా అభ్యర్థించిన చర్యలు కొనసాగుతాయి.</string>
+    <string name="settings_background_model">యాప్‌తో అందించిన ONNX U2-NetP మోడల్‌తో నేపథ్య తొలగింపు ఆఫ్‌లైన్‌లో నడుస్తుంది. చిత్రాలు పరికరంలోనే ప్రాసెస్ చేయబడతాయి మరియు ఈ ఫీచర్ ద్వారా అప్‌లోడ్ చేయబడవు.</string>
+    <string name="open_source_notices">ఓపెన్ సోర్స్ నోటీసులు యాప్‌తో ప్యాక్ చేయబడ్డాయి.</string>
+    <string name="privacy_effective_date">%1$s నుంచి అమలులో ఉంటుంది</string>
+
+    <!-- Privacy policy -->
+    <string name="policy_overview_title">అవలోకనం</string>
+    <string name="policy_overview_body">Photo Compressor చిత్రాలను ఎంచుకుంటుంది, కుదిస్తుంది, పరిమాణం మారుస్తుంది, ఫార్మాట్ మారుస్తుంది, సేవ్ చేస్తుంది, తెరుస్తుంది, పంచుకుంటుంది మరియు చిత్ర నేపథ్యాలను తొలగిస్తుంది లేదా భర్తీ చేస్తుంది. చిత్రం ప్రాసెసింగ్ మీ పరికరంలోనే జరుగుతుంది. యాప్‌లో వినియోగదారు ఖాతాలు లేదా చిత్రాలను అప్‌లోడ్ చేసి ప్రాసెస్ చేసే డెవలపర్ బ్యాకెండ్ లేదు. Google ప్రకటనలు మరియు సమ్మతి సేవలు ఇంటర్నెట్ యాక్సెస్‌ను ఉపయోగిస్తాయి. యాప్‌కు చెందిన ప్రైవేట్ డేటాను Android యాప్ శాండ్‌బాక్స్ రక్షిస్తుంది; Mobile Ads SDK నెట్‌వర్క్ డేటా TLSను ఉపయోగించి ప్రసారంలో ఎన్‌క్రిప్ట్ చేయబడుతుందని Google చెబుతోంది.</string>
+    <string name="policy_images_files_title">చిత్రాలు మరియు ఫైళ్లు</string>
+    <string name="policy_images_files_body">మీరు Android సిస్టమ్ Photo Picker ద్వారా చిత్రాలను ఎంచుకుంటారు. యాప్ ప్రాసెసింగ్‌కు అవసరమైన ప్రతి కంటెంట్ URI మరియు స్థానిక మెటాడేటాను చదువుతుంది; ఇందులో ప్రదర్శన పేరు, మీడియా రకం, పరిమాణం, కొలతలు, ఫార్మాట్, పారదర్శకత సమాచారం మరియు EXIF దిశ ఉంటాయి. ప్రొవైడర్ అనుమతించినప్పుడు స్థానిక చరిత్ర మూలాన్ని మళ్లీ తెరవగలిగేలా యాప్ నిరంతర రీడ్ అనుమతిని ఉంచుతుంది; చరిత్రను క్లియర్ చేయడం ప్రస్తుతం దాన్ని విడుదల చేయదు. యాప్ కోడ్ ఎంచుకున్న లేదా సృష్టించిన చిత్రాలను లేదా వాటి మెటాడేటాను అప్‌లోడ్ చేయదు. మీరు సంబంధిత చర్యను ఎంచుకున్న తర్వాత మాత్రమే అవుట్‌పుట్‌లు తెరవబడతాయి లేదా పంచుకోబడతాయి. సేవ్ చర్య Android MediaStore ద్వారా Pictures/Photo Compressorకు రాస్తుంది. Android 9 లేదా అంతకంటే పాత సంస్కరణలో మాత్రమే వినియోగదారు ప్రారంభించిన సేవ్ చర్య పాత షేర్డ్-స్టోరేజ్ రైట్ అనుమతిని అడుగుతుంది; Android 10 లేదా తర్వాత అది అడగబడదు.</string>
+    <string name="policy_local_history_title">స్థానిక చరిత్ర మరియు నిల్వ కాలం</string>
+    <string name="policy_local_history_body">యాప్ ప్రైవేట్ DataStoreలో గరిష్టంగా 200 రికార్డులను ఉంచుతుంది; వీటిలో మూలం మరియు అవుట్‌పుట్ సూచనలు, పేర్లు, రకాలు, పరిమాణాలు, కొలతలు, ఫార్మాట్‌లు, ఆపరేషన్ మరియు కుదింపు వివరాలు, ఫలితం లేదా హెచ్చరిక సమాచారం, సేవ్ చేసిన అవుట్‌పుట్ సూచనలు మరియు సమయముద్రలు ఉంటాయి. ఈ DataStore కాన్ఫిగర్ చేసిన క్లౌడ్ బ్యాకప్ మరియు పరికర బదిలీ నుంచి మినహాయించబడింది. తాత్కాలిక అవుట్‌పుట్‌లు క్యాష్‌లో మిగలవచ్చు. ఒక అంశాన్ని తొలగించడం లేదా చరిత్రను క్లియర్ చేయడం దాని రికార్డును తొలగించి, అది సూచించే యాప్‌కు చెందిన తాత్కాలిక అవుట్‌పుట్‌ను మాత్రమే తొలగించడానికి ప్రయత్నిస్తుంది. చరిత్రను క్లియర్ చేయడం గ్యాలరీ చిత్రాలను తొలగించదు, సూచన లేని క్యాష్ ఫైళ్లు తొలగించబడతాయని హామీ ఇవ్వదు లేదా మూలాల నిరంతర రీడ్ అనుమతులను విడుదల చేయదు. Androidలో క్యాష్ క్లియర్ చేయడం తాత్కాలిక ఫైళ్లను తొలగించవచ్చు; స్టోరేజ్ క్లియర్ చేయడం యాప్ స్థానిక రికార్డులు మరియు క్యాష్‌ను తొలగిస్తుంది. సేవ్ చేసిన చిత్రాలను గ్యాలరీ లేదా ఫైల్ మేనేజర్ ద్వారా తొలగించండి. యాప్‌లో వినియోగదారు ఖాతాలు లేవు.</string>
+    <string name="policy_advertising_consent_title">ప్రకటనలు మరియు సమ్మతి</string>
+    <string name="policy_advertising_consent_body">Google AdMob బ్యానర్, నేటివ్, ఇంటర్‌స్టీషియల్ మరియు యాప్-ఓపెన్ ప్రకటనలను అందిస్తుంది. చరిత్రను తెరిచినప్పుడు, అలాగే సేవ్, షేర్ లేదా ఓపెన్ చర్యకు తక్షణం ముందు ఇంటర్‌స్టీషియల్ ప్రకటనకు అర్హత ఉంటుంది; ముందుగా విజయవంతమైన చర్య అవసరం లేదు. ఒకటి చూపిన తర్వాత కనీసం మూడు నిమిషాలు మరొకటి నిరోధించబడుతుంది; ఒక్కో యాప్-ప్రాసెస్ సెషన్‌లో గరిష్టంగా మూడు మాత్రమే చూపబడతాయి. ఈ పరిమితులు యాప్-ఓపెన్ ప్రకటనలకు వర్తించవు; అవి లోడ్ అయిన తర్వాత యాప్ తిరిగి ముందుకు వచ్చినప్పుడు కనిపించవచ్చు. Google Mobile Ads SDK 25.4.0 IP నుంచి అంచనా వేసిన సుమారు స్థానం; యాప్ ప్రారంభాలు, ట్యాప్‌లు, ప్రకటన లేదా వీడియో వీక్షణల వంటి ఉత్పత్తి పరస్పర చర్యలు; యాప్ ప్రారంభ సమయం, నిలిచిపోయే రేటు, శక్తి వినియోగం వంటి నిర్ధారణ సమాచారం; Advertising ID, App Set ID వంటి పరికరం లేదా ఖాతా గుర్తింపులను స్వయంచాలకంగా సేకరించి పంచుకుంటుంది. ఈ డేటాను ప్రకటనలు లేదా మార్కెటింగ్, విశ్లేషణ, మోసాల నివారణ, భద్రత మరియు నిబంధనల అనుసరణకు ఉపయోగిస్తామని, SDK డేటాను TLSతో ప్రసారంలో ఎన్‌క్రిప్ట్ చేస్తామని Google చెబుతోంది. User Messaging Platform SDK 4.0.0 సమ్మతి సమాచారాన్ని అభ్యర్థించి, అవసరమని Google తెలిపినప్పుడు సమ్మతి లేదా గోప్యతా-ఎంపిక ఫారమ్‌లను చూపుతుంది. వ్యక్తిగతీకరించిన ప్రకటన సమ్మతి లేకపోయినా, ప్రకటనలు అందుబాటులో లేకపోయినా లేదా పరికరం ఆఫ్‌లైన్‌లో ఉన్నా ప్రధాన చిత్రం ప్రాసెసింగ్ పని చేస్తుంది.</string>
+    <string name="policy_background_removal_title">నేపథ్య తొలగింపు</string>
+    <string name="policy_background_removal_body">నేపథ్య తొలగింపు యాప్‌తో అందించిన U2-NetP ONNX మోడల్ మరియు ONNX Runtimeను పూర్తిగా పరికరంలోనే ఉపయోగిస్తుంది. ఈ ఫీచర్ కోసం యాప్ కోడ్ దూరస్థ మోడల్‌ను డౌన్‌లోడ్ చేయదు లేదా చిత్రాన్ని అప్‌లోడ్ చేయదు.</string>
+    <string name="policy_children_title">పిల్లలు</string>
+    <string name="policy_children_body">Photo Compressor సాధారణ ప్రయోజన యుటిలిటీ; ఇది 13 ఏళ్లలోపు పిల్లలను లక్ష్యంగా చేసుకోదు. SDKకు ప్రకటనలను అభ్యర్థించడానికి అనుమతి ఉన్నప్పుడల్లా పైన వివరించిన స్వయంచాలక Google ప్రకటన-SDK పద్ధతులు వర్తిస్తాయి. విడుదలకు ముందు ప్రచురణకర్త చేయాల్సిన పని: ఈ ప్రకటనకు అనుగుణంగా Play లక్ష్య ప్రేక్షకులు మరియు ప్రకటన సెట్టింగ్‌లను కాన్ఫిగర్ చేసి, పిల్లలను లక్ష్యంగా చేసుకున్న ప్రేక్షకులకు అందించే ముందు యాప్ మరియు విధానాన్ని మళ్లీ అంచనా వేయండి.</string>
+    <string name="policy_third_parties_title">మూడవ పక్షాలు మరియు సంప్రదింపు</string>
+    <string name="policy_third_parties_body">Google గోప్యతా విధానం మరియు Mobile Ads డేటా వెల్లడి Google ప్రకటన సేవలు నిర్వహించే డేటాకు వర్తిస్తాయి: policies.google.com/privacy మరియు developers.google.com/admob/android/privacy/play-data-disclosure. ముఖ్యమైన గోప్యత మరియు మోడల్ భాగాలకు సంబంధించిన నిర్దిష్ట ఓపెన్ సోర్స్ నోటీసులు యాప్‌లో ఉన్నాయి; అవి అన్ని డిపెండెన్సీల పూర్తి జాబితా కావు. విడుదలకు ముందు ప్రచురణకర్త చేయాల్సిన పని: ధృవీకరించిన చట్టపరమైన డెవలపర్ లేదా సంస్థ పేరు, నేరుగా పర్యవేక్షించే గోప్యతా సంప్రదింపు మరియు PDF కాని, సక్రియంగా, అందరికీ అందుబాటులో, భౌగోళిక పరిమితులు లేకుండా, సవరించలేని HTTPS గోప్యతా-విధాన వెబ్‌పేజీని జోడించండి. Playలోను యాప్‌లోను ఇదే ప్రస్తుత విధానాన్ని ఉపయోగించి, యాప్ లేదా దాని సేవలు మారినప్పుడు అమలులోకి వచ్చే తేదీని నవీకరించండి.</string>
+
+    <!-- View-model and repository messages -->
+    <string name="cancel_compression_before_leaving">వెనుకకు వెళ్లే ముందు కుదింపును రద్దు చేయండి.</string>
+    <string name="no_app_can_handle_action">ఈ చర్యను నిర్వహించగల యాప్ ఏదీ అందుబాటులో లేదు.</string>
+    <string name="image_no_longer_available">ఈ చిత్రం ఇక అందుబాటులో లేదు.</string>
+    <string name="error_could_not_read_image">చిత్రాన్ని చదవడం సాధ్యపడలేదు.</string>
+    <string name="error_select_one_image_for_background">నేపథ్య తొలగింపు కోసం ఒక చిత్రాన్ని ఎంచుకోండి.</string>
+    <string name="error_background_generic">నేపథ్యాన్ని తొలగించడం సాధ్యపడలేదు.</string>
+    <string name="error_background_replace_failed">నేపథ్యాన్ని మార్చడం సాధ్యపడలేదు.</string>
+    <string name="background_exported">నేపథ్య చిత్రం ఎగుమతి చేయబడింది.</string>
+    <string name="error_check_target_size">లక్ష్య పరిమాణాన్ని తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_compression_failed">కుదింపు విఫలమైంది.</string>
+    <string name="error_history_retry_or_remove">మళ్లీ ప్రయత్నించండి లేదా యాక్సెస్ చేయలేని చరిత్ర అంశాలను తొలగించండి.</string>
+    <string name="save_success">చిత్రం సేవ్ చేయబడింది.</string>
+    <string name="save_failure">చిత్రాన్ని సేవ్ చేయడం సాధ్యపడలేదు. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="history_update_failed">చిత్రం సేవ్ అయింది, కానీ చరిత్రను నవీకరించడం సాధ్యపడలేదు.</string>
+    <string name="error_legacy_storage_permission">Android 9 లేదా అంతకంటే పాత సంస్కరణలో చిత్రాలను సేవ్ చేయడానికి నిల్వ యాక్సెస్ అవసరం.</string>
+    <string name="error_file_not_readable">ఈ ఫైల్ చదవగల చిత్రం కాదు.</string>
+    <string name="error_unsupported_image_format">మద్దతు లేని చిత్రం ఫార్మాట్. JPG, PNG లేదా WEBP ఎంచుకోండి.</string>
+    <string name="selected_image">ఎంచుకున్న చిత్రం</string>
+    <string name="error_image_too_large">ఈ పరికరంలో సురక్షితంగా ప్రాసెస్ చేయడానికి ఈ చిత్రం చాలా పెద్దది. చిన్న పరిమాణ మార్పు శాతాన్ని ఎంచుకోండి.</string>
+    <string name="error_processed_image_unavailable">ప్రాసెస్ చేసిన చిత్రం ఇక అందుబాటులో లేదు.</string>
+    <string name="error_create_pictures_folder">Picturesలో Photo Compressor ఫోల్డర్‌ను సృష్టించడం సాధ్యపడలేదు.</string>
+    <string name="error_create_media_entry">MediaStore నమోదును సృష్టించడం సాధ్యపడలేదు.</string>
+    <string name="error_open_save_destination">సేవ్ గమ్యస్థానాన్ని తెరవడం సాధ్యపడలేదు.</string>
+    <string name="error_image_decode_failed">చిత్రాన్ని డీకోడ్ చేయడం సాధ్యపడలేదు.</string>
+    <string name="error_dimensions_too_large">%1$d × %2$d ఈ పరికరంలో సురక్షితంగా ప్రాసెస్ చేయడానికి చాలా పెద్దది. చిన్న పరిమాణ మార్పు శాతాన్ని ఎంచుకోండి.</string>
+    <string name="error_image_read_failed">ఈ చిత్రాన్ని చదవడం సాధ్యపడలేదు.</string>
+    <string name="error_no_readable_image_stream">ఎంచుకున్న చిత్రం కోసం చదవగల స్ట్రీమ్ లేదు.</string>
+    <string name="error_photo_access_denied">ఫోటో యాక్సెస్ నిరాకరించబడింది. చిత్రాన్ని మళ్లీ ఎంచుకోండి.</string>
+    <string name="error_cloud_image_unavailable">చిత్రం అందుబాటులో లేదు. అది క్లౌడ్‌లో ఉంటే, స్థానికంగా డౌన్‌లోడ్ చేయండి లేదా Files నుంచి ఎంచుకోండి.</string>
+    <string name="error_image_encode_failed">చిత్రాన్ని ఎన్‌కోడ్ చేయడం సాధ్యపడలేదు.</string>
+    <string name="error_compressed_image_validation_failed">కుదించిన చిత్రాన్ని ధృవీకరించడం సాధ్యపడలేదు.</string>
+    <string name="error_allow_storage_access">Android 9 లేదా అంతకంటే పాత సంస్కరణలో చిత్రాలను సేవ్ చేయడానికి నిల్వ యాక్సెస్‌ను అనుమతించండి.</string>
+    <string name="error_shared_storage_unavailable">షేర్డ్ స్టోరేజ్ అందుబాటులో లేదు. పరికర నిల్వను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
+
+    <!-- Compression warnings -->
+    <string name="warning_png_lossless_original_preserved">PNG నష్టరహితమైనది మరియు అసలు రిజల్యూషన్ కాపాడబడింది.</string>
+    <string name="warning_png_lossless_safe_resize">PNG నష్టరహితమైనది, కాబట్టి సురక్షితంగా పరిమాణం మార్చడం ద్వారా ఫైల్ పరిమాణం తగ్గించబడింది.</string>
+    <string name="warning_png_target_unreached_original">PNG నష్టరహితమైనది. అసలు రిజల్యూషన్ కాపాడబడినందున ఖచ్చితమైన లక్ష్యాన్ని చేరుకోలేకపోయింది.</string>
+    <string name="warning_png_target_unreached_best_quality">PNG నష్టరహితమైనది. ఉత్తమ నాణ్యత ఫలితం సృష్టించబడింది, కానీ రిజల్యూషన్‌ను గణనీయంగా తగ్గించకుండా ఖచ్చితమైన లక్ష్యాన్ని చేరుకోలేకపోయింది.</string>
+    <string name="warning_target_unreached_original">అసలు రిజల్యూషన్ కాపాడబడింది. ఆమోదయోగ్యమైన ఎన్‌కోడర్ నాణ్యతతో ఖచ్చితమైన లక్ష్యాన్ని చేరుకోలేకపోయింది.</string>
+    <string name="warning_target_unreached_best_quality">ఉత్తమ నాణ్యత ఫలితం సృష్టించబడింది. నాణ్యతను గణనీయంగా తగ్గించకుండా ఖచ్చితమైన లక్ష్యాన్ని చేరుకోలేకపోయింది.</string>
+    <string name="warning_target_reached_reduced_resolution">ఆమోదయోగ్యమైన ఎన్‌కోడర్ నాణ్యతను కాపాడుతూ రిజల్యూషన్‌ను తగ్గించడం ద్వారా లక్ష్యం చేరుకుంది.</string>
+    <string name="warning_background_safe_resolution">ఈ పరికరంలో మెమరీ అయిపోకుండా ఉండేందుకు సురక్షిత రిజల్యూషన్‌లో ప్రాసెస్ చేయబడింది.</string>
+
+    <!-- Background-removal errors -->
+    <string name="error_background_model_missing">నేపథ్య తొలగింపు మోడల్ లేదు.</string>
+    <string name="error_background_model_load_failed">నేపథ్య తొలగింపు మోడల్‌ను ప్రారంభించడం సాధ్యపడలేదు.</string>
+    <string name="error_background_decode_failed">ఎంచుకున్న చిత్రాన్ని చదవడం సాధ్యపడలేదు.</string>
+    <string name="error_background_out_of_memory">ఈ చిత్రం ఈ పరికరంలో ప్రాసెస్ చేయడానికి చాలా పెద్దది.</string>
+    <string name="error_background_inference_failed">మోడల్‌ను అమలు చేస్తున్నప్పుడు నేపథ్య తొలగింపు విఫలమైంది.</string>
+    <string name="error_background_export_failed">పారదర్శక PNG ఫలితాన్ని సృష్టించడం సాధ్యపడలేదు.</string>
+    <string name="error_background_model_incompatible">నేపథ్య తొలగింపు మోడల్ ఈ యాప్ సంస్కరణకు అనుకూలంగా లేదు.</string>
+    <string name="error_background_try_smaller">నేపథ్య తొలగింపు విఫలమైంది. చిన్న చిత్రం లేదా మరొక ఫోటోతో ప్రయత్నించండి.</string>
+    <string name="error_background_feature_unavailable">ఈ పరికరంలో నేపథ్య తొలగింపు అందుబాటులో లేదు.</string>
+    <string name="image_unavailable">చిత్రం అందుబాటులో లేదు.</string>
+</resources>

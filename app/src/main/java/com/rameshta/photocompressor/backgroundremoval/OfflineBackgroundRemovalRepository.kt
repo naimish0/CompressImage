@@ -1,6 +1,7 @@
 package com.rameshta.photocompressor.backgroundremoval
 
 import com.rameshta.photocompressor.domain.model.BackgroundRemovalResult
+import com.rameshta.photocompressor.domain.model.BackgroundFailure
 import com.rameshta.photocompressor.domain.model.ImageSource
 import com.rameshta.photocompressor.domain.repository.BackgroundRemovalRepository
 import kotlinx.coroutines.delay
@@ -17,7 +18,7 @@ class OfflineBackgroundRemovalRepository @Inject constructor() : BackgroundRemov
         delay(120)
         progress(1f)
         return BackgroundRemovalResult.Unavailable(
-            "Background removal needs a production segmentation model or configured online provider. No images are uploaded and no fake result is generated.",
+            BackgroundFailure.FEATURE_UNAVAILABLE,
         )
     }
 }

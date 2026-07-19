@@ -9,6 +9,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityOptionsCompat
 import com.google.android.gms.ads.AdRequest
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.AdsUiState
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.BannerPlacement
@@ -29,6 +30,7 @@ import com.rameshta.photocompressor.ui.BatchItemStatus
 import com.rameshta.photocompressor.ui.BatchItemUiState
 import com.rameshta.photocompressor.ui.BatchUiState
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
+import com.rameshta.photocompressor.ui.uiText
 import com.rameshta.photocompressor.ui.background.BackgroundReplacementScreen
 import com.rameshta.photocompressor.ui.comparison.ResultScreen
 import com.rameshta.photocompressor.ui.editor.BatchProgressScreen
@@ -283,7 +285,7 @@ private fun EmptyHistoryScreenPreview() {
 private fun ErrorHistoryScreenPreview() {
     PreviewApp {
         HistoryScreen(
-            state = HistoryUiState.Error("Preview error: history storage is unavailable."),
+            state = HistoryUiState.Error(uiText(R.string.error_history_retry_or_remove)),
             bannerAdController = PreviewBannerAdController,
             fullScreenAdVisible = false,
             onBack = {},
@@ -302,8 +304,10 @@ private fun SettingsScreenPreview() {
     PreviewApp {
         SettingsScreen(
             privacyOptionsRequired = true,
+            selectedLanguageTag = null,
             bannerAdController = PreviewBannerAdController,
             fullScreenAdVisible = false,
+            onChooseLanguage = {},
             onPrivacyOptions = {},
             onPrivacyPolicy = {},
             onBack = {},
@@ -419,7 +423,7 @@ private fun summaryState(): PhotoCompressorUiState {
                     imageId = "image-3",
                     name = "receipt.png",
                     status = BatchItemStatus.FAILED,
-                    error = "Could not read image.",
+                    error = uiText(R.string.error_could_not_read_image),
                 ),
             ),
         ),

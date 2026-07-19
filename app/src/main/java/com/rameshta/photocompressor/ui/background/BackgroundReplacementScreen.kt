@@ -3,6 +3,7 @@ package com.rameshta.photocompressor.ui.background
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -41,6 +43,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
@@ -49,11 +52,14 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.domain.model.BackgroundReplacementConfig
 import com.rameshta.photocompressor.domain.model.ImageFormat
 import com.rameshta.photocompressor.ui.BackgroundUiState
+import com.rameshta.photocompressor.ui.BackgroundProcessingStage
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
+import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.FormatChip
 import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
@@ -92,7 +98,7 @@ fun BackgroundReplacementScreen(
         hasBottomContent = state.backgroundState is BackgroundUiState.Running,
         topBar = {
             PremiumTopAppBar(
-                title = "Background",
+                title = stringResource(R.string.background),
                 navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
                 onNavigationClick = onBack,
             )
@@ -104,7 +110,7 @@ fun BackgroundReplacementScreen(
                     verticalArrangement = Arrangement.spacedBy(AppSpacing.xs),
                 ) {
                     PremiumOutlinedButton(
-                        text = "Cancel",
+                        text = stringResource(R.string.cancel),
                         onClick = onCancelRemoval,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -123,30 +129,30 @@ fun BackgroundReplacementScreen(
                     BackgroundUiState.Idle -> StartRemovalCard(onStartRemoval)
                     is BackgroundUiState.Running -> RunningCard(
                         progress = backgroundState.progress,
-                        stage = backgroundState.stage.label,
+                        stage = backgroundState.stage.localizedLabel(),
                     )
                     BackgroundUiState.Cancelled -> MessageCard(
-                        title = "Background removal cancelled",
-                        message = "The original image was not changed. Start again when you are ready.",
+                        title = stringResource(R.string.background_removal_cancelled),
+                        message = stringResource(R.string.background_cancelled_message),
                         isError = false,
                     )
                     is BackgroundUiState.Unavailable -> MessageCard(
-                        title = "Background removal unavailable",
-                        message = backgroundState.reason,
+                        title = stringResource(R.string.background_removal_unavailable),
+                        message = backgroundState.reason.asString(),
                         isError = false,
                     )
                     is BackgroundUiState.Error -> MessageCard(
-                        title = "Background removal failed",
-                        message = backgroundState.message,
+                        title = stringResource(R.string.background_removal_failed),
+                        message = backgroundState.message.asString(),
                         isError = true,
                     )
                     is BackgroundUiState.Success -> {
                         val transparent = selectedColor == null
                         PremiumCard {
-                            Text("Preview", style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(R.string.preview), style = MaterialTheme.typography.titleMedium)
                             backgroundState.image.warning?.let { warning ->
                                 Text(
-                                    warning,
+                                    warning.asString(),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
@@ -161,15 +167,15 @@ fun BackgroundReplacementScreen(
                                 AsyncImage(
                                     model = backgroundState.image.filePath,
                                     contentDescription = if (transparent) {
-                                        "Transparent background preview"
+                                        stringResource(R.string.transparent_background_preview)
                                     } else {
-                                        "Image preview with selected background color"
+                                        stringResource(R.string.selected_background_preview)
                                     },
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.Fit,
                                 )
                             }
-                            Text("Replacement color", style = MaterialTheme.typography.titleSmall)
+                            Text(stringResource(R.string.replacement_color), style = MaterialTheme.typography.titleSmall)
                             ColorChoices(
                                 selectedColor = selectedColor,
                                 customColor = customColor,
@@ -180,20 +186,20 @@ fun BackgroundReplacementScreen(
                                     }
                                 },
                             )
-                            Text("Custom color", style = MaterialTheme.typography.titleSmall)
-                            ColorSlider("Red", red) { value ->
+                            Text(stringResource(R.string.custom_color), style = MaterialTheme.typography.titleSmall)
+                            ColorSlider(stringResource(R.string.color_red), red) { value ->
                                 red = value
                                 selectedColor = Color(value, green, blue).toArgb()
                             }
-                            ColorSlider("Green", green) { value ->
+                            ColorSlider(stringResource(R.string.color_green), green) { value ->
                                 green = value
                                 selectedColor = Color(red, value, blue).toArgb()
                             }
-                            ColorSlider("Blue", blue) { value ->
+                            ColorSlider(stringResource(R.string.color_blue), blue) { value ->
                                 blue = value
                                 selectedColor = Color(red, green, value).toArgb()
                             }
-                            Text("Export format", style = MaterialTheme.typography.titleSmall)
+                            Text(stringResource(R.string.export_format), style = MaterialTheme.typography.titleSmall)
                             Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
                                 listOf(ImageFormat.PNG, ImageFormat.WEBP, ImageFormat.JPEG)
                                     .filter { selectedColor != null || it.supportsTransparency }
@@ -212,7 +218,11 @@ fun BackgroundReplacementScreen(
                                 )
                             }
                             PremiumPrimaryButton(
-                                text = if (exportInProgress) "Exporting..." else "Export background",
+                                text = if (exportInProgress) {
+                                    stringResource(R.string.exporting)
+                                } else {
+                                    stringResource(R.string.export_background)
+                                },
                                 onClick = {
                                     onReplaceBackground(
                                         BackgroundReplacementConfig(
@@ -244,14 +254,14 @@ fun BackgroundReplacementScreen(
 @Composable
 private fun StartRemovalCard(onStartRemoval: () -> Unit) {
     PremiumCard {
-        Text("Remove background", style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.remove_background), style = MaterialTheme.typography.titleMedium)
         Text(
-            "Runs on this device and exports a transparent PNG. Images are not uploaded.",
+            stringResource(R.string.background_offline_note),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         PremiumPrimaryButton(
-            text = "Start removal",
+            text = stringResource(R.string.start_removal),
             onClick = onStartRemoval,
             modifier = Modifier.fillMaxWidth(),
             icon = Icons.Outlined.AutoFixHigh,
@@ -265,7 +275,7 @@ private fun RunningCard(
     stage: String,
 ) {
     PremiumCard {
-        Text("Processing", style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.processing), style = MaterialTheme.typography.titleMedium)
         Text(stage, color = MaterialTheme.colorScheme.onSurfaceVariant)
         LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
     }
@@ -289,20 +299,22 @@ private fun ColorChoices(
     onColor: (Int?) -> Unit,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+        Row(
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs),
+        ) {
             FilterChip(
                 selected = selectedColor == null,
                 onClick = { onColor(null) },
-                label = { Text("Transparent") },
+                label = { Text(stringResource(R.string.transparent)) },
             )
             FilterChip(
                 selected = selectedColor == customColor,
                 onClick = { onColor(customColor) },
-                label = { Text("Custom") },
+                label = { Text(stringResource(R.string.custom)) },
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
-            listOf(
+        val palette = listOf(
                 0xFFFFFFFF.toInt(),
                 0xFF000000.toInt(),
                 0xFF2F80ED.toInt(),
@@ -310,26 +322,50 @@ private fun ColorChoices(
                 0xFF43A047.toInt(),
                 0xFFFDD835.toInt(),
                 0xFF9E9E9E.toInt(),
-            ).forEach { color ->
-                val colorName = color.accessibleColorName()
-                val isSelected = selectedColor == color
-                Box(
-                    modifier = Modifier
-                        .size(AppTouchTargets.min)
-                        .clip(CircleShape)
-                        .background(Color(color))
-                        .border(
-                            width = 2.dp,
-                            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
-                            shape = CircleShape,
+                0xFFFF9800.toInt(),
+                0xFF9C27B0.toInt(),
+                0xFF00ACC1.toInt(),
+                0xFF795548.toInt(),
+                0xFFF5F5F5.toInt(),
+                0xFF263238.toInt(),
+                0xFFFFCDD2.toInt(),
+                0xFFFFE0B2.toInt(),
+                0xFFFFF9C4.toInt(),
+                0xFFC8E6C9.toInt(),
+                0xFFB2EBF2.toInt(),
+                0xFFD1C4E9.toInt(),
+                0xFFF8BBD0.toInt(),
+                0xFFB0BEC5.toInt(),
+            )
+        Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+            palette.chunked(5).forEach { rowColors ->
+                Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
+                    rowColors.forEach { color ->
+                        val colorName = color.accessibleColorName()
+                        val colorDescription = stringResource(
+                            R.string.background_color_accessibility,
+                            colorName,
                         )
-                        .semantics {
-                            role = Role.Button
-                            contentDescription = "$colorName background"
-                            selected = isSelected
-                        }
-                        .clickable { onColor(color) },
-                )
+                        val isSelected = selectedColor == color
+                        Box(
+                            modifier = Modifier
+                                .size(AppTouchTargets.min)
+                                .clip(CircleShape)
+                                .background(Color(color))
+                                .border(
+                                    width = 2.dp,
+                                    color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+                                    shape = CircleShape,
+                                )
+                                .semantics {
+                                    role = Role.Button
+                                    contentDescription = colorDescription
+                                    selected = isSelected
+                                }
+                                .clickable { onColor(color) },
+                        )
+                    }
+                }
             }
         }
     }
@@ -359,15 +395,32 @@ private fun Modifier.checkerboard(): Modifier = drawBehind {
     }
 }
 
+@Composable
 private fun Int.accessibleColorName(): String {
     return when (this) {
-        0xFFFFFFFF.toInt() -> "White"
-        0xFF000000.toInt() -> "Black"
-        0xFF2F80ED.toInt() -> "Blue"
-        0xFFE53935.toInt() -> "Red"
-        0xFF43A047.toInt() -> "Green"
-        0xFFFDD835.toInt() -> "Yellow"
-        0xFF9E9E9E.toInt() -> "Gray"
-        else -> "Custom"
+        0xFFFFFFFF.toInt(), 0xFFF5F5F5.toInt() -> stringResource(R.string.color_white)
+        0xFF000000.toInt() -> stringResource(R.string.color_black)
+        0xFF2F80ED.toInt() -> stringResource(R.string.color_blue)
+        0xFFE53935.toInt(), 0xFFFFCDD2.toInt() -> stringResource(R.string.color_red)
+        0xFF43A047.toInt(), 0xFFC8E6C9.toInt() -> stringResource(R.string.color_green)
+        0xFFFDD835.toInt(), 0xFFFFF9C4.toInt() -> stringResource(R.string.color_yellow)
+        0xFFFF9800.toInt(), 0xFFFFE0B2.toInt() -> stringResource(R.string.color_orange)
+        0xFF9C27B0.toInt(), 0xFFD1C4E9.toInt() -> stringResource(R.string.color_purple)
+        0xFF00ACC1.toInt(), 0xFFB2EBF2.toInt() -> stringResource(R.string.color_cyan)
+        0xFF795548.toInt() -> stringResource(R.string.color_brown)
+        0xFFF8BBD0.toInt() -> stringResource(R.string.color_pink)
+        0xFF9E9E9E.toInt(), 0xFF263238.toInt(), 0xFFB0BEC5.toInt() -> stringResource(R.string.color_gray)
+        else -> stringResource(R.string.custom)
     }
 }
+
+@Composable
+private fun BackgroundProcessingStage.localizedLabel(): String = stringResource(
+    when (this) {
+        BackgroundProcessingStage.PREPARING_IMAGE -> R.string.preparing_image
+        BackgroundProcessingStage.REMOVING_BACKGROUND -> R.string.removing_background
+        BackgroundProcessingStage.REFINING_EDGES -> R.string.refining_edges
+        BackgroundProcessingStage.FINALIZING -> R.string.finalizing
+        BackgroundProcessingStage.COMPLETE -> R.string.complete
+    },
+)

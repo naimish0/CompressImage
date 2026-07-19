@@ -9,7 +9,7 @@ enum class ImageFormat(
     JPEG("JPG", "jpg", "image/jpeg", false),
     PNG("PNG", "png", "image/png", true),
     WEBP("WEBP", "webp", "image/webp", true),
-    UNKNOWN("Unknown", "img", "application/octet-stream", false);
+    UNKNOWN("UNKNOWN", "img", "application/octet-stream", false);
 
     companion object {
         fun fromMimeType(mimeType: String?): ImageFormat {

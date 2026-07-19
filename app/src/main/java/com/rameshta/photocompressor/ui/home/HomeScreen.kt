@@ -26,9 +26,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.BannerPlacement
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
+import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.EmptySpaceBannerAd
 import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
@@ -66,15 +70,15 @@ fun HomeScreen(
         hasBottomContent = visibleSelectedImages.isNotEmpty(),
         topBar = {
             PremiumTopAppBar(
-                title = "Photo Compressor",
+                title = stringResource(R.string.app_name),
                 navigationIcon = Icons.Outlined.History,
-                navigationContentDescription = "Open history",
+                navigationContentDescription = stringResource(R.string.cd_open_history),
                 onNavigationClick = onOpenHistory,
                 actions = {
                     PremiumIconButton(
                         onClick = onOpenSettings,
                         icon = Icons.Outlined.Settings,
-                        contentDescription = "Open settings",
+                        contentDescription = stringResource(R.string.cd_open_settings),
                     )
                 },
             )
@@ -82,7 +86,7 @@ fun HomeScreen(
         bottomContent = {
             if (visibleSelectedImages.isNotEmpty()) {
                 PremiumPrimaryButton(
-                    text = "Preview and configure",
+                    text = stringResource(R.string.preview_and_configure),
                     onClick = onOpenEditor,
                     modifier = Modifier.fillMaxWidth(),
                     icon = Icons.Outlined.Tune,
@@ -105,15 +109,19 @@ fun HomeScreen(
                     )
                     Text(
                         text = if (visibleSelectedImages.isEmpty()) {
-                            "Compress one image, compress many images, or remove a background."
+                            stringResource(R.string.home_intro)
                         } else {
-                            "${visibleSelectedImages.size} image${if (visibleSelectedImages.size == 1) "" else "s"} selected"
+                            pluralStringResource(
+                                R.plurals.selected_images,
+                                visibleSelectedImages.size,
+                                visibleSelectedImages.size,
+                            )
                         },
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                     Text(
-                        text = "Choose JPG, PNG, or WEBP. Your images stay local unless you share or save them.",
+                        text = stringResource(R.string.home_formats_privacy),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -124,7 +132,11 @@ fun HomeScreen(
                         verticalArrangement = Arrangement.spacedBy(AppSpacing.xs),
                     ) {
                         PremiumPrimaryButton(
-                            text = if (visibleSelectedImages.isEmpty()) "Select images" else "Add more",
+                            text = if (visibleSelectedImages.isEmpty()) {
+                                stringResource(R.string.select_images)
+                            } else {
+                                stringResource(R.string.add_more)
+                            },
                             onClick = {
                                 onExternalPickerOpened()
                                 picker.launch(
@@ -162,7 +174,7 @@ fun HomeScreen(
                     ) {
                         CircularProgressIndicator()
                         Text(
-                            text = "Reading image details",
+                            text = stringResource(R.string.reading_image_details),
                             modifier = Modifier.padding(start = AppSpacing.sm),
                         )
                     }
@@ -172,7 +184,7 @@ fun HomeScreen(
             state.selectionError?.let { error ->
                 item {
                     Text(
-                        text = error,
+                        text = error.asString(),
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium,
                     )

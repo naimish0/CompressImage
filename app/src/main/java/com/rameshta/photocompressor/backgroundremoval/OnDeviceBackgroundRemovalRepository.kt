@@ -16,11 +16,13 @@ import androidx.exifinterface.media.ExifInterface
 import com.rameshta.photocompressor.di.DefaultDispatcher
 import com.rameshta.photocompressor.di.IoDispatcher
 import com.rameshta.photocompressor.domain.model.BackgroundRemovalResult
+import com.rameshta.photocompressor.domain.model.BackgroundFailure
 import com.rameshta.photocompressor.domain.model.HistoryOperationType
 import com.rameshta.photocompressor.domain.model.ImageFormat
 import com.rameshta.photocompressor.domain.model.ImageInfo
 import com.rameshta.photocompressor.domain.model.ImageSource
 import com.rameshta.photocompressor.domain.model.ProcessedImage
+import com.rameshta.photocompressor.domain.model.ProcessingNotice
 import com.rameshta.photocompressor.domain.repository.BackgroundRemovalRepository
 import com.rameshta.photocompressor.util.ImageFormatMapper
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -91,7 +93,7 @@ class OnDeviceBackgroundRemovalRepository @Inject constructor(
                     mimeType = ImageFormat.PNG.mimeType,
                     operationType = HistoryOperationType.BACKGROUND_REMOVED,
                     warning = if (loaded.wasDownscaled) {
-                        "Processed at a safe resolution to avoid running out of memory on this device."
+                        ProcessingNotice.BACKGROUND_SAFE_RESOLUTION
                     } else {
                         null
                     },
@@ -100,11 +102,11 @@ class OnDeviceBackgroundRemovalRepository @Inject constructor(
         } catch (cancelled: CancellationException) {
             throw cancelled
         } catch (error: BackgroundRemovalError) {
-            BackgroundRemovalResult.Failure(error.message ?: "Background removal failed.")
+            BackgroundRemovalResult.Failure(error.failure)
         } catch (error: OutOfMemoryError) {
-            BackgroundRemovalResult.Failure(BackgroundRemovalError.InsufficientMemory(error).message.orEmpty())
+            BackgroundRemovalResult.Failure(BackgroundFailure.OUT_OF_MEMORY)
         } catch (error: Throwable) {
-            BackgroundRemovalResult.Failure("Background removal failed. Try a smaller image or another photo.")
+            BackgroundRemovalResult.Failure(BackgroundFailure.TRY_SMALLER_IMAGE)
         } finally {
             output?.recycle()
             source?.recycle()
@@ -133,7 +135,7 @@ class OnDeviceBackgroundRemovalRepository @Inject constructor(
         val info = ImageInfo(
             id = input.id,
             uriString = input.uriString,
-            displayName = metadata.displayName ?: "Selected image",
+            displayName = metadata.displayName.orEmpty(),
             sizeBytes = metadata.sizeBytes ?: 0L,
             width = safe.width,
             height = safe.height,

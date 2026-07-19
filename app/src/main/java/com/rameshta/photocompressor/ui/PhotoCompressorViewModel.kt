@@ -2,6 +2,8 @@ package com.rameshta.photocompressor.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rameshta.photocompressor.R
+import com.rameshta.photocompressor.domain.model.BackgroundFailure
 import com.rameshta.photocompressor.domain.model.BackgroundRemovalResult
 import com.rameshta.photocompressor.domain.model.BackgroundReplacementConfig
 import com.rameshta.photocompressor.domain.model.CompressionConfig
@@ -28,6 +30,7 @@ import com.rameshta.photocompressor.ui.history.HistoryUiState
 import com.rameshta.photocompressor.util.ResizeCalculator
 import com.rameshta.photocompressor.util.TargetSizeValidator
 import com.rameshta.photocompressor.util.ValidationResult
+import com.rameshta.photocompressor.util.toLocalizedIntOrNull
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -43,7 +46,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
 import javax.inject.Inject
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
 @HiltViewModel
@@ -86,11 +88,11 @@ class PhotoCompressorViewModel @Inject constructor(
                 )
             }
             val loaded = mutableListOf<ImageInfo>()
-            val failures = mutableListOf<String>()
+            val failures = mutableListOf<UiText>()
             unique.forEach { uri ->
                 loadImageInfo(uri)
                     .onSuccess { loaded += it }
-                    .onFailure { failures += (it.message ?: "Could not read one image.") }
+                    .onFailure { failures += it.toUiText(R.string.error_could_not_read_image) }
             }
             _uiState.update { state ->
                 val currentReusableSelection = state.selectedImages.filterNot { it.id in state.processedSelectionIds }
@@ -101,7 +103,10 @@ class PhotoCompressorViewModel @Inject constructor(
                     selectedImages = currentReusableSelection + newImages,
                     processedSelectionIds = emptySet(),
                     isLoadingSelection = false,
-                    selectionError = failures.distinct().joinToString("\n").ifBlank { null },
+                    selectionError = failures
+                        .distinct()
+                        .takeIf { it.isNotEmpty() }
+                        ?.let { UiText.Joined(it) },
                 )
             }
             updateResizeFromCurrentSelectionIfNeeded()
@@ -173,7 +178,7 @@ class PhotoCompressorViewModel @Inject constructor(
             val first = state.selectedImages.firstOrNull()
             val width = value.filter { it.isDigit() }.take(5)
             val height = if (state.config.resize.maintainAspectRatio && first != null) {
-                width.toIntOrNull()
+                width.toLocalizedIntOrNull()
                     ?.let { ResizeCalculator.aspectHeight(it, first.width, first.height).toString() }
                     .orEmpty()
             } else {
@@ -196,7 +201,7 @@ class PhotoCompressorViewModel @Inject constructor(
             val first = state.selectedImages.firstOrNull()
             val height = value.filter { it.isDigit() }.take(5)
             val width = if (state.config.resize.maintainAspectRatio && first != null) {
-                height.toIntOrNull()
+                height.toLocalizedIntOrNull()
                     ?.let { ResizeCalculator.aspectWidth(it, first.width, first.height).toString() }
                     .orEmpty()
             } else {
@@ -376,7 +381,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 state.copy(
                     pendingAdAction = PendingAdAction.None,
                     isSaving = false,
-                    message = LEGACY_STORAGE_PERMISSION_MESSAGE,
+                    message = uiText(R.string.error_legacy_storage_permission),
                 )
             }
         }
@@ -404,26 +409,26 @@ class PhotoCompressorViewModel @Inject constructor(
     private suspend fun saveSingle(
         image: ProcessedImage,
         requestedName: String?,
-    ): String {
+    ): UiText {
         val saved = saveImages.saveOne(image, requestedName).getOrElse {
-            return SAVE_FAILURE_MESSAGE
+            return uiText(R.string.save_failure)
         }
-        if (saved.uriString.isBlank()) return SAVE_FAILURE_MESSAGE
+        if (saved.uriString.isBlank()) return uiText(R.string.save_failure)
 
         val historyResult = historyRepository.recordSuccessfulOutput(
             output = image.asSavedHistoryOutput(saved),
             operationType = image.operationType,
         )
         return if (historyResult.isSuccess) {
-            SAVE_SUCCESS_MESSAGE
+            uiText(R.string.save_success)
         } else {
-            HISTORY_FAILURE_MESSAGE
+            uiText(R.string.history_update_failed)
         }
     }
 
-    private suspend fun saveBatch(images: List<ProcessedImage>): String {
+    private suspend fun saveBatch(images: List<ProcessedImage>): UiText {
         val savedResults = saveImages.saveAll(images)
-        if (savedResults.size != images.size) return SAVE_FAILURE_MESSAGE
+        if (savedResults.size != images.size) return uiText(R.string.save_failure)
 
         var allSaved = true
         savedResults.zip(images).forEach { (savedResult, image) ->
@@ -438,14 +443,14 @@ class PhotoCompressorViewModel @Inject constructor(
                 if (historyResult.isFailure) allSaved = false
             }
         }
-        return if (allSaved) SAVE_SUCCESS_MESSAGE else SAVE_FAILURE_MESSAGE
+        return if (allSaved) uiText(R.string.save_success) else uiText(R.string.save_failure)
     }
 
     fun removeBackground() {
         if (backgroundJob?.isActive == true) return
         val image = _uiState.value.selectedImages.singleOrNull()
         if (image == null) {
-            showMessage("Select one image before removing a background.")
+            showMessage(uiText(R.string.error_select_one_image_for_background))
             return
         }
         backgroundJob = viewModelScope.launch {
@@ -474,7 +479,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 _uiState.update { it.copy(backgroundState = BackgroundUiState.Cancelled) }
                 return@launch
             } catch (error: Throwable) {
-                BackgroundRemovalResult.Failure(error.message ?: "Background removal failed.")
+                BackgroundRemovalResult.Failure(BackgroundFailure.GENERIC)
             }
             _uiState.update { state ->
                 state.copy(
@@ -485,8 +490,8 @@ class PhotoCompressorViewModel @Inject constructor(
                     },
                     backgroundState = when (result) {
                         is BackgroundRemovalResult.Success -> BackgroundUiState.Success(result.image)
-                        is BackgroundRemovalResult.Unavailable -> BackgroundUiState.Unavailable(result.reason)
-                        is BackgroundRemovalResult.Failure -> BackgroundUiState.Error(result.message)
+                        is BackgroundRemovalResult.Unavailable -> BackgroundUiState.Unavailable(result.reason.toUiText())
+                        is BackgroundRemovalResult.Failure -> BackgroundUiState.Error(result.reason.toUiText())
                     },
                 )
             }
@@ -516,7 +521,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         backgroundReplaceProgress = null,
-                        message = error.message ?: "Could not replace the background.",
+                        message = error.toUiText(R.string.error_background_replace_failed),
                     )
                 }
             }
@@ -531,7 +536,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 selectedResultId = processed.id,
                 backgroundReplaceProgress = null,
                 pendingResultNavigationId = processed.id,
-                message = "Background exported.",
+                message = uiText(R.string.background_exported),
             )
         }
     }
@@ -545,7 +550,7 @@ class PhotoCompressorViewModel @Inject constructor(
         val config = _uiState.value.config
         val targetValidation = TargetSizeValidator.validate(config.targetSize)
         if (!targetValidation.isValid) {
-            showMessage(targetValidation.message ?: "Check the target size.")
+            showMessage(targetValidation.message?.toUiText() ?: uiText(R.string.error_check_target_size))
             return
         }
         val invalidResize = images.firstNotNullOfOrNull { image ->
@@ -553,6 +558,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 .takeUnless { it.validation.isValid }
                 ?.validation
                 ?.message
+                ?.toUiText()
         }
         if (invalidResize != null) {
             showMessage(invalidResize)
@@ -621,7 +627,7 @@ class PhotoCompressorViewModel @Inject constructor(
                             it.copy(
                                 status = BatchItemStatus.FAILED,
                                 progress = 0f,
-                                error = error.message ?: "Compression failed.",
+                                error = error.toUiText(R.string.error_compression_failed),
                             )
                         }
                     }
@@ -636,7 +642,7 @@ class PhotoCompressorViewModel @Inject constructor(
                         batch = state.batch.copy(
                             items = state.batch.items.map { item ->
                                 if (item.status == BatchItemStatus.QUEUED || item.status == BatchItemStatus.RUNNING) {
-                                    item.copy(status = BatchItemStatus.CANCELLED, error = "Cancelled")
+                                    item.copy(status = BatchItemStatus.CANCELLED, error = uiText(R.string.cancelled))
                                 } else {
                                     item
                                 }
@@ -700,7 +706,7 @@ class PhotoCompressorViewModel @Inject constructor(
                 }
                 .catch { error ->
                     _historyUiState.value = HistoryUiState.Error(
-                        error.message ?: "Please retry or remove inaccessible history items.",
+                        error.toUiText(R.string.error_history_retry_or_remove),
                     )
                 }
                 .collect { history ->
@@ -719,8 +725,8 @@ class PhotoCompressorViewModel @Inject constructor(
             val first = state.selectedImages.firstOrNull() ?: return@update state
             val resize = state.config.resize
             if (resize.mode != ResizeMode.CUSTOM || !resize.maintainAspectRatio) return@update state
-            val width = resize.customWidth.toIntOrNull()
-            val height = resize.customHeight.toIntOrNull()
+            val width = resize.customWidth.toLocalizedIntOrNull()
+            val height = resize.customHeight.toLocalizedIntOrNull()
             val updated = when {
                 width != null -> resize.copy(customHeight = ResizeCalculator.aspectHeight(width, first.width, first.height).toString())
                 height != null -> resize.copy(customWidth = ResizeCalculator.aspectWidth(height, first.width, first.height).toString())
@@ -730,7 +736,7 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
-    private fun showMessage(message: String) {
+    private fun showMessage(message: UiText) {
         _uiState.update { it.copy(message = message) }
     }
 
@@ -777,7 +783,7 @@ data class PhotoCompressorUiState(
     val selectedImages: List<ImageInfo> = emptyList(),
     val processedSelectionIds: Set<String> = emptySet(),
     val isLoadingSelection: Boolean = false,
-    val selectionError: String? = null,
+    val selectionError: UiText? = null,
     val config: CompressionConfig = CompressionConfig(),
     val batch: BatchUiState = BatchUiState(),
     val results: List<ProcessedImage> = emptyList(),
@@ -788,7 +794,7 @@ data class PhotoCompressorUiState(
     val backgroundReplaceProgress: Float? = null,
     val pendingAdAction: PendingAdAction = PendingAdAction.None,
     val pendingResultNavigationId: String? = null,
-    val message: String? = null,
+    val message: UiText? = null,
 ) {
     val targetValidation: ValidationResult = TargetSizeValidator.validate(config.targetSize)
 
@@ -808,9 +814,9 @@ data class PhotoCompressorUiState(
         ?.let { ResizeCalculator.calculate(it.width, it.height, config.resize).validation }
         ?: ValidationResult(true)
 
-    val alphaToJpegWarning: String? =
+    val alphaToJpegWarning: UiText? =
         if (config.outputFormat == ImageFormat.JPEG && selectedImages.any { it.hasAlpha }) {
-            "Transparent pixels will be placed over the selected background color for JPG export."
+            uiText(R.string.alpha_to_jpg_warning)
         } else {
             null
         }
@@ -857,7 +863,7 @@ data class BatchItemUiState(
     val progress: Float = 0f,
     val stage: ProcessingStage = ProcessingStage.READING_IMAGE,
     val result: ProcessedImage? = null,
-    val error: String? = null,
+    val error: UiText? = null,
 )
 
 enum class BatchItemStatus {
@@ -868,12 +874,12 @@ enum class BatchItemStatus {
     CANCELLED,
 }
 
-enum class ProcessingStage(val label: String) {
-    READING_IMAGE("Reading image"),
-    OPTIMIZING_RESOLUTION("Optimizing resolution"),
-    COMPRESSING("Compressing"),
-    VALIDATING_RESULT("Validating result"),
-    COMPLETE("Complete"),
+enum class ProcessingStage {
+    READING_IMAGE,
+    OPTIMIZING_RESOLUTION,
+    COMPRESSING,
+    VALIDATING_RESULT,
+    COMPLETE,
 }
 
 sealed interface BackgroundUiState {
@@ -883,30 +889,18 @@ sealed interface BackgroundUiState {
         val stage: BackgroundProcessingStage,
     ) : BackgroundUiState
     data class Success(val image: ProcessedImage) : BackgroundUiState
-    data class Unavailable(val reason: String) : BackgroundUiState
-    data class Error(val message: String) : BackgroundUiState
+    data class Unavailable(val reason: UiText) : BackgroundUiState
+    data class Error(val message: UiText) : BackgroundUiState
     data object Cancelled : BackgroundUiState
 }
 
-enum class BackgroundProcessingStage(val label: String) {
-    PREPARING_IMAGE("Preparing image"),
-    REMOVING_BACKGROUND("Removing background"),
-    REFINING_EDGES("Refining edges"),
-    FINALIZING("Finalizing"),
-    COMPLETE("Complete"),
+enum class BackgroundProcessingStage {
+    PREPARING_IMAGE,
+    REMOVING_BACKGROUND,
+    REFINING_EDGES,
+    FINALIZING,
+    COMPLETE,
 }
-
-fun ResizeMode.percentLabel(): String {
-    return when (this) {
-        ResizeMode.ORIGINAL -> "Original"
-        ResizeMode.PERCENT_25 -> "25%"
-        ResizeMode.PERCENT_50 -> "50%"
-        ResizeMode.PERCENT_75 -> "75%"
-        ResizeMode.CUSTOM -> "Custom"
-    }
-}
-
-fun Float.percentText(): String = "${(this * 100f).roundToInt()}%"
 
 private const val PROCESSING_TRANSITION_MIN_MILLIS = 300L
 private const val PROCESSING_TRANSITION_MAX_MILLIS = 700L
@@ -919,9 +913,3 @@ private fun ProcessedImage.asSavedHistoryOutput(saved: SavedImage): ProcessedIma
         createdTimestamp = System.currentTimeMillis(),
     )
 }
-
-private const val SAVE_SUCCESS_MESSAGE = "Image saved successfully"
-private const val SAVE_FAILURE_MESSAGE = "Couldn't save image. Please try again."
-private const val HISTORY_FAILURE_MESSAGE = "Image saved, but couldn't update History."
-private const val LEGACY_STORAGE_PERMISSION_MESSAGE =
-    "Storage access is required to save images on Android 9 or earlier."

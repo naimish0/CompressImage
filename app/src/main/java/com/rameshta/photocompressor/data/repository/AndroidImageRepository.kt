@@ -21,6 +21,7 @@ import androidx.core.graphics.scale
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.exifinterface.media.ExifInterface
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.di.DefaultDispatcher
 import com.rameshta.photocompressor.di.IoDispatcher
 import com.rameshta.photocompressor.domain.model.BackgroundReplacementConfig
@@ -29,7 +30,10 @@ import com.rameshta.photocompressor.domain.model.Dimension
 import com.rameshta.photocompressor.domain.model.HistoryOperationType
 import com.rameshta.photocompressor.domain.model.ImageFormat
 import com.rameshta.photocompressor.domain.model.ImageInfo
+import com.rameshta.photocompressor.domain.model.ImageErrorCode
+import com.rameshta.photocompressor.domain.model.ImageOperationException
 import com.rameshta.photocompressor.domain.model.ProcessedImage
+import com.rameshta.photocompressor.domain.model.ProcessingNotice
 import com.rameshta.photocompressor.domain.model.ResizeMode
 import com.rameshta.photocompressor.domain.model.SavedImage
 import com.rameshta.photocompressor.domain.repository.ImageRepository
@@ -46,7 +50,6 @@ import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.InputStream
 import java.util.UUID
 import javax.inject.Inject
@@ -69,13 +72,13 @@ class AndroidImageRepository @Inject constructor(
             persistReadPermissionIfAvailable(uri)
             val bounds = decodeBounds(uri)
             if (bounds.width <= 0 || bounds.height <= 0) {
-                throw IOException("This file is not a readable image.")
+                throw ImageOperationException(ImageErrorCode.FILE_NOT_READABLE)
             }
             val header = readHeader(uri)
 
             val detectedFormat = ImageFormatMapper.fromHeader(header, bounds.mimeType)
             if (detectedFormat == ImageFormat.UNKNOWN) {
-                throw IOException("Unsupported image format. Choose JPG, PNG, or WEBP.")
+                throw ImageOperationException(ImageErrorCode.UNSUPPORTED_FORMAT)
             }
 
             val orientation = readExifOrientation(uri)
@@ -84,7 +87,7 @@ class AndroidImageRepository @Inject constructor(
             ImageInfo(
                 id = stableImageId(uriString),
                 uriString = uriString,
-                displayName = metadata.displayName ?: "Selected image",
+                displayName = metadata.displayName.orEmpty(),
                 sizeBytes = metadata.sizeBytes ?: 0L,
                 width = oriented.width,
                 height = oriented.height,
@@ -110,9 +113,9 @@ class AndroidImageRepository @Inject constructor(
             val qualityPolicy = AdaptiveCompressionPlanner.policyFor(config.compressionMode)
             val resizeResult = ResizeCalculator.calculate(image.width, image.height, config.resize)
             val outputDimension = resizeResult.dimension
-                ?: throw IOException(resizeResult.validation.message ?: "Invalid output size.")
+                ?: throw ImageOperationException(ImageErrorCode.INVALID_OUTPUT_SIZE)
             if (!resizeResult.validation.isValid) {
-                throw IOException(resizeResult.validation.message ?: "Invalid output size.")
+                throw ImageOperationException(ImageErrorCode.INVALID_OUTPUT_SIZE)
             }
             // A selected output dimension is a contract with the user. Quality policies may
             // adjust encoder quality, but must not silently cap the initial resolution.
@@ -186,7 +189,6 @@ class AndroidImageRepository @Inject constructor(
                 compressionMode = config.compressionMode,
                 operationType = operationTypeFor(image, config),
                 warning = buildWarning(
-                    outputSize = outputFile.length(),
                     targetBytes = targetBytes,
                     encoded = encoded,
                     outputFormat = config.outputFormat,
@@ -195,10 +197,7 @@ class AndroidImageRepository @Inject constructor(
             )
         }.recoverCatching { error ->
             if (error is OutOfMemoryError) {
-                throw IOException(
-                    "This image is too large to process safely on this device. Choose a smaller resize percentage.",
-                    error,
-                )
+                throw ImageOperationException(ImageErrorCode.IMAGE_TOO_LARGE, cause = error)
             }
             throw error
         }.also {
@@ -216,7 +215,7 @@ class AndroidImageRepository @Inject constructor(
         runCatching {
             progress(0.1f)
             source = BitmapFactory.decodeFile(image.filePath)
-                ?: throw IOException("The processed image is no longer available.")
+                ?: throw ImageOperationException(ImageErrorCode.PROCESSED_IMAGE_UNAVAILABLE)
             currentCoroutineContext().ensureActive()
 
             val color = config.colorArgb
@@ -276,7 +275,7 @@ class AndroidImageRepository @Inject constructor(
         runCatching {
             ensureLegacySavePermission()
             val source = File(image.filePath)
-            if (!source.exists()) throw IOException("The processed image is no longer available.")
+            if (!source.exists()) throw ImageOperationException(ImageErrorCode.PROCESSED_IMAGE_UNAVAILABLE)
             var displayName = requestedName
                 ?.takeIf { it.isNotBlank() }
                 ?.let { OutputFilenameGenerator.ensureExtension(it, image.format) }
@@ -288,17 +287,17 @@ class AndroidImageRepository @Inject constructor(
                     put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
                     put(
                         MediaStore.Images.Media.RELATIVE_PATH,
-                        Environment.DIRECTORY_PICTURES + File.separator + "Photo Compressor",
+                        Environment.DIRECTORY_PICTURES + File.separator + context.getString(R.string.output_folder_name),
                     )
                     put(MediaStore.Images.Media.IS_PENDING, 1)
                 } else {
                     @Suppress("DEPRECATION")
                     val directory = File(
                         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                        "Photo Compressor",
+                        context.getString(R.string.output_folder_name),
                     )
                     if ((!directory.exists() && !directory.mkdirs()) || !directory.isDirectory) {
-                        throw IOException("Could not create the Photo Compressor folder in Pictures.")
+                        throw ImageOperationException(ImageErrorCode.CREATE_PICTURES_FOLDER_FAILED)
                     }
                     val destination = uniqueLegacyDestination(directory, displayName, image.format)
                     displayName = destination.name
@@ -309,12 +308,12 @@ class AndroidImageRepository @Inject constructor(
             }
             val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             val uri = resolver.insert(collection, values)
-                ?: throw IOException("Could not create a MediaStore entry.")
+                ?: throw ImageOperationException(ImageErrorCode.CREATE_MEDIA_ENTRY_FAILED)
 
             try {
                 resolver.openOutputStream(uri)?.use { output ->
                     source.inputStream().use { input -> input.copyTo(output) }
-                } ?: throw IOException("Could not open the save destination.")
+                } ?: throw ImageOperationException(ImageErrorCode.OPEN_SAVE_DESTINATION_FAILED)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     values.clear()
                     values.put(MediaStore.Images.Media.IS_PENDING, 0)
@@ -366,7 +365,7 @@ class AndroidImageRepository @Inject constructor(
         }
         return openImageInputStream(uri).use { input ->
             BitmapFactory.decodeStream(input, null, options)
-        } ?: throw IOException("This image could not be decoded.")
+        } ?: throw ImageOperationException(ImageErrorCode.IMAGE_DECODE_FAILED)
     }
 
     private fun memorySafeSampleSize(
@@ -401,9 +400,9 @@ class AndroidImageRepository @Inject constructor(
             sampleSize *= 2
         }
 
-        throw IOException(
-            "${targetDimension.width} x ${targetDimension.height} is too large to process safely on this device. " +
-                "Choose a smaller resize percentage.",
+        throw ImageOperationException(
+            code = ImageErrorCode.DIMENSIONS_TOO_LARGE,
+            formatArgs = listOf(targetDimension.width, targetDimension.height),
         )
     }
 
@@ -468,7 +467,7 @@ class AndroidImageRepository @Inject constructor(
             ByteArray(16).also { buffer ->
                 val bytesRead = input.read(buffer)
                 if (bytesRead <= 0) {
-                    throw IOException("This image could not be read.")
+                    throw ImageOperationException(ImageErrorCode.IMAGE_READ_FAILED)
                 }
             }
         }
@@ -485,13 +484,14 @@ class AndroidImageRepository @Inject constructor(
             .onSuccess { stream -> stream?.let { return it } }
             .onFailure { accessError = it }
         accessError?.let { throw it }
-        throw FileNotFoundException("No readable stream for selected image.")
+        throw ImageOperationException(ImageErrorCode.NO_READABLE_IMAGE_STREAM)
     }
 
     private fun mapImageAccessError(error: Throwable): Throwable {
         return when (error) {
-            is SecurityException -> IOException("Photo access was denied. Select the image again.", error)
-            is FileNotFoundException -> IOException("Image is unavailable. If it is stored in the cloud, download it locally or pick it from Files.", error)
+            is ImageOperationException -> error
+            is SecurityException -> ImageOperationException(ImageErrorCode.PHOTO_ACCESS_DENIED, cause = error)
+            is FileNotFoundException -> ImageOperationException(ImageErrorCode.CLOUD_IMAGE_UNAVAILABLE, cause = error)
             else -> error
         }
     }
@@ -657,7 +657,7 @@ class AndroidImageRepository @Inject constructor(
             ImageFormat.UNKNOWN -> Bitmap.CompressFormat.JPEG
         }
         if (!bitmap.compress(compressFormat, quality.coerceIn(0, 100), output)) {
-            throw IOException("Could not encode the image.")
+            throw ImageOperationException(ImageErrorCode.IMAGE_ENCODE_FAILED)
         }
         return output.toByteArray()
     }
@@ -671,37 +671,36 @@ class AndroidImageRepository @Inject constructor(
     }
 
     private fun buildWarning(
-        outputSize: Long,
         targetBytes: Long?,
         encoded: EncodedImage,
         outputFormat: ImageFormat,
         preservesOriginalDimensions: Boolean,
-    ): String? {
+    ): ProcessingNotice? {
         if (targetBytes == null) return null
         if (outputFormat == ImageFormat.PNG) {
             return if (encoded.targetReached == true) {
                 if (preservesOriginalDimensions) {
-                    "PNG is lossless and the original resolution was preserved."
+                    ProcessingNotice.PNG_LOSSLESS_ORIGINAL_PRESERVED
                 } else {
-                    "PNG is lossless, so size reduction was performed through safe resizing."
+                    ProcessingNotice.PNG_LOSSLESS_SAFE_RESIZE
                 }
             } else {
                 if (preservesOriginalDimensions) {
-                    "PNG is lossless. The original resolution was preserved, so the exact target could not be reached."
+                    ProcessingNotice.PNG_TARGET_UNREACHED_ORIGINAL
                 } else {
-                    "PNG is lossless. Best quality result created, but the exact target could not be reached without significant resolution loss."
+                    ProcessingNotice.PNG_TARGET_UNREACHED_BEST_QUALITY
                 }
             }
         }
         if (encoded.targetReached != true) {
             return if (preservesOriginalDimensions) {
-                "Original resolution preserved. The exact target could not be reached at an acceptable encoder quality."
+                ProcessingNotice.TARGET_UNREACHED_ORIGINAL
             } else {
-                "Best quality result created. The exact target could not be reached without significant quality loss."
+                ProcessingNotice.TARGET_UNREACHED_BEST_QUALITY
             }
         }
         if (encoded.quality != null && encoded.scaleSteps >= 4) {
-            return "Target reached by reducing resolution while preserving acceptable encoder quality."
+            return ProcessingNotice.TARGET_REACHED_REDUCED_RESOLUTION
         }
         return null
     }
@@ -722,7 +721,7 @@ class AndroidImageRepository @Inject constructor(
         BitmapFactory.decodeFile(outputFile.absolutePath, validatedBounds)
         if (validatedBounds.outWidth <= 0 || validatedBounds.outHeight <= 0) {
             outputFile.delete()
-            throw IOException("The compressed image could not be validated.")
+            throw ImageOperationException(ImageErrorCode.COMPRESSED_IMAGE_VALIDATION_FAILED)
         }
         return validatedBounds
     }
@@ -739,11 +738,11 @@ class AndroidImageRepository @Inject constructor(
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
             PackageManager.PERMISSION_GRANTED
         ) {
-            throw IOException("Allow storage access to save images on Android 9 or earlier.")
+            throw ImageOperationException(ImageErrorCode.STORAGE_PERMISSION_REQUIRED)
         }
         @Suppress("DEPRECATION")
         if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
-            throw IOException("Shared storage is unavailable. Check the device storage and try again.")
+            throw ImageOperationException(ImageErrorCode.SHARED_STORAGE_UNAVAILABLE)
         }
     }
 

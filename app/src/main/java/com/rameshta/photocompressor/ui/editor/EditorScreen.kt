@@ -1,5 +1,6 @@
 package com.rameshta.photocompressor.ui.editor
 
+import android.text.format.Formatter
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,13 +33,23 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.domain.model.CompressionMode
 import com.rameshta.photocompressor.domain.model.ImageFormat
@@ -46,6 +57,7 @@ import com.rameshta.photocompressor.domain.model.ResizeMode
 import com.rameshta.photocompressor.domain.model.TargetSizePreset
 import com.rameshta.photocompressor.domain.model.TargetSizeUnit
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
+import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.FormatChip
 import com.rameshta.photocompressor.ui.components.ImagePreviewBox
@@ -54,11 +66,10 @@ import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
 import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
-import com.rameshta.photocompressor.ui.percentLabel
 import com.rameshta.photocompressor.ui.theme.AppShapes
 import com.rameshta.photocompressor.ui.theme.AppSpacing
 import com.rameshta.photocompressor.ui.theme.AppTouchTargets
-import com.rameshta.photocompressor.util.FileSizeFormatter
+import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,7 +97,7 @@ fun EditorScreen(
         fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
             PremiumTopAppBar(
-                title = "Preview and configure",
+                title = stringResource(R.string.preview_and_configure),
                 navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
                 onNavigationClick = onBack,
             )
@@ -100,30 +111,49 @@ fun EditorScreen(
         ) {
             item {
                 PremiumCard {
-                    Text("Selected images", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.selected_images_heading), style = MaterialTheme.typography.titleMedium)
                     state.selectedImages.firstOrNull()?.let { first ->
+                        val displayName = first.displayName.ifBlank {
+                            stringResource(R.string.selected_image)
+                        }
                         ImagePreviewBox(
                             model = first.uriString,
-                            contentDescription = "Preview of ${first.displayName}",
+                            contentDescription = stringResource(R.string.preview_of_image, displayName),
                             fit = false,
                         )
                     }
                     Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
                         val totalBytes = state.selectedImages.sumOf { it.sizeBytes }
-                        InfoRow("Count", state.selectedImages.size.toString())
-                        InfoRow("Original total", FileSizeFormatter.format(totalBytes))
+                        InfoRow(
+                            stringResource(R.string.count),
+                            localizedInteger(state.selectedImages.size),
+                        )
+                        InfoRow(
+                            stringResource(R.string.original_total),
+                            Formatter.formatFileSize(LocalContext.current, totalBytes),
+                        )
                         state.selectedImages.firstOrNull()?.let {
-                            InfoRow("First image", "${it.width} x ${it.height} • ${it.format.displayName}")
+                            InfoRow(
+                                stringResource(R.string.first_image),
+                                stringResource(
+                                    R.string.image_resolution_and_format,
+                                    stringResource(R.string.image_resolution, it.width, it.height),
+                                    it.format.displayName,
+                                ),
+                            )
                         }
                         state.currentOutputDimension?.let {
-                            InfoRow("Output resolution", "${it.width} x ${it.height}")
+                            InfoRow(
+                                stringResource(R.string.output_resolution),
+                                stringResource(R.string.image_resolution, it.width, it.height),
+                            )
                         }
                     }
                 }
             }
 
             item {
-                ConfigCard(title = "Target size") {
+                ConfigCard(title = stringResource(R.string.target_size)) {
                     Row(
                         modifier = Modifier.horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -132,7 +162,7 @@ fun EditorScreen(
                             FilterChip(
                                 selected = state.config.targetSize.preset == preset,
                                 onClick = { onTargetPreset(preset) },
-                                label = { Text(preset.label) },
+                                label = { Text(preset.localizedLabel()) },
                             )
                         }
                     }
@@ -142,7 +172,7 @@ fun EditorScreen(
                             OutlinedTextField(
                                 value = state.config.targetSize.customValue,
                                 onValueChange = onCustomTarget,
-                                label = { Text("Target size") },
+                                label = { Text(stringResource(R.string.target_size)) },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                                 isError = !state.targetValidation.isValid,
                                 modifier = Modifier.weight(1f),
@@ -160,19 +190,19 @@ fun EditorScreen(
                         }
                         Spacer(Modifier.height(AppSpacing.xs))
                         Text(
-                            "Compress toward your selected size. Actual output may vary to preserve quality.",
+                            stringResource(R.string.target_size_note),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall,
                         )
                     }
                     state.targetValidation.message?.let {
-                        Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                        Text(it.asString(), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
                     }
                 }
             }
 
             item {
-                ConfigCard(title = "Quality mode") {
+                ConfigCard(title = stringResource(R.string.quality_mode)) {
                     Row(
                         modifier = Modifier.horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -181,13 +211,13 @@ fun EditorScreen(
                             FilterChip(
                                 selected = state.config.compressionMode == mode,
                                 onClick = { onCompressionMode(mode) },
-                                label = { Text(mode.title) },
+                                label = { Text(mode.localizedTitle()) },
                             )
                         }
                     }
                     Spacer(Modifier.height(AppSpacing.xs))
                     Text(
-                        text = state.config.compressionMode.description,
+                        text = state.config.compressionMode.localizedDescription(),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodySmall,
                     )
@@ -195,7 +225,7 @@ fun EditorScreen(
             }
 
             item {
-                ConfigCard(title = "Resize") {
+                ConfigCard(title = stringResource(R.string.resize)) {
                     Row(
                         modifier = Modifier.horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -204,7 +234,7 @@ fun EditorScreen(
                             FilterChip(
                                 selected = state.config.resize.mode == mode,
                                 onClick = { onResizeMode(mode) },
-                                label = { Text(mode.percentLabel()) },
+                                label = { Text(mode.localizedLabel()) },
                             )
                         }
                     }
@@ -214,7 +244,7 @@ fun EditorScreen(
                             OutlinedTextField(
                                 value = state.config.resize.customWidth,
                                 onValueChange = onCustomWidth,
-                                label = { Text("Width") },
+                                label = { Text(stringResource(R.string.width)) },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
@@ -222,31 +252,31 @@ fun EditorScreen(
                             OutlinedTextField(
                                 value = state.config.resize.customHeight,
                                 onValueChange = onCustomHeight,
-                                label = { Text("Height") },
+                                label = { Text(stringResource(R.string.height)) },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 modifier = Modifier.weight(1f),
                                 singleLine = true,
                             )
                         }
                         ToggleRow(
-                            label = "Maintain aspect ratio",
+                            label = stringResource(R.string.maintain_aspect_ratio),
                             checked = state.config.resize.maintainAspectRatio,
                             onCheckedChange = onMaintainAspect,
                         )
                         ToggleRow(
-                            label = "Allow upscaling",
+                            label = stringResource(R.string.allow_upscaling),
                             checked = state.config.resize.allowUpscale,
                             onCheckedChange = onAllowUpscale,
                         )
                     }
                     state.resizeValidation.message?.let {
-                        Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                        Text(it.asString(), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
                     }
                 }
             }
 
             item {
-                ConfigCard(title = "Output format") {
+                ConfigCard(title = stringResource(R.string.output_format)) {
                     Row(
                         modifier = Modifier.horizontalScroll(rememberScrollState()),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -261,16 +291,20 @@ fun EditorScreen(
                     }
                     Spacer(Modifier.height(AppSpacing.xs))
                     Text(
-                        text = "For low-size compression, avoid PNG. JPG or WEBP usually create smaller files.",
+                        text = stringResource(R.string.low_size_format_tip),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodySmall,
                     )
                     state.alphaToJpegWarning?.let {
                         Spacer(Modifier.height(AppSpacing.xs))
-                        Text(it, color = MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.bodySmall)
+                        Text(it.asString(), color = MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.bodySmall)
                         Spacer(Modifier.height(AppSpacing.xs))
-                        Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs), verticalAlignment = Alignment.CenterVertically) {
-                            Text("JPG background", style = MaterialTheme.typography.bodySmall)
+                        Row(
+                            modifier = Modifier.horizontalScroll(rememberScrollState()),
+                            horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(stringResource(R.string.jpg_background), style = MaterialTheme.typography.bodySmall)
                             listOf(
                                 0xFFFFFFFF.toInt(),
                                 0xFF000000.toInt(),
@@ -279,6 +313,20 @@ fun EditorScreen(
                                 0xFF43A047.toInt(),
                                 0xFFFDD835.toInt(),
                                 0xFF9E9E9E.toInt(),
+                                0xFFFF9800.toInt(),
+                                0xFF9C27B0.toInt(),
+                                0xFF00ACC1.toInt(),
+                                0xFF795548.toInt(),
+                                0xFFF5F5F5.toInt(),
+                                0xFF263238.toInt(),
+                                0xFFFFCDD2.toInt(),
+                                0xFFFFE0B2.toInt(),
+                                0xFFFFF9C4.toInt(),
+                                0xFFC8E6C9.toInt(),
+                                0xFFB2EBF2.toInt(),
+                                0xFFD1C4E9.toInt(),
+                                0xFFF8BBD0.toInt(),
+                                0xFFB0BEC5.toInt(),
                             ).forEach { color ->
                                 ColorSwatch(
                                     color = color,
@@ -294,7 +342,7 @@ fun EditorScreen(
             item {
                 Column(verticalArrangement = Arrangement.spacedBy(AppSpacing.xs)) {
                     PremiumPrimaryButton(
-                        text = "Compress image",
+                        text = stringResource(R.string.compress_image),
                         onClick = onCompress,
                         enabled = state.selectedImages.isNotEmpty() &&
                             state.targetValidation.isValid &&
@@ -304,7 +352,7 @@ fun EditorScreen(
                         icon = Icons.Outlined.PlayArrow,
                     )
                     PremiumOutlinedButton(
-                        text = "Remove background",
+                        text = stringResource(R.string.remove_background),
                         onClick = onRemoveBackground,
                         enabled = state.selectedImages.size == 1 && !state.batch.isRunning,
                         modifier = Modifier.fillMaxWidth(),
@@ -351,12 +399,98 @@ private fun ColorSwatch(
     onClick: () -> Unit,
 ) {
     val borderColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant
+    val colorDescription = stringResource(
+        R.string.background_color_accessibility,
+        color.accessibleColorName(),
+    )
     androidx.compose.foundation.layout.Box(
         modifier = Modifier
             .size(AppTouchTargets.min)
             .clip(CircleShape)
             .background(Color(color))
             .border(2.dp, borderColor, CircleShape)
+            .semantics {
+                role = Role.Button
+                contentDescription = colorDescription
+                this.selected = selected
+            }
             .clickable(onClick = onClick),
     )
+}
+
+@Composable
+private fun Int.accessibleColorName(): String {
+    return when (this) {
+        0xFFFFFFFF.toInt(), 0xFFF5F5F5.toInt() -> stringResource(R.string.color_white)
+        0xFF000000.toInt() -> stringResource(R.string.color_black)
+        0xFF2F80ED.toInt() -> stringResource(R.string.color_blue)
+        0xFFE53935.toInt(), 0xFFFFCDD2.toInt() -> stringResource(R.string.color_red)
+        0xFF43A047.toInt(), 0xFFC8E6C9.toInt() -> stringResource(R.string.color_green)
+        0xFFFDD835.toInt(), 0xFFFFF9C4.toInt() -> stringResource(R.string.color_yellow)
+        0xFFFF9800.toInt(), 0xFFFFE0B2.toInt() -> stringResource(R.string.color_orange)
+        0xFF9C27B0.toInt(), 0xFFD1C4E9.toInt() -> stringResource(R.string.color_purple)
+        0xFF00ACC1.toInt(), 0xFFB2EBF2.toInt() -> stringResource(R.string.color_cyan)
+        0xFF795548.toInt() -> stringResource(R.string.color_brown)
+        0xFFF8BBD0.toInt() -> stringResource(R.string.color_pink)
+        0xFF9E9E9E.toInt(), 0xFF263238.toInt(), 0xFFB0BEC5.toInt() -> stringResource(R.string.color_gray)
+        else -> stringResource(R.string.custom)
+    }
+}
+
+@Composable
+private fun TargetSizePreset.localizedLabel(): String {
+    return bytes?.let { Formatter.formatFileSize(LocalContext.current, it) }
+        ?: stringResource(R.string.custom)
+}
+
+@Composable
+private fun CompressionMode.localizedTitle(): String {
+    return stringResource(
+        when (this) {
+            CompressionMode.BEST_QUALITY -> R.string.quality_best_title
+            CompressionMode.BALANCED -> R.string.quality_balanced_title
+            CompressionMode.SMALLEST_SIZE -> R.string.quality_smallest_title
+        },
+    )
+}
+
+@Composable
+private fun CompressionMode.localizedDescription(): String {
+    return stringResource(
+        when (this) {
+            CompressionMode.BEST_QUALITY -> R.string.quality_best_description
+            CompressionMode.BALANCED -> R.string.quality_balanced_description
+            CompressionMode.SMALLEST_SIZE -> R.string.quality_smallest_description
+        },
+    )
+}
+
+@Composable
+private fun ResizeMode.localizedLabel(): String {
+    return when (this) {
+        ResizeMode.ORIGINAL -> stringResource(R.string.original)
+        ResizeMode.PERCENT_25 -> localizedPercent(0.25)
+        ResizeMode.PERCENT_50 -> localizedPercent(0.50)
+        ResizeMode.PERCENT_75 -> localizedPercent(0.75)
+        ResizeMode.CUSTOM -> stringResource(R.string.custom)
+    }
+}
+
+@Composable
+private fun localizedPercent(value: Double): String {
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) {
+        NumberFormat.getPercentInstance(locale).apply {
+            minimumFractionDigits = 0
+            maximumFractionDigits = 0
+        }
+    }
+    return formatter.format(value)
+}
+
+@Composable
+private fun localizedInteger(value: Int): String {
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) { NumberFormat.getIntegerInstance(locale) }
+    return formatter.format(value)
 }

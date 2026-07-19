@@ -37,6 +37,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rameshta.photocompressor.ads.BannerAdController
 import com.rameshta.photocompressor.ads.BannerPlacement
 import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.LoadAdError
@@ -72,47 +73,53 @@ fun PhotoCompressorBanner(
             .coerceAtLeast(0)
             .coerceAtMost(MAX_BANNER_HEIGHT_DP)
         var loadState by remember(adUnitId, widthDp, instanceKey) { mutableStateOf(BannerLoadState.Loading) }
-        val adView = remember(adUnitId, widthDp, instanceKey) {
-            AdView(context).apply {
-                this.adUnitId = adUnitId
-                setAdSize(adSize)
-                layoutParams = FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                )
-            }
+        val managedAdView = remember(adUnitId, widthDp, instanceKey) {
+            ManagedBannerAdView(
+                AdView(context).apply {
+                    this.adUnitId = adUnitId
+                    setAdSize(adSize)
+                    layoutParams = FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                    )
+                },
+            )
         }
+        val adView = managedAdView.view
         val lifecycleOwner = LocalLifecycleOwner.current
 
-        DisposableEffect(adView, lifecycleOwner) {
+        DisposableEffect(managedAdView, lifecycleOwner) {
             val observer = LifecycleEventObserver { _, event ->
                 when (event) {
-                    Lifecycle.Event.ON_RESUME -> adView.resume()
-                    Lifecycle.Event.ON_PAUSE -> adView.pause()
-                    Lifecycle.Event.ON_DESTROY -> adView.destroy()
+                    Lifecycle.Event.ON_RESUME -> managedAdView.resume()
+                    Lifecycle.Event.ON_PAUSE -> managedAdView.pause()
+                    Lifecycle.Event.ON_DESTROY -> managedAdView.release()
                     else -> Unit
                 }
             }
             lifecycleOwner.lifecycle.addObserver(observer)
             onDispose {
                 lifecycleOwner.lifecycle.removeObserver(observer)
-                adView.destroy()
+                managedAdView.release()
             }
         }
 
-        LaunchedEffect(adView, adsState.canRequestAds, adsState.initialized, instanceKey) {
+        LaunchedEffect(managedAdView, adsState.canRequestAds, adsState.initialized, instanceKey) {
             if (!adsState.canRequestAds || !adsState.initialized) return@LaunchedEffect
+            if (!managedAdView.isActive) return@LaunchedEffect
             loadState = BannerLoadState.Loading
-            adView.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    loadState = BannerLoadState.Loaded
-                }
+            managedAdView.load(
+                request = bannerAdController.buildAdRequest(),
+                listener = object : AdListener() {
+                    override fun onAdLoaded() {
+                        loadState = BannerLoadState.Loaded
+                    }
 
-                override fun onAdFailedToLoad(error: LoadAdError) {
-                    loadState = BannerLoadState.Failed
-                }
-            }
-            adView.loadAd(bannerAdController.buildAdRequest())
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        loadState = BannerLoadState.Failed
+                    }
+                },
+            )
         }
 
         if (loadState == BannerLoadState.Failed && !reserveSpaceWhenFailed) return@BoxWithConstraints
@@ -126,6 +133,7 @@ fun PhotoCompressorBanner(
                 AndroidView(
                     factory = { adView },
                     modifier = Modifier.fillMaxSize(),
+                    onRelease = { managedAdView.release() },
                 )
             }
         }
@@ -265,6 +273,38 @@ private enum class BannerLoadState {
     Loading,
     Loaded,
     Failed,
+}
+
+/** Releases the SDK view once, after first removing it from Compose's view hierarchy. */
+private class ManagedBannerAdView(
+    val view: AdView,
+) {
+    private var released = false
+
+    val isActive: Boolean
+        get() = !released
+
+    fun load(request: AdRequest, listener: AdListener) {
+        if (released) return
+        view.adListener = listener
+        view.loadAd(request)
+    }
+
+    fun resume() {
+        if (!released) view.resume()
+    }
+
+    fun pause() {
+        if (!released) view.pause()
+    }
+
+    fun release() {
+        if (released) return
+        released = true
+        (view.parent as? ViewGroup)?.removeView(view)
+        view.pause()
+        view.destroy()
+    }
 }
 
 private const val MAX_BANNER_HEIGHT_DP = 120

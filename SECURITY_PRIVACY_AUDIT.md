@@ -1,433 +1,230 @@
 # Security And Privacy Audit
 
-Audit date: 2026-07-17  
-Project: Photo Compressor  
-Scope: Android application security/privacy audit for Google Play publication.
-
-> Historical snapshot: this audit predates the 2026-07-18 remediation pass.
-> Recheck the current source and `legal/MODEL_PROVENANCE.md` for the updated
-> model artifact, privacy UI, and storage behavior. Signing and publisher-owned
-> identity/hosting remain external by design.
-
-## Executive Verdict
-
-**Release recommendation: Not ready for Play production upload.**
-
-No confidential credentials, private keys, signing passwords, service-account
-files, OAuth secrets, backend tokens, or image-upload paths were found in the
-current scanned repository or Git history. The audit found and fixed
-repo-controlled privacy/security issues around backup of History metadata,
-stored content-URI validation, app-owned temporary output cleanup, filename
-sanitization, and future credential-file ignores.
-
-The remaining release blockers are external or policy/configuration items:
-production signing is not configured, release AdMob production IDs are absent
-so release ads are disabled, the Play/AdMob/Firebase registrations need to be
-created or updated for `com.rameshta.photocompressor`, the public privacy
-policy still needs real developer identity/contact/URL, and the bundled U2-NetP
-pretrained-weight redistribution rights remain unverified in official source
-material.
-
-Official references reviewed:
-
-- Android backup rules and privacy: https://developer.android.com/privacy-and-security/risks/backup-best-practices
-- Android FileProvider security: https://developer.android.com/privacy-and-security/risks/file-providers
-- Android secure file sharing: https://developer.android.com/training/secure-file-sharing
-- Android application/data-extraction manifest rules: https://developer.android.com/guide/topics/manifest/application-element
-- Android network security guidance: https://developer.android.com/privacy-and-security/security-ssl
-- Google Play Data Safety: https://support.google.com/googleplay/android-developer/answer/10787469
-- Google Mobile Ads SDK Data Safety disclosure: https://developers.google.com/admob/android/privacy/play-data-disclosure
-- Google Play Advertising ID policy: https://support.google.com/googleplay/android-developer/answer/6048248
-
-## Finding Counts
-
-| Severity | Count | Fixed | Remaining |
-|---|---:|---:|---:|
-| Critical | 0 | 0 | 0 |
-| High | 4 | 0 | 4 |
-| Medium | 6 | 5 | 1 |
-| Low | 4 | 3 | 1 |
-| Informational | 5 | 0 | 5 |
-
-## Critical Findings
-
-None found.
-
-## High Findings
-
-### H-01: Release artifacts are unsigned
-
-- **Severity:** High
-- **File/location:** `app/build/outputs/apk/release/app-release-unsigned.apk`; `app/build/outputs/bundle/release/app-release.aab`
-- **Evidence:** `apksigner verify` reports `DOES NOT VERIFY`; `jarsigner -verify` reports `jar is unsigned`.
-- **Impact:** The local release artifacts are not publishable upload artifacts.
-- **Fix:** Configure Play App Signing/upload signing through local or CI secrets. Do not commit keystores or passwords.
-- **Verification:** Release APK/AAB rebuilt and signing verification rerun.
-- **Fixed:** No, requires developer signing material.
-- **External action required:** Create/configure upload key, store credentials outside Git, rebuild signed AAB.
-
-### H-02: Release ads disabled because production AdMob IDs are not configured
-
-- **Severity:** High
-- **File/location:** `app/build.gradle.kts`; generated release `BuildConfig`; merged release manifest.
-- **Evidence:** Release `BuildConfig` has `ADS_ENABLED=false` and blank ad unit IDs. Merged release manifest uses disabled placeholder app ID `ca-app...0000`.
-- **Impact:** The generated release does not represent a production ad-supported build.
-- **Fix:** Supply production AdMob IDs through Gradle/CI properties, rebuild, and reinspect release artifacts.
-- **Verification:** Debug `BuildConfig` uses Google sample IDs; release `BuildConfig` is disabled when IDs are missing.
-- **Fixed:** No, requires production AdMob configuration.
-- **External action required:** Configure AdMob app and ad-unit IDs, GDPR/US consent messages, app-ads.txt, and Play Console “Contains ads: Yes”.
-
-### H-03: U2-NetP pretrained-weight redistribution rights remain externally unverified
-
-- **Severity:** High
-- **File/location:** `app/src/main/assets/models/u2netp.onnx`; `legal/MODEL_PROVENANCE.md`
-- **Evidence:** The legal record documents Apache-2.0 repository source code, but states the exact pretrained weight redistribution rights were not independently found in official files.
-- **Impact:** Unknown model-weight redistribution rights can create commercial publication/licensing risk.
-- **Fix:** Obtain explicit rights-holder evidence for commercial use, ONNX conversion, redistribution, and Google Play distribution, or replace the model with verified rights.
-- **Verification:** Model asset is packaged in APK/AAB; model provenance document inspected.
-- **Fixed:** No.
-- **External action required:** Legal/provenance confirmation before production.
-
-### H-04: Privacy policy is still a draft with placeholders
-
-- **Severity:** High
-- **File/location:** `PRIVACY_POLICY.md`; app Settings legal text.
-- **Evidence:** Policy contains placeholders for effective date, legal developer name, contact, and target-audience/children statement.
-- **Impact:** Google Play requires accurate public privacy disclosure, especially with AdMob/UMP and personal image processing.
-- **Fix:** Publish a public HTTPS privacy policy and point both app/legal UI and Play Console to the same policy.
-- **Verification:** Privacy policy source inspected.
-- **Fixed:** No.
-- **External action required:** Developer must provide legal identity, contact, URL, and final target-audience declaration.
-
-## Medium Findings
-
-### M-01: History metadata was eligible for Android backup/device transfer
-
-- **Severity:** Medium
-- **File/location:** `app/src/main/res/xml/backup_rules.xml`; `app/src/main/res/xml/data_extraction_rules.xml`; `DataStoreHistoryRepository`
-- **Evidence:** Backup rules were broad. History DataStore stores output URI, display name, MIME type, size/dimensions, operation type, timestamps, and original image info.
-- **Impact:** User image metadata and content URI references could migrate through backup/transfer without a deliberate product/privacy decision.
-- **Fix:** Exclude `datastore/processed_image_history.preferences_pb` from cloud backup and device transfer.
-- **Verification:** Unit test `privacySensitiveXmlRulesAreScoped`; release manifest references both backup/data-extraction XML resources; AAB includes the XML resources.
-- **Fixed:** Yes.
-- **External action required:** Keep privacy policy consistent with local History retention.
-
-### M-02: Stored content URIs were accepted for sharing/opening without authority validation
-
-- **Severity:** Medium
-- **File/location:** `app/src/main/java/com/rameshta/photocompressor/data/storage/ImageShareController.kt`
-- **Evidence:** Any persisted `content://` in `ProcessedImage.filePath` was returned for share/open intents.
-- **Impact:** If app-private History metadata were corrupted or restored maliciously, the app could proxy an unintended content URI.
-- **Fix:** Accept only MediaStore authority and this app’s FileProvider authority for stored output content URIs.
-- **Verification:** Source inspection; unit/build/lint pass; release rebuilt.
-- **Fixed:** Yes.
-- **External action required:** None.
-
-### M-03: Clear/remove History left app-owned temporary outputs behind
-
-- **Severity:** Medium
-- **File/location:** `app/src/main/java/com/rameshta/photocompressor/data/storage/DataStoreHistoryRepository.kt`
-- **Evidence:** `remove()` and `clear()` only removed DataStore metadata.
-- **Impact:** App-owned processed/background-removal temp files could remain after users cleared History.
-- **Fix:** Delete only app-owned temp output files under `cache/processed` and `cache/background_removal` when corresponding History entries are removed or cleared. Content URI/gallery outputs are not deleted.
-- **Verification:** Source inspection and full test/build pass.
-- **Fixed:** Yes.
-- **External action required:** None.
-
-### M-04: Manual output filename sanitization allowed path-looking names
-
-- **Severity:** Medium
-- **File/location:** `app/src/main/java/com/rameshta/photocompressor/util/OutputFilenameGenerator.kt`; `AndroidImageRepository.saveImage`
-- **Evidence:** Unsafe characters were replaced, but names like `../secret name` could retain leading dot/underscore patterns.
-- **Impact:** MediaStore display names do not directly create filesystem traversal here, but path-looking user-provided names are avoidable defense-in-depth risk.
-- **Fix:** Trim leading/trailing `.`, `_`, and `-`, cap generated base names, and keep extension enforcement.
-- **Verification:** Unit test added for path-looking names; full tests pass.
-- **Fixed:** Yes.
-- **External action required:** None.
-
-### M-05: Production package name migrated to owned namespace
-
-- **Severity:** Medium
-- **File/location:** `app/build.gradle.kts`; APK badging.
-- **Evidence:** Release package is `com.rameshta.photocompressor`.
-- **Impact:** Package name is permanent after first Play upload and should be a developer-owned namespace.
-- **Fix:** Changed the Gradle namespace/application ID and source package to the intended final package before first upload.
-- **Verification:** `aapt dump badging`.
-- **Fixed:** Yes.
-- **External action required:** Create or update external service registrations for this package before production.
-
-### M-06: History still stores original source URI metadata locally
-
-- **Severity:** Medium
-- **File/location:** `DataStoreHistoryRepository.encodeImageInfo`
-- **Evidence:** History entries include original `uriString` to support existing comparison/result behavior.
-- **Impact:** App-private local metadata can include user-selected source URI/display name. This is not uploaded by app code and is now excluded from backup, but it remains local app data.
-- **Fix:** No code change in this pass to avoid changing History/comparison behavior. Revisit only with a product decision.
-- **Verification:** Source inspection; backup exclusions added.
-- **Fixed:** No.
-- **External action required:** Decide whether History should retain original source references or store only output metadata.
-
-## Low Findings
-
-### L-01: `.gitignore` did not cover common secret/signing artifacts
-
-- **Severity:** Low
-- **File/location:** `.gitignore`
-- **Evidence:** Patterns for keystores, `.env`, service-account JSON, private keys, and Firebase config were absent.
-- **Impact:** Higher chance of accidentally staging future credentials.
-- **Fix:** Added ignore patterns for keystores, key/cert containers, `.env*`, `google-services.json`, and service-account JSON names.
-- **Verification:** `git status`; file-pattern scan found no such current files outside ignored build/venv folders.
-- **Fixed:** Yes.
-- **External action required:** None.
-
-### L-02: FileProvider scope should stay narrow
-
-- **Severity:** Low
-- **File/location:** `app/src/main/res/xml/file_paths.xml`
-- **Evidence:** Current scope is limited to `cache-path` entries `processed/` and `background_removal/`.
-- **Impact:** Good current posture; future broad paths could expose app/private files.
-- **Fix:** Added unit test asserting no `<root-path>` or `<external-path>` and required scoped cache paths.
-- **Verification:** Unit test `privacySensitiveXmlRulesAreScoped`.
-- **Fixed:** Yes.
-- **External action required:** Keep future FileProvider additions reviewed.
-
-### L-03: Release contains `DebugProbesKt.bin`
-
-- **Severity:** Low
-- **File/location:** Release APK/AAB root.
-- **Evidence:** APK listing includes `DebugProbesKt.bin`, commonly packaged by coroutines.
-- **Impact:** No direct secret exposure found, but it is debug-oriented packaging noise.
-- **Fix:** Not changed; excluding it should be tested against coroutine tooling/runtime expectations.
-- **Verification:** APK/AAB listing.
-- **Fixed:** No.
-- **External action required:** Optional packaging review.
-
-### L-04: Lint warnings remain
-
-- **Severity:** Low
-- **File/location:** `app/build/reports/lint-results-debug.xml`; `app/build/reports/lint-results-release.xml`
-- **Evidence:** 23 warnings per variant: dependency/tool newer versions, icon shape/location, unused string, and banner `Configuration.screenHeightDp` guidance.
-- **Impact:** No direct credential or image-leak issue found, but production polish and future maintenance risk remain.
-- **Fix:** Not changed in this security pass to avoid broad upgrades/refactors.
-- **Verification:** `lintDebug` and `lintRelease` pass with warnings.
-- **Fixed:** No.
-- **External action required:** Address in a separate maintenance pass.
-
-## Informational Findings
-
-### I-01: AdMob identifiers are public identifiers, not secrets
-
-- **Evidence:** Current and history scans find only redacted AdMob public IDs such as `ca-app...1713`.
-- **Impact:** These values are extractable from APK/AAB by design. Debug/release separation matters for traffic control, not secrecy.
-- **Verification:** Current scan found 5 AdMob public ID hits; Git history scan found 55 AdMob public ID hits across 14 commits.
-
-### I-02: No confidential credentials found in current repository or Git history
-
-- **Evidence:** Pattern scans covered tracked/untracked nonignored text files, `local.properties`, `gradle.properties`, and `git rev-list --all`.
-- **Impact:** No immediate credential rotation was indicated by repository evidence.
-- **Limitations:** `gitleaks` and `trufflehog` were not installed; pattern scan was used instead.
-
-### I-03: Image processing data flow is local by app code
-
-- **Evidence:** No Retrofit, Ktor, Volley, Firebase, Crashlytics, analytics event upload, custom `HttpURLConnection`, WebView upload, or image-upload endpoint found. ONNX Runtime uses bundled `assets/models/u2netp.onnx`.
-- **Impact:** App code does not upload selected images, generated images, filenames, content URIs, or EXIF data. AdMob/UMP may use network for ads and consent.
-- **Verification:** Source/dependency scan and release artifact inspection.
-
-### I-04: EXIF handling reads orientation but does not copy GPS metadata
-
-- **Evidence:** `ExifInterface` is used to read orientation for display/processing. Outputs are encoded from `Bitmap.compress`; no `setAttribute()` or `saveAttributes()` copy path was found.
-- **Impact:** GPS/device EXIF metadata is not intentionally preserved in processed outputs by app code. Orientation is applied to pixels.
-- **Verification:** Source search for EXIF write APIs and output encoding flow.
-
-### I-05: No WebView code found
-
-- **Evidence:** No `WebView`, `loadUrl`, `addJavascriptInterface`, SSL-error bypass, trust-all TLS, or hostname-verifier bypass found in app code.
-- **Impact:** WebView-specific attack paths are not present in the app-owned codebase.
-- **Verification:** Source search.
-
-## Secret Scan Summary
-
-- Dedicated tools: `gitleaks`/`trufflehog` were not installed in this environment.
-- Current repository scan: 5 findings, all AdMob public IDs.
-- Git history scan: 14 commits scanned via `git rev-list --all`; 55 findings, all AdMob public IDs.
-- File artifact scan: no `.jks`, `.keystore`, `.p12`, `.pfx`, `.pem`, `.key`, `google-services.json`, service-account JSON, or `.env*` files found outside ignored build/venv directories.
-- Confirmed confidential credentials: none found.
-- Git-history exposure status: no confidential credentials found; AdMob public identifiers appeared in history and do not require rotation as secrets.
-
-## Build Configuration Assessment
-
-- `compileSdk`: 36.1
-- `targetSdk`: 36
-- `minSdk`: 24
-- AGP: 9.1.1
-- Gradle wrapper: 9.3.1
-- Kotlin: 2.3.10
-- R8/minify/resource shrinking: enabled for release
-- Debug ads: Google official sample IDs only, `ADS_TEST_MODE=true`
-- Release ads: production IDs required via Gradle properties; missing IDs produce `ADS_ENABLED=false`
-- Release signing: not configured; local APK/AAB unsigned
-- Release `debuggable`: absent/false in merged release manifest
-- Release `testOnly`: absent in merged release manifest
-
-## Merged Release Manifest And Permissions
-
-Release APK permissions:
-
-- `android.permission.INTERNET`: app manifest and Google ads; required for AdMob/UMP.
-- `android.permission.ACCESS_NETWORK_STATE`: app manifest and Google ads/WorkManager; required for ad/network state.
-- `com.google.android.gms.permission.AD_ID`: Google Mobile Ads/ads identifier.
-- `android.permission.ACCESS_ADSERVICES_AD_ID`: Google Mobile Ads Privacy Sandbox/AdServices.
-- `android.permission.ACCESS_ADSERVICES_ATTRIBUTION`: Google Mobile Ads Privacy Sandbox/AdServices.
-- `android.permission.ACCESS_ADSERVICES_TOPICS`: Google Mobile Ads Privacy Sandbox/AdServices.
-- `android.permission.WAKE_LOCK`: Google Play services measurement/WorkManager transitive dependency.
-- `android.permission.FOREGROUND_SERVICE`: WorkManager transitive dependency.
-- `com.rameshta.photocompressor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`: AndroidX dynamic receiver protection.
-
-Not present in final release permission dump:
-
-- `READ_MEDIA_IMAGES`, `READ_MEDIA_VIDEO`, `READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE`, `MANAGE_EXTERNAL_STORAGE`, `CAMERA`, `POST_NOTIFICATIONS`, `QUERY_ALL_PACKAGES`, `REQUEST_INSTALL_PACKAGES`, `SYSTEM_ALERT_WINDOW`, exact alarm permissions.
-
-Exported components reviewed:
-
-- App `MainActivity` is exported for launcher only.
-- FileProvider is `exported=false` and `grantUriPermissions=true`.
-- Google/AndroidX exported components are SDK/platform components protected by `BIND_JOB_SERVICE` or `android.permission.DUMP` where applicable.
-
-Network security:
-
-- No app `usesCleartextTraffic=true`.
-- No app network-security config trusting user/debug CAs.
-- No custom trust-all TLS or hostname bypass code found.
-
-Backup:
-
-- `allowBackup=true` remains enabled.
-- History DataStore file is now excluded from cloud backup and device transfer.
-
-## Release Artifact Assessment
-
-- Release APK: `app/build/outputs/apk/release/app-release-unsigned.apk`
-- Release AAB: `app/build/outputs/bundle/release/app-release.aab`
-- APK size: 120 MB
-- AAB size: 55 MB
-- APK SHA-256 prefix: `d64ef41a3d1f...`
-- AAB SHA-256 prefix: `2f747d4b4381...`
-- App ID: `com.rameshta.photocompressor`
-- Version: `versionCode=1`, `versionName=1.0`
-- Native ABIs: `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64`
-- Largest packaged files: ONNX Runtime native libraries, `classes.dex`, `assets/models/u2netp.onnx`
-- ZIP alignment: `zipalign -v -c -P 16 4` passed.
-- ELF segment inspection: not completed because no `readelf`/`llvm-readelf` tool was available in the Android SDK/local shell.
-
-## Image Data Flow Summary
-
-1. User selects images through Android Photo Picker (`PickMultipleVisualMedia`, image-only).
-2. App reads selected `content://` URIs through `ContentResolver`.
-3. App detects image format from headers and reads EXIF orientation.
-4. Compression/resizing/format conversion/background removal run on-device.
-5. Intermediate outputs are stored in app-private cache under scoped directories.
-6. Save writes through MediaStore to `Pictures/Photo Compressor`.
-7. Share/Open use secure `content://` URIs with temporary read grants.
-8. History stores metadata and URI references, not full-resolution bitmaps.
-9. Ad requests use `AdRequest.Builder().build()` without image filenames, URIs, EXIF, or custom targeting.
-
-## Third-Party SDK And Network Summary
-
-Direct notable dependencies:
-
-- Google Mobile Ads SDK `25.4.0`: networked ads, Advertising ID/AdServices data handling.
-- Google User Messaging Platform `4.0.0`: consent info/forms/privacy options.
-- ONNX Runtime Android `1.27.0`: native local inference.
-- Coil `2.7.0`: image loading; transitive OkHttp/Okio present, but no app remote URL loading path was found.
-- AndroidX DataStore `1.1.7`: local History persistence.
-- Hilt, Compose, Navigation, ExifInterface, coroutines.
-
-No Firebase Analytics, Crashlytics, Remote Config, Retrofit, Ktor, Volley, or custom backend client was found.
-
-## AdMob And Consent Assessment
-
-- UMP consent info is requested on app launch before ad requests.
-- Ads initialize only when consent state allows `canRequestAds()`.
-- Privacy options form entry exists in Settings when required.
-- Debug uses Google sample test IDs.
-- Release disables ads safely if production IDs are missing and rejects Google sample IDs in release properties.
-- AdMob App ID and ad-unit IDs are public identifiers, not secrets.
-- App code does not pass image data, filenames, content URIs, EXIF, or processing metadata to ad requests.
-- Data Safety and privacy policy must disclose Google Mobile Ads/UMP data collection and sharing.
-
-## Proposed Play Data Safety Summary
-
-Developer must reconcile this with the final Play Console setup and Google’s current SDK disclosure page.
-
-- Images/files: user-selected and generated images are processed locally by app code; not uploaded by app code.
-- Files and docs/media: app accesses selected photos and saved output files as user-controlled processing data.
-- Data collected/shared by app-owned backend: no backend found.
-- Data collected/shared by third-party SDKs: Google Mobile Ads/UMP may collect/share advertising-related data, including IP address, approximate location derived from IP, device or other identifiers including Advertising ID where permitted, app interactions, diagnostics, and advertising/consent signals.
-- Accounts: no user account feature found.
-- Analytics/crash reporting: no Firebase/Crashlytics/analytics SDK found.
-- Retention/deletion: app-local History metadata persists until History/app data is cleared; app-owned temp outputs are removed on History clear/remove where applicable; user-saved gallery outputs remain under user control.
-
-## Commands Executed
-
-- `git status --short --branch`
-- `rg --files`; targeted `rg` searches for credentials, logs, network clients, EXIF writes, WebView/TLS bypasses, URI sharing, Photo Picker usage.
-- Custom redacted current-repo secret scan.
-- Custom redacted Git-history secret scan over `git rev-list --all`.
-- `find` checks for keystores, key files, service-account JSON, `.env*`, and Google service files.
-- `./gradlew :app:testDebugUnitTest --tests com.rameshta.photocompressor.util.UtilityTest`
-- `./gradlew :app:testDebugUnitTest :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleRelease :app:bundleRelease :app:processReleaseMainManifest`
-- `./gradlew :app:lintDebug :app:lintRelease`
-- `./gradlew :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease :app:bundleRelease`
-- `./gradlew :app:connectedDebugAndroidTest`
-- `aapt dump permissions`
-- `aapt dump badging`
-- `apksigner verify --verbose`
-- `jarsigner -verify -verbose -certs`
-- `zipalign -v -c -P 16 4`
-- `./gradlew :app:dependencies --configuration releaseRuntimeClasspath`
-
-Results:
-
-- Unit tests: passed.
-- Lint: passed with 23 warnings per variant.
-- Debug build: passed.
-- Release APK build: passed.
-- Release AAB build: passed.
-- Connected instrumentation: passed, 3 tests on Android 16 device. The Android test-services appops warning for `MANAGE_EXTERNAL_STORAGE` appeared, but the task succeeded and the app does not request that permission.
-- Combined lint/build/connected command initially hit an Android lint worker/task-graph bug; rerunning lint separately passed.
-
-## Files Changed
-
-- `.gitignore`
-- `app/src/main/res/xml/backup_rules.xml`
-- `app/src/main/res/xml/data_extraction_rules.xml`
-- `app/src/main/java/com/rameshta/photocompressor/data/storage/DataStoreHistoryRepository.kt`
-- `app/src/main/java/com/rameshta/photocompressor/data/storage/ImageShareController.kt`
-- `app/src/main/java/com/rameshta/photocompressor/util/OutputFilenameGenerator.kt`
-- `app/src/test/java/com/rameshta/photocompressor/util/UtilityTest.kt`
-- `SECURITY_PRIVACY_AUDIT.md`
-
-Pre-existing worktree state preserved:
-
-- `.idea/vcs.xml` was already deleted before this audit and was not restored.
-
-## Required External Actions
-
-1. Configure production signing securely; do not commit keystores or passwords.
-2. Create or update Play, AdMob, Firebase, API-key, OAuth, and deep-link registrations for `com.rameshta.photocompressor` before first Play upload.
-3. Provide production AdMob IDs through local/CI Gradle properties and rebuild.
-4. Publish the final HTTPS privacy-policy URL and update Play Console.
-5. Complete Play Console Data Safety, Advertising ID, “Contains ads”, target audience, content rating, and app category declarations.
-6. Configure AdMob GDPR/EEA messages, US state privacy settings, ad-content blocking controls, app-ads.txt, and Play Store linking.
-7. Obtain explicit commercial redistribution evidence for the bundled U2-NetP pretrained weights.
-8. Run signed release QA with production configuration using test devices/test mode only; do not click live ads.
-9. Run a true 16 KB page-size runtime test if a suitable emulator/device is available.
-
-## Residual Risk
-
-No audit can prove that no data leak is possible. This pass verifies that no
-obvious app-controlled image upload path, secret embedding, broad FileProvider
-scope, unsafe TLS/WebView path, release private logging, or broad storage
-permission was found. Residual risk remains in third-party SDK behavior,
-Play/AdMob console configuration, model licensing, production signing
-operations, and any future code paths added after this audit.
+Review date: **2026-07-19**
+
+App/package: **Photo Compressor — `com.rameshta.photocompressor`**
+
+Scope: current Android source, manifests, local persistence and sharing, image/background-removal paths, Google Mobile Ads/UMP integration, legal/privacy documents, and the latest locally generated release artifact and reports.
+
+This is the current audit and supersedes the former historical snapshot. Google Play publication readiness is tracked in `PLAY_STORE_RELEASE_AUDIT.md`.
+
+## Verdict
+
+**Security/privacy implementation: conditionally acceptable for continued testing.**
+
+**Production publication: blocked.**
+
+No developer backend, credential leak, developer analytics integration, or app-code image upload was found. Image compression, conversion, resizing, comparison, and ONNX background removal operate locally. Important release gaps remain: incomplete publisher identity/contact/hosting, policy-sensitive pre-action interstitials, URI/cache cleanup limitations, missing app-open frequency enforcement, incomplete localization coverage, and an unsigned/stale AAB.
+
+## Status Summary
+
+### Blockers
+
+| ID | Finding | Required resolution |
+| --- | --- | --- |
+| B-01 | `PRIVACY_POLICY.md` intentionally lacks the verified legal publisher/entity name, direct monitored privacy contact, and public HTTPS policy URL. | Publisher supplies all three values and hosts the final policy as an active, public, non-geofenced, non-editable HTTPS webpage (not a PDF), then uses the same URL/copy in Play Console and in app. |
+| B-02 | Save, Share, and Open are performed only after an optional interstitial finishes. | Move full-screen ads away from direct user actions to a genuine natural break and re-review against Google Play Ads policy. |
+| B-03 | The available release AAB is unsigned and older than current source. | Build after all changes, sign with the publisher upload key, and reinspect the exact candidate. |
+
+### Warnings
+
+| ID | Finding | Risk/recommendation |
+| --- | --- | --- |
+| W-01 | App-open manager records but does not enforce cold-start, minimum-background-duration, cooldown, or per-session-limit values. | Add explicit guards. Interstitial limits do not protect app-open frequency. |
+| W-02 | Persisted source URI read grants are never released when History is removed/cleared. | Track reference use and call `releasePersistableUriPermission` when no longer needed. |
+| W-03 | History deletion removes only referenced app-owned temp outputs; orphaned/unrecorded/evicted cache files can remain. | Add a canonical-path constrained orphan sweep and retention schedule. |
+| W-04 | Several content screens can combine multiple banner/native positions. | Review density, accidental-click separation, small screens, accessibility, RTL, and no-fill/failure states using test ads. |
+| W-05 | Only a subset of advertised locale choices has dedicated translations; some localized policy strings can lag the authoritative English implementation disclosure. | Offer only completed translations or finish/review every advertised locale, including legal/privacy text. |
+| W-06 | Static 16 KB ELF alignment passes, but only a 4 KB runtime device was tested. | Exercise all ONNX/image/export paths on a 16 KB page-size device with the final candidate. |
+
+### Passes
+
+- App-owned image processing is on-device; no app network/backend client or image-upload endpoint was found.
+- Android Photo Picker is used for user-selected input; no broad photo-read permission is declared.
+- Legacy shared-gallery writes are limited to `WRITE_EXTERNAL_STORAGE` on API 28 and earlier.
+- Ad requests are gated by Google UMP/consent readiness and Google Mobile Ads initialization.
+- App History DataStore is excluded from cloud backup and device transfer.
+- FileProvider exposes only `cache/processed/` and `cache/background_removal/`; no root or external-root path is configured.
+- Stored **output** content URIs are restricted to MediaStore or the app FileProvider before use. Original Photo Picker URI authorities are not subject to this output validation.
+- Share/open intents use user-triggered Android intent flows and grant URI access rather than exposing raw private paths.
+- Output filenames are sanitized and app-owned temp deletion performs canonical containment checks.
+- Pinned U2-NetP model provenance, hash, public distribution chain, and license notices are documented and packaged.
+- Production AdMob identifiers are present; they are public identifiers rather than secret credentials.
+- All native libraries in the inspected AAB use 16 KB ELF `LOAD` alignment.
+- Prepared Play listing text, icon, feature graphic, and eight upload screenshots pass the documented character, dimension, and color-mode checks; see `PLAY_STORE_RELEASE_AUDIT.md`.
+
+## Data Flow Inventory
+
+| Data/process | Source | Storage/recipient | Retention/deletion | Network behavior |
+| --- | --- | --- | --- | --- |
+| Selected image content | Android Photo Picker content URI | Read by app for local processing | Provider grant can persist; current code does not release it when History is cleared | No app-code upload found |
+| Selected image metadata | ContentResolver/decoder/EXIF | In-memory and potentially local History | History item/all History, clear app storage; source grant can remain | No app-code upload found |
+| Processed/background output | Local image engine and bundled ONNX model | App cache under `processed` or `background_removal` | Referenced temp file is attempted on History removal; OS/cache/storage clear/uninstall; orphans can remain | No app-code upload found |
+| Saved image | User-initiated MediaStore save | `Pictures/Photo Compressor` / device gallery | User deletes through gallery/file manager | No app-code upload found |
+| Shared/opened image | User action | Chosen external Android app | Controlled by receiving app after URI grant | External app's policy applies |
+| History | App result records | App-private DataStore, up to 200 records | Remove one/Clear History/clear storage; excluded from configured backup/transfer | No app-code upload found |
+| Background model | Bundled `u2netp.onnx` | App asset/ONNX Runtime | Removed with app | No runtime model download or image upload found |
+| Advertising/consent | Google Mobile Ads 25.4.0 and UMP 4.0 | Google and advertising partners under final consent/configuration | Google policies/controls apply | Network required for ads/consent information |
+
+History records may include source/output URIs or paths, names, MIME types/formats, size, dimensions, alpha information, operation/compression/result/warning fields, saved-output reference, and timestamp. The History DataStore stores metadata/references rather than full-resolution image bytes; temporary output bytes are separate cache files.
+
+## Advertising And Consent Review
+
+### Formats and placements
+
+- Adaptive banners: eligible top, bottom, Home empty-space, and Result empty-space placements.
+- Native ads: Home, batch Progress, Result, and Background flows.
+- Interstitials: History-open opportunity and immediately before Save, Share, and Open actions.
+- App-open ads: considered on eligible foreground returns after consent/initialization and load.
+
+Interstitial policy defaults are a zero successful-action threshold, three-minute global minimum interval, maximum three impressions per app-process session, and no first-opportunity suppression. `recordSuccessfulAction()` does not create an effective prerequisite while the threshold is zero.
+
+### Consent and failure behavior
+
+`GoogleConsentManager` requests UMP consent information, loads/shows a form when Google reports it is required, and exposes privacy options when required. Ads initialize/preload only when `canRequestAds()` is true. Core image operations do not depend on ad availability, and app actions continue when a full-screen ad is absent or fails.
+
+This is sound failure isolation, but UMP integration is not by itself proof that AdMob privacy messages, partner lists, regional settings, or child-directed treatment are correctly configured; those settings are publisher-owned.
+
+### App-open limiter gap
+
+`AppOpenAdManager` suppresses ads during active processing, consent updates, another full-screen ad, a short return from a full-screen ad, and selected external/locale transitions. However, `coldStart`, `backgroundedAt`, `lastShownAtMs`, and `adsShownThisSession` are not checked in `showIfEligible()`. Consequently:
+
+- there is no explicit cold-start eligibility rule;
+- a minimum time in background is not enforced;
+- there is no app-open cooldown;
+- there is no app-open session cap.
+
+The privacy policy accurately states that interstitial limits do not apply to app-open ads, but a deliberate cap is still recommended for predictable user experience and policy posture.
+
+### Direct-action ads policy risk
+
+`PhotoCompressorApp.kt` defers Save, Share, and Open until the optional interstitial's completion callback. These are clear user-requested actions, not post-task natural breaks. This is a production policy blocker even though the app reliably continues after dismissal/failure. Official policy: <https://support.google.com/googleplay/android-developer/answer/9857753>.
+
+## Google Mobile Ads Data Disclosure
+
+Google's GMA 25.4 disclosure says the SDK automatically collects and shares the following when used:
+
+| Play Data Safety category | Collection/sharing guidance | Examples from Google's GMA 25.4 disclosure |
+| --- | --- | --- |
+| Location → Approximate location | Mark collected and shared | IP address, which may estimate general device location |
+| App activity → App interactions | Mark collected and shared | App launches, taps, and video views |
+| App info and performance → Diagnostics | Mark collected and shared | App launch time, hang rate, and energy usage |
+| Device or other IDs | Mark collected and shared | Advertising ID, App Set ID, and applicable signed-in-account identifiers |
+
+Google describes this automatic collection and sharing collectively as supporting advertising, analytics, and fraud-prevention purposes. Map those to the Play form's available purpose labels and also account for the final app/AdMob/UMP configuration. Google states that SDK data is encrypted in transit using TLS. Device, region, consent, Google configuration, and identifier availability can affect particular data, but the Data Safety form must still include SDK behavior. References:
+
+- <https://developers.google.com/admob/android/privacy/play-data-disclosure>
+- <https://support.google.com/googleplay/android-developer/answer/10787469>
+
+Based on current app code, do not mark user photos/videos as collected or shared merely because they are selected and processed locally. Revisit that answer if any future SDK/backend receives image content, image-derived content, filenames, EXIF, or content URIs.
+
+## Manifest And Permission Review
+
+### App-declared
+
+| Permission | Purpose/status |
+| --- | --- |
+| `INTERNET` | Google ads and consent network access |
+| `ACCESS_NETWORK_STATE` | Ad/network availability |
+| `WRITE_EXTERNAL_STORAGE` with `maxSdkVersion=28` | Runtime-requested only for user-initiated save to shared Pictures on Android 9 and earlier |
+
+### Merged from SDKs/dependencies
+
+| Permission | Source/impact |
+| --- | --- |
+| `com.google.android.gms.permission.AD_ID` | Google Mobile Ads/identifier dependency; requires accurate Advertising ID declaration |
+| `ACCESS_ADSERVICES_AD_ID` | Google Mobile Ads AdServices integration |
+| `ACCESS_ADSERVICES_ATTRIBUTION` | Google Mobile Ads AdServices integration |
+| `ACCESS_ADSERVICES_TOPICS` | Google Mobile Ads AdServices integration |
+| `WAKE_LOCK` | Google measurement and WorkManager merge |
+| `FOREGROUND_SERVICE` | WorkManager merge; reinspect any Play declaration prompt from final bundle |
+| App `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` | Signature-level compatibility permission for non-exported dynamic receivers |
+
+No broad `READ_EXTERNAL_STORAGE`, `READ_MEDIA_IMAGES`, camera, microphone, contacts, location, phone, SMS, or account permission is declared by app source. The release merged manifest was regenerated from the current tree on 2026-07-19; reinspect the manifest packaged in the final signed bundle.
+
+## Retention, Deletion, Backup, And URI Findings
+
+### What Clear History currently does
+
+`DataStoreHistoryRepository.remove()`/`clear()` remove record metadata and attempt to delete the referenced output only when it resolves to a regular file canonically inside the app's two approved cache directories. They intentionally do not delete a saved MediaStore item.
+
+### Residual data
+
+- `recordSuccessfulOutput()` retains at most 200 entries but does not delete a temp file when an older entry falls out of the list.
+- Failed, cancelled, unrecorded, or otherwise orphaned cache outputs are not enumerated by Clear History.
+- Missing-output History entries are filtered from the emitted flow but are not necessarily pruned from the persisted JSON.
+- `takePersistableUriPermission()` is attempted for selected content URIs; there is no corresponding release call.
+
+The policy now discloses these limitations. Recommended remediation is a conservative app-owned cache sweep with canonical containment/age checks plus reference-counted release of persisted URI grants.
+
+### Backup and provider passes
+
+- `backup_rules.xml` excludes `datastore/processed_image_history.preferences_pb` from cloud backup.
+- `data_extraction_rules.xml` excludes it from cloud backup and device transfer.
+- FileProvider exposes only `processed/` and `background_removal/` cache paths.
+- Stored output content URI validation permits MediaStore and `${BuildConfig.APPLICATION_ID}.fileprovider` only; it does not restrict original user-selected Photo Picker URI authorities.
+
+## Privacy-Document Consistency
+
+The authoritative English repository/in-app copy now covers:
+
+- local image processing and no developer backend/account;
+- Photo Picker, metadata access, persisted read grants, and the legacy API 28 save permission;
+- History fields, 200-item cap, backup exclusion, cache retention, deletion limits, and gallery deletion;
+- banner/native/interstitial/app-open formats and actual interstitial threshold/caps;
+- GMA 25.4 automatic collection/sharing, purposes, TLS, and UMP 4.0;
+- bundled on-device U2-NetP/ONNX Runtime behavior;
+- children/target-audience consistency.
+
+Remaining publication fields are intentionally explicit placeholders: verified publisher name, direct monitored privacy contact, and hosted HTTPS URL. Complete them before release and keep every translated in-app policy synchronized. Google Play User Data policy: <https://support.google.com/googleplay/android-developer/answer/10144311>.
+
+## Model And Supply-Chain Evidence
+
+Packaged model: `app/src/main/assets/models/u2netp.onnx`
+
+Size: 4,574,861 bytes
+
+SHA-256: `309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8`
+
+`legal/MODEL_PROVENANCE.md` pins the rembg release artifact, records its byte-identical Apache-2.0-declared model-repository copy and upstream U2-Net lineage, and includes U2-Net/rembg/ONNX Runtime licenses/notices. The inspected AAB contains the same model hash and notices. This resolves the prior undocumented locally converted model finding, subject to the publisher's own legal review.
+
+No private keys, signing keystores, passwords, service-account files, or secret tokens were identified in the reviewed source. AdMob IDs are intentionally public identifiers. Release signing credentials must remain outside Git.
+
+## Artifact, Test, Lint, And 16 KB Evidence
+
+- Existing AAB: `app/build/outputs/bundle/release/app-release.aab`, 58,453,852 bytes, generated 2026-07-19 14:36 local time.
+- Locale task: `:app:generateDebugLocaleConfig` passes after pseudo locales were separated from production locale filters; reproduced 2026-07-19. The custom localization-content checker fails with 77 errors: 61 long strings identical to English (primarily accurate but untranslated privacy/ad fallbacks), 14 protected-token changes in Kannada/Malayalam, and missing Odia/Urdu resource files.
+- Signing: `jarsigner -verify` reports `jar is unsigned`.
+- Freshness: the AAB predates current Kotlin/resources/Gradle changes.
+- Unit report: 51 tests passed with zero failures/errors against the current tree on 2026-07-19.
+- Connected report: one screenshot-capture test passed on an SM-S928B; it predates current changes and is not a complete security/privacy suite.
+- Release lint report: passed with 37 warnings on an isolated `--no-daemon` retry on 2026-07-19. An earlier combined-run attempt crashed inside Android Lint/UAST's service layer rather than reporting an app finding.
+- Static 16 KB check: all 16 native libraries in the old AAB have `LOAD` alignment `2**14`.
+- Runtime page size: attached SM-S928B reports `4096`; no final-candidate 16 KB runtime result exists.
+
+## Required Verification
+
+After closing the production blockers and localization-content errors:
+
+```bash
+./gradlew :app:testDebugUnitTest :app:lintDebug :app:lintRelease
+./gradlew :app:assembleDebug :app:bundleRelease
+./gradlew :app:connectedDebugAndroidTest
+
+jarsigner -verify -verbose -certs app/build/outputs/bundle/release/app-release.aab
+shasum -a 256 app/build/outputs/bundle/release/app-release.aab
+
+rg -n "uses-permission|AD_ID|AD_SERVICES|WAKE_LOCK|FOREGROUND_SERVICE" \
+  app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml
+
+unzip -p app/build/outputs/bundle/release/app-release.aab \
+  base/assets/models/u2netp.onnx | shasum -a 256
+
+adb shell getconf PAGE_SIZE
+```
+
+For the exact signed candidate, additionally validate with current `bundletool`, verify derived APK signatures with `apksigner`, check ZIP alignment with `zipalign -P 16`, inspect ELF `LOAD` alignment for every `.so`, and run on-device tests for Photo Picker grants, API 24–28 save permission/denial, MediaStore save, share/open grants, History remove/clear, process restart, cache loss, consent states, no-fill/offline ads, full-screen-ad concurrency, locale recreation, and background removal on both 4 KB and 16 KB devices.
+
+## Release Decision Rule
+
+Do not change this audit to production-ready until the exact source passes build/test/lint, the exact AAB is signed and re-audited, direct-action ad placements are remediated, privacy publisher fields and hosting are complete, residual-retention behavior is accepted or fixed, and Play Console/AdMob declarations have publisher-owned evidence.

@@ -15,9 +15,7 @@ data class ImageInfo(
     val format: ImageFormat,
     val mimeType: String,
     val hasAlpha: Boolean,
-) {
-    val resolutionLabel: String = "$width x $height"
-}
+)
 
 data class ProcessedImage(
     val id: String,
@@ -37,10 +35,8 @@ data class ProcessedImage(
     val operationType: HistoryOperationType = HistoryOperationType.COMPRESSED,
     val savedUriString: String? = null,
     val createdTimestamp: Long = System.currentTimeMillis(),
-    val warning: String? = null,
-) {
-    val resolutionLabel: String = "$width x $height"
-}
+    val warning: ProcessingNotice? = null,
+)
 
 enum class HistoryOperationType {
     COMPRESSED,

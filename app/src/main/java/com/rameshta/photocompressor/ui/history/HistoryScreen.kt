@@ -14,7 +14,10 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.BannerAdController
+import com.rameshta.photocompressor.ui.asString
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.PremiumEmptyState
 import com.rameshta.photocompressor.ui.components.PremiumErrorState
@@ -45,14 +48,14 @@ fun HistoryScreen(
         fullScreenAdVisible = fullScreenAdVisible,
         topBar = {
             PremiumTopAppBar(
-                title = "History",
+                title = stringResource(R.string.history),
                 navigationIcon = Icons.AutoMirrored.Outlined.ArrowBack,
                 onNavigationClick = onBack,
                 actions = {
                     PremiumIconButton(
                         onClick = onClear,
                         icon = Icons.Outlined.Delete,
-                        contentDescription = "Clear history",
+                        contentDescription = stringResource(R.string.cd_clear_history),
                         enabled = history.isNotEmpty(),
                         danger = history.isNotEmpty(),
                     )
@@ -64,7 +67,7 @@ fun HistoryScreen(
             HistoryUiState.Loading -> HistoryLoadingState()
             HistoryUiState.Empty -> HistoryEmptyState()
             is HistoryUiState.Error -> HistoryErrorState(
-                message = state.message,
+                message = state.message.asString(),
                 onRetry = onRetry,
             )
             is HistoryUiState.Content -> {
@@ -83,17 +86,17 @@ fun HistoryScreen(
                             ProcessedImageCard(image = item, selected = false, onClick = { onOpenItem(item.id) })
                             Row(horizontalArrangement = Arrangement.spacedBy(AppSpacing.xs), modifier = Modifier.fillMaxWidth()) {
                                 PremiumPrimaryButton(
-                                    text = "Open",
+                                    text = stringResource(R.string.open),
                                     onClick = { onOpenItem(item.id) },
                                     modifier = Modifier.weight(1f),
                                 )
                                 PremiumOutlinedButton(
-                                    text = "Share",
+                                    text = stringResource(R.string.share),
                                     onClick = { onShareItem(item.id) },
                                     modifier = Modifier.weight(1f),
                                 )
                                 PremiumOutlinedButton(
-                                    text = "Remove",
+                                    text = stringResource(R.string.remove),
                                     onClick = { onRemoveItem(item.id) },
                                     modifier = Modifier.weight(1f),
                                 )
@@ -108,14 +111,14 @@ fun HistoryScreen(
 
 @Composable
 private fun HistoryLoadingState() {
-    PremiumLoadingState(title = "Loading history...")
+    PremiumLoadingState(title = stringResource(R.string.loading_history))
 }
 
 @Composable
 private fun HistoryEmptyState() {
     PremiumEmptyState(
-        title = "No processed images yet.",
-        message = "Compressed and background-removed images appear here after a successful operation.",
+        title = stringResource(R.string.history_empty_title),
+        message = stringResource(R.string.history_empty_message),
     )
 }
 
@@ -125,7 +128,7 @@ private fun HistoryErrorState(
     onRetry: () -> Unit,
 ) {
     PremiumErrorState(
-        title = "History could not be loaded.",
+        title = stringResource(R.string.history_load_error_title),
         message = message,
         onRetry = onRetry,
     )

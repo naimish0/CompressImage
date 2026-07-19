@@ -29,6 +29,7 @@ import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.rameshta.photocompressor.R
 import com.rameshta.photocompressor.ads.AppOpenAdManager
@@ -46,6 +47,7 @@ import com.rameshta.photocompressor.ui.comparison.ResultScreen
 import com.rameshta.photocompressor.ui.editor.BatchProgressScreen
 import com.rameshta.photocompressor.ui.editor.EditorScreen
 import com.rameshta.photocompressor.ui.history.HistoryScreen
+import com.rameshta.photocompressor.ui.history.HistoryUiState
 import com.rameshta.photocompressor.ui.home.HomeScreen
 import com.rameshta.photocompressor.ui.settings.LanguageScreen
 import com.rameshta.photocompressor.ui.settings.SettingsScreen
@@ -64,6 +66,8 @@ fun PhotoCompressorApp(
     appOpenAdManager: AppOpenAdManager,
 ) {
     val navController = rememberNavController()
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val historyUiState by viewModel.historyUiState.collectAsStateWithLifecycle()
     val consentState by consentManager.state.collectAsStateWithLifecycle()
@@ -86,6 +90,9 @@ fun PhotoCompressorApp(
     var pendingLegacySaveAction by remember { mutableStateOf<(() -> Unit)?>(null) }
     var onLegacySavePermissionDenied by remember { mutableStateOf<(() -> Unit)?>(null) }
     var lastRecordedSuccessfulResultKey by rememberSaveable { mutableStateOf<String?>(null) }
+    var historySessionEngaged by remember { mutableStateOf(false) }
+    var previousRoute by remember { mutableStateOf<String?>(null) }
+    val historyExitAdOpportunity = remember { HistoryExitAdOpportunity() }
 
     val legacyStoragePermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
@@ -137,6 +144,7 @@ fun PhotoCompressorApp(
 
     fun navigateToHistory(consumePendingRequest: Boolean = false) {
         if (navController.currentBackStackEntry?.destination?.route != Routes.HISTORY) {
+            historySessionEngaged = false
             navController.navigate(Routes.HISTORY) {
                 launchSingleTop = true
             }
@@ -144,6 +152,21 @@ fun PhotoCompressorApp(
         if (consumePendingRequest) {
             viewModel.consumePendingAdAction()
         }
+    }
+
+    fun navigateBackFromHistory() {
+        historyExitAdOpportunity.requestExit(
+            currentRoute = navController.currentBackStackEntry?.destination?.route,
+            hasEligibleSession = historySessionEngaged &&
+                (historyUiState as? HistoryUiState.Content)?.items?.isNotEmpty() == true,
+            showAdBeforeExit = { onFinished ->
+                showOptionalInterstitial(
+                    placement = InterstitialPlacement.HISTORY_EXITED,
+                    onFinished = onFinished,
+                )
+            },
+            navigateBack = { navController.popBackStack() },
+        )
     }
 
     fun navigateBackFromResult() {
@@ -195,6 +218,14 @@ fun PhotoCompressorApp(
 
     LaunchedEffect(state.hasActiveProcessing) {
         appOpenAdManager.setActiveOperation(state.hasActiveProcessing)
+    }
+
+    LaunchedEffect(currentRoute) {
+        if (currentRoute == Routes.HISTORY && previousRoute != Routes.HISTORY) {
+            historySessionEngaged = false
+        }
+        historyExitAdOpportunity.onRouteChanged(currentRoute)
+        previousRoute = currentRoute
     }
 
     LaunchedEffect(state.message) {
@@ -374,11 +405,14 @@ fun PhotoCompressorApp(
             )
         }
         composable(Routes.HISTORY) {
+            BackHandler {
+                navigateBackFromHistory()
+            }
             HistoryScreen(
                 state = historyUiState,
                 bannerAdController = bannerAdController,
                 fullScreenAdVisible = fullScreenAdVisible,
-                onBack = { navController.popBackStack() },
+                onBack = { navigateBackFromHistory() },
                 onOpenItem = { id ->
                     if (viewModel.openHistoryItem(id)) {
                         navController.navigate(Routes.RESULT) {
@@ -395,6 +429,7 @@ fun PhotoCompressorApp(
                 onRemoveItem = viewModel::removeHistoryItem,
                 onClear = viewModel::clearHistory,
                 onRetry = viewModel::refreshHistory,
+                onContentEngaged = { historySessionEngaged = true },
             )
         }
         composable(Routes.SETTINGS) {
@@ -427,6 +462,38 @@ fun PhotoCompressorApp(
         }
         composable(Routes.PRIVACY) {
             PrivacyPolicyScreen(onBack = { navController.popBackStack() })
+        }
+    }
+}
+
+internal class HistoryExitAdOpportunity {
+    private var exitPending = false
+
+    fun requestExit(
+        currentRoute: String?,
+        hasEligibleSession: Boolean,
+        showAdBeforeExit: (onFinished: () -> Unit) -> Unit,
+        navigateBack: () -> Boolean,
+    ): Boolean {
+        if (exitPending || currentRoute != Routes.HISTORY) return false
+
+        exitPending = true
+        val finishExit = {
+            if (!navigateBack()) {
+                exitPending = false
+            }
+        }
+        if (hasEligibleSession) {
+            showAdBeforeExit(finishExit)
+        } else {
+            finishExit()
+        }
+        return true
+    }
+
+    fun onRouteChanged(currentRoute: String?) {
+        if (exitPending && currentRoute != null && currentRoute != Routes.HISTORY) {
+            exitPending = false
         }
     }
 }

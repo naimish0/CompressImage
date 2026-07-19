@@ -1,6 +1,6 @@
 # Photo Compressor
 
-Photo Compressor is a Kotlin + Jetpack Compose Android app for selecting, compressing, resizing, converting, comparing, saving, opening, and sharing images. Image processing happens entirely on the device. An internet connection may be used to load advertisements and advertising consent information.
+Photo Compressor is a Kotlin + Jetpack Compose Android app for selecting, batch-compressing, resizing, converting, comparing, saving, opening, sharing, and removing or replacing image backgrounds. Image processing happens entirely on the device. An internet connection may be used to load advertisements and advertising consent information.
 
 ## Run
 
@@ -23,15 +23,15 @@ Ads are enabled in both build types. Debug builds use Google's official sample i
 
 The current implementation includes:
 
-- Adaptive banner ads at eligible top, bottom, home-empty-space, and result-empty-space placements.
-- Inline native ads on eligible screens.
-- Interstitial ads at eligible History, Save, Share, and Open opportunities. History uses the history interstitial configuration; Save, Share, and Open share the save interstitial configuration.
+- Adaptive banner ads at eligible top, bottom, Home-empty-space, and Result-empty-space placements. History enables both its top and bottom banners.
+- One inline native ad on Home, one History inline-native opportunity after the first item or below the empty state, and one final inline native item after the substantive per-image results in an eligible completed batch summary. The completed-batch placement requires a stable, non-cancelled summary with at least three result rows and at least one successful item; it is excluded from active, short, all-failed, and cancelled batches and is hidden while a full-screen ad is visible. The shared custom layout includes both a localized ad-attribution badge and AdChoices.
+- Interstitial opportunities when the user presses Back from loaded, non-empty History content after engaging with that session by scrolling the list or interacting with a History item, and at eligible completed-workflow transitions. The History ad, when eligible and loaded, is shown before pop/navigation while History remains visible and navigation continues from its completion callback; History entry, populated enter-and-immediate-Back, and empty/loading/error exits do not offer it. Open, Share, Remove, Clear History, and Save actions remain direct. Both interstitial placements share the three-minute cooldown and three-per-app-process-session cap. The History placement uses `HISTORY_INTERSTITIAL_AD_UNIT_ID`; workflow completion uses the legacy `SAVE_INTERSTITIAL_AD_UNIT_ID` field.
 - App-open ads on eligible returns from the background, subject to the app's eligibility and suppression checks.
 
-| Build | AdMob App ID | Banner ID (top, bottom, inline) | Native ID | Interstitial ID (History, Save, Share, Open) | App-open ID |
-| --- | --- | --- | --- | --- | --- |
-| Debug/test | `ca-app-pub-3940256099942544~3347511713` | `ca-app-pub-3940256099942544/9214589741` | `ca-app-pub-3940256099942544/2247696110` | `ca-app-pub-3940256099942544/1033173712` | `ca-app-pub-3940256099942544/9257395921` |
-| Release | `ca-app-pub-7742442202074564~2488993156` | `ca-app-pub-7742442202074564/5574321499` | `ca-app-pub-7742442202074564/8690760808` | `ca-app-pub-7742442202074564/1251933104` | `ca-app-pub-7742442202074564/6620644008` |
+| Build | AdMob App ID | Banner ID (top, bottom, inline) | Native ID | History-exit interstitial ID | Workflow-completion interstitial ID | App-open ID |
+| --- | --- | --- | --- | --- | --- | --- |
+| Debug/test | `ca-app-pub-3940256099942544~3347511713` | `ca-app-pub-3940256099942544/9214589741` | `ca-app-pub-3940256099942544/2247696110` | `ca-app-pub-3940256099942544/1033173712` | `ca-app-pub-3940256099942544/1033173712` | `ca-app-pub-3940256099942544/9257395921` |
+| Release | `ca-app-pub-7742442202074564~2488993156` | `ca-app-pub-7742442202074564/5574321499` | `ca-app-pub-7742442202074564/8690760808` | `ca-app-pub-7742442202074564/1251933104` | `ca-app-pub-7742442202074564/1251933104` | `ca-app-pub-7742442202074564/6620644008` |
 
 The canonical declarations are centralized in `app/build.gradle.kts` and exposed through generated `BuildConfig` fields. The AdMob App ID is also supplied to the SDK manifest metadata.
 
@@ -44,3 +44,13 @@ The app includes an offline `BackgroundRemovalRepository` implementation using O
 The U2-NetP model's pinned public artifact, checksum, redistribution chain,
 tensor contract, and included license notices are documented in
 `legal/MODEL_PROVENANCE.md`.
+
+## Localization
+
+The searchable in-app language selector is generated from packaged resources
+and currently exposes 26 language or regional options including English, plus
+System Default. Validate translated resources with:
+
+```bash
+python3 tools/check_localizations.py
+```

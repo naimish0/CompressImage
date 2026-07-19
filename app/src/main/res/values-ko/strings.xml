@@ -45,8 +45,8 @@
     <string name="remove_image">%1$s 제거</string>
     <string name="image_preview">%1$s 이미지 미리보기</string>
     <string name="preview_and_configure">미리보기 및 설정</string>
-    <string name="home_intro">이미지 하나를 압축하거나 여러 이미지를 압축하거나 배경을 제거하세요.</string>
-    <string name="home_formats_privacy">JPG, PNG 또는 WEBP를 선택하세요. 이미지는 공유하거나 저장하지 않는 한 로컬에 그대로 남습니다.</string>
+    <string name="home_intro">이미지를 압축하고, 크기와 형식을 변경하고, 배경을 제거하세요.</string>
+    <string name="home_formats_privacy">이미지 한 장 또는 여러 장을 처리하세요. 목표 용량을 설정하고 JPG, PNG 또는 WEBP로 내보내세요. 모든 작업은 기기에서 이루어집니다.</string>
     <string name="reading_image_details">이미지 세부 정보 읽는 중</string>
     <string name="selected_images_heading">선택한 이미지</string>
     <string name="count">개수</string>
@@ -183,7 +183,7 @@
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="privacy_choices">개인정보 선택</string>
     <string name="advertising">광고</string>
-    <string name="settings_ads_placement">이 앱은 Google AdMob 배너, 네이티브, 전면 광고 및 앱 오픈 광고를 사용합니다. 인터스티셜은 히스토리가 열릴 때와 저장, 공유 또는 열기 직전에 표시될 수 있습니다. 현재 임계값은 이전의 성공적인 동작을 요구하지 않습니다.</string>
+    <string name="settings_ads_placement">이 앱은 Google AdMob 배너, 네이티브, 전면 광고 및 앱 오픈 광고를 사용합니다. 네이티브 광고는 홈, 기록 및 표시 요건을 충족하는 완료된 일괄 작업 요약의 끝에 표시될 수 있으며, 기록에는 상단 및 하단 배너 광고도 표시될 수 있습니다. 사용자가 뒤로 가기로 의미 있는 기록 세션을 종료할 때 다음 화면이 나타나기 전에 인터스티셜 광고가 표시될 수 있고, 이미지 워크플로가 성공적으로 결과에 도달한 후에도 표시될 수 있으며, 첫 번째 표시 대상 기회에도 광고가 표시될 수 있습니다. 열기, 공유, 제거, 기록 지우기 및 저장 작업은 인터스티셜 광고로 인해 차단되지 않습니다.</string>
     <string name="settings_ads_lifecycle">인터스티셜이 표시된 후에는 최소 3분 동안 다른 인터스티셜이 차단되며, 앱 프로세스 세션당 최대 3개의 인터스티셜이 허용됩니다. 이러한 제한은 앱 열기 광고에는 적용되지 않으며, 로딩 후 포그라운드로 돌아올 때 나타날 수 있습니다. 전체 화면 광고는 활성 이미지 처리 중에는 억제되며, 광고가 없을 경우 요청된 동작이 계속 진행됩니다.</string>
     <string name="settings_background_model">배경 제거는 번들된 ONNX U2-NetP 모델과 함께 오프라인에서 실행됩니다. 이미지는 기기 내에서 처리되며 이 기능을 통해 업로드되지 않습니다.</string>
     <string name="open_source_notices">오픈 소스 고지는 앱과 함께 패키지됩니다.</string>
@@ -195,7 +195,7 @@
     <string name="policy_local_history_title">로컬 히스토리 및 보존</string>
     <string name="policy_local_history_body">앱은 소스 및 출력 참조, 이름, 유형, 크기, 치수, 포맷, 작업 및 압축 세부 정보, 결과 또는 경고 정보, 저장된 출력 참조, 타임스탬프를 포함하여 앱 전용 DataStore에 최대 200개의 기록을 보관합니다. 이 DataStore는 구성된 클라우드 백업 및 기기 전송에서 제외됩니다. 임시 출력이 캐시에 남아 있을 수 있습니다. 항목을 제거하거나 기록 지우기를 사용하면 해당 기록이 제거되며 참조된 앱 소유 임시 출력만 삭제를 시도합니다. 기록 지우기는 갤러리 이미지를 삭제하지 않으며, 고아 캐시 파일 삭제를 보장하지 않으며, 지속된 소스 읽기 권한을 해제하지 않습니다. Android 캐시 지우기는 임시 파일을 제거할 수 있으며; 저장소 지우기는 앱 로컬 기록과 캐시를 제거합니다. 갤러리나 파일 관리자를 통해 저장된 이미지를 삭제하세요. 이 앱에는 사용자 계정이 없습니다.</string>
     <string name="policy_advertising_consent_title">광고 및 동의</string>
-    <string name="policy_advertising_consent_body">Google AdMob 배너, 네이티브, 전면, 앱 오픈 광고를 제공합니다. 인터스티셜 광고는 히스토리를 열었을 때와 저장, 공유 또는 열기 직전에 표시될 수 있으며, 이전에 성공적인 액션이 필요하지 않습니다. 한 번 표시된 후에는 최소 3분 동안 다른 광고가 차단되며, 앱 프로세스 세션당 최대 세 번까지 가능합니다. 이러한 제한은 앱 오픈 광고에는 적용되지 않으며, 로딩 후 포그라운드 복귀 시 나타날 수 있습니다. Google Mobile Ads SDK 25.4.0은 IP 기반의 대략적인 위치, 앱 실행, 탭, 광고 또는 동영상 시청과 같은 제품 상호작용, 앱 실행 시간, 정지율, 에너지 사용량과 같은 진단 정보, 그리고 Advertising ID 및 App Set ID과 같은 기기 또는 계정 식별자를 자동으로 수집하고 공유합니다. Google은 광고 또는 마케팅, 분석, 사기 방지, 보안 및 규정 준수를 위해 이러한 데이터를 사용하며, SDK 데이터를 전송 중에 TLS를 사용하여 암호화한다고 명시합니다. User Messaging Platform SDK 4.0.0은 동의 정보를 요청하며, Google에서 필요하다고 보고할 때 동의 또는 개인정보 선택 양식을 표시합니다. 핵심 이미지 처리는 개인화 광고 동의 없이, 광고가 없거나 기기가 오프라인일 때도 작동합니다.</string>
+    <string name="policy_advertising_consent_body">Google AdMob 배너, 네이티브, 전면, 앱 오픈 광고를 제공합니다. 네이티브 광고는 홈, 기록 및 표시 요건을 충족하는 완료된 일괄 작업 요약의 끝에 표시될 수 있으며, 기록에는 상단 및 하단 배너 광고도 표시될 수 있습니다. 사용자가 뒤로 가기로 의미 있는 기록 세션을 종료할 때 다음 화면이 나타나기 전에 인터스티셜 광고가 표시될 수 있고, 이미지 워크플로가 성공적으로 결과에 도달한 후에도 표시될 수 있으며, 첫 번째 표시 대상 기회에도 광고가 표시될 수 있습니다. 열기, 공유, 제거, 기록 지우기 및 저장 작업은 인터스티셜 광고로 인해 차단되지 않습니다. 한 번 표시된 후에는 최소 3분 동안 다른 광고가 차단되며, 앱 프로세스 세션당 최대 세 번까지 가능합니다. 이러한 제한은 앱 오픈 광고에는 적용되지 않으며, 로딩 후 포그라운드 복귀 시 나타날 수 있습니다. Google Mobile Ads SDK 25.4.0은 IP 기반의 대략적인 위치, 앱 실행, 탭, 광고 또는 동영상 시청과 같은 제품 상호작용, 앱 실행 시간, 정지율, 에너지 사용량과 같은 진단 정보, 그리고 Advertising ID 및 App Set ID과 같은 기기 또는 계정 식별자를 자동으로 수집하고 공유합니다. Google은 광고 또는 마케팅, 분석, 사기 방지, 보안 및 규정 준수를 위해 이러한 데이터를 사용하며, SDK 데이터를 전송 중에 TLS를 사용하여 암호화한다고 명시합니다. User Messaging Platform SDK 4.0.0은 동의 정보를 요청하며, Google에서 필요하다고 보고할 때 동의 또는 개인정보 선택 양식을 표시합니다. 핵심 이미지 처리는 개인화 광고 동의 없이, 광고가 없거나 기기가 오프라인일 때도 작동합니다.</string>
     <string name="policy_background_removal_title">배경 제거</string>
     <string name="policy_background_removal_body">배경 제거는 번들로 제공된 U2-NetP ONNX 모델과 ONNX Runtime를 기기에서 완전히 사용합니다. 앱 코드는 이 기능을 위해 원격 모델을 다운로드하거나 이미지를 업로드하지 않습니다.</string>
     <string name="policy_children_title">아동</string>

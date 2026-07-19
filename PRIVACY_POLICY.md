@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Effective date: July 19, 2026
+Effective date: July 20, 2026
 App: Photo Compressor
 
 > **Publisher action required before release**
@@ -90,21 +90,39 @@ There is no app account and therefore no account-deletion process.
 The release configuration uses Google AdMob through Google Mobile Ads SDK
 25.4.0. The app implements banner, native, interstitial, and app-open ad formats.
 
-- Banner ads may appear in eligible content areas, and native ads may appear in
-  eligible inline placements.
-- Interstitial ads are eligible when History is opened and immediately before
-  Save, Share, or Open actions. The current successful-action threshold is zero,
-  so no previously completed workflow is required for the first eligible
-  interstitial opportunity.
+- Banner-ad opportunities may appear at both the top and bottom of Home, batch
+  progress, result, background-removal, and History screens. The editor and
+  Settings screens can show a bottom banner. Home and result screens can also
+  show an additional inline banner opportunity. One inline native-ad
+  opportunity can appear on Home, one can appear in History after the first
+  item or below the empty state, and one can appear as the final inline item
+  after the substantive per-image results in an eligible completed batch
+  summary. That placement requires a stable, non-cancelled summary with at
+  least three result rows and at least one successful item. It is excluded from
+  active, short, all-failed, and cancelled batches and is hidden while a
+  full-screen ad is visible. The custom native layout displays localized ad
+  attribution and AdChoices.
+- Interstitial ads may appear when the user presses Back from loaded, non-empty
+  History content after engaging with that session by scrolling the list or
+  interacting with a History item, and at completed-workflow transitions after
+  a successful result is available. An eligible loaded History interstitial is
+  shown before pop/navigation while History remains visible, and Back
+  navigation continues from the ad's completion callback. History entry,
+  populated enter-and-immediate-Back, and empty, loading, or error exits do not
+  offer this interstitial. Open, Share, Remove, Clear History, and Save actions
+  themselves remain direct and are not gated by interstitial ads.
 - Once an interstitial reports that it has been shown, another interstitial is
   blocked for at least three minutes. No more than three interstitials are shown
-  per app-process session.
+  per app-process session across the History-exit and workflow-completion
+  placements.
 - App-open ads may appear on a foreground return after an ad has loaded and the
   current consent and full-screen eligibility checks pass. The three-minute and
-  three-per-session interstitial limits do not apply to app-open ads.
-- A requested image action continues if an interstitial is unavailable or fails
-  to display. Full-screen ads are suppressed while the app marks image
-  processing as active.
+  three-per-session interstitial limits do not apply to app-open ads. The
+  current implementation does not impose a separate minimum background time,
+  app-open cooldown, or per-session app-open cap.
+- History Back navigation and result navigation continue if their optional
+  interstitial is unavailable or fails to display. Full-screen ads are
+  suppressed while the app marks image processing as active.
 
 Core image processing remains usable if ads fail to load, the device is
 offline, or personalized-ad consent is not given.
@@ -170,11 +188,23 @@ in `legal/`; that focused notice is not an exhaustive dependency inventory.
 ## Children
 
 Photo Compressor is a general-purpose utility and is not directed to children
-under 13. The automatic Google advertising-SDK practices described above apply
-whenever the SDK is allowed to request ads. The publisher must configure the
-Google Play target-audience and advertising settings consistently with this
-statement and must reassess the implementation and policy before offering the
-app to a child-directed audience.
+under 13. This statement does not treat every person aged 13 or older as an
+adult: the definition of a child varies by country, region, and applicable law,
+and Google Play target-age selections can trigger Families requirements. The
+automatic Google advertising-SDK practices described above apply whenever the
+SDK is allowed to request ads. The publisher must configure the Google Play
+target-audience and advertising settings consistently with the actual intended
+audience and must reassess the implementation and policy before including any
+audience treated as children under applicable law or serving ads to children or
+users of unknown age in a mixed-audience app. The current implementation does
+not provide a neutral age screen or child-directed/under-age ad-request
+treatment and includes app-open ads, so it must not be represented as ready for
+a child or mixed audience without a separate Families-compliance review and
+implementation update. In particular, an eligible completed Progress screen
+can contain top and bottom banners plus the final inline native placement;
+Families treatment prohibits multiple ad placements on a page when ads are
+served to children or users of unknown age. The publisher must confirm the
+target-audience selection and resulting ad treatment before release.
 
 ## Changes
 

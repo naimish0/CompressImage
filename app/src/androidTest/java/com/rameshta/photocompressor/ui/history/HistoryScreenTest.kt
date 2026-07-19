@@ -16,6 +16,7 @@ import com.rameshta.photocompressor.ui.uiText
 import com.rameshta.photocompressor.ui.theme.CompressImageTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,21 +38,32 @@ class HistoryScreenTest {
 
     @Test
     fun emptyStateRendersVisibleHistoryUi() {
-        setHistoryContent(HistoryUiState.Empty)
+        val adController = RecordingNoAdsBannerAdController()
+
+        setHistoryContent(HistoryUiState.Empty, adController)
 
         composeRule.onNodeWithText("History").assertIsDisplayed()
         composeRule.onNodeWithText("No processed images yet.").assertIsDisplayed()
+        composeRule.runOnIdle {
+            assertTrue(adController.requestedBannerPlacements.contains(BannerPlacement.TOP))
+            assertTrue(adController.requestedBannerPlacements.contains(BannerPlacement.BOTTOM))
+            assertTrue(adController.nativeEligibilityChecks > 0)
+        }
     }
 
     @Test
     fun contentStateRendersVisibleHistoryUi() {
         val item = processedImage("history-item")
+        val adController = RecordingNoAdsBannerAdController()
 
-        setHistoryContent(HistoryUiState.Content(listOf(item)))
+        setHistoryContent(HistoryUiState.Content(listOf(item)), adController)
 
         composeRule.onNodeWithText("History").assertIsDisplayed()
         composeRule.onNodeWithText(item.displayName).assertIsDisplayed()
         composeRule.onNodeWithText("Open").assertIsDisplayed()
+        composeRule.runOnIdle {
+            assertTrue(adController.nativeEligibilityChecks > 0)
+        }
     }
 
     @Test
@@ -63,12 +75,15 @@ class HistoryScreenTest {
         composeRule.onNodeWithText("Retry").assertIsDisplayed()
     }
 
-    private fun setHistoryContent(state: HistoryUiState) {
+    private fun setHistoryContent(
+        state: HistoryUiState,
+        adController: BannerAdController = bannerAdController,
+    ) {
         composeRule.setContent {
             CompressImageTheme {
                 HistoryScreen(
                     state = state,
-                    bannerAdController = bannerAdController,
+                    bannerAdController = adController,
                     fullScreenAdVisible = false,
                     onBack = {},
                     onOpenItem = {},
@@ -80,6 +95,29 @@ class HistoryScreenTest {
             }
         }
     }
+}
+
+private class RecordingNoAdsBannerAdController : BannerAdController {
+    override val uiState: StateFlow<AdsUiState> = MutableStateFlow(AdsUiState())
+    val requestedBannerPlacements = mutableListOf<BannerPlacement>()
+    var nativeEligibilityChecks = 0
+
+    override fun shouldShow(
+        placement: BannerPlacement,
+        state: AdsUiState,
+    ): Boolean {
+        requestedBannerPlacements += placement
+        return false
+    }
+
+    override fun shouldShowNativeAd(state: AdsUiState): Boolean {
+        nativeEligibilityChecks += 1
+        return false
+    }
+
+    override fun adUnitIdFor(placement: BannerPlacement): String = "unused"
+
+    override fun buildAdRequest(): AdRequest = AdRequest.Builder().build()
 }
 
 private class NoAdsBannerAdController : BannerAdController {

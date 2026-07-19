@@ -31,6 +31,7 @@ import com.rameshta.photocompressor.ui.BatchItemStatus
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
 import com.rameshta.photocompressor.ui.components.BatchStatusCard
+import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
 import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumPrimaryButton
@@ -150,9 +151,46 @@ fun BatchProgressScreen(
             items(state.batch.items, key = { it.imageId }) { item ->
                 BatchStatusCard(item = item)
             }
+
+            if (shouldShowBatchCompletionNativeAd(
+                    isRunning = state.batch.isRunning,
+                    hasSummary = state.batch.summary != null,
+                    wasCancelled = state.batch.summary?.cancelled == true,
+                    itemCount = state.batch.items.size,
+                    successfulCount = state.batch.summary?.successful ?: 0,
+                )
+            ) {
+                item(key = "batch-completion-native-ad") {
+                    InlineNativeAdvancedAd(
+                        bannerAdController = bannerAdController,
+                        hidden = fullScreenAdVisible,
+                    )
+                }
+            }
         }
     }
 }
+
+/**
+ * Keeps the native placement out of the actively changing progress flow. It is
+ * eligible only after a non-cancelled batch has a stable, substantive summary,
+ * at the end of the scrollable content where it cannot cover progress or result
+ * actions. Requiring at least three result rows limits ad density because this
+ * screen also contains top and bottom banners.
+ */
+internal fun shouldShowBatchCompletionNativeAd(
+    isRunning: Boolean,
+    hasSummary: Boolean,
+    wasCancelled: Boolean,
+    itemCount: Int,
+    successfulCount: Int,
+): Boolean = !isRunning &&
+    hasSummary &&
+    !wasCancelled &&
+    itemCount >= MIN_NATIVE_AD_RESULT_ITEMS &&
+    successfulCount > 0
+
+private const val MIN_NATIVE_AD_RESULT_ITEMS = 3
 
 @Composable
 private fun localizedPercent(value: Float): String {

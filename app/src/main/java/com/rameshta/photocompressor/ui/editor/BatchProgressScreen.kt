@@ -51,6 +51,8 @@ fun BatchProgressScreen(
     AdScreenScaffold(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
+        showTopBanner = true,
+        showBottomBanner = true,
         hasBottomContent = true,
         topBar = {
             PremiumTopAppBar(

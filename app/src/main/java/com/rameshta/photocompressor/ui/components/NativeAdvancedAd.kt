@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.rameshta.photocompressor.R
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.LoadAdError
@@ -150,7 +151,7 @@ private fun createNativeAdView(context: Context): NativeAdView {
 
     val adBadge = TextView(context).apply {
         includeFontPadding = false
-        text = "Ad"
+        text = context.getString(R.string.ad_label)
         textSize = 11f
         typeface = Typeface.DEFAULT_BOLD
         gravity = Gravity.CENTER

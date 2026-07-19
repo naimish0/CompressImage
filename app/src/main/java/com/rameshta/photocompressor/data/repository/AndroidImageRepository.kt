@@ -1,8 +1,11 @@
 package com.rameshta.photocompressor.data.repository
 
+import android.Manifest
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -15,6 +18,7 @@ import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.scale
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.exifinterface.media.ExifInterface
 import com.rameshta.photocompressor.di.DefaultDispatcher
@@ -48,7 +52,6 @@ import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.ceil
-import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
@@ -63,6 +66,7 @@ class AndroidImageRepository @Inject constructor(
     override suspend fun loadImageInfo(uriString: String): Result<ImageInfo> = withContext(ioDispatcher) {
         runCatching {
             val uri = uriString.toUri()
+            persistReadPermissionIfAvailable(uri)
             val bounds = decodeBounds(uri)
             if (bounds.width <= 0 || bounds.height <= 0) {
                 throw IOException("This file is not a readable image.")
@@ -110,25 +114,29 @@ class AndroidImageRepository @Inject constructor(
             if (!resizeResult.validation.isValid) {
                 throw IOException(resizeResult.validation.message ?: "Invalid output size.")
             }
-            val processingDimension = AdaptiveCompressionPlanner.fitWithin(
-                dimension = outputDimension,
-                maxLongSide = qualityPolicy.maxInitialLongSide,
-            )
+            // A selected output dimension is a contract with the user. Quality policies may
+            // adjust encoder quality, but must not silently cap the initial resolution.
+            val processingDimension = outputDimension
+            val inputUri = image.uriString.toUri()
+            val orientation = readExifOrientation(inputUri)
 
             val decoded = decodeForProcessing(
-                uri = image.uriString.toUri(),
+                uri = inputUri,
                 targetDimension = processingDimension,
+                sourceDimension = Dimension(image.width, image.height),
+                additionalFullSizeBitmaps =
+                    (if (config.outputFormat == ImageFormat.JPEG && image.hasAlpha) 1 else 0) +
+                    (if (targetBytes != null && config.resize.mode != ResizeMode.ORIGINAL) 1 else 0),
+                additionalDecodedBitmap = orientationRequiresTransform(orientation),
             )
             progress(0.18f)
 
-            val oriented = applyExifOrientation(decoded, image.uriString.toUri())
+            val oriented = applyExifOrientation(decoded, orientation)
             working = if (oriented.width != processingDimension.width || oriented.height != processingDimension.height) {
-                val scaleTarget = noUpscaleTarget(oriented, processingDimension)
-                val scaled = if (oriented.width != scaleTarget.width || oriented.height != scaleTarget.height) {
-                    oriented.scale(scaleTarget.width, scaleTarget.height)
-                } else {
-                    oriented
-                }
+                // ResizeCalculator has already rejected a user-requested upscale unless the
+                // toggle is enabled. Always restoring the requested dimensions here also lets a
+                // memory-safe sampled decode produce the correct final dimensions.
+                val scaled = oriented.scale(processingDimension.width, processingDimension.height)
                 if (scaled !== oriented) oriented.recycle()
                 scaled
             } else {
@@ -148,6 +156,7 @@ class AndroidImageRepository @Inject constructor(
                 format = config.outputFormat,
                 targetBytes = targetBytes,
                 policy = qualityPolicy,
+                allowAdaptiveResize = config.resize.mode != ResizeMode.ORIGINAL,
                 progress = { local -> progress(0.35f + local * 0.55f) },
             )
             progress(0.92f)
@@ -181,8 +190,17 @@ class AndroidImageRepository @Inject constructor(
                     targetBytes = targetBytes,
                     encoded = encoded,
                     outputFormat = config.outputFormat,
+                    preservesOriginalDimensions = config.resize.mode == ResizeMode.ORIGINAL,
                 ),
             )
+        }.recoverCatching { error ->
+            if (error is OutOfMemoryError) {
+                throw IOException(
+                    "This image is too large to process safely on this device. Choose a smaller resize percentage.",
+                    error,
+                )
+            }
+            throw error
         }.also {
             working?.recycle()
         }
@@ -256,22 +274,37 @@ class AndroidImageRepository @Inject constructor(
         requestedName: String?,
     ): Result<SavedImage> = withContext(ioDispatcher) {
         runCatching {
+            ensureLegacySavePermission()
             val source = File(image.filePath)
             if (!source.exists()) throw IOException("The processed image is no longer available.")
-            val displayName = requestedName
+            var displayName = requestedName
                 ?.takeIf { it.isNotBlank() }
                 ?.let { OutputFilenameGenerator.ensureExtension(it, image.format) }
                 ?: image.displayName
 
             val values = ContentValues().apply {
-                put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
                 put(MediaStore.Images.Media.MIME_TYPE, image.mimeType)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
                     put(
                         MediaStore.Images.Media.RELATIVE_PATH,
                         Environment.DIRECTORY_PICTURES + File.separator + "Photo Compressor",
                     )
                     put(MediaStore.Images.Media.IS_PENDING, 1)
+                } else {
+                    @Suppress("DEPRECATION")
+                    val directory = File(
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                        "Photo Compressor",
+                    )
+                    if ((!directory.exists() && !directory.mkdirs()) || !directory.isDirectory) {
+                        throw IOException("Could not create the Photo Compressor folder in Pictures.")
+                    }
+                    val destination = uniqueLegacyDestination(directory, displayName, image.format)
+                    displayName = destination.name
+                    put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
+                    @Suppress("DEPRECATION")
+                    put(MediaStore.Images.Media.DATA, destination.absolutePath)
                 }
             }
             val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -317,15 +350,61 @@ class AndroidImageRepository @Inject constructor(
     private fun decodeForProcessing(
         uri: Uri,
         targetDimension: Dimension,
+        sourceDimension: Dimension,
+        additionalFullSizeBitmaps: Int,
+        additionalDecodedBitmap: Boolean,
     ): Bitmap {
-        val bounds = decodeBounds(uri)
+        val sampleSize = memorySafeSampleSize(
+            sourceDimension = sourceDimension,
+            targetDimension = targetDimension,
+            additionalFullSizeBitmaps = additionalFullSizeBitmaps,
+            additionalDecodedBitmap = additionalDecodedBitmap,
+        )
         val options = BitmapFactory.Options().apply {
             inPreferredConfig = Bitmap.Config.ARGB_8888
-            inSampleSize = calculateInSampleSize(bounds.width, bounds.height, targetDimension.width, targetDimension.height)
+            inSampleSize = sampleSize
         }
         return openImageInputStream(uri).use { input ->
             BitmapFactory.decodeStream(input, null, options)
         } ?: throw IOException("This image could not be decoded.")
+    }
+
+    private fun memorySafeSampleSize(
+        sourceDimension: Dimension,
+        targetDimension: Dimension,
+        additionalFullSizeBitmaps: Int,
+        additionalDecodedBitmap: Boolean,
+    ): Int {
+        var sampleSize = calculateInSampleSize(
+            width = sourceDimension.width,
+            height = sourceDimension.height,
+            requestedWidth = targetDimension.width,
+            requestedHeight = targetDimension.height,
+        )
+        val memoryBudget = imageMemoryBudgetBytes()
+
+        while (sampleSize <= MAX_DECODE_SAMPLE_SIZE) {
+            val decoded = Dimension(
+                width = ceil(sourceDimension.width.toDouble() / sampleSize).toInt().coerceAtLeast(1),
+                height = ceil(sourceDimension.height.toDouble() / sampleSize).toInt().coerceAtLeast(1),
+            )
+            val decodedBytes = bitmapAllocationBytes(decoded)
+            val outputBytes = bitmapAllocationBytes(targetDimension)
+            val decodePeak = decodedBytes * if (additionalDecodedBitmap) 2 else 1
+            val scalePeak = if (decoded == targetDimension) decodedBytes else decodedBytes + outputBytes
+            // Transparency flattening and adaptive resizing happen in separate phases, so at
+            // most one additional full-size output bitmap is live alongside the current output.
+            val outputPhasePeak = outputBytes * if (additionalFullSizeBitmaps > 0) 2 else 1
+            val estimatedPeak = maxOf(decodePeak, scalePeak, outputPhasePeak)
+            if (estimatedPeak <= memoryBudget) return sampleSize
+
+            sampleSize *= 2
+        }
+
+        throw IOException(
+            "${targetDimension.width} x ${targetDimension.height} is too large to process safely on this device. " +
+                "Choose a smaller resize percentage.",
+        )
     }
 
     private fun calculateInSampleSize(
@@ -345,8 +424,7 @@ class AndroidImageRepository @Inject constructor(
         return sampleSize.coerceAtLeast(1)
     }
 
-    private fun applyExifOrientation(bitmap: Bitmap, uri: Uri): Bitmap {
-        val orientation = readExifOrientation(uri)
+    private fun applyExifOrientation(bitmap: Bitmap, orientation: Int): Bitmap {
         val matrix = Matrix()
         when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
@@ -367,6 +445,11 @@ class AndroidImageRepository @Inject constructor(
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true).also {
             if (it !== bitmap) bitmap.recycle()
         }
+    }
+
+    private fun orientationRequiresTransform(orientation: Int): Boolean {
+        return orientation != ExifInterface.ORIENTATION_NORMAL &&
+            orientation != ExifInterface.ORIENTATION_UNDEFINED
     }
 
     private fun readExifOrientation(uri: Uri): Int {
@@ -429,6 +512,7 @@ class AndroidImageRepository @Inject constructor(
         format: ImageFormat,
         targetBytes: Long?,
         policy: com.rameshta.photocompressor.util.CompressionQualityPolicy,
+        allowAdaptiveResize: Boolean,
         progress: (Float) -> Unit,
     ): EncodedImage {
         if (targetBytes == null) {
@@ -442,6 +526,22 @@ class AndroidImageRepository @Inject constructor(
             )
         }
 
+        if (!allowAdaptiveResize) {
+            val encoded = if (format == ImageFormat.PNG) {
+                val bytes = encodeBitmap(bitmap, format, 100)
+                EncodedImage(
+                    bytes = bytes,
+                    quality = null,
+                    scaleSteps = 0,
+                    targetReached = AdaptiveCompressionPlanner.targetReached(bytes.size.toLong(), targetBytes),
+                )
+            } else {
+                binarySearchQuality(bitmap, format, targetBytes, policy)
+            }
+            progress(1f)
+            return encoded
+        }
+
         if (format == ImageFormat.PNG) {
             return encodePngWithProgressiveResize(bitmap, targetBytes, policy, progress)
         }
@@ -452,26 +552,29 @@ class AndroidImageRepository @Inject constructor(
         var best = binarySearchQuality(current, format, targetBytes, policy)
         progress(0.2f)
 
-        while (best.targetReached != true && scaleSteps < policy.maxResizeSteps) {
-            currentCoroutineContext().ensureActive()
-            val nextDimension = AdaptiveCompressionPlanner.nextReducedDimension(
-                dimension = Dimension(current.width, current.height),
-                resizeFactor = policy.resizeFactor,
-                minShortSide = policy.minOutputShortSide,
-            ) ?: break
-            val scaled = current.scale(nextDimension.width, nextDimension.height)
-            if (ownsCurrent) current.recycle()
-            current = scaled
-            ownsCurrent = true
-            scaleSteps += 1
-            val candidate = binarySearchQuality(current, format, targetBytes, policy)
-            if (candidate.targetReached == true || candidate.bytes.size < best.bytes.size) {
-                best = candidate
+        try {
+            while (best.targetReached != true && scaleSteps < policy.maxResizeSteps) {
+                currentCoroutineContext().ensureActive()
+                val nextDimension = AdaptiveCompressionPlanner.nextReducedDimension(
+                    dimension = Dimension(current.width, current.height),
+                    resizeFactor = policy.resizeFactor,
+                    minShortSide = policy.minOutputShortSide,
+                ) ?: break
+                val scaled = current.scale(nextDimension.width, nextDimension.height)
+                current.recycle()
+                current = scaled
+                ownsCurrent = true
+                scaleSteps += 1
+                val candidate = binarySearchQuality(current, format, targetBytes, policy)
+                if (candidate.targetReached == true || candidate.bytes.size < best.bytes.size) {
+                    best = candidate
+                }
+                progress(0.2f + (scaleSteps / policy.maxResizeSteps.toFloat()) * 0.75f)
             }
-            progress(0.2f + (scaleSteps / policy.maxResizeSteps.toFloat()) * 0.75f)
+        } finally {
+            if (ownsCurrent) current.recycle()
         }
 
-        if (ownsCurrent) current.recycle()
         progress(1f)
         return best.copy(scaleSteps = scaleSteps)
     }
@@ -486,25 +589,28 @@ class AndroidImageRepository @Inject constructor(
         var ownsCurrent = false
         var bestBytes = encodeBitmap(current, ImageFormat.PNG, 100)
         var steps = 0
-        while (!AdaptiveCompressionPlanner.targetReached(bestBytes.size.toLong(), targetBytes) && steps < policy.maxResizeSteps) {
-            currentCoroutineContext().ensureActive()
-            val nextDimension = AdaptiveCompressionPlanner.nextReducedDimension(
-                dimension = Dimension(current.width, current.height),
-                resizeFactor = policy.resizeFactor,
-                minShortSide = policy.minOutputShortSide,
-            ) ?: break
-            val scaled = current.scale(nextDimension.width, nextDimension.height)
-            if (ownsCurrent) current.recycle()
-            current = scaled
-            ownsCurrent = true
-            val bytes = encodeBitmap(current, ImageFormat.PNG, 100)
-            if (bytes.size < bestBytes.size) {
-                bestBytes = bytes
+        try {
+            while (!AdaptiveCompressionPlanner.targetReached(bestBytes.size.toLong(), targetBytes) && steps < policy.maxResizeSteps) {
+                currentCoroutineContext().ensureActive()
+                val nextDimension = AdaptiveCompressionPlanner.nextReducedDimension(
+                    dimension = Dimension(current.width, current.height),
+                    resizeFactor = policy.resizeFactor,
+                    minShortSide = policy.minOutputShortSide,
+                ) ?: break
+                val scaled = current.scale(nextDimension.width, nextDimension.height)
+                current.recycle()
+                current = scaled
+                ownsCurrent = true
+                val bytes = encodeBitmap(current, ImageFormat.PNG, 100)
+                if (bytes.size < bestBytes.size) {
+                    bestBytes = bytes
+                }
+                steps += 1
+                progress((steps / policy.maxResizeSteps.toFloat()).coerceIn(0f, 1f))
             }
-            steps += 1
-            progress((steps / policy.maxResizeSteps.toFloat()).coerceIn(0f, 1f))
+        } finally {
+            if (ownsCurrent) current.recycle()
         }
-        if (ownsCurrent) current.recycle()
         progress(1f)
         return EncodedImage(
             bytes = bestBytes,
@@ -569,17 +675,30 @@ class AndroidImageRepository @Inject constructor(
         targetBytes: Long?,
         encoded: EncodedImage,
         outputFormat: ImageFormat,
+        preservesOriginalDimensions: Boolean,
     ): String? {
         if (targetBytes == null) return null
         if (outputFormat == ImageFormat.PNG) {
             return if (encoded.targetReached == true) {
-                "PNG is lossless, so size reduction was performed through safe resizing."
+                if (preservesOriginalDimensions) {
+                    "PNG is lossless and the original resolution was preserved."
+                } else {
+                    "PNG is lossless, so size reduction was performed through safe resizing."
+                }
             } else {
-                "PNG is lossless. Best quality result created, but the exact target could not be reached without significant resolution loss."
+                if (preservesOriginalDimensions) {
+                    "PNG is lossless. The original resolution was preserved, so the exact target could not be reached."
+                } else {
+                    "PNG is lossless. Best quality result created, but the exact target could not be reached without significant resolution loss."
+                }
             }
         }
         if (encoded.targetReached != true) {
-            return "Best quality result created. The exact target could not be reached without significant quality loss."
+            return if (preservesOriginalDimensions) {
+                "Original resolution preserved. The exact target could not be reached at an acceptable encoder quality."
+            } else {
+                "Best quality result created. The exact target could not be reached without significant quality loss."
+            }
         }
         if (encoded.quality != null && encoded.scaleSteps >= 4) {
             return "Target reached by reducing resolution while preserving acceptable encoder quality."
@@ -608,10 +727,53 @@ class AndroidImageRepository @Inject constructor(
         return validatedBounds
     }
 
-    private fun noUpscaleTarget(bitmap: Bitmap, targetDimension: Dimension): Dimension {
-        return Dimension(
-            width = min(bitmap.width, targetDimension.width),
-            height = min(bitmap.height, targetDimension.height),
+    private fun persistReadPermissionIfAvailable(uri: Uri) {
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) return
+        runCatching {
+            resolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+    }
+
+    private fun ensureLegacySavePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) return
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            throw IOException("Allow storage access to save images on Android 9 or earlier.")
+        }
+        @Suppress("DEPRECATION")
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
+            throw IOException("Shared storage is unavailable. Check the device storage and try again.")
+        }
+    }
+
+    private fun uniqueLegacyDestination(
+        directory: File,
+        requestedDisplayName: String,
+        format: ImageFormat,
+    ): File {
+        val safeName = OutputFilenameGenerator.ensureExtension(requestedDisplayName, format)
+        val base = safeName.substringBeforeLast('.', safeName)
+        var candidate = File(directory, safeName)
+        var index = 1
+        while (candidate.exists()) {
+            candidate = File(directory, "${base}_$index.${format.extension}")
+            index += 1
+        }
+        return candidate
+    }
+
+    private fun bitmapAllocationBytes(dimension: Dimension): Long {
+        return dimension.width.toLong() * dimension.height.toLong() * ARGB_8888_BYTES_PER_PIXEL
+    }
+
+    private fun imageMemoryBudgetBytes(): Long {
+        val runtime = Runtime.getRuntime()
+        val usedHeap = runtime.totalMemory() - runtime.freeMemory()
+        val unusedHeap = (runtime.maxMemory() - usedHeap).coerceAtLeast(0L)
+        return min(
+            (runtime.maxMemory() * MAX_HEAP_FRACTION_FOR_BITMAPS).toLong(),
+            (unusedHeap * UNUSED_HEAP_FRACTION_FOR_BITMAPS).toLong(),
         )
     }
 
@@ -671,5 +833,9 @@ class AndroidImageRepository @Inject constructor(
 
     private companion object {
         const val TEMP_FILE_TTL_MILLIS = 7L * 24L * 60L * 60L * 1000L
+        const val MAX_DECODE_SAMPLE_SIZE = 1024
+        const val ARGB_8888_BYTES_PER_PIXEL = 4L
+        const val MAX_HEAP_FRACTION_FOR_BITMAPS = 0.65
+        const val UNUSED_HEAP_FRACTION_FOR_BITMAPS = 0.85
     }
 }

@@ -39,7 +39,7 @@ class AppOpenAdManager @Inject constructor(
     private var activeOperation = false
     private var suppressNextForegroundAd = false
     private var hasSeenProcessStart = false
-    private var coldStartShowUntilMs = 0L
+    private var adsShownThisSession = 0
 
     fun register(application: Application) {
         if (registered) return
@@ -79,16 +79,14 @@ class AppOpenAdManager @Inject constructor(
 
     fun suppressNextForegroundAd() {
         suppressNextForegroundAd = true
-        coldStartShowUntilMs = 0L
     }
 
     override fun onStart(owner: LifecycleOwner) {
         val coldStart = !hasSeenProcessStart
         hasSeenProcessStart = true
-        if (coldStart) {
-            coldStartShowUntilMs = SystemClock.elapsedRealtime() + COLD_START_SHOW_WINDOW_MS
-        }
-        showIfEligible(coldStart)
+        val backgroundedAt = backgroundedAtMs
+        backgroundedAtMs = null
+        showIfEligible(coldStart = coldStart, backgroundedAt = backgroundedAt)
     }
 
     override fun onStop(owner: LifecycleOwner) {
@@ -117,28 +115,26 @@ class AppOpenAdManager @Inject constructor(
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
 
-    private fun showIfEligible(coldStart: Boolean) {
+    private fun showIfEligible(
+        coldStart: Boolean,
+        backgroundedAt: Long?,
+    ) {
         if (!canRequestAppOpenAd()) return
+        val now = SystemClock.elapsedRealtime()
+        if (suppressNextForegroundAd) {
+            suppressNextForegroundAd = false
+            loadAdIfPossible()
+            return
+        }
+        if (fullscreenAdCoordinator.consumeAppOpenSuppression()) {
+            loadAdIfPossible()
+            return
+        }
         if (!isAdAvailable()) {
             loadAdIfPossible()
             return
         }
-        val now = SystemClock.elapsedRealtime()
-        val backgroundDurationMs = backgroundedAtMs?.let { now - it }
-        if (!coldStart && (backgroundDurationMs == null || backgroundDurationMs < MIN_BACKGROUND_DURATION_MS)) {
-            loadAdIfPossible()
-            return
-        }
-        if (coldStart && now > coldStartShowUntilMs) {
-            return
-        }
-        if (now - lastShownAtMs < APP_OPEN_COOLDOWN_MS) return
         if (activeOperation || consentManager.state.value.requestInProgress) return
-        if (suppressNextForegroundAd) {
-            suppressNextForegroundAd = false
-            return
-        }
-        if (fullscreenAdCoordinator.consumeAppOpenSuppression()) return
         if (fullscreenAdCoordinator.recentlyFinishedFullscreenAd(FULLSCREEN_AD_RETURN_SUPPRESSION_MS)) return
         if (fullscreenAdCoordinator.isShowing.value || isShowingAd) return
 
@@ -148,11 +144,11 @@ class AppOpenAdManager @Inject constructor(
 
         appOpenAd = null
         loadTimeMs = 0L
-        coldStartShowUntilMs = 0L
         isShowingAd = true
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdShowedFullScreenContent() {
                 lastShownAtMs = SystemClock.elapsedRealtime()
+                adsShownThisSession += 1
                 logDebug("App Open ad shown.")
             }
 
@@ -220,9 +216,6 @@ class AppOpenAdManager @Inject constructor(
     }
 
     companion object {
-        const val MIN_BACKGROUND_DURATION_MS = 0L
-        const val APP_OPEN_COOLDOWN_MS = 0L
-        private const val COLD_START_SHOW_WINDOW_MS = 30_000L
         private const val FULLSCREEN_AD_RETURN_SUPPRESSION_MS = 3_000L
         private const val AD_MAX_AGE_MS = 4 * 60 * 60_000L
         private const val GOOGLE_AD_ACTIVITY_PREFIX = "com.google.android.gms.ads"

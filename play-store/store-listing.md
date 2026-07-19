@@ -3,13 +3,14 @@
 ## Assets
 
 App icon:
-`play-store/assets/app-icon-512.png`
+`play-store/assets/app-icon-512.png` — 512 x 512, 32-bit RGBA PNG.
 
 Feature graphic:
-`play-store/assets/feature-graphic-1024x500.png`
+`play-store/assets/feature-graphic-1024x500.png` — 1024 x 500, 24-bit RGB PNG.
 
 Phone screenshots to upload:
-`play-store/upload-phone-screenshots/`
+`play-store/upload-phone-screenshots/` — eight 1560 x 3120, 24-bit RGB PNGs
+with a 1:2 aspect ratio. The narrow side padding preserves the complete app UI.
 
 ## Short Description
 
@@ -39,8 +40,10 @@ Photo Compressor is built for quick everyday image cleanup, smaller sharing file
 
 ## Privacy Policy URL
 
-TODO before publishing:
-Host the finalized `PRIVACY_POLICY.md` at a public HTTPS URL and paste that URL into Play Console.
+Publisher-provided information is still required before publishing. Finalize and
+host `PRIVACY_POLICY.md` at a public HTTPS URL, then paste that URL into Play
+Console. A repository review cannot supply the publisher's legal identity,
+support contact, effective date, target-audience decision, or hosted URL.
 
 Current local draft:
 `PRIVACY_POLICY.md`

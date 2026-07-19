@@ -8,6 +8,8 @@ interface InterstitialAdManager {
 
     fun preload(placement: InterstitialPlacement? = null)
 
+    fun recordSuccessfulAction()
+
     fun canShow(placement: InterstitialPlacement): Boolean
 
     fun show(
@@ -15,4 +17,5 @@ interface InterstitialAdManager {
         placement: InterstitialPlacement,
         onFinished: () -> Unit,
     )
+
 }

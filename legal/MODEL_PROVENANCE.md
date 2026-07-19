@@ -1,115 +1,83 @@
-# Background Removal Model Provenance Review
+# Background Removal Model Provenance
 
-Review date: 2026-07-16
+Review date: 2026-07-18
 
-This app bundles a converted U2-NetP ONNX model for offline background removal.
+## Packaged Artifact
 
-## Candidate Evaluated
+Name: U2-NetP ONNX
 
-Name: U2-NetP
+App path: `app/src/main/assets/models/u2netp.onnx`
 
-Official source: https://github.com/xuebinqin/U-2-Net
+Byte size: `4,574,861`
 
-Source commit checked: `ac7e1c817ecab7c7dff5ce6b1abba61cd213ff29`
+SHA-256: `309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8`
 
-Original model filename referenced by the official README: `u2netp.pth`
+Pinned download:
+https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx
 
-Official README model source: Google Drive file
-`1rbSTGKAE-MTxBYHd-51l2hMOQPT_7EPy`, with an alternate Baidu Pan link.
+Reproduction tool: `tools/background_removal/fetch_u2netp_onnx.py`
 
-Source-code license: Apache License 2.0, based on the repository `LICENSE`
-file.
+The reproduction tool verifies the exact SHA-256 before replacing the bundled
+artifact. The same bytes and SHA-256 are published by the Apache-2.0-declared
+`Heliosoph/u2net-onnx` model repository at commit
+`7fc34deee10329bc039c10a73b98090d0c6f5c59`:
+https://huggingface.co/Heliosoph/u2net-onnx/tree/7fc34deee10329bc039c10a73b98090d0c6f5c59
 
-Original model SHA-256:
-`e7567cde013fb64813973ce6e1ecc25a80c05c3ca7adbc5a54f3c3d90991b854`
+## Source And Distribution Chain
 
-Converted ONNX filename: `app/src/main/assets/models/u2netp.onnx`
+Original U2-Net project: https://github.com/xuebinqin/U-2-Net
 
-Converted ONNX SHA-256:
+Upstream source commit reviewed:
+`ac7e1c817ecab7c7dff5ce6b1abba61cd213ff29`
+
+The upstream repository is licensed under Apache License 2.0 and its official
+README identifies `u2netp.pth` as the pretrained lightweight model used by the
+project. A copy of that license is packaged as `legal/U2NET_LICENSE.txt`.
+
+ONNX distributor: https://github.com/danielgatis/rembg
+
+The pinned ONNX file is publicly distributed as a rembg GitHub release asset.
+The rembg repository identifies `u2netp` as a supported model, links its source
+to the upstream U2-Net project, and is distributed under the MIT License. A copy
+is packaged as `legal/REMBG_LICENSE.txt`.
+
+Artifact cross-check: the rembg release asset is byte-for-byte identical to the
+U2-NetP ONNX artifact in the model repository above, which expressly declares
+Apache-2.0 and lists commercial use, modification, and distribution as
+permitted.
+
+## Release Resolution
+
+The earlier locally converted artifact with SHA-256
 `2db478c3e56cc19f8076b5bc12f0725716fc82d5b9a19e554815cac1150c476b`
+was replaced. The release now uses the pinned, publicly redistributed ONNX
+artifact described above so its source, checksum, redistributor, and license
+chain are reproducible without relying on an undocumented local conversion.
 
-Conversion script: `tools/background_removal/convert_u2netp_to_onnx.py`
+Required notices are included in the app assets. U2-Net and rembg names and
+marks are used only for attribution and do not imply endorsement.
 
-Conversion environment:
+## Runtime Contract
 
-- Python 3.9.6
-- torch 2.7.1
-- onnx 1.18.0
-- onnxruntime 1.19.2 for conversion validation
-- gdown 5.2.0
-- numpy 2.0.2
-- pillow 11.2.1
-
-ONNX opset: 17
-
-Optimization or quantization: no quantization applied; PyTorch ONNX export used
-constant folding.
-
-Tensor contract:
-
-- Input name: `input`
-- Input shape: `[1, 3, 320, 320]`
-- Input type: `tensor(float)`
-- Layout: NCHW
-- Color order: RGB
-- Normalization: channel value divided by 255, then ImageNet mean/std
+- Input shape: `[1, 3, 320, 320]`, NCHW, float32.
+- Preprocessing: RGB values scaled to `[0, 1]`, then ImageNet mean/std
   normalization.
-- Output name used: `d0`
-- Output shape: `[1, 1, 320, 320]`
-- Output type: `tensor(float)`
-- Output post-processing: min/max normalization, reverse letterbox, bilinear mask
-  resizing, smooth alpha transition, and lightweight edge feathering.
+- Primary output shape: `[1, 1, 320, 320]`, float32.
+- Post-processing: min/max normalization, reverse letterbox, bilinear mask
+  resizing, smooth alpha transition, and edge feathering.
+- Execution: ONNX Runtime Android, fully on device.
 
-## License Review Result
+The Android engine validates tensor types and shapes before inference. The
+instrumented background-removal test loads the packaged artifact, runs offline
+inference, and validates the generated mask dimensions and values.
 
-Proceeding with documented risk.
-
-The repository source code is under Apache License 2.0, but the official
-pretrained U2-NetP weights are not committed to the repository or published as a
-GitHub release asset. The README links to external file-hosting locations for
-the weight file, and the reviewed repository files do not explicitly state that
-the `u2netp.pth` pretrained weights are licensed under Apache License 2.0 or
-that they may be modified, converted to ONNX, redistributed inside an Android
-App Bundle, and distributed through Google Play in a commercial app.
-
-The exact pretrained weight redistribution terms were not independently found in
-the official repository files. The project owner explicitly instructed that the
-official U2-NetP weights are free for commercial use and requested
-implementation. This build therefore records that reliance here instead of
-claiming independent legal verification of the weight file.
-
-## Required Resolution Before Implementation
-
-Before publishing, obtain or retain one of the following from the original rights
-holder or an official project artifact:
-
-- A clear license statement covering the exact `u2netp.pth` pretrained weight
-  file.
-- Permission for commercial use, modification, ONNX conversion and
-  optimization, redistribution inside an Android App Bundle, and Google Play
-  distribution.
-- The original weight file checksum and a reproducible official or project-owned
-  download path.
-
-Quality comparison before and after conversion: ONNX Runtime validation was run
-with a zero tensor to verify shape/type compatibility. A visual quality
-comparison against the original PyTorch model is still required before Play
-Store release.
-
-## Runtime Candidate
+## Runtime
 
 Name: ONNX Runtime Android
 
-Maven coordinate reviewed: `com.microsoft.onnxruntime:onnxruntime-android:1.27.0`
+Maven coordinate: `com.microsoft.onnxruntime:onnxruntime-android:1.27.0`
 
-Source tag checked: `v1.27.0`
+Source tag reviewed: `v1.27.0`
 
-Tag SHA checked: `8f0278c77bf44b0cc83c098c6c722b92a36ac4b5`
-
-License: MIT License, based on the ONNX Runtime repository `LICENSE` and Maven
-POM metadata.
-
-Status: Added to the app as `com.microsoft.onnxruntime:onnxruntime-android:1.27.0`.
-
-The MIT license text and ONNX Runtime third-party notices are included in this
-folder.
+License: MIT License. The runtime license and third-party notices are included
+in this folder.

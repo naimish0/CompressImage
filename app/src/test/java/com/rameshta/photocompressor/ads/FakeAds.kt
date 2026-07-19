@@ -74,6 +74,8 @@ class FakeInterstitialAdManager : InterstitialAdManager {
         preloadCalls += 1
     }
 
+    override fun recordSuccessfulAction() = Unit
+
     override fun canShow(placement: InterstitialPlacement): Boolean = canShow
 
     override fun show(
@@ -84,4 +86,5 @@ class FakeInterstitialAdManager : InterstitialAdManager {
         shownPlacements += placement
         onFinished()
     }
+
 }

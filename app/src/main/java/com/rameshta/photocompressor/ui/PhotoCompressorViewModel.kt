@@ -121,7 +121,6 @@ class PhotoCompressorViewModel @Inject constructor(
         compressionJob?.cancel()
         _uiState.update {
             PhotoCompressorUiState(
-                keepOriginal = it.keepOriginal,
                 history = it.history,
             )
         }
@@ -232,10 +231,6 @@ class PhotoCompressorViewModel @Inject constructor(
         _uiState.update { state ->
             state.copy(config = state.config.copy(jpegBackgroundColor = color))
         }
-    }
-
-    fun updateKeepOriginal(enabled: Boolean) {
-        _uiState.update { it.copy(keepOriginal = enabled) }
     }
 
     fun clearHistory() {
@@ -371,6 +366,22 @@ class PhotoCompressorViewModel @Inject constructor(
         }
     }
 
+    fun cancelPendingSave(requestId: String) {
+        pendingSaveRequests.remove(requestId)
+        _uiState.update { state ->
+            val activeRequestId = (state.pendingAdAction as? PendingAdAction.SaveResult)?.requestId
+            if (activeRequestId != requestId) {
+                state
+            } else {
+                state.copy(
+                    pendingAdAction = PendingAdAction.None,
+                    isSaving = false,
+                    message = LEGACY_STORAGE_PERMISSION_MESSAGE,
+                )
+            }
+        }
+    }
+
     private fun enqueueSaveRequest(request: PendingSaveRequest): String {
         val requestId = UUID.randomUUID().toString()
         pendingSaveRequests[requestId] = request
@@ -378,7 +389,12 @@ class PhotoCompressorViewModel @Inject constructor(
     }
 
     fun consumePendingAdAction() {
-        _uiState.update { it.copy(pendingAdAction = PendingAdAction.None) }
+        _uiState.update { state ->
+            (state.pendingAdAction as? PendingAdAction.SaveResult)?.let { pending ->
+                pendingSaveRequests.remove(pending.requestId)
+            }
+            state.copy(pendingAdAction = PendingAdAction.None)
+        }
     }
 
     fun consumePendingResultNavigation() {
@@ -767,7 +783,6 @@ data class PhotoCompressorUiState(
     val results: List<ProcessedImage> = emptyList(),
     val selectedResultId: String? = null,
     val history: List<ProcessedImage> = emptyList(),
-    val keepOriginal: Boolean = true,
     val isSaving: Boolean = false,
     val backgroundState: BackgroundUiState = BackgroundUiState.Idle,
     val backgroundReplaceProgress: Float? = null,
@@ -908,3 +923,5 @@ private fun ProcessedImage.asSavedHistoryOutput(saved: SavedImage): ProcessedIma
 private const val SAVE_SUCCESS_MESSAGE = "Image saved successfully"
 private const val SAVE_FAILURE_MESSAGE = "Couldn't save image. Please try again."
 private const val HISTORY_FAILURE_MESSAGE = "Image saved, but couldn't update History."
+private const val LEGACY_STORAGE_PERMISSION_MESSAGE =
+    "Storage access is required to save images on Android 9 or earlier."

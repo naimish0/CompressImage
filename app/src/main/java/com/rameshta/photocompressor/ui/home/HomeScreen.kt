@@ -27,8 +27,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.rameshta.photocompressor.ads.BannerAdController
+import com.rameshta.photocompressor.ads.BannerPlacement
 import com.rameshta.photocompressor.ui.PhotoCompressorUiState
 import com.rameshta.photocompressor.ui.components.AdScreenScaffold
+import com.rameshta.photocompressor.ui.components.EmptySpaceBannerAd
 import com.rameshta.photocompressor.ui.components.InlineNativeAdvancedAd
 import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumIconButton
@@ -60,6 +62,7 @@ fun HomeScreen(
     AdScreenScaffold(
         bannerAdController = bannerAdController,
         fullScreenAdVisible = fullScreenAdVisible,
+        showTopBanner = true,
         hasBottomContent = visibleSelectedImages.isNotEmpty(),
         topBar = {
             PremiumTopAppBar(
@@ -133,6 +136,14 @@ fun HomeScreen(
                         )
                     }
                 }
+            }
+
+            item {
+                EmptySpaceBannerAd(
+                    placement = BannerPlacement.HOME_EMPTY_SPACE,
+                    bannerAdController = bannerAdController,
+                    hidden = fullScreenAdVisible,
+                )
             }
 
             item {

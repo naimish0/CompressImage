@@ -26,6 +26,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
@@ -50,8 +52,10 @@ fun PhotoCompressorBanner(
     reserveSpaceWhenFailed: Boolean = false,
     instanceKey: String = placement.name,
 ) {
-    val configuration = LocalConfiguration.current
-    if (hidden || configuration.screenHeightDp < minScreenHeightDp) return
+    val windowInfo = LocalWindowInfo.current
+    val density = LocalDensity.current
+    val screenHeightDp = with(density) { windowInfo.containerSize.height.toDp().value }
+    if (hidden || screenHeightDp < minScreenHeightDp) return
 
     val adsState by bannerAdController.uiState.collectAsStateWithLifecycle()
     if (!bannerAdController.shouldShow(placement, adsState)) return
@@ -200,7 +204,7 @@ fun EmptySpaceBannerAd(
 fun AdScreenScaffold(
     bannerAdController: BannerAdController,
     fullScreenAdVisible: Boolean,
-    showTopBanner: Boolean = true,
+    showTopBanner: Boolean = false,
     showBottomBanner: Boolean = true,
     hasBottomContent: Boolean = false,
     topBar: @Composable () -> Unit = {},

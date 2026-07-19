@@ -173,11 +173,7 @@ class GoogleInterstitialAdManager @Inject constructor(
 
     private fun adUnitIdFor(placement: InterstitialPlacement): String {
         return when (placement) {
-            InterstitialPlacement.HISTORY_OPENED -> configuration.historyInterstitialAdUnitId
-            InterstitialPlacement.SAVE_CLICKED,
-            InterstitialPlacement.SHARE_CLICKED,
-            InterstitialPlacement.OPEN_CLICKED,
-            -> configuration.saveInterstitialAdUnitId
+            InterstitialPlacement.WORKFLOW_COMPLETED -> configuration.historyInterstitialAdUnitId
         }
     }
 

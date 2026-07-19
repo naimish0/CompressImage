@@ -195,7 +195,7 @@ class UtilityTest {
                 policy.isBannerEligible(placement),
             )
         }
-        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_OPENED))
+        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.WORKFLOW_COMPLETED))
     }
 
     @Test

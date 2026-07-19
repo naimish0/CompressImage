@@ -22,9 +22,8 @@ class AdsConfiguration @Inject constructor() {
             bottomBannerAdUnitId.isNotBlank() &&
             historyInterstitialAdUnitId.isNotBlank()
 
-    val nativeAdsEnabled: Boolean = adsEnabled && nativeAdUnitId.isNotBlank()
-
     val appOpenAdsEnabled: Boolean = adsEnabled && appOpenAdUnitId.isNotBlank()
+    val nativeAdsEnabled: Boolean = adsEnabled && nativeAdUnitId.isNotBlank()
 }
 
 data class AdsUiState(

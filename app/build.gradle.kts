@@ -142,7 +142,7 @@ android {
         releaseHistoryInterstitialAdUnitId,
         releaseSaveInterstitialAdUnitId,
         releaseAppOpenAdUnitId,
-        releaseNativeAdUnitId
+        releaseNativeAdUnitId,
     )
     if (releaseAdIds.any { it.contains("ca-app-pub-3940256099942544") }) {
         throw GradleException("Release AdMob properties must not use Google's sample ad IDs.")
@@ -158,10 +158,10 @@ android {
             buildConfigField("String", "TOP_BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
             buildConfigField("String", "BOTTOM_BANNER_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
             buildConfigField("String", "INLINE_AD_UNIT_ID", "\"$testBannerAdUnitId\"")
-            buildConfigField("String", "NATIVE_AD_UNIT_ID", "\"$testNativeAdUnitId\"")
             buildConfigField("String", "HISTORY_INTERSTITIAL_AD_UNIT_ID", "\"$testInterstitialAdUnitId\"")
             buildConfigField("String", "SAVE_INTERSTITIAL_AD_UNIT_ID", "\"$testInterstitialAdUnitId\"")
             buildConfigField("String", "ADMOB_APP_OPEN_AD_UNIT_ID", "\"$testAppOpenAdUnitId\"")
+            buildConfigField("String", "NATIVE_AD_UNIT_ID", "\"$testNativeAdUnitId\"")
         }
         release {
             isMinifyEnabled = true
@@ -173,10 +173,10 @@ android {
             buildConfigField("String", "TOP_BANNER_AD_UNIT_ID", "\"$releaseTopBannerAdUnitId\"")
             buildConfigField("String", "BOTTOM_BANNER_AD_UNIT_ID", "\"$releaseBottomBannerAdUnitId\"")
             buildConfigField("String", "INLINE_AD_UNIT_ID", "\"$releaseInlineAdUnitId\"")
-            buildConfigField("String", "NATIVE_AD_UNIT_ID", "\"$releaseNativeAdUnitId\"")
             buildConfigField("String", "HISTORY_INTERSTITIAL_AD_UNIT_ID", "\"$releaseHistoryInterstitialAdUnitId\"")
             buildConfigField("String", "SAVE_INTERSTITIAL_AD_UNIT_ID", "\"$releaseSaveInterstitialAdUnitId\"")
             buildConfigField("String", "ADMOB_APP_OPEN_AD_UNIT_ID", "\"$releaseAppOpenAdUnitId\"")
+            buildConfigField("String", "NATIVE_AD_UNIT_ID", "\"$releaseNativeAdUnitId\"")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

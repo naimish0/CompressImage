@@ -13,12 +13,8 @@ interface BannerAdController {
 
     fun adUnitIdFor(placement: BannerPlacement): String
 
-    fun shouldShowNativeAd(state: AdsUiState): Boolean {
-        return state.adsEnabled &&
-            state.canRequestAds &&
-            state.initialized &&
-            nativeAdUnitId().isNotBlank()
-    }
+    fun shouldShowNativeAd(state: AdsUiState): Boolean =
+        state.adsEnabled && state.canRequestAds && state.initialized && nativeAdUnitId().isNotBlank()
 
     fun nativeAdUnitId(): String = ""
 

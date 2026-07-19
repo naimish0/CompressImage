@@ -38,4 +38,25 @@ class AdPlacementPolicyTest {
         now += 180_000L
         assertFalse(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
     }
+
+    @Test
+    fun historyExitAndWorkflowPlacementsShareTheFrequencyPolicy() {
+        var now = 1_000L
+        val policy = AdPlacementPolicy(
+            config = InterstitialPolicyConfig(
+                successfulActionsRequired = 0,
+                minimumIntervalMillis = 180_000L,
+                maximumPerSession = 2,
+                suppressFirstSessionAd = false,
+            ),
+            elapsedRealtimeMillis = { now },
+        )
+
+        assertTrue(policy.allowCurrentShowOpportunity(InterstitialPlacement.HISTORY_EXITED))
+        policy.recordInterstitialShown()
+
+        assertFalse(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
+        now += 180_000L
+        assertTrue(policy.canShowInterstitial(InterstitialPlacement.WORKFLOW_COMPLETED))
+    }
 }

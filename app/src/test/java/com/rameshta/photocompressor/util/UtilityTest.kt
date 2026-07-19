@@ -181,7 +181,7 @@ class UtilityTest {
     }
 
     @Test
-    fun adPlacementPolicyAllowsOneAnchoredBannerAndNaturalInterstitialPlacement() {
+    fun adPlacementPolicyAllowsConfiguredBannersAndInterstitialPlacements() {
         val policy = AdPlacementPolicy()
 
         BannerPlacement.entries.forEach { placement ->
@@ -196,6 +196,7 @@ class UtilityTest {
             )
         }
         assertTrue(policy.isInterstitialEligible(InterstitialPlacement.WORKFLOW_COMPLETED))
+        assertTrue(policy.isInterstitialEligible(InterstitialPlacement.HISTORY_EXITED))
     }
 
     @Test

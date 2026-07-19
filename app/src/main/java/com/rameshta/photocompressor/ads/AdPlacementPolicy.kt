@@ -15,6 +15,7 @@ enum class BannerPlacement {
 
 enum class InterstitialPlacement {
     WORKFLOW_COMPLETED,
+    HISTORY_EXITED,
 }
 
 data class InterstitialPolicyConfig(
@@ -56,7 +57,9 @@ class AdPlacementPolicy @Inject constructor() {
 
     fun isInterstitialEligible(placement: InterstitialPlacement): Boolean {
         return when (placement) {
-            InterstitialPlacement.WORKFLOW_COMPLETED -> true
+            InterstitialPlacement.WORKFLOW_COMPLETED,
+            InterstitialPlacement.HISTORY_EXITED,
+            -> true
         }
     }
 

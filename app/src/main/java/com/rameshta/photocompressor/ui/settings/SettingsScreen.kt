@@ -143,7 +143,7 @@ fun SettingsScreen(
 fun PrivacyPolicyScreen(onBack: () -> Unit) {
     val activeLocale = LocalConfiguration.current.locales[0]
     val effectiveDate = DateFormat.getDateInstance(DateFormat.LONG, activeLocale).format(
-        GregorianCalendar(2026, Calendar.JULY, 19).time,
+        GregorianCalendar(2026, Calendar.JULY, 20).time,
     )
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,

@@ -45,8 +45,8 @@
     <string name="remove_image">移除 %1$s</string>
     <string name="image_preview">%1$s 图片预览</string>
     <string name="preview_and_configure">预览并配置</string>
-    <string name="home_intro">压缩单张图片、压缩多张图片或移除背景</string>
-    <string name="home_formats_privacy">选择 JPG、PNG 或 WEBP 除非您分享或保存图片，否则您的图片会保留在本地。</string>
+    <string name="home_intro">压缩、调整大小、转换图片，并移除背景。</string>
+    <string name="home_formats_privacy">处理单张或批量图片。设置目标大小并导出为 JPG、PNG 或 WEBP——所有操作均在设备上完成。</string>
     <string name="reading_image_details">读取图像详情</string>
     <string name="selected_images_heading">已选图像</string>
     <string name="count">数量</string>
@@ -183,7 +183,7 @@
     <string name="privacy_policy">隐私政策</string>
     <string name="privacy_choices">隐私选项</string>
     <string name="advertising">广告</string>
-    <string name="settings_ads_placement">该应用使用 Google AdMob 横幅、原生、插页式和应用开启广告。 当打开“历史记录”以及在“保存”、“分享”或“打开”之前，插页广告才有资格显示。 当前阈值不要求之前有成功操作。</string>
+    <string name="settings_ads_placement">该应用使用 Google AdMob 横幅、原生、插页式和应用开启广告。 原生广告可能会显示在首页、历史记录中以及符合条件的已完成批次摘要末尾；历史记录还可能在顶部和底部显示横幅广告。 当用户使用“返回”离开一次有实际浏览的历史记录会话时，插页式广告可能会在下一个屏幕出现前显示；成功的工作流程到达结果后也可能显示；首个符合条件的机会就可能显示一则。 “打开”、“分享”、“删除”、“清除历史记录”和“保存”操作不会被插页广告拦截。</string>
     <string name="settings_ads_lifecycle">插页广告显示后，至少三分钟内不会再次显示，每个应用进程会话最多显示三个插页广告。 这些限制不适用于应用启动广告，启动广告可能在加载后返回前台时出现。 在主动图像处理期间，全屏广告会被抑制，如果广告不可用，请求的操作将继续执行。</string>
     <string name="settings_background_model">背景移除离线运行，使用捆绑的 ONNX U2-NetP 模型。 图像在设备上处理，此功能不会上传图像。</string>
     <string name="open_source_notices">开源声明随应用打包提供。</string>
@@ -195,7 +195,7 @@
     <string name="policy_local_history_title">本地历史记录和保留</string>
     <string name="policy_local_history_body">应用程序在应用程序私有 DataStore 中最多保留 200 条记录，包括源和输出引用、名称、类型、大小、尺寸、格式、操作和压缩详细信息、结果或警告信息、已保存输出引用以及时间戳。 此 DataStore 不包含在配置的云备份和设备传输中。 临时输出可能保存在缓存中。 删除某个项目或使用“清除历史记录”将删除其记录，并尝试仅删除其引用的应用程序拥有的临时输出。 清除历史记录不会删除图库中的图像，不能保证删除孤立的缓存文件，也不会释放持久化的源读取权限。 Android 清除缓存可以删除临时文件；清除存储则删除应用本地记录和缓存。 通过图库或文件管理器删除已保存的图像。 该应用没有用户账户。</string>
     <string name="policy_advertising_consent_title">广告与同意</string>
-    <string name="policy_advertising_consent_body">Google AdMob 提供横幅广告、原生广告、插页广告和应用打开广告。 当打开“历史记录”并且在“保存”、“分享”或“打开”之前，插页广告是可以显示的，无需之前有成功操作。 显示一次后，至少三分钟内禁止再次显示，每个应用进程会话最多显示三次。 这些限制不适用于应用打开广告，应用加载后返回前台时可能会出现此类广告。 Google Mobile Ads SDK 25.4.0 会自动收集并共享基于 IP 的大致位置；产品交互数据，例如启动、点击及广告或视频观看情况；诊断信息，例如应用启动时间、卡顿率和能耗情况；以及设备或账户标识符，例如 Advertising ID 和 App Set ID。 Google 表示它会将这些数据用于广告或营销、分析，以及防欺诈、安全和合规，并使用 TLS 对 SDK 数据在传输过程中进行加密。 当 Google 报告需要时，User Messaging Platform SDK 4.0.0 会请求同意信息并显示同意或隐私选项表单。 核心图像处理在没有个性化广告同意、广告不可用或设备离线时仍可工作。</string>
+    <string name="policy_advertising_consent_body">Google AdMob 提供横幅广告、原生广告、插页广告和应用打开广告。 原生广告可能会显示在首页、历史记录中以及符合条件的已完成批次摘要末尾；历史记录还可能在顶部和底部显示横幅广告。 当用户使用“返回”离开一次有实际浏览的历史记录会话时，插页式广告可能会在下一个屏幕出现前显示；成功的工作流程到达结果后也可能显示；首个符合条件的机会就可能显示一则。 “打开”、“分享”、“删除”、“清除历史记录”和“保存”操作不会被插页广告拦截。 显示一次后，至少三分钟内禁止再次显示，每个应用进程会话最多显示三次。 这些限制不适用于应用打开广告，应用加载后返回前台时可能会出现此类广告。 Google Mobile Ads SDK 25.4.0 会自动收集并共享基于 IP 的大致位置；产品交互数据，例如启动、点击及广告或视频观看情况；诊断信息，例如应用启动时间、卡顿率和能耗情况；以及设备或账户标识符，例如 Advertising ID 和 App Set ID。 Google 表示它会将这些数据用于广告或营销、分析，以及防欺诈、安全和合规，并使用 TLS 对 SDK 数据在传输过程中进行加密。 当 Google 报告需要时，User Messaging Platform SDK 4.0.0 会请求同意信息并显示同意或隐私选项表单。 核心图像处理在没有个性化广告同意、广告不可用或设备离线时仍可工作。</string>
     <string name="policy_background_removal_title">背景移除</string>
     <string name="policy_background_removal_body">背景移除使用捆绑的 U2-NetP ONNX 模型和 ONNX Runtime 完全在设备上运行。 应用代码不会为此功能下载远程模型或上传图像。</string>
     <string name="policy_children_title">儿童</string>

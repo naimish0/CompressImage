@@ -1,0 +1,22 @@
+{
+  "canvas": {
+    "phone": [1080, 1920],
+    "feature_graphic": [1024, 500],
+    "large_screen": [1920, 1080]
+  },
+  "palette": {
+    "primary": "#2563EB",
+    "dark_text": "#0F172A",
+    "secondary_text": "#475569",
+    "pale_blue": "#DBEAFE",
+    "canvas": "#F6F8FF",
+    "success": "#16A34A"
+  },
+  "principles": {
+    "headline_lines_max": 2,
+    "copy_area_target_percent_max": 20,
+    "result_area_target_percent": "65-75",
+    "device_frames": false,
+    "ui_source": "real captures only"
+  }
+}

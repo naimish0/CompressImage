@@ -72,7 +72,7 @@ class CompressionRepositoryInstrumentedTest {
         }
         for (y in 0 until bitmap.height step 36) {
             paint.color = Color.rgb(y % 255, 80, 120)
-            canvas.drawText("Photo Compressor detail test $y", 24f, y.toFloat() + 30f, paint)
+            canvas.drawText("Photo Compressor & BG Remover detail test $y", 24f, y.toFloat() + 30f, paint)
         }
         FileOutputStream(file).use { output ->
             bitmap.compress(Bitmap.CompressFormat.JPEG, 95, output)

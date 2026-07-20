@@ -2,9 +2,9 @@
 
 Review date: **2026-07-20**
 
-App/package: **Photo Compressor — `com.rameshta.photocompressor`**
+App/package: **Photo Compressor & BG Remover — `com.rameshta.photocompressor`**
 
-Proposed Play Store title: **Photo Compressor & BG Remover**
+Play Store title: **Photo Compressor & BG Remover**
 
 Scope: current Android source, manifests, local persistence and sharing, image/background-removal paths, Google Mobile Ads/UMP integration, legal/privacy documents, generated reports, and a separate inspection of the available local release artifact. The available AAB predates the latest working-tree changes and is not treated as the release candidate.
 
@@ -16,7 +16,7 @@ This is the current audit and supersedes the former historical snapshot. Google 
 
 **Production publication: blocked.**
 
-No developer backend, credential leak, developer analytics integration, or app-code image upload was found. Image compression, conversion, resizing, comparison, and ONNX background removal operate locally. Direct result/History item actions remain ungated, native ad attribution has been restored, the History interstitial has been moved from entry to a qualifying user-initiated Back break, and the completed-batch native is isolated from active processing and full-screen ads. These placement changes improve the general unexpected-ad, obstruction, and accidental-click posture but still require rendered-flow validation and do not guarantee Play approval. Important release gaps remain: multi-placement screens require a conditional Families-policy decision based on the publisher's truthful target-audience selection; publisher identity/contact/hosting is incomplete; URI/cache cleanup and app-open frequency limitations remain; localized copy still requires native-speaker review; and the available AAB is stale and unsigned.
+No developer backend, credential leak, developer analytics integration, or app-code image upload was found. Image compression, conversion, resizing, comparison, and ONNX background removal operate locally. Direct result/History item actions remain ungated, native ad attribution has been restored, the History interstitial has been moved from entry to a qualifying user-initiated Back break, and the completed-batch native is isolated from active processing and full-screen ads. These placement changes improve the general unexpected-ad, obstruction, and accidental-click posture but still require rendered-flow validation and do not guarantee Play approval. Important release gaps remain: the verified 13+ target groups require an advertising/Families implementation review; privacy-policy hosting is incomplete; URI/cache cleanup and app-open frequency limitations remain; translated legal copy requires native-speaker review; and the available AAB is stale and unsigned.
 
 ## Status Summary
 
@@ -24,10 +24,10 @@ No developer backend, credential leak, developer analytics integration, or app-c
 
 | ID | Finding | Required resolution |
 | --- | --- | --- |
-| B-01 | `PRIVACY_POLICY.md` intentionally lacks the verified legal publisher/entity name, direct monitored privacy contact, and public HTTPS policy URL. | Publisher supplies all three values and hosts the final policy as an active, public, non-geofenced, non-editable HTTPS webpage (not a PDF), then uses the same URL/copy in Play Console and in app. |
-| B-02 | Home, Progress, Result, Background, and History can render multiple ad placements on one page; eligible completed Progress can combine top and bottom banners with a final native item. | This is a conditional **Families** ad-format blocker, not an unconditional general Made for Ads rule. The publisher must select the target audience truthfully under applicable local laws. If ads are served to children or users of unknown age, the completed Progress top/bottom/native combination and the other multi-placement pages are prohibited and require different Families-compliant ad treatment. |
+| B-01 | `PRIVACY_POLICY.md` contains the verified publisher identity and monitored privacy contact but has no public HTTPS policy URL. | Host the final policy as an active, public, non-geofenced, non-editable HTTPS webpage (not a PDF), then use the same URL/copy in Play Console and in app. |
+| B-02 | Home, Progress, Result, Background, and History can render multiple ad placements on one page; eligible completed Progress can combine top and bottom banners with a final native item. | This is a conditional **Families** ad-format blocker, not an unconditional general Made for Ads rule. The verified target groups are Ages 13–15, Ages 16–17, and Ages 18 and over. Where any selected group is treated as children, the completed Progress top/bottom/native combination and the other multi-placement pages are prohibited for child or unknown-age ad requests and require Families-compliant treatment. |
 | B-04 | The available release AAB predates later Kotlin/resource changes and is unsigned. | Build a fresh bundle from the final reviewed tree, sign it with the publisher upload key, and reinspect the exact candidate. |
-| B-05 | If the target audience includes children, the current ad implementation lacks a neutral age screen and child/unknown-age request treatment, retains Advertising ID access, and includes app-open ads. | Treat the target-audience decision as a whole-app conditional blocker. A child or mixed audience requires Families-compliant age screening, identifier handling, ad requests/content/sources/formats, and layout; AdMob says Families-compliant apps are ineligible for app-open ads. |
+| B-05 | Ages 13–15 and 16–17 can be treated as children in some locales, but the current ad implementation lacks a neutral age screen and child/teen or under-age request treatment, retains Advertising ID access, and includes app-open ads. | Treat the verified 13+ audience as a whole-app release blocker until the applicable Families treatment is resolved. A child or mixed audience requires compliant age handling, identifiers, ad requests/content/sources/formats, and layouts; AdMob says Families-compliant apps are ineligible for app-open ads. |
 
 ### Resolved since the previous audit
 
@@ -35,7 +35,7 @@ No developer backend, credential leak, developer analytics integration, or app-c
 - The native layout now includes localized ad attribution and AdChoices.
 - The History interstitial is no longer offered on entry. Only Back from nonempty `HistoryUiState.Content` after a list scroll or History-item interaction can offer it before pop/navigation while History remains visible; navigation continues from the completion callback, and populated enter-and-immediate-Back plus empty/loading/error exits bypass it.
 - The completed-batch native is a final inline item after substantive per-image results and requires a stable, non-cancelled summary with at least three rows and one success. Active, short, all-failed, and cancelled batches are excluded, and it is hidden while a full-screen ad is visible.
-- The authoritative English and translated ad disclosures now match the current placement behavior and pass repository validation. Native-speaker review remains required.
+- The authoritative Markdown and in-app policy now use the same verified English disclosures. Other localized UI resources pass repository validation; legal and native-language review is required before localized policy text is restored.
 
 ### Warnings
 
@@ -113,9 +113,9 @@ The privacy policy accurately states that interstitial limits do not apply to ap
 
 `PhotoCompressorApp.kt` no longer offers an interstitial when History opens. It considers the opportunity only when the user presses Back from nonempty `HistoryUiState.Content` after actual session engagement through a list scroll or History-item interaction. If eligible and loaded, the ad appears before pop/navigation while History remains visible and Back navigation continues from its completion callback; populated enter-and-immediate-Back and empty, loading, or error exits continue without it. AdMob's disallowed-interstitial guidance says not to place more than one interstitial after every two user actions and explicitly applies the rule to Back; the engagement action plus Back supplies at least two actions before this opportunity, while the existing three-minute cooldown and session cap add broader frequency limits. This moves the opportunity to an end-of-content navigation break, avoids beginning-of-segment presentation, and follows the cited action-count rationale. The exact rendered flow still requires general Ads-policy and device validation; the implementation change is not a guarantee of Play acceptance: <https://support.google.com/admob/answer/6201362?hl=en>.
 
-Separately, Home, Progress, Result, Background, and History can render multiple ad placements on a page. Eligible completed Progress can specifically combine top and bottom banners with the final native item. Google's prohibition on multiple ad placements on a page is in the **Families Ads and Monetization** requirements; it is not an unconditional general Made for Ads rule. It applies to a children-only audience and, for a mixed audience, when serving ads to children or users of unknown age. The repository cannot establish the Play Console target-audience selection. If the publisher truthfully targets only age groups that do not include children under applicable local laws, this specific Families format rule does not apply, although general density, obstruction, deceptive-ad, and accidental-click requirements still do. If ads are served to children or users of unknown age, the completed Progress top/bottom/native combination and the other multi-placement screens are prohibited and require different Families-compliant ad treatment before production.
+Separately, Home, Progress, Result, Background, and History can render multiple ad placements on a page. Eligible completed Progress can specifically combine top and bottom banners with the final native item. Google's prohibition on multiple ad placements on a page is in the **Families Ads and Monetization** requirements; it is not an unconditional general Made for Ads rule. It applies to a children-only audience and, for a mixed audience, when serving ads to children or users of unknown age. The verified intended groups are Ages 13–15, Ages 16–17, and Ages 18 and over; the two teen groups can be treated as children in some locales. Wherever child or unknown-age treatment applies, the completed Progress top/bottom/native combination and the other multi-placement screens are prohibited and require different Families-compliant ad treatment before production.
 
-The conditional Families gap extends beyond multi-placement layout. No neutral age screen is implemented; `AdsInitializer` applies an empty `RequestConfiguration` without child-directed or under-age tags/content-rating treatment; Advertising ID permissions remain in the merged manifest; and app-open ads remain enabled. A child or mixed audience would therefore require appropriate neutral age screening, prevention of prohibited identifier transmission from child/unknown-age users, non-personalized age-appropriate ads from eligible self-certified SDK sources, content-rating controls, and compliant ad formats. AdMob states that apps complying with Google Play's Families Policy are not eligible for app-open ads. The current ad inventory can remain unchanged only if the publisher's truthful target audience excludes children under applicable local laws.
+The Families gap extends beyond multi-placement layout. No neutral age screen is implemented; `AdsInitializer` applies an empty `RequestConfiguration` without child/teen or under-age tags/content-rating treatment; Advertising ID permissions remain in the merged manifest; and app-open ads remain enabled. A child or mixed audience requires appropriate age handling, prevention of prohibited identifier transmission from child/unknown-age users, non-personalized age-appropriate ads from eligible self-certified SDK sources, content-rating controls, and compliant ad formats. AdMob states that apps complying with Google Play's Families Policy are not eligible to use app-open ads. Treat the verified 13+ audience as blocked for production until the applicable advertising treatment is implemented and verified.
 
 - <https://support.google.com/googleplay/android-developer/answer/9893335>
 - <https://support.google.com/googleplay/android-developer/answer/9867159>
@@ -202,12 +202,17 @@ The authoritative English repository/in-app copy covers:
 - local image processing and no developer backend/account;
 - Photo Picker, metadata access, persisted read grants, and the legacy API 28 save permission;
 - History fields, 200-item cap, backup exclusion, cache retention, deletion limits, and gallery deletion;
-- Home/History/completed-batch native placements, History top/bottom banners, History-Back and completed-workflow interstitials, app-open behavior, and actual shared interstitial threshold/caps;
-- GMA 25.4 automatic collection/sharing, purposes, TLS, and UMP 4.0;
+- banner, native, interstitial, and app-open formats; ad-failure resilience; and UMP consent/privacy-options behavior without unnecessary placement mechanics;
+- Google Mobile Ads automatic collection/sharing, purposes, TLS, retention responsibility, and user controls;
 - bundled on-device U2-NetP/ONNX Runtime behavior;
-- children/target-audience consistency.
+- the verified 13+ audience, developer identity/contact, choices, security, policy changes, and contact details.
 
-Remaining publication fields are intentionally explicit placeholders: verified publisher name, direct monitored privacy contact, and hosted HTTPS URL. Complete them before release. The current `tools/check_localizations.py` run passes all 25 non-English packs after synchronizing the placement disclosures; rerun it after future catalog changes and obtain native-speaker review. Google Play User Data policy: <https://support.google.com/googleplay/android-developer/answer/10144311>.
+The policy now identifies Naimish Gupta and provides naimish.app@gmail.com. The
+remaining publication field is the hosted HTTPS URL. The in-app policy falls
+back to the same verified English text for every locale; obtain legal and
+native-speaker review before restoring translated policy resources. Rerun the
+localization checker after future catalog changes. Google Play User Data policy:
+<https://support.google.com/googleplay/android-developer/answer/10144311>.
 
 ## Model And Supply-Chain Evidence
 
@@ -224,7 +229,7 @@ No private keys, signing keystores, passwords, service-account files, or secret 
 ## Artifact, Test, Lint, And 16 KB Evidence
 
 - Inspected AAB: `app/build/outputs/bundle/release/app-release.aab`, 59,406,038 bytes, generated 2026-07-20 01:25 local time; SHA-256 `0e37a7b19ccfd3ca099416d6231d012df675b2cd294b86aa0481488aa042fae9`. It predates later History, base-string, and native-ad source changes and is therefore stale.
-- Locale validation: fresh `:app:generateDebugLocaleConfig` and `tools/check_localizations.py` runs passed on the current tree and reported 25 non-English locales, 253 translated strings, and one plural resource; all 27 base/localized XML catalogs parsed, and `values-id`/`values-in` are byte-identical.
+- Locale validation: fresh `:app:generateDebugLocaleConfig` and `tools/check_localizations.py` runs passed on the current tree and reported 25 non-English locales, 232 translated strings, and one plural resource; all 27 base/localized XML catalogs parsed, and `values-id`/`values-in` are byte-identical. The verified policy intentionally falls back to English pending legal/native-language review.
 - Signing: `jarsigner -verify` reports `jar is unsigned`.
 - Unit report: a fresh forced run passed 64 tests with zero failures/errors/skips, including the current History-Back and completed-batch-native policy helpers; debug Android-test Kotlin compilation also passed.
 - Connected report: four `HistoryScreenTest` tests passed on an SM-S928B. The report predates a subsequent `HistoryScreenTest.kt` edit, is partial, and is not a Hindi Home screenshot-capture run or a complete security/privacy suite.

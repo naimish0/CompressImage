@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Privacy Policy for Photo Compressor &amp; BG Remover, developed and published by Naimish Gupta.">
+  <meta name="robots" content="index, follow">
+  <title>Privacy Policy | Photo Compressor &amp; BG Remover</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #f4f7fb;
+      --surface: #ffffff;
+      --surface-muted: #f7f9fc;
+      --text: #17212b;
+      --muted: #526170;
+      --border: #dce3ea;
+      --accent: #1769aa;
+      --accent-strong: #0c4f86;
+      --focus: #f7b500;
+      --shadow: 0 18px 50px rgba(23, 33, 43, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: var(--accent-strong);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.16em;
+      overflow-wrap: anywhere;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 10;
+      padding: 0.65rem 0.85rem;
+      border-radius: 0.45rem;
+      background: var(--text);
+      color: var(--surface);
+      transform: translateY(-180%);
+      transition: transform 140ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .page-shell {
+      width: min(100% - 2rem, 880px);
+      margin: 2rem auto;
+    }
+
+    .policy-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 1.1rem;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .policy-header {
+      padding: clamp(2rem, 7vw, 4rem) clamp(1.25rem, 6vw, 4rem) 2.25rem;
+      border-top: 0.4rem solid var(--accent);
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top right, rgba(23, 105, 170, 0.12), transparent 42%),
+        var(--surface);
+    }
+
+    .eyebrow {
+      margin: 0 0 0.65rem;
+      color: var(--accent-strong);
+      font-size: 0.82rem;
+      font-weight: 750;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      line-height: 1.22;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 16ch;
+      margin: 0;
+      font-size: clamp(2.15rem, 7vw, 3.8rem);
+      letter-spacing: -0.035em;
+    }
+
+    .app-name {
+      margin: 0.85rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 3vw, 1.2rem);
+      font-weight: 650;
+    }
+
+    .dates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 1.5rem;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .contents {
+      padding: 1.5rem clamp(1.25rem, 6vw, 4rem);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-muted);
+    }
+
+    .contents h2 {
+      margin: 0 0 0.8rem;
+      font-size: 1rem;
+    }
+
+    .contents ol {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.35rem 1.5rem;
+      margin: 0;
+      padding-left: 1.4rem;
+    }
+
+    .contents a {
+      display: inline-block;
+      padding-block: 0.08rem;
+    }
+
+    main {
+      padding: 0 clamp(1.25rem, 6vw, 4rem) 3rem;
+    }
+
+    section {
+      scroll-margin-top: 1.25rem;
+      padding-top: 2.2rem;
+    }
+
+    section + section {
+      margin-top: 0.35rem;
+      border-top: 1px solid var(--border);
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.35rem, 4vw, 1.75rem);
+      letter-spacing: -0.015em;
+    }
+
+    p,
+    ul {
+      margin-block: 0 1rem;
+    }
+
+    li + li {
+      margin-top: 0.55rem;
+    }
+
+    .contact-block {
+      width: fit-content;
+      max-width: 100%;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      background: var(--surface-muted);
+    }
+
+    .contact-block p:last-child,
+    section > :last-child {
+      margin-bottom: 0;
+    }
+
+    footer {
+      padding: 1.15rem clamp(1.25rem, 6vw, 4rem);
+      border-top: 1px solid var(--border);
+      background: var(--surface-muted);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        width: min(100% - 1rem, 880px);
+        margin-block: 0.5rem;
+      }
+
+      .policy-card {
+        border-radius: 0.8rem;
+      }
+
+      .contents ol {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #0e151c;
+        --surface: #151e27;
+        --surface-muted: #1a2530;
+        --text: #edf3f8;
+        --muted: #b5c2ce;
+        --border: #30404e;
+        --accent: #70b9ee;
+        --accent-strong: #9bd0f5;
+        --focus: #ffd166;
+        --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .skip-link {
+        transition: none;
+      }
+    }
+
+    @media print {
+      :root {
+        color-scheme: light;
+      }
+
+      body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 10.5pt;
+      }
+
+      .page-shell {
+        width: 100%;
+        margin: 0;
+      }
+
+      .policy-card {
+        border: 0;
+        box-shadow: none;
+      }
+
+      .policy-header,
+      .contents,
+      main,
+      footer {
+        padding-inline: 0;
+      }
+
+      .contents {
+        display: none;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#policy-content">Skip to policy</a>
+
+  <div class="page-shell">
+    <article class="policy-card">
+      <header class="policy-header">
+        <p class="eyebrow">Privacy</p>
+        <h1>Privacy Policy</h1>
+        <p class="app-name">Photo Compressor &amp; BG Remover</p>
+        <div class="dates" aria-label="Policy dates">
+          <span><strong>Effective date:</strong> July 20, 2026</span>
+          <span><strong>Last updated:</strong> July 20, 2026</span>
+        </div>
+      </header>
+
+      <nav class="contents" aria-labelledby="contents-title">
+        <h2 id="contents-title">Contents</h2>
+        <ol>
+          <li><a href="#developer-contact">Developer and Contact</a></li>
+          <li><a href="#summary">Summary</a></li>
+          <li><a href="#images-file-access">Images and File Access</a></li>
+          <li><a href="#history-retention-deletion">Local History, Retention and Deletion</a></li>
+          <li><a href="#advertising-consent">Advertising and Consent</a></li>
+          <li><a href="#google-mobile-ads-data">Data Automatically Collected and Shared by Google Mobile Ads</a></li>
+          <li><a href="#choices-controls">Your Choices and Controls</a></li>
+          <li><a href="#data-security">Data Security</a></li>
+          <li><a href="#background-removal">On-Device Background Removal</a></li>
+          <li><a href="#third-party-services">Third-Party Services and Components</a></li>
+          <li><a href="#children-teen-users">Children and Teen Users</a></li>
+          <li><a href="#changes">Changes to This Policy</a></li>
+          <li><a href="#contact-us">Contact Us</a></li>
+        </ol>
+      </nav>
+
+      <main id="policy-content" tabindex="-1">
+        <section id="developer-contact" aria-labelledby="developer-contact-title">
+          <h2 id="developer-contact-title">Developer and Contact</h2>
+          <p>Photo Compressor &amp; BG Remover is developed and published by Naimish Gupta.</p>
+          <p>For privacy questions, concerns, or requests, contact:</p>
+          <div class="contact-block">
+            <p><strong>Email:</strong> <a href="mailto:naimish.app@gmail.com">naimish.app@gmail.com</a></p>
+          </div>
+        </section>
+
+        <section id="summary" aria-labelledby="summary-title">
+          <h2 id="summary-title">Summary</h2>
+          <p>Photo Compressor &amp; BG Remover supports image selection, compression, resizing, format conversion, background removal, background replacement, History, saving, opening, and sharing. Image processing occurs on the device, and background removal uses an on-device model. The developer does not operate a backend that receives images. The app does not require user accounts. Internet access is used for Google advertising and consent services.</p>
+        </section>
+
+        <section id="images-file-access" aria-labelledby="images-file-access-title">
+          <h2 id="images-file-access-title">Images and File Access</h2>
+          <p>Images are selected using Android's system Photo Picker. The app accesses only images selected by the user and reads the selected content URI and local metadata needed to display and process each image, including its display name, media type, file size, dimensions, format, transparency information, and EXIF orientation. When the content provider permits it, the app attempts to retain a read permission so local History can reopen the selected source.</p>
+          <p>Selected and generated images are processed locally. App code does not upload selected or generated images, filenames, content URIs, EXIF metadata, or image-processing results to a developer-operated server or to Google Mobile Ads.</p>
+          <p>Saving is initiated by the user and uses Android MediaStore where supported. Saved images remain in the user's public device gallery. On Android 9 (API 28) and earlier only, a user-initiated save may request the legacy shared-storage write permission required to save to the public Pictures collection. That permission is not requested for saving on Android 10 or later.</p>
+          <p>The app does not request device location permission. Google advertising services may infer approximate location from the device's IP address as described below.</p>
+          <p>When a user chooses Share or Open, Android may provide the selected result to another application chosen by the user. Information received by that application is governed by that application's privacy practices. Photo Compressor &amp; BG Remover does not automatically share generated images without a user-initiated action. Temporary read access to the selected result is granted to a receiving application for that action.</p>
+        </section>
+
+        <section id="history-retention-deletion" aria-labelledby="history-retention-deletion-title">
+          <h2 id="history-retention-deletion-title">Local History, Retention and Deletion</h2>
+          <p>Photo Compressor &amp; BG Remover keeps up to 200 History records in app-private Android DataStore. A record can include source and output references or paths, display names, media types and formats, file sizes, dimensions, transparency information, operation and compression details, result or warning information, a saved-output reference, and a timestamp. The configured History DataStore is excluded from cloud backup and device transfer.</p>
+          <p>Temporary compression and background-removal outputs are stored in app-private cache directories. Removing a visible History item or using Clear History removes the corresponding local metadata and attempts to delete temporary output files referenced by those records when the files are owned by the app. These actions do not release persisted read permissions for selected source images and do not guarantee deletion of orphaned or otherwise unreferenced cache files. Records whose temporary output no longer exists can be hidden from the History screen without being removed from DataStore.</p>
+          <p>Android may evict cached files. Clearing the app's cache through Android settings can remove temporary outputs without removing every stored History record. Clearing the app's storage removes app-local History and cache data. Uninstalling the app also removes its app-private data, subject to Android's platform behavior.</p>
+          <p>Clear History and clearing app-private data do not delete images that the user previously saved in the public device gallery. Saved gallery images must be deleted through the gallery or file manager.</p>
+          <p>There is no user account and therefore no account-deletion process.</p>
+        </section>
+
+        <section id="advertising-consent" aria-labelledby="advertising-consent-title">
+          <h2 id="advertising-consent-title">Advertising and Consent</h2>
+          <p>Photo Compressor &amp; BG Remover uses Google AdMob to display banner, native, interstitial, and app-open advertisements at appropriate points in the user experience.</p>
+          <p>Core image-processing functionality remains available if an advertisement is unavailable, fails to load, the device is offline, or personalized-ad consent is not provided. Advertising failures do not prevent users from accessing completed image results.</p>
+          <p>The app uses Google's User Messaging Platform to request current consent information, display privacy messages when required, and provide access to privacy options where required. Google manages the consent form, participating advertising partners, and resulting consent signals.</p>
+        </section>
+
+        <section id="google-mobile-ads-data" aria-labelledby="google-mobile-ads-data-title">
+          <h2 id="google-mobile-ads-data-title">Data Automatically Collected and Shared by Google Mobile Ads</h2>
+          <p>According to Google's Mobile Ads disclosure, Google Mobile Ads may automatically collect and share:</p>
+          <ul>
+            <li><strong>Approximate location:</strong> derived from the device's IP address.</li>
+            <li><strong>User product interactions:</strong> such as app launches, taps, and ad or video views.</li>
+            <li><strong>Diagnostic and performance information:</strong> such as app launch time, hang rate, energy usage, and related SDK or app performance information.</li>
+            <li><strong>Device or other identifiers:</strong> including the Android Advertising ID, App Set ID, and, where applicable, other identifiers related to accounts signed in on the device.</li>
+          </ul>
+          <p>Google states that these data may be used for advertising or marketing, analytics, and fraud prevention, security, and compliance. Google states that data transmitted by the Mobile Ads SDK is encrypted in transit using Transport Layer Security (TLS). Collection can depend on region, consent choices, device settings, and SDK or account configuration.</p>
+          <p>Google controls retention and deletion for data handled by its advertising and consent services, subject to Google's policies and the controls Google makes available. The developer cannot delete data controlled solely by Google.</p>
+          <p>For more information, see:</p>
+          <ul>
+            <li><a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></li>
+            <li><a href="https://developers.google.com/admob/android/privacy/play-data-disclosure">https://developers.google.com/admob/android/privacy/play-data-disclosure</a></li>
+            <li><a href="https://developers.google.com/admob/android/privacy">https://developers.google.com/admob/android/privacy</a></li>
+          </ul>
+        </section>
+
+        <section id="choices-controls" aria-labelledby="choices-controls-title">
+          <h2 id="choices-controls-title">Your Choices and Controls</h2>
+          <p>Users control which images the app can access by selecting them through Android's system Photo Picker.</p>
+          <p>When entries are visible in History, users can remove individual entries or use Clear History. Users can also clear the application's cache or storage through Android settings. Clearing storage is the reliable way to remove all app-local History metadata when records are hidden because their temporary outputs no longer exist. Images saved in the public device gallery must be deleted using the gallery or file manager.</p>
+          <p>Where required, users can review advertising consent choices through the Privacy Options entry inside the app. Android device settings may also allow users to reset or delete the Advertising ID and manage advertising personalization.</p>
+          <p>Users may contact Naimish Gupta at <a href="mailto:naimish.app@gmail.com">naimish.app@gmail.com</a> regarding this policy or privacy-related questions.</p>
+        </section>
+
+        <section id="data-security" aria-labelledby="data-security-title">
+          <h2 id="data-security-title">Data Security</h2>
+          <p>Photo Compressor &amp; BG Remover uses Android scoped-storage and content-URI mechanisms and requests access only to images selected by the user. Local History and temporary processing files are stored in app-private storage. Temporary URI access is granted to receiving applications only when the user chooses to open or share an image.</p>
+          <p>The developer does not operate a backend for image processing. Google states that information transmitted by its advertising and consent services is protected in transit using TLS.</p>
+          <p>No method of electronic storage or transmission can be guaranteed to be completely secure. Security also depends on the user's device, operating system, installed applications, backups, and device configuration.</p>
+        </section>
+
+        <section id="background-removal" aria-labelledby="background-removal-title">
+          <h2 id="background-removal-title">On-Device Background Removal</h2>
+          <p>Background removal uses a U2-NetP ONNX model with ONNX Runtime on the device. The model is packaged with the app. No remote model is required, and no image is uploaded for background removal.</p>
+        </section>
+
+        <section id="third-party-services" aria-labelledby="third-party-services-title">
+          <h2 id="third-party-services-title">Third-Party Services and Components</h2>
+          <p>The privacy-affecting third-party services and components used by the app are:</p>
+          <ul>
+            <li><strong>Google Mobile Ads SDK:</strong> displays advertising and handles the Google data described above.</li>
+            <li><strong>Google User Messaging Platform:</strong> requests consent information and presents Google-managed privacy messages and privacy options when required.</li>
+            <li><strong>ONNX Runtime:</strong> runs background-removal inference locally on the device.</li>
+            <li><strong>U2-NetP background-removal model:</strong> is packaged with the app and processes image data locally through ONNX Runtime.</li>
+          </ul>
+          <p>The release source does not include a separate developer-integrated analytics or crash-reporting service. Google Mobile Ads can still collect the interaction and diagnostic information described above.</p>
+        </section>
+
+        <section id="children-teen-users" aria-labelledby="children-teen-users-title">
+          <h2 id="children-teen-users-title">Children and Teen Users</h2>
+          <p>Photo Compressor &amp; BG Remover is a general-purpose image utility intended for users aged 13 and older. It is not designed or marketed primarily to children under 13.</p>
+          <p>The app does not create user accounts or ask users to provide their age. Selected images and generated results are processed on the device and are not uploaded to a developer-operated server.</p>
+          <p>The app uses Google Mobile Ads and Google User Messaging Platform. Google may process advertising-related information as described in the Advertising and Consent and Data Automatically Collected and Shared by Google Mobile Ads sections.</p>
+          <p>Parents, guardians, and users may contact Naimish Gupta at <a href="mailto:naimish.app@gmail.com">naimish.app@gmail.com</a> with privacy-related questions.</p>
+        </section>
+
+        <section id="changes" aria-labelledby="changes-title">
+          <h2 id="changes-title">Changes to This Policy</h2>
+          <p>This Privacy Policy may be updated to reflect changes to the application, applicable law, third-party services, or advertising configuration. The effective date and last-updated date will be revised when changes are made.</p>
+          <p>The privacy policy linked in Google Play and the policy accessible inside the application will contain the same current disclosures.</p>
+        </section>
+
+        <section id="contact-us" aria-labelledby="contact-us-title">
+          <h2 id="contact-us-title">Contact Us</h2>
+          <p>For questions, concerns, or requests regarding this Privacy Policy, contact:</p>
+          <div class="contact-block">
+            <p><strong>Naimish Gupta</strong></p>
+            <p><strong>Email:</strong> <a href="mailto:naimish.app@gmail.com">naimish.app@gmail.com</a></p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Photo Compressor &amp; BG Remover · Privacy Policy · Last updated July 20, 2026</p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>

@@ -1,214 +1,224 @@
 # Privacy Policy
 
 Effective date: July 20, 2026
-App: Photo Compressor
 
-> **Publisher action required before release**
->
-> - **Developer/publisher:** Replace this item with the exact legal developer or
->   entity name used for the Google Play listing.
-> - **Privacy contact:** Add a direct, monitored privacy email address or other
->   direct contact method. A reference to the Play listing alone is not enough.
-> - **Public policy URL:** Host the completed policy as an active, publicly
->   accessible, non-geofenced, non-editable HTTPS webpage (not a PDF), and enter
->   that URL in Google Play Console. Keep the same current policy in Play and in
->   the app.
+Last updated: July 20, 2026
 
-The publication fields above are intentionally not populated because the
-repository does not contain verified publisher identity, contact, or hosting
-information. They must be completed before this policy or the app is published.
+Application: Photo Compressor & BG Remover
+
+## Developer and Contact
+
+Photo Compressor & BG Remover is developed and published by Naimish Gupta.
+
+For privacy questions, concerns, or requests, contact:
+
+Email: naimish.app@gmail.com
 
 ## Summary
 
-Photo Compressor is an image utility for selecting, compressing, resizing,
-converting, saving, opening, sharing, and removing or replacing image
-backgrounds. Image processing, including ONNX background removal, happens on
-the device. The app does not create user accounts and does not use a developer
-backend to upload or process images. Internet access is used by Google
-advertising and advertising-consent services.
+Photo Compressor & BG Remover supports image selection, compression, resizing,
+format conversion, background removal, background replacement, History, saving,
+opening, and sharing. Image processing occurs on the device, and background
+removal uses an on-device model. The developer does not operate a backend that
+receives images. The app does not require user accounts. Internet access is used
+for Google advertising and consent services.
 
-## Images And File Access
+## Images and File Access
 
-The app uses Android's system Photo Picker so the user chooses the specific
-images the app can access. It reads each selected content URI and local metadata
-needed to display and process the image, including the display name, media type,
-file size, dimensions, format, transparency information, and EXIF orientation.
-When the content provider permits it, the app takes a persisted read permission
-so a source referenced by local History can be opened again. The current
-implementation does not release that persisted permission when History is
-cleared.
+Images are selected using Android's system Photo Picker. The app accesses only
+images selected by the user and reads the selected content URI and local
+metadata needed to display and process each image, including its display name,
+media type, file size, dimensions, format, transparency information, and EXIF
+orientation. When the content provider permits it, the app attempts to retain a
+read permission so local History can reopen the selected source.
 
-App code does not upload selected images, generated images, filenames, content
-URIs, EXIF metadata, or image-processing data to Google Mobile Ads or another
-server. This statement concerns image handling by app code; Google's automatic
-advertising-SDK data practices are disclosed separately below.
+Selected and generated images are processed locally. App code does not upload
+selected or generated images, filenames, content URIs, EXIF metadata, or
+image-processing results to a developer-operated server or to Google Mobile
+Ads.
 
-Processing creates temporary output files in the app cache. A generated image
-is opened in another app or shared through Android intents only after the user
-chooses the corresponding action. When the user chooses Save, the app writes
-the output through Android MediaStore. Saved images are placed in
-`Pictures/Photo Compressor` and remain under the user's control in the device
-gallery or file manager.
+Saving is initiated by the user and uses Android MediaStore where supported.
+Saved images remain in the user's public device gallery. On Android 9 (API 28)
+and earlier only, a user-initiated save may request the legacy shared-storage
+write permission required to save to the public Pictures collection. That
+permission is not requested for saving on Android 10 or later.
 
-On Android 9 (API 28) and earlier only, a user-initiated Save requests the
-legacy `WRITE_EXTERNAL_STORAGE` permission so the output can be written to the
-public Pictures folder. The manifest limits that permission to API 28 and
-earlier; it is not requested for Save on Android 10 or later.
+The app does not request device location permission. Google advertising
+services may infer approximate location from the device's IP address as
+described below.
 
-## Local History, Retention, And Deletion
+When a user chooses Share or Open, Android may provide the selected result to
+another application chosen by the user. Information received by that
+application is governed by that application's privacy practices. Photo
+Compressor & BG Remover does not automatically share generated images without a
+user-initiated action. Temporary read access to the selected result is granted
+to a receiving application for that action.
 
-The app keeps up to 200 History records in app-private Android DataStore. A
-record can include source and output content references or paths, display names,
-MIME types and formats, file sizes, dimensions, transparency information,
-operation and compression details, result or warning information, a saved
-output reference, and a timestamp. History stores metadata and references; the
-actual temporary output image file is stored separately in the app cache. History
-DataStore is excluded from the app's configured cloud-backup and device-transfer
-rules.
+## Local History, Retention and Deletion
 
-Temporary processing outputs may remain in the app cache until Android evicts
-them, the user clears the app cache or storage, the app is uninstalled, or a
-referenced file is successfully deleted by the History cleanup described below.
-Files that are no longer referenced by History may remain in cache until one of
-the system-level cleanup events occurs.
+Photo Compressor & BG Remover keeps up to 200 History records in app-private
+Android DataStore. A record can include source and output references or paths,
+display names, media types and formats, file sizes, dimensions, transparency
+information, operation and compression details, result or warning information,
+a saved-output reference, and a timestamp. The configured History DataStore is
+excluded from cloud backup and device transfer.
 
-- Removing one History item or using Clear History removes the corresponding
-  local record and attempts to delete only the app-owned temporary output file
-  referenced by that record.
-- Clear History does not delete images already saved in the device gallery,
-  does not guarantee deletion of orphaned or otherwise unreferenced cache files,
-  and does not release persisted read permissions for selected source images.
-- Clearing the app's storage through Android settings removes app-local History
-  and cache data. Clearing only the cache can remove temporary outputs without
-  clearing every stored History record.
-- Saved gallery images must be deleted through the gallery or file manager.
+Temporary compression and background-removal outputs are stored in app-private
+cache directories. Removing a visible History item or using Clear History
+removes the corresponding local metadata and attempts to delete temporary
+output files referenced by those records when the files are owned by the app.
+These actions do not release persisted read permissions for selected source
+images and do not guarantee deletion of orphaned or otherwise unreferenced cache
+files. Records whose temporary output no longer exists can be hidden from the
+History screen without being removed from DataStore.
 
-There is no app account and therefore no account-deletion process.
+Android may evict cached files. Clearing the app's cache through Android
+settings can remove temporary outputs without removing every stored History
+record. Clearing the app's storage removes app-local History and cache data.
+Uninstalling the app also removes its app-private data, subject to Android's
+platform behavior.
 
-## Advertising And Consent
+Clear History and clearing app-private data do not delete images that the user
+previously saved in the public device gallery. Saved gallery images must be
+deleted through the gallery or file manager.
 
-The release configuration uses Google AdMob through Google Mobile Ads SDK
-25.4.0. The app implements banner, native, interstitial, and app-open ad formats.
+There is no user account and therefore no account-deletion process.
 
-- Banner-ad opportunities may appear at both the top and bottom of Home, batch
-  progress, result, background-removal, and History screens. The editor and
-  Settings screens can show a bottom banner. Home and result screens can also
-  show an additional inline banner opportunity. One inline native-ad
-  opportunity can appear on Home, one can appear in History after the first
-  item or below the empty state, and one can appear as the final inline item
-  after the substantive per-image results in an eligible completed batch
-  summary. That placement requires a stable, non-cancelled summary with at
-  least three result rows and at least one successful item. It is excluded from
-  active, short, all-failed, and cancelled batches and is hidden while a
-  full-screen ad is visible. The custom native layout displays localized ad
-  attribution and AdChoices.
-- Interstitial ads may appear when the user presses Back from loaded, non-empty
-  History content after engaging with that session by scrolling the list or
-  interacting with a History item, and at completed-workflow transitions after
-  a successful result is available. An eligible loaded History interstitial is
-  shown before pop/navigation while History remains visible, and Back
-  navigation continues from the ad's completion callback. History entry,
-  populated enter-and-immediate-Back, and empty, loading, or error exits do not
-  offer this interstitial. Open, Share, Remove, Clear History, and Save actions
-  themselves remain direct and are not gated by interstitial ads.
-- Once an interstitial reports that it has been shown, another interstitial is
-  blocked for at least three minutes. No more than three interstitials are shown
-  per app-process session across the History-exit and workflow-completion
-  placements.
-- App-open ads may appear on a foreground return after an ad has loaded and the
-  current consent and full-screen eligibility checks pass. The three-minute and
-  three-per-session interstitial limits do not apply to app-open ads. The
-  current implementation does not impose a separate minimum background time,
-  app-open cooldown, or per-session app-open cap.
-- History Back navigation and result navigation continue if their optional
-  interstitial is unavailable or fails to display. Full-screen ads are
-  suppressed while the app marks image processing as active.
+## Advertising and Consent
 
-Core image processing remains usable if ads fail to load, the device is
-offline, or personalized-ad consent is not given.
+Photo Compressor & BG Remover uses Google AdMob to display banner, native,
+interstitial, and app-open advertisements at appropriate points in the user
+experience.
 
-The app uses Google User Messaging Platform SDK 4.0.0 to request current consent
-information, display a consent form when Google reports that one is required,
-and offer a privacy-options form when required. Google handles the consent form,
-participating advertising partners, and the resulting consent or privacy-choice
-signals.
+Core image-processing functionality remains available if an advertisement is
+unavailable, fails to load, the device is offline, or personalized-ad consent is
+not provided. Advertising failures do not prevent users from accessing
+completed image results.
 
-### Data automatically collected and shared by Google Mobile Ads
+The app uses Google's User Messaging Platform to request current consent
+information, display privacy messages when required, and provide access to
+privacy options where required. Google manages the consent form, participating
+advertising partners, and resulting consent signals.
 
-According to Google's disclosure for Mobile Ads SDK 25.4.0, the SDK
-automatically collects and shares these categories when used:
+## Data Automatically Collected and Shared by Google Mobile Ads
 
-- **Approximate location:** derived from the device IP address.
-- **App interactions:** user product interactions such as app launches, taps,
-  and ad or video views.
-- **Diagnostics:** SDK and app performance information such as app launch time,
-  hang rate, and energy usage.
-- **Device or other identifiers:** the Android Advertising ID, App Set ID, and,
-  when applicable, other identifiers related to accounts signed in on the
-  device.
+According to Google's Mobile Ads disclosure, Google Mobile Ads may
+automatically collect and share:
 
-Google states that these data are used for advertising or marketing, analytics,
-and fraud prevention, security, and compliance, and that data transmitted by
-the SDK is encrypted in transit using TLS. Collection of particular identifiers
-and the ads delivered can depend on device settings, region, consent choices,
-and Google configuration.
+- **Approximate location:** derived from the device's IP address.
+- **User product interactions:** such as app launches, taps, and ad or video
+  views.
+- **Diagnostic and performance information:** such as app launch time, hang
+  rate, energy usage, and related SDK or app performance information.
+- **Device or other identifiers:** including the Android Advertising ID, App
+  Set ID, and, where applicable, other identifiers related to accounts signed
+  in on the device.
 
-Google's applicable information is available at:
+Google states that these data may be used for advertising or marketing,
+analytics, and fraud prevention, security, and compliance. Google states that
+data transmitted by the Mobile Ads SDK is encrypted in transit using Transport
+Layer Security (TLS). Collection can depend on region, consent choices, device
+settings, and SDK or account configuration.
+
+Google controls retention and deletion for data handled by its advertising and
+consent services, subject to Google's policies and the controls Google makes
+available. The developer cannot delete data controlled solely by Google.
+
+For more information, see:
 
 - https://policies.google.com/privacy
 - https://developers.google.com/admob/android/privacy/play-data-disclosure
 - https://developers.google.com/admob/android/privacy
 
-Google controls retention and deletion for data handled by its advertising and
-consent services, subject to Google's policies and the privacy choices it makes
-available.
+## Your Choices and Controls
+
+Users control which images the app can access by selecting them through
+Android's system Photo Picker.
+
+When entries are visible in History, users can remove individual entries or use
+Clear History. Users can also clear the application's cache or storage through
+Android settings. Clearing storage is the reliable way to remove all app-local
+History metadata when records are hidden because their temporary outputs no
+longer exist. Images saved in the public device gallery must be deleted using
+the gallery or file manager.
+
+Where required, users can review advertising consent choices through the
+Privacy Options entry inside the app. Android device settings may also allow
+users to reset or delete the Advertising ID and manage advertising
+personalization.
+
+Users may contact Naimish Gupta at naimish.app@gmail.com regarding this policy
+or privacy-related questions.
 
 ## Data Security
 
-Local History and configuration are stored in the app's private Android storage,
-while saved images are stored in user-accessible device media storage. Security
-of device-local and saved media also depends on the device, operating system,
-backups, and user settings. As noted above, Google states that Mobile Ads SDK
-network data is encrypted in transit using TLS.
+Photo Compressor & BG Remover uses Android scoped-storage and content-URI
+mechanisms and requests access only to images selected by the user. Local
+History and temporary processing files are stored in app-private storage.
+Temporary URI access is granted to receiving applications only when the user
+chooses to open or share an image.
+
+The developer does not operate a backend for image processing. Google states
+that information transmitted by its advertising and consent services is
+protected in transit using TLS.
+
+No method of electronic storage or transmission can be guaranteed to be
+completely secure. Security also depends on the user's device, operating
+system, installed applications, backups, and device configuration.
 
 ## On-Device Background Removal
 
-Background removal uses a bundled U2-NetP ONNX model and ONNX Runtime on the
-device. The model is packaged with the app. App code does not download a remote
-model or upload an image for this feature.
+Background removal uses a U2-NetP ONNX model with ONNX Runtime on the device.
+The model is packaged with the app. No remote model is required, and no image is
+uploaded for background removal.
 
-## Third-Party Components
+## Third-Party Services and Components
 
-The app uses AndroidX, Jetpack Compose, Kotlin coroutines, Hilt/Dagger, Coil,
-OkHttp/Okio transitively, ONNX Runtime Android, Google Mobile Ads SDK, and Google
-User Messaging Platform SDK. Focused notices for key privacy and model
-components are maintained in `legal/THIRD_PARTY_NOTICES.md` and the other files
-in `legal/`; that focused notice is not an exhaustive dependency inventory.
+The privacy-affecting third-party services and components used by the app are:
 
-## Children
+- **Google Mobile Ads SDK:** displays advertising and handles the Google data
+  described above.
+- **Google User Messaging Platform:** requests consent information and presents
+  Google-managed privacy messages and privacy options when required.
+- **ONNX Runtime:** runs background-removal inference locally on the device.
+- **U2-NetP background-removal model:** is packaged with the app and processes
+  image data locally through ONNX Runtime.
 
-Photo Compressor is a general-purpose utility and is not directed to children
-under 13. This statement does not treat every person aged 13 or older as an
-adult: the definition of a child varies by country, region, and applicable law,
-and Google Play target-age selections can trigger Families requirements. The
-automatic Google advertising-SDK practices described above apply whenever the
-SDK is allowed to request ads. The publisher must configure the Google Play
-target-audience and advertising settings consistently with the actual intended
-audience and must reassess the implementation and policy before including any
-audience treated as children under applicable law or serving ads to children or
-users of unknown age in a mixed-audience app. The current implementation does
-not provide a neutral age screen or child-directed/under-age ad-request
-treatment and includes app-open ads, so it must not be represented as ready for
-a child or mixed audience without a separate Families-compliance review and
-implementation update. In particular, an eligible completed Progress screen
-can contain top and bottom banners plus the final inline native placement;
-Families treatment prohibits multiple ad placements on a page when ads are
-served to children or users of unknown age. The publisher must confirm the
-target-audience selection and resulting ad treatment before release.
+The release source does not include a separate developer-integrated analytics
+or crash-reporting service. Google Mobile Ads can still collect the interaction
+and diagnostic information described above.
 
-## Changes
+## Children and Teen Users
 
-This policy may be updated to reflect changes to the app, law, or advertising
-configuration. The effective date will be changed when the policy is updated.
-The hosted Google Play privacy-policy URL and the in-app policy must contain the
-same current disclosures.
+Photo Compressor & BG Remover is a general-purpose image utility intended for
+users aged 13 and older. It is not designed or marketed primarily to children
+under 13.
+
+The app does not create user accounts or ask users to provide their age.
+Selected images and generated results are processed on the device and are not
+uploaded to a developer-operated server.
+
+The app uses Google Mobile Ads and Google User Messaging Platform. Google may
+process advertising-related information as described in the Advertising and
+Consent and Data Automatically Collected and Shared by Google Mobile Ads
+sections.
+
+Parents, guardians, and users may contact Naimish Gupta at
+naimish.app@gmail.com with privacy-related questions.
+
+## Changes to This Policy
+
+This Privacy Policy may be updated to reflect changes to the application,
+applicable law, third-party services, or advertising configuration. The
+effective date and last-updated date will be revised when changes are made.
+
+The privacy policy linked in Google Play and the policy accessible inside the
+application will contain the same current disclosures.
+
+## Contact Us
+
+For questions, concerns, or requests regarding this Privacy Policy, contact:
+
+Naimish Gupta
+
+Email: naimish.app@gmail.com

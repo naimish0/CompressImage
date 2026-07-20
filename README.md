@@ -1,6 +1,6 @@
-# Photo Compressor
+# Photo Compressor & BG Remover
 
-Photo Compressor is a Kotlin + Jetpack Compose Android app for selecting, batch-compressing, resizing, converting, comparing, saving, opening, sharing, and removing or replacing image backgrounds. Image processing happens entirely on the device. An internet connection may be used to load advertisements and advertising consent information.
+Photo Compressor & BG Remover is a Kotlin + Jetpack Compose Android app for selecting, batch-compressing, resizing, converting, comparing, saving, opening, sharing, and removing or replacing image backgrounds. Image processing happens on the device. An internet connection is used for Google advertising and advertising-consent services.
 
 ## Run
 
@@ -35,7 +35,7 @@ The current implementation includes:
 
 The canonical declarations are centralized in `app/build.gradle.kts` and exposed through generated `BuildConfig` fields. The AdMob App ID is also supplied to the SDK manifest metadata.
 
-Before publishing, complete the publisher-owned and Play Console tasks in `play-store/store-listing.md`, host the final `PRIVACY_POLICY.md` as an active, publicly accessible, non-geofenced, non-editable HTTPS webpage (not a PDF), configure and verify AdMob privacy messages and app-ads.txt, and sign a fresh release App Bundle with the production upload key.
+Before publishing, complete the remaining Play Console tasks in `play-store/store-listing.md`, keep `PRIVACY_POLICY.md` authoritative, host `docs/privacy-policy.html` as an active, publicly accessible, non-geofenced, non-editable HTTPS webpage (not a PDF), resolve the documented 13+ advertising-treatment mismatch, configure and verify AdMob privacy messages and app-ads.txt, and sign a fresh release App Bundle with the production upload key.
 
 ## Background Removal
 

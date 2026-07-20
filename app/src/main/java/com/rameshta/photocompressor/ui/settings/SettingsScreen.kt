@@ -18,7 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,9 +29,6 @@ import com.rameshta.photocompressor.ui.components.PremiumCard
 import com.rameshta.photocompressor.ui.components.PremiumOutlinedButton
 import com.rameshta.photocompressor.ui.components.PremiumTopAppBar
 import com.rameshta.photocompressor.ui.theme.AppSpacing
-import java.text.DateFormat
-import java.util.Calendar
-import java.util.GregorianCalendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -122,14 +118,9 @@ fun SettingsScreen(
                 }
             }
             item {
-                SettingsCard(title = stringResource(R.string.policy_background_removal_title)) {
+                SettingsCard(title = stringResource(R.string.remove_background)) {
                     Text(
                         text = stringResource(R.string.settings_background_model),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = stringResource(R.string.open_source_notices),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
@@ -141,10 +132,6 @@ fun SettingsScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PrivacyPolicyScreen(onBack: () -> Unit) {
-    val activeLocale = LocalConfiguration.current.locales[0]
-    val effectiveDate = DateFormat.getDateInstance(DateFormat.LONG, activeLocale).format(
-        GregorianCalendar(2026, Calendar.JULY, 20).time,
-    )
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -164,51 +151,92 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
         ) {
             item {
                 Text(
-                    text = stringResource(R.string.privacy_effective_date, effectiveDate),
+                    text = stringResource(R.string.privacy_policy_effective_date),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    text = stringResource(R.string.privacy_policy_last_updated),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_overview_title),
-                    body = stringResource(R.string.policy_overview_body),
+                    title = stringResource(R.string.privacy_policy_developer_title),
+                    body = stringResource(R.string.privacy_policy_developer_body),
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_images_files_title),
-                    body = stringResource(R.string.policy_images_files_body),
+                    title = stringResource(R.string.privacy_policy_summary_title),
+                    body = stringResource(R.string.privacy_policy_summary_body),
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_local_history_title),
-                    body = stringResource(R.string.policy_local_history_body),
+                    title = stringResource(R.string.privacy_policy_images_title),
+                    body = stringResource(R.string.privacy_policy_images_body),
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_advertising_consent_title),
-                    body = stringResource(R.string.policy_advertising_consent_body),
+                    title = stringResource(R.string.privacy_policy_history_title),
+                    body = stringResource(R.string.privacy_policy_history_body),
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_background_removal_title),
-                    body = stringResource(R.string.policy_background_removal_body),
+                    title = stringResource(R.string.privacy_policy_advertising_title),
+                    body = stringResource(R.string.privacy_policy_advertising_body),
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_children_title),
-                    body = stringResource(R.string.policy_children_body),
+                    title = stringResource(R.string.privacy_policy_google_data_title),
+                    body = stringResource(R.string.privacy_policy_google_data_body),
                 )
             }
             item {
                 PolicySection(
-                    title = stringResource(R.string.policy_third_parties_title),
-                    body = stringResource(R.string.policy_third_parties_body),
+                    title = stringResource(R.string.privacy_policy_choices_title),
+                    body = stringResource(R.string.privacy_policy_choices_body),
+                )
+            }
+            item {
+                PolicySection(
+                    title = stringResource(R.string.privacy_policy_security_title),
+                    body = stringResource(R.string.privacy_policy_security_body),
+                )
+            }
+            item {
+                PolicySection(
+                    title = stringResource(R.string.privacy_policy_background_title),
+                    body = stringResource(R.string.privacy_policy_background_body),
+                )
+            }
+            item {
+                PolicySection(
+                    title = stringResource(R.string.privacy_policy_third_party_title),
+                    body = stringResource(R.string.privacy_policy_third_party_body),
+                )
+            }
+            item {
+                PolicySection(
+                    title = stringResource(R.string.privacy_policy_children_title),
+                    body = stringResource(R.string.privacy_policy_children_body),
+                )
+            }
+            item {
+                PolicySection(
+                    title = stringResource(R.string.privacy_policy_changes_title),
+                    body = stringResource(R.string.privacy_policy_changes_body),
+                )
+            }
+            item {
+                PolicySection(
+                    title = stringResource(R.string.privacy_policy_contact_title),
+                    body = stringResource(R.string.privacy_policy_contact_body),
                 )
             }
         }

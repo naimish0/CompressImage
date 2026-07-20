@@ -1,0 +1,30 @@
+<!doctype html><html lang="ru-RU"><head><meta charset="utf-8"><style>
+
+@font-face {font-family:NotoSans;src:url('file:///Users/naimishgupta/AndroidStudioProjects/CompressImage/play-store-assets/source/fonts/NotoSans-Variable.ttf') format('truetype');font-weight:100 900;}
+@font-face {font-family:NotoDevanagari;src:url('file:///Users/naimishgupta/AndroidStudioProjects/CompressImage/play-store-assets/source/fonts/NotoSansDevanagari-Variable.ttf') format('truetype');font-weight:100 900;}
+@font-face {font-family:NotoGujarati;src:url('file:///Users/naimishgupta/AndroidStudioProjects/CompressImage/play-store-assets/source/fonts/NotoSansGujarati-Variable.ttf') format('truetype');font-weight:100 900;}
+* {box-sizing:border-box;}
+html,body {margin:0;width:1024px;height:500px;overflow:hidden;background:#F6F8FF;}
+body {font-family:NotoSans,NotoSans,sans-serif;color:#0F172A;}
+.canvas {position:relative;width:1024px;height:500px;overflow:hidden;background:
+ radial-gradient(circle at 86% 8%,rgba(37,99,235,.17),transparent 31%),
+ radial-gradient(circle at 4% 94%,rgba(219,234,254,.88),transparent 39%),
+ linear-gradient(150deg,#F6F8FF 0%,#EEF4FF 54%,#DBEAFE 100%);}
+.headline {position:absolute;z-index:10;left:56px;right:56px;top:52px;text-align:center;font-weight:825;font-size:37px;line-height:1.08;letter-spacing:-1.7px;text-wrap:balance;}
+.subhead {position:absolute;z-index:10;left:72px;right:72px;top:220px;text-align:center;color:#475569;font-size:27px;line-height:1.25;font-weight:590;text-wrap:balance;}
+.body {position:absolute;left:56px;right:56px;top:292px;bottom:54px;}
+.card {background:rgba(255,255,255,.94);border:1px solid rgba(148,163,184,.22);border-radius:34px;overflow:hidden;box-shadow:0 24px 64px rgba(15,23,42,.12),0 5px 15px rgba(37,99,235,.06);}
+.label {display:inline-flex;align-items:center;gap:8px;background:rgba(15,23,42,.78);color:#fff;border-radius:999px;padding:9px 17px;font-size:19px;font-weight:760;letter-spacing:.4px;}
+.label.blue {background:#2563EB;} .label.green {background:#16A34A;}
+.metric-row {display:grid;grid-template-columns:1fr 56px 1fr;align-items:center;gap:14px;}
+.metric {background:#fff;border:1px solid rgba(37,99,235,.15);border-radius:24px;padding:22px;text-align:center;box-shadow:0 10px 24px rgba(15,23,42,.08);}
+.metric strong {display:block;font-size:38px;line-height:1;color:#0F172A;} .metric span {display:block;margin-top:8px;color:#475569;font-size:20px;font-weight:650;}
+.arrow {width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#2563EB;color:white;font-size:32px;font-weight:900;box-shadow:0 8px 18px rgba(37,99,235,.25);}
+.proof {position:absolute;z-index:30;left:0;right:0;bottom:0;height:42px;background:#991B1B;color:#fff;display:flex;align-items:center;justify-content:center;font:800 17px NotoSans,sans-serif;letter-spacing:1.1px;}
+.checker {background-color:#fff;background-image:linear-gradient(45deg,#d9dce3 25%,transparent 25%),linear-gradient(-45deg,#d9dce3 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#d9dce3 75%),linear-gradient(-45deg,transparent 75%,#d9dce3 75%);background-size:38px 38px;background-position:0 0,0 19px,19px -19px,-19px 0;}
+.ui-shot {display:block;width:100%;height:100%;object-fit:cover;object-position:50% 25%;}
+.label,.detail span,.metric span,.stats-bar span,.resize-chips,.aspect{display:none!important}.frame05{justify-content:center!important}.frame05 .quality-ui{height:520px!important}.frame05 .resize-ui{height:680px!important}
+
+.headline{left:54px;right:555px;top:112px;text-align:left;letter-spacing:-1px;line-height:1.04}.subhead{left:56px;right:555px;top:275px;text-align:left;font-size:22px;color:#334155}
+.feature-visual{position:absolute;right:43px;top:40px;width:510px;height:420px}.before,.after{position:absolute;width:238px;height:350px;top:30px}.before{left:0;transform:rotate(-2deg)}.after{right:0;transform:rotate(2deg)}.before img,.after img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}.after img{object-fit:contain;object-position:center bottom}.before .label,.after .label{position:absolute;z-index:2;left:14px;top:14px;font-size:13px;padding:7px 11px}.feature-arrow{position:absolute;z-index:4;left:226px;top:175px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#2563EB;color:#fff;font-size:34px;font-weight:900;box-shadow:0 10px 24px rgba(37,99,235,.3)}.result-ui{position:absolute;left:55px;top:310px;width:340px;height:150px;padding:7px}.result-ui img{width:100%;height:100%;object-fit:contain;object-position:center}.proof{height:30px;font-size:12px}
+</style></head><body><div class="canvas"><div class="headline">Фото меньше. Фон чистый.</div><div class="subhead">Сжать • Удалить • Заменить</div><div class="card result-ui"><img class="" src="file:///Users/naimishgupta/AndroidStudioProjects/CompressImage/play-store-assets/source/templates/generated-crops/result-metrics-crop.png" ></div><div class="feature-visual"><div class="card before"><span class="label">ORIGINAL</span><img class="" src="file:///Users/naimishgupta/AndroidStudioProjects/CompressImage/play-store-assets/source/sample-images/portrait-curly-hair-original.png" ></div><div class="feature-arrow">→</div><div class="card after checker"><span class="label blue">REAL CUTOUT</span><img class="" src="file:///Users/naimishgupta/AndroidStudioProjects/CompressImage/play-store-assets/source/sample-images/real-app-results/background/portrait-transparent.png" ></div></div></div></body></html>

@@ -1,0 +1,56 @@
+locale,asset,alt_text,characters
+en-US,App icon,"Blue and purple layered photo cards with inward compression arrows, the Photo Compressor & BG Remover app icon.",111
+en-US,Feature graphic,A real photo transformation pairs a smaller file with a clean-background result and the app's result panel.,107
+en-US,Phone 01 — compression,"Real original and compressed photos with measured file sizes, percentage saved, and matching 100% detail crops.",111
+en-US,Phone 02 — background removal,The app removes a photo background and shows the real cutout over a checkerboard transparency pattern.,102
+en-US,Phone 03 — solid-color replacement,"A real cutout appears on white, blue, green, and red solid backgrounds beside the app's color controls.",103
+en-US,Phone 04 — batch compression,"The app processes several selected photos, showing real batch progress and completed compression results.",105
+en-US,Phone 05 — resizing,"Resize controls show 25%, 50%, 75%, custom width and height, and the maintain-aspect-ratio option.",98
+en-US,Phone 06 — format conversion,"The app's format controls and result screen show real conversion among JPG, PNG, and WEBP.",90
+en-US,Phone 07 — comparison,"Original and processed previews appear with real sizes, percentage saved, and compression ratio.",96
+en-US,Phone 08 — trust,"On-device image processing is explained with no account required, no watermark added, save, and share.",102
+en-US,7-inch tablet 01 — batch selection,Real app UI on a 7-inch tablet profile shows three photos selected for batch compression.,89
+en-US,7-inch tablet 02 — batch summary,Real app UI on a 7-inch tablet profile shows all three batch items completed with no failures.,94
+en-US,7-inch tablet 03 — background removal,Real app UI on a 7-inch tablet profile shows the app-created cutout on a transparency grid.,91
+en-US,7-inch tablet 04 — comparison,Real app UI on a 7-inch tablet profile compares the original and compressed portrait side by side.,98
+en-US,10-inch tablet 01 — batch selection,Real app UI on a 10-inch tablet profile shows three photos selected for batch compression.,90
+en-US,10-inch tablet 02 — batch summary,Real app UI on a 10-inch tablet profile shows all three batch items completed with no failures.,95
+en-US,10-inch tablet 03 — background removal,Real app UI on a 10-inch tablet profile shows the app-created cutout on a transparency grid.,92
+en-US,10-inch tablet 04 — comparison,Real app UI on a 10-inch tablet profile compares the original and compressed portrait side by side.,99
+en-US,Chromebook 01 — batch selection,Real app UI on a Chromebook profile shows three photos selected for batch compression.,86
+en-US,Chromebook 02 — batch summary,Real app UI on a Chromebook profile shows all three batch items completed with no failures.,91
+en-US,Chromebook 03 — background removal,Real app UI on a Chromebook profile shows the app-created cutout on a transparency grid.,88
+en-US,Chromebook 04 — comparison,Real app UI on a Chromebook profile compares the original and compressed portrait side by side.,95
+en-US,Experiment 01A — storage,The same measured compression frame leads with this photo's verified 91.2% file-size reduction.,95
+en-US,Experiment 01B — quality,The same measured compression frame leads with retained sharp detail after compression.,87
+en-US,Background-removal-first candidate,The unchanged real background-removal frame leads a custom listing for removal-intent visitors.,95
+hi-IN,ऐप आइकन,Photo Compressor & BG Remover का ऐप आइकन: नीले और बैंगनी लेयर्ड फ़ोटो कार्ड और अंदर की ओर कम्प्रेशन तीर।,104
+hi-IN,फ़ीचर ग्राफ़िक,"वास्तविक फ़ोटो बदलाव में छोटी फ़ाइल, साफ़ बैकग्राउंड परिणाम और ऐप का परिणाम पैनल दिखता है।",90
+hi-IN,फ़ोन 01 — कम्प्रेशन,"मूल और कम्प्रेस की गई वास्तविक फ़ोटो, मापे गए फ़ाइल आकार, बचत प्रतिशत और समान 100% डिटेल क्रॉप।",95
+hi-IN,फ़ोन 02 — बैकग्राउंड हटाना,ऐप फ़ोटो का बैकग्राउंड हटाकर वास्तविक कटआउट को चेकरबोर्ड पारदर्शिता पर दिखाता है।,81
+hi-IN,फ़ोन 03 — ठोस रंग,"वास्तविक कटआउट सफ़ेद, नीले, हरे और लाल ठोस बैकग्राउंड के साथ ऐप के रंग नियंत्रणों के पास दिखता है।",98
+hi-IN,फ़ोन 04 — बैच कम्प्रेशन,ऐप कई चुनी गई फ़ोटो को प्रोसेस करते हुए वास्तविक बैच प्रगति और पूरे हुए कम्प्रेशन परिणाम दिखाता है।,99
+hi-IN,फ़ोन 05 — आकार बदलना,"आकार नियंत्रण 25%, 50%, 75%, कस्टम चौड़ाई-ऊँचाई और आस्पेक्ट रेशियो बनाए रखने का विकल्प दिखाते हैं।",98
+hi-IN,फ़ोन 06 — फ़ॉर्मैट बदलना,"ऐप के फ़ॉर्मैट नियंत्रण और परिणाम JPG, PNG और WEBP के बीच वास्तविक रूपांतरण दिखाते हैं।",87
+hi-IN,फ़ोन 07 — तुलना,"मूल और प्रोसेस किए गए प्रीव्यू के साथ वास्तविक आकार, बचत प्रतिशत और कम्प्रेशन अनुपात दिखता है।",94
+hi-IN,फ़ोन 08 — भरोसा,"डिवाइस पर इमेज प्रोसेसिंग के साथ अकाउंट, वॉटरमार्क, सहेजने और साझा करने की जानकारी।",83
+gu-IN,ઍપ આઇકન,Photo Compressor & BG Removerનું ઍપ આઇકન: વાદળી અને જાંબલી લેયર્ડ ફોટો કાર્ડ અને અંદર તરફ કમ્પ્રેશન તીર.,104
+gu-IN,ફીચર ગ્રાફિક,"વાસ્તવિક ફોટો પરિવર્તનમાં નાની ફાઇલ, સ્વચ્છ બૅકગ્રાઉન્ડ પરિણામ અને ઍપનું પરિણામ પેનલ દેખાય છે.",94
+gu-IN,ફોન 01 — કમ્પ્રેશન,"વાસ્તવિક મૂળ અને કમ્પ્રેસ કરેલા ફોટા સાથે માપેલી ફાઇલ સાઇઝ, બચતની ટકાવારી અને સમાન 100% ડિટેલ ક્રોપ.",100
+gu-IN,ફોન 02 — બૅકગ્રાઉન્ડ દૂર કરવું,ઍપ ફોટાનું બૅકગ્રાઉન્ડ દૂર કરીને વાસ્તવિક કટઆઉટને ચેકરબોર્ડ પારદર્શિતા પર બતાવે છે.,83
+gu-IN,ફોન 03 — ઘન રંગ,"વાસ્તવિક કટઆઉટ સફેદ, વાદળી, લીલા અને લાલ ઘન બૅકગ્રાઉન્ડ સાથે ઍપના રંગ નિયંત્રણો પાસે દેખાય છે.",94
+gu-IN,ફોન 04 — બૅચ કમ્પ્રેશન,ઍપ ઘણા પસંદ કરેલા ફોટા પ્રોસેસ કરીને વાસ્તવિક બૅચ પ્રગતિ અને પૂર્ણ કમ્પ્રેશન પરિણામો બતાવે છે.,94
+gu-IN,ફોન 05 — કદ બદલવું,"કદનાં નિયંત્રણોમાં 25%, 50%, 75%, કસ્ટમ પહોળાઈ-ઊંચાઈ અને આસ્પેક્ટ રેશિયો જાળવવાનો વિકલ્પ દેખાય છે.",98
+gu-IN,ફોન 06 — ફૉર્મેટ બદલવું,"ઍપનાં ફૉર્મેટ નિયંત્રણો અને પરિણામ JPG, PNG અને WEBP વચ્ચેનું વાસ્તવિક રૂપાંતરણ બતાવે છે.",89
+gu-IN,ફોન 07 — સરખામણી,"મૂળ અને પ્રોસેસ કરેલા પ્રિવ્યૂ સાથે વાસ્તવિક કદ, બચતની ટકાવારી અને કમ્પ્રેશન ગુણોત્તર દેખાય છે.",95
+gu-IN,ફોન 08 — વિશ્વાસ,"ડિવાઇસ પર ઇમેજ પ્રોસેસિંગ સાથે એકાઉન્ટ, વૉટરમાર્ક, સાચવવા અને શેર કરવાની માહિતી.",80
+ru-RU,Значок приложения,Значок Photo Compressor & BG Remover: синие и фиолетовые карточки фото и направленные внутрь стрелки сжатия.,108
+ru-RU,Рекламный баннер,"Реальное преобразование показывает меньший файл, результат с чистым фоном и панель результата приложения.",105
+ru-RU,Телефон 01 — сжатие,"Реальные исходное и сжатое фото с измеренными размерами файлов, процентом экономии и одинаковыми фрагментами 100%.",114
+ru-RU,Телефон 02 — удаление фона,Приложение удаляет фон фото и показывает реальный вырезанный объект на шахматном фоне прозрачности.,99
+ru-RU,Телефон 03 — сплошной цвет,"Реальный вырезанный объект показан на белом, синем, зелёном и красном фонах рядом с настройками цвета.",102
+ru-RU,Телефон 04 — пакетное сжатие,"Приложение обрабатывает несколько выбранных фото, показывая реальный ход пакета и готовые результаты сжатия.",108
+ru-RU,Телефон 05 — размер,"Настройки размера показывают 25%, 50%, 75%, свои ширину и высоту и сохранение соотношения сторон.",97
+ru-RU,Телефон 06 — формат,"Настройки формата и экран результата показывают реальное преобразование между JPG, PNG и WEBP.",94
+ru-RU,Телефон 07 — сравнение,"Исходный и обработанный предпросмотры показаны с реальными размерами, экономией в процентах и коэффициентом сжатия.",115
+ru-RU,Телефон 08 — доверие,"Обработка на устройстве показана вместе с фактами об аккаунте, водяном знаке, сохранении и отправке.",100

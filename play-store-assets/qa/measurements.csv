@@ -1,0 +1,11 @@
+metric,value,evidence
+original_bytes,2683003,source/sample-images/portrait-curly-hair-original.png
+processed_bytes,235719,source/sample-images/real-app-results/compression/portrait-compressed.jpg
+original_display,2.68 MB,source/sample-images/portrait-curly-hair-original.png
+processed_display,236 kB,source/sample-images/real-app-results/compression/portrait-compressed.jpg
+percent_saved,91.2%,source/sample-images/real-app-results/compression/portrait-compressed.jpg
+compression_ratio,11.38:1,source/sample-images/real-app-results/compression/portrait-compressed.jpg
+original_sha256,811dcacb040b08d684ab438876b3fa5cbbaa34fd269a17e2e9f7eed139088380,source/sample-images/portrait-curly-hair-original.png
+processed_sha256,66e24c65ced37c721125df6507a346b9c22c7e4a0a68440809bbe3bf7e362b56,source/sample-images/real-app-results/compression/portrait-compressed.jpg
+app_ui_evidence,2.68 MB → 236 kB; 91.2%; 11.38:1,source/captures/phone/09-result-stats-actions-raw.png
+target_status,Not safely achievable at requested 205 kB,source/captures/phone/09-result-stats-actions-raw.png

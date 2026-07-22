@@ -95,6 +95,10 @@ val discoveredProductionLocales = unsortedProductionLocales
     )
 val supportedProductionLanguageTags =
     discoveredProductionLocales.joinToString(separator = ",") { (languageTag, _) -> languageTag }
+val appVersionCode = 2
+val appVersionName = "1.0"
+val releaseBundleFileName =
+    "Photo-Compressor-BG-Remover-v$appVersionName-code$appVersionCode.aab"
 
 android {
     namespace = "com.rameshta.photocompressor"
@@ -108,8 +112,8 @@ android {
         applicationId = "com.rameshta.photocompressor"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField(
@@ -205,6 +209,30 @@ android {
         getByName("main") {
             assets.directories.add("../legal")
         }
+    }
+}
+
+val exportNamedReleaseBundle = tasks.register("exportNamedReleaseBundle") {
+    group = "build"
+    description = "Creates an upload-ready AAB named with the app and version."
+
+    val releaseBundleDirectory = layout.buildDirectory.dir("outputs/bundle/release")
+    val generatedBundle = releaseBundleDirectory.map { it.file("app-release.aab") }
+    val namedBundle = releaseBundleDirectory.map { it.file(releaseBundleFileName) }
+    inputs.file(generatedBundle)
+    outputs.file(namedBundle)
+
+    doLast {
+        generatedBundle.get().asFile.copyTo(
+            target = namedBundle.get().asFile,
+            overwrite = true,
+        )
+    }
+}
+
+tasks.configureEach {
+    if (name == "bundleRelease") {
+        finalizedBy(exportNamedReleaseBundle)
     }
 }
 

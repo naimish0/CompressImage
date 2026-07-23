@@ -1,0 +1,4034 @@
+[
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/en/phone/home.png",
+    "capture_sha256": "2be00d7f7ab18ef1e7b3879cc24d5f4e4aa211980d0171e5cb3e31abc27b6c08",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/en/phone/editor.png",
+    "capture_sha256": "15074a02adc5ae2d456e48d50608999ef9501585fc076f4f8450e0ddd67bd319",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/en/phone/batch.png",
+    "capture_sha256": "772795dd59d4751bbf1e3504ecf3f77db444f5aad55d60e9d6e5105660bdfcd6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/en/phone/result.png",
+    "capture_sha256": "76a12bffb90ca9eb4b8e07bdfa80757b046d49d49428cbe3be1a612bfca8afc2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/en/phone/result-stats.png",
+    "capture_sha256": "80bf249d79d837cca14563df5b5529da46bd92c910dc252c5d8d02d03cc23b6b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/en/phone/background.png",
+    "capture_sha256": "17eb1a6895dee6f7d8f9bd89fc76428f69406f97e89fbbc629e46273f67e621a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/en/phone/history.png",
+    "capture_sha256": "303264b725727eda37fe515775ba108dec0052524ca11a0841ff0b81ffb990b6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/en/phone/settings.png",
+    "capture_sha256": "673e7134fa264add499a35ee62a79452082270acbac9ce13b324a9de877e5db9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/en/tablet-7/home.png",
+    "capture_sha256": "ad83454ed2af717557ce84436a286e97210489f90b738966a85d9cedaeb95bc2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/en/tablet-7/editor.png",
+    "capture_sha256": "1d6ac30039fae7d4b3466e8a16de9f4585e2d41d06b60b90c9dc3efae6975736",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/en/tablet-7/batch.png",
+    "capture_sha256": "1090d5c9ba0019831191b2b5c71f6349d588051453d31d4f4b4c402d124d9bb6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/en/tablet-7/result.png",
+    "capture_sha256": "44e28465f182ba39b3646d4009cb0dca3c9eda48d0d6129568dac635be94410b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/en/tablet-7/result-stats.png",
+    "capture_sha256": "ff58014a9a0c370f1fc6515bf968df259831bf267e24eb00d78d7711f2d923c5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/en/tablet-7/background.png",
+    "capture_sha256": "104522d98be44a049d4bac2af0a38e6737b84a3b87715d63f8a5aeda309af915",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/en/tablet-7/history.png",
+    "capture_sha256": "e659f5d353199c8770986dea347e974c430ef7c076a15ccd57bdf2dccaa427de",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/en/tablet-7/settings.png",
+    "capture_sha256": "a146f45926fd365303c68b3579dd6bc743711a4254b7ae76eefcd84b09eaf962",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/en/tablet-10/home.png",
+    "capture_sha256": "072e049e52f5665e0dc79a09f3c8d6b780e0cd231fc98c7907f96bf2177041da",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/en/tablet-10/editor.png",
+    "capture_sha256": "f225ba67e2972bbf3816f024d78cc73993cef36a14d7726da261f37299c82211",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/en/tablet-10/batch.png",
+    "capture_sha256": "f9deaad6fa577e173489cc8eda9b335731781b2368df0d39fbd1ecf4ef99f453",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/en/tablet-10/result.png",
+    "capture_sha256": "9353e72fc2102f1f824a0610ed8ab91bbfc71447bd414682856e6668eae85afd",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/en/tablet-10/result-stats.png",
+    "capture_sha256": "0382b617764bde1835703ca980a532d3f4bdddf55496830ba0da57645d8960b4",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/en/tablet-10/background.png",
+    "capture_sha256": "56dbf0abf720c0fcf0b1ee8d3d78abddcbea12a8d755a4701906e7c2bc31c54c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/en/tablet-10/history.png",
+    "capture_sha256": "8ad3a4cfcbf357d564f43a1c727de2d9a4cfcff62ac166fe51e25a9942c6bc24",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/en/tablet-10/settings.png",
+    "capture_sha256": "cd8a77b48976bbe6ddb4bb6a1f3e2c00f16f6500a7616548284a50b879e14970",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/en/chromebook/home.png",
+    "capture_sha256": "57ef0dbccc219dc28de40246e6fb2afe5438db4fe84dfb837dcfe524b0fe7a55",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/en/chromebook/editor.png",
+    "capture_sha256": "229e8324497e05b69324bbc975aef8f2600deaf1c0d4482cf9eca3c11b6bdfd6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/en/chromebook/batch.png",
+    "capture_sha256": "97c89547c8bc8b9a39bdc3191f0f4d6987733f61f2fa2c8377e610dc4fcdfbbc",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/en/chromebook/result.png",
+    "capture_sha256": "9f43e7dc1e6ab07f45d1d5fabcba1be1215215f502bb38e561de5f7357085827",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/en/chromebook/result-stats.png",
+    "capture_sha256": "84afd6ea773fab7bac1eaa86d7c31e8c5b068cc8dbe04c418fac96d33e74ac12",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/en/chromebook/background.png",
+    "capture_sha256": "13cd5618f3fb390bcaa1580a067f431d91f006c5dac5631639a61a0c7cbb33fd",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/en/chromebook/history.png",
+    "capture_sha256": "c3cb0ff1e45f1af9b51b3408945d2b0214c6f72135b1be29b2e925fab43d5e12",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "en",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/en/chromebook/settings.png",
+    "capture_sha256": "759ae80047d12173ff33f2ad42d9dce68fb15c9e290a74cb7c0c5f7b20049574",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/de/phone/home.png",
+    "capture_sha256": "1d795eb9fefb0fe95b967987947060d5c6972ac82c9091a7f0027d535e26390c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/de/phone/editor.png",
+    "capture_sha256": "15ea6bb77fb7f6e253745ef9ea3bbf04fe2a224764f39a162164d2268cc6086e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/de/phone/batch.png",
+    "capture_sha256": "8cb12b9c390b0241d8f2513127ea351da748af8c56a48873509fbb32c1cf2bc1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/de/phone/result.png",
+    "capture_sha256": "e09fe823d9d19b6a7154db56476530dfa1821bd9cea817cdee284d08a0f51730",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/de/phone/result-stats.png",
+    "capture_sha256": "104632058febacd1218cc469e06e03ee61aba6c4ec1d81710d605d6da8945923",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/de/phone/background.png",
+    "capture_sha256": "c3eee4d6ae4aef64ee52c885a87b021e40b308f624ee5334a2bb0cfcf1b08033",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/de/phone/history.png",
+    "capture_sha256": "920706061c790fe3f6c3c7293c8aeaa9046a56eac82b5265344c329babe42be8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/de/phone/settings.png",
+    "capture_sha256": "99ba03051ba03a75441225fdb10965b8888c731d4cf16dfddc9aa88b7e8affdb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/de/tablet-7/home.png",
+    "capture_sha256": "cde5f175e6af7720fd272bf1cd388846c09c34e39e38b33610c15247045c8b00",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/de/tablet-7/editor.png",
+    "capture_sha256": "91eec901f38cd0f5d6c7722ce7de79c7ac3f1ad74ddd98a85fd4dd1e7ca18f5b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/de/tablet-7/batch.png",
+    "capture_sha256": "adc0f2612f3c0c004ef96507bb49382a099ef9871223306816afdb0dd2be0062",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/de/tablet-7/result.png",
+    "capture_sha256": "9544057706e123f6066d22fd439e5d6a9863e6f00683464a3f9e7d4a3e81de06",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/de/tablet-7/result-stats.png",
+    "capture_sha256": "a8430904afd6d5690491d42c6871b88920b22424bc0df53bb102a3e0d6d554ec",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/de/tablet-7/background.png",
+    "capture_sha256": "1f068d6bc0dd72bac783ed307c82ce336c7f07725773b482a3434cff26d90c34",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/de/tablet-7/history.png",
+    "capture_sha256": "edc2386209f1c41847030628173c0a9da9059688b2eb991927f8c4a2b8c4bb08",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/de/tablet-7/settings.png",
+    "capture_sha256": "d5aac2ef8c180d8e8d95dcda9e5011333f7a896dbf758157b44e249bc640440f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/de/tablet-10/home.png",
+    "capture_sha256": "7e7077d26ee3fdfdb9f3b5344793034cb419911145e2a8e06a6e258436b80b30",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/de/tablet-10/editor.png",
+    "capture_sha256": "f58445e3b2a8df91da3402b4a64618880368b2b3b8ed8c591caddcfbccd92786",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/de/tablet-10/batch.png",
+    "capture_sha256": "f7c966f5a7aacb8d098f0a9a2bd82ede56eb2ff063ee42c17b04fc3e6fdced09",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/de/tablet-10/result.png",
+    "capture_sha256": "44118ce5c99cb2c404921d0e24ff16220810b7451a05dc8cc72a71c0384157c2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/de/tablet-10/result-stats.png",
+    "capture_sha256": "03435e85338e61c044b26bf1123922797412293c453978e5db6496722593b785",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/de/tablet-10/background.png",
+    "capture_sha256": "8bfa8f99f9d24c19c4639da12ea19d860bca84580dc890ac7e6890285820049f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/de/tablet-10/history.png",
+    "capture_sha256": "35bb2ed2c6c00f76b788a9ead19b8896e4cd166989b7599cef369f4aff291881",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/de/tablet-10/settings.png",
+    "capture_sha256": "82eb2eb03dfa03cf44271c541b62d03f51cc613b7c2934b458efe264f943eef3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/de/chromebook/home.png",
+    "capture_sha256": "a7e11875c634afad1baed69a7096f36bd1a1368ea2658a6fb406634260f5d1c5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/de/chromebook/editor.png",
+    "capture_sha256": "0caf1e02f15a9fc1494837b0593d95dd038601dc20257189bf97d8850b9f6aa0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/de/chromebook/batch.png",
+    "capture_sha256": "956a8c76d3eb04af46230debde5622a64e9d8db23668c5d7751f8a474eafcad2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/de/chromebook/result.png",
+    "capture_sha256": "844310a303153b5b66f7426bbb4f131c1b3e47edd418d2835a0d29f156e4e231",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/de/chromebook/result-stats.png",
+    "capture_sha256": "58469ca3ea3cf0099bfec1045a55e5ed9227eeb44c669eacca58d85dbc2bae5c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/de/chromebook/background.png",
+    "capture_sha256": "45f154b51e536c8ca9821187de8a0d44aab4d1de90751196e152d44e5d399e2a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/de/chromebook/history.png",
+    "capture_sha256": "80851afb8038623967ade092a1bbb51c65eb015ff4451a93d08ebc3bef05d31f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "de",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/de/chromebook/settings.png",
+    "capture_sha256": "3ac03263043a15054797f1f51d1c91db129c82edd425d11eafcec5df387de12e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/fr/phone/home.png",
+    "capture_sha256": "e9155c185cad0e9c082485d5acee860ba68e1d34fb6a71a7150222710dcfdbe6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/fr/phone/editor.png",
+    "capture_sha256": "a5db5214265af4f67054ba1191d1878a66fa49f83aa66fe399cc9b3af0c117cb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/fr/phone/batch.png",
+    "capture_sha256": "3bb3ee5a78e9839a34bfba74a8ff37df43f739c0bfb94b3aac28d4d681ea5ef7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/fr/phone/result.png",
+    "capture_sha256": "4e8f37728c50b32cc1339f6b028fc149b310806e41f243aa8a7b3490f76d2350",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/fr/phone/result-stats.png",
+    "capture_sha256": "5fecf2e8b1f5db44d14551f725e355967625e3fff579b2ab55024317924b41c6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/fr/phone/background.png",
+    "capture_sha256": "4273a4ce12ff50a92ccf342ec0a0cf6ecabd569f3ef34e068c2841b93d6b0042",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/fr/phone/history.png",
+    "capture_sha256": "37f256f6fbb677dbb5e29d25a59699542dfb3225eb0c03fa931904b7c57dc088",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/fr/phone/settings.png",
+    "capture_sha256": "003ba14b7cd8b7b1303a2dc457b814cd64b8bcbe1d6ee2f559fa55ab22fe5689",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/fr/tablet-7/home.png",
+    "capture_sha256": "56686acd525802e48f16855bc230e4b27733fceefb264ff19188864c929d3cdc",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/fr/tablet-7/editor.png",
+    "capture_sha256": "d694906a688ba1be3d7d9e4541b4afb739df0dfb382db28c11522d2e435178e1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/fr/tablet-7/batch.png",
+    "capture_sha256": "842fedd54830f64ab96583853f462fa99b61bff1f0469aa80552ad40e5f506ba",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/fr/tablet-7/result.png",
+    "capture_sha256": "d8747a6f298f8b3b2deb1a85fff9fb7ec678ff9f651d588202801045e0a68fb2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/fr/tablet-7/result-stats.png",
+    "capture_sha256": "76744db003d034adf6bfbc99d68ceeb900033bc7d0a2ff5ec43c4044d83ce233",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/fr/tablet-7/background.png",
+    "capture_sha256": "521c4a62d5fcc97d995376c3dc19314f199b079c8c2e6ec094aadbceabecfbe2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/fr/tablet-7/history.png",
+    "capture_sha256": "613b5fae3a184a4fe80c89623273cd63a0f7bd97cda149c131fa8437e78676c1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/fr/tablet-7/settings.png",
+    "capture_sha256": "6ec4dc88abab0511ffb8ef10420967348672b35771ed62a3ed2023214d03f0d3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/fr/tablet-10/home.png",
+    "capture_sha256": "598b7f3946fd16e2f46a60e18836de4be4ef89faa6d53eeab7a57e72794c5a3e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/fr/tablet-10/editor.png",
+    "capture_sha256": "43a4a4699aa6b1b5a2eab013ec459da11c984cabe54525649022276c57aeafd2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/fr/tablet-10/batch.png",
+    "capture_sha256": "19fc9b12631edfb46cc5c5ebb32318e07fc6ae7f6854b0f759c29c6aa62d0184",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/fr/tablet-10/result.png",
+    "capture_sha256": "ead958d538a6297e15a84be2bdcd2a0738659337e2a5a06440fc6964cbfab18d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/fr/tablet-10/result-stats.png",
+    "capture_sha256": "bb15405f88c895d1320226f7f60b37c73bc138cb968b38e3933901e28e10227a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/fr/tablet-10/background.png",
+    "capture_sha256": "36b42155a55bc8312423a9f5fd31738be55dea41d3508092a3aa7c1696164961",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/fr/tablet-10/history.png",
+    "capture_sha256": "77225644ec7d6bd3b4c6d93f979acecde01a33384bf47b83bdbfc053848fda9d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/fr/tablet-10/settings.png",
+    "capture_sha256": "cd1b04b5556784f3acf3c950b32f37f7706aa55c81217cb1b17c1f66dc607fb4",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/fr/chromebook/home.png",
+    "capture_sha256": "31d7c83cc13145d9755e0d59698c0a626038653f014e28eba1c7096f5f876f66",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/fr/chromebook/editor.png",
+    "capture_sha256": "3c6049354d98039b71af45422af2d5336c028dc423ee53976f6ba92df3122b29",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/fr/chromebook/batch.png",
+    "capture_sha256": "9f2db8bda8d9716679520a23850dc32e2415f26b92b193fa0997533632c09cd9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/fr/chromebook/result.png",
+    "capture_sha256": "bd6fcb0ff5581ca224c54f0b811e21365e836801236512154fb55962e05b7ec5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/fr/chromebook/result-stats.png",
+    "capture_sha256": "271900817a88b9bc4143c1e8c8fdb98a92d6ca96c1e94f9899e1168e408f1d3f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/fr/chromebook/background.png",
+    "capture_sha256": "0fd02633deb6a7536370fa8d8c19aa0fa38d5c5ff39136a988c583faf8395e78",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/fr/chromebook/history.png",
+    "capture_sha256": "5135a55e7e8181faefede90fa97b90bdd31832edba69ec992630639324332346",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "fr",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/fr/chromebook/settings.png",
+    "capture_sha256": "6d38d120611dd004d898f4ad478f79028f4dc5916d413fb59a2cb8bc4be40428",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/ja/phone/home.png",
+    "capture_sha256": "920fe97bd5a3ed0ea77833306386028e5fd52b5ce89e2f9785f098c54861bcee",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/ja/phone/editor.png",
+    "capture_sha256": "b148002b96e4047aec7725ddb8a3edb4191389620792b775386f65d24c31fec1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/ja/phone/batch.png",
+    "capture_sha256": "1557430760bf18339fbd907323a7db89e526bec7a5cb57ecf04de75df0e469f0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/ja/phone/result.png",
+    "capture_sha256": "7c4cedbc559000104892475bcb29a6d72dbfceb0d6249a12211ad31588171386",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/ja/phone/result-stats.png",
+    "capture_sha256": "9094473fdbb7eb8449d11b8a7395d807d7e79e3dcb654aa7fea478e777bca168",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/ja/phone/background.png",
+    "capture_sha256": "d06394372a8ab259d212e13c4ba0c5ce16fe5144205099a35772cf1985496b93",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/ja/phone/history.png",
+    "capture_sha256": "8c9c51a70042e6bd79dc9a412eb68472260ae24b61dac38d809f510e198371ed",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/ja/phone/settings.png",
+    "capture_sha256": "d2300aa15bab4f19ab6ed64249c70416e14e79ee3ddda41c6f88ad98981224e9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/ja/tablet-7/home.png",
+    "capture_sha256": "035e5d43fac385ee9964ac01624b1b0fbbff7435278259881f57154e425b02e1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/ja/tablet-7/editor.png",
+    "capture_sha256": "60ebeca9df6b00efd21b83ed17142ae28cb244f561f9e02831121727c2e8d331",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/ja/tablet-7/batch.png",
+    "capture_sha256": "d2b09cc80aa945513ae202b11217f10da5859524053052ffb9b2bc1c2d0f2d41",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/ja/tablet-7/result.png",
+    "capture_sha256": "b8f11b19ae49d095fea2e455b6cd48d6f899508f1e9b827098b8e3aa4f9819f5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/ja/tablet-7/result-stats.png",
+    "capture_sha256": "ce84ca4570cccab4b945cb4db660ca2b9675823e3e3b67b3d9c3fab3014f17a5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/ja/tablet-7/background.png",
+    "capture_sha256": "699d3cd12435f7713ed6a96d837d06d1918e01a9e48b574ce5c83a9f0df66735",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/ja/tablet-7/history.png",
+    "capture_sha256": "9608cf61a5bd217faa1c26d0579ba0cef97b9745dcc5006c5e2d19ee3becb6a9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/ja/tablet-7/settings.png",
+    "capture_sha256": "56a040f04800f7811708b7760ec952615d71115fd8eae7782d0f977ee0c4626f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/ja/tablet-10/home.png",
+    "capture_sha256": "82a5a41b8c63dd6a45c18eff0bda197bcb2b29dcad06e41ac448472e0d5b9d40",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/ja/tablet-10/editor.png",
+    "capture_sha256": "329602651f6a4ff4e6c808068952271e9b69b286e791283c0ea7147c17ddf1b9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/ja/tablet-10/batch.png",
+    "capture_sha256": "7e1fe6496d30521fe1a0f4a5e9e8d5287fe1ce71ca1070966cbee1a1df3e8317",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/ja/tablet-10/result.png",
+    "capture_sha256": "8a7c481b1780027a28aceeba6430bfa96a91230755f406786f098f22c82628ca",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/ja/tablet-10/result-stats.png",
+    "capture_sha256": "0bee5534ccb442f249e98107e5c597d7c019abb5258485f38ac18abf6a9d2327",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/ja/tablet-10/background.png",
+    "capture_sha256": "6383f38d78a5fe41c18973fdd1dc323d8869b79cfa4be58fbe97dd814bdd20a9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/ja/tablet-10/history.png",
+    "capture_sha256": "0e8b133f4533bd9ee9c7aeec903e0c953c56547ebce527e8e6b90ec6ba5d1407",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/ja/tablet-10/settings.png",
+    "capture_sha256": "d03d09da8f5cbe55d4a54175e156efb82efd9f16d6a71e97b673c80ccc727af2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/ja/chromebook/home.png",
+    "capture_sha256": "3970d84b0de90f27b84b36f152a37ba34ba710af6fd10c19c84aaaa6b0db0dde",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/ja/chromebook/editor.png",
+    "capture_sha256": "18a33b42b8594649de10c3cb2a0165f2cd42f1afa6a030cd7ae8bcbe956eb06b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/ja/chromebook/batch.png",
+    "capture_sha256": "5032e5f48b3beef287406a39c749a484b3c3533735532a4a78c5f6c94d02a7cb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/ja/chromebook/result.png",
+    "capture_sha256": "d5fee03942672968ba88b4362901b0641c9969e748eb9072799d5ca112844612",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/ja/chromebook/result-stats.png",
+    "capture_sha256": "71a8a877c7b60b76a5ec854cd3a4a9cea4ad47fc75f41f85941506f1f3995c17",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/ja/chromebook/background.png",
+    "capture_sha256": "73368ea3ba580569fcb48a7874b9c023d0922ba821811c27ed268c1a61bcf461",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/ja/chromebook/history.png",
+    "capture_sha256": "2f53639542d3a86c4c95c97ff43d85e0d6f475b189bc596096b0679b5ed836a0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ja",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/ja/chromebook/settings.png",
+    "capture_sha256": "94b72b9fd92198dc47958fbf0f4f03524678b50067b2ee5878d740127778b2fd",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/hi/phone/home.png",
+    "capture_sha256": "0d4175bacb1635771038f2ad1532fc232315c99331cbe171613752fef5b1c4b8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/hi/phone/editor.png",
+    "capture_sha256": "82b597390bacd1cc58e67a7570dddfd4e1d71ddcd9aedaf795a503f368e37522",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/hi/phone/batch.png",
+    "capture_sha256": "fb558657fa195bf42023430ce081fad2f76750cb8a61893a3f05ca98013581eb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/hi/phone/result.png",
+    "capture_sha256": "d2b938f19a338e7212a6642fb4c6d8e459d393cab30e90f73972967be9491819",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/hi/phone/result-stats.png",
+    "capture_sha256": "a74fc5f21454e95dc49dfe139d8834a33380e82a6df2e307d565a94f4101d4ee",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/hi/phone/background.png",
+    "capture_sha256": "c6cd183ad2b4aa7610eff914dd149a1dfd0a67b4f921d673fa4d0710e67b1c9c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/hi/phone/history.png",
+    "capture_sha256": "ef7158fc6d4fdf0b7d65ef7ac82a526b4b01ed260cf3537d2a6f5bf9db9fcf6a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/hi/phone/settings.png",
+    "capture_sha256": "321c7783067b2d4ccc8d5fe8c28f85ebc23d6b7d97453140f33c7b3c564d4d30",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/hi/tablet-7/home.png",
+    "capture_sha256": "3ace09d72cc68e0840857eea1dc92eadadefd17371167d192761eb0dd0dc7fc3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/hi/tablet-7/editor.png",
+    "capture_sha256": "1826c11d27d0146ae6ff2af2dba89f645fa62ba1e0b739ce035537440f32ac86",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/hi/tablet-7/batch.png",
+    "capture_sha256": "627eca89659152f40eff77e61e63781c34ab76709c4112890b91d545e5d46d11",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/hi/tablet-7/result.png",
+    "capture_sha256": "921ef3b25ece8b6bd2e630ba5f6f8a5d5f442daddea91cf8b7d7d309d902f083",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/hi/tablet-7/result-stats.png",
+    "capture_sha256": "8f90640895aed3a90a5737ce62d15faa13e238badb197d68d3763afc680ace8f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/hi/tablet-7/background.png",
+    "capture_sha256": "39a8779bde9f8e432f4f602d2f9ac1430711b3821c24592a8c7c375f52676ebe",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/hi/tablet-7/history.png",
+    "capture_sha256": "98a6b8dfce21d4c0254c3e138d9416893b76e043146ccef08afa7c98bb29f6a1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/hi/tablet-7/settings.png",
+    "capture_sha256": "780c2a4f9d7b9e1bb897c7004636bbaac5c34a407dc9e9ceec4f6d64b9e10600",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/hi/tablet-10/home.png",
+    "capture_sha256": "e31afb374b5c51d7210a1a9cb38f02d04dfaea1f1c13da147f2c384e0eb79cfa",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/hi/tablet-10/editor.png",
+    "capture_sha256": "ecf2b87fef0f1486f5d96b9efeedb38878346637dc0909fa64299530e674c6e4",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/hi/tablet-10/batch.png",
+    "capture_sha256": "24ceaa01cdb8bacc6a61f7a30142b9f2e6b29620b6c7100f8ad7ae7486090933",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/hi/tablet-10/result.png",
+    "capture_sha256": "c93b75d94d7c056de95e1d152e1c7e02fc1fb5e70917ab95bb56a98ee28fac7a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/hi/tablet-10/result-stats.png",
+    "capture_sha256": "e921d463608afb973de0973d84320320d73129bc544cc25bc210795e75361702",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/hi/tablet-10/background.png",
+    "capture_sha256": "19ab6820c15b3c005e4aa81a62cb7043da54c3c16ebf3ca67c46c458d3ebfcfc",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/hi/tablet-10/history.png",
+    "capture_sha256": "f7cb767030c55b7a520d64fcb3bdad7f431edf9ecf46358bfa49b6b6c0137e96",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/hi/tablet-10/settings.png",
+    "capture_sha256": "82ef9b02ff315c9171f724ed8ed5f8d22d000ed142d3a552e0bef89e65bb5c68",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/hi/chromebook/home.png",
+    "capture_sha256": "eb2714936720350aeb21e29c3eb17b3a41a732f397b50b6073c5de384e0c9d3a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/hi/chromebook/editor.png",
+    "capture_sha256": "ea34286fa91050e2084b022d30d2bb17c75bec0dc00e12b3b4bcb19bbeec1d96",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/hi/chromebook/batch.png",
+    "capture_sha256": "e62fc5461bc7f09f3ba1707d6aebae08942460d71148a4826e2e3bed661f3654",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/hi/chromebook/result.png",
+    "capture_sha256": "d8afd16bd0c7c4cca025c385675dee24cddbd18aaf4c5949dce46e5b5e1def91",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/hi/chromebook/result-stats.png",
+    "capture_sha256": "7511e238ece9427e785c37399879cdd28cb0672869f1f01dfdb73faf03e5f125",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/hi/chromebook/background.png",
+    "capture_sha256": "bebba3230641c12ff2899a7c1c63b7f2368ba4307be8a723291c8b1d6ac6849e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/hi/chromebook/history.png",
+    "capture_sha256": "a7964a9d85ffea3b1cbe298783930d1048add034b6034a70df00beed2f91d11d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "hi",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/hi/chromebook/settings.png",
+    "capture_sha256": "9550f689215d198d70a19190f11873876956da96ae47eb6dd3f58b727a34e7d0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/ru/phone/home.png",
+    "capture_sha256": "30707408070ab8bf8ab56973dc75bccda33055a9a7a7cb69f30f78775032efab",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/ru/phone/editor.png",
+    "capture_sha256": "d3246fe18e30b70a85d6d22ec9b4a6bba021ba7c461953a2b50ef155e021a785",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/ru/phone/batch.png",
+    "capture_sha256": "2031ea837ef6cb2c57b908fe52991110ac7a6fe677f8c7b17430730c8995b4d3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/ru/phone/result.png",
+    "capture_sha256": "d5dc0e12831634093d0be0704e86a9436afaa475435e6906a446743d6c6df930",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/ru/phone/result-stats.png",
+    "capture_sha256": "3999e2777461d8fbf46200d1db46dfc01db3cfee042ce4dc1f24e8c356b96a3d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/ru/phone/background.png",
+    "capture_sha256": "9dba39b3c76df4af077a9a78b24b9d6cfb00e1f4dd68500fd267486f08f0ea42",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/ru/phone/history.png",
+    "capture_sha256": "457f848441501d814daa948026b98eb06467a9d4f301fbbf4ee11e8ac13d7995",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/ru/phone/settings.png",
+    "capture_sha256": "a678bd199224844ddb8b4e8979925fe83899d708d2bf592c65552c17b4a3983b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/ru/tablet-7/home.png",
+    "capture_sha256": "a196c50c26dffce15cbed9d6933f0539a57077f53e860e442ee436ccdcc03d58",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/ru/tablet-7/editor.png",
+    "capture_sha256": "d285cb8e8c266d11bad922869a32ae11e36260586c55f043220b864a71e76b97",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/ru/tablet-7/batch.png",
+    "capture_sha256": "7c7ca6ee31f2c97461c5e6364f328befa287bb5ff55ad1b1624437f43d6a4667",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/ru/tablet-7/result.png",
+    "capture_sha256": "fe861c2ef5f29d004bfcf394d180e6a2f5a594c3c8ed0c485d13b7ce635d41c9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/ru/tablet-7/result-stats.png",
+    "capture_sha256": "923df1a9aeb7db1a771f05193eefa7a4119e3aec26f5b9c56de1bcf4e0cd8202",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/ru/tablet-7/background.png",
+    "capture_sha256": "a73c54026ea9bfebbab8a97f1308f597c6d3f9c5fd75d006647fdb0dd3bbfb6e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/ru/tablet-7/history.png",
+    "capture_sha256": "be2271d299b1c9e7d620c455d3e969949635649f367ef3d169938b24c2c55a7c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/ru/tablet-7/settings.png",
+    "capture_sha256": "9a0b78cf6c19d37e4bfd9d31355e13d869c5522d423d538fe9c1ca628ae8acef",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/ru/tablet-10/home.png",
+    "capture_sha256": "1ff86e95041a0b48cf26a370f1bffbec210b17d0de412eba3067959c0686d6b8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/ru/tablet-10/editor.png",
+    "capture_sha256": "f4da52486cc95f55c3543ed4b3b143b3204fbd86b945b2297deaf5303c23ba8c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/ru/tablet-10/batch.png",
+    "capture_sha256": "ef76c2669510d7797a80c9cfe39d21bf4332e1f71e17387d06e02310cc06db2b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/ru/tablet-10/result.png",
+    "capture_sha256": "04811a9e13c0f4dbadea229d008fab48e0e95ba90fd4184c9118b819c229d63c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/ru/tablet-10/result-stats.png",
+    "capture_sha256": "edfc63829c509068e1294a0416ceb5f11dd50ac7a03a13337da1e3ee8cb90c91",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/ru/tablet-10/background.png",
+    "capture_sha256": "c5b921009d79a5844e15b01372e34378909f71d2db55c322238bdd3b635610ee",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/ru/tablet-10/history.png",
+    "capture_sha256": "0d77918fb851e2829ef5358051c2b7cd0c6a61eda5b769f62ba0bc9bfb0813bf",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/ru/tablet-10/settings.png",
+    "capture_sha256": "7b27f5c82320c0f3cd3a75d388461a51446f4819d23deb9e0ba9520752c4e761",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/ru/chromebook/home.png",
+    "capture_sha256": "472f003a0ca81d81c1078b803cda9803ec50d946a4fcf295287fc585567c275b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/ru/chromebook/editor.png",
+    "capture_sha256": "be70edf107e09256c19c671310c5783b578ea451c33992354db221eec9a0f2ed",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/ru/chromebook/batch.png",
+    "capture_sha256": "95b1e4d4cbd38dafce8e15bf4be9df8cbd19980253b8e1ce785fc15a0f133c6a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/ru/chromebook/result.png",
+    "capture_sha256": "c688a71758fe75f70f94c6da5773c2a3622720e1e846b725b2197f292c57a5db",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/ru/chromebook/result-stats.png",
+    "capture_sha256": "af0f4a7778efc0f935ac4a39089e3f283fe30a54b8157905937255c9cffd1a12",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/ru/chromebook/background.png",
+    "capture_sha256": "0c01e7d08adf95a243b76830eee26651c8a24fb17245b3810fd2a11ed0a50ab6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/ru/chromebook/history.png",
+    "capture_sha256": "48b399312dad15b1c219a776795d27d97b634242a149268616596044a8376519",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ru",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/ru/chromebook/settings.png",
+    "capture_sha256": "c83c97b95d2a3dd97e37e43e31839dd9de451c2e1eb6f549c4b58c13cc244e62",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/es/phone/home.png",
+    "capture_sha256": "8b2c3d28fd9f5fb00d5e1ee7782a52f633bd6148f76b2090ef86b677d0447dc2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/es/phone/editor.png",
+    "capture_sha256": "bbb26c744a381aa0b16c14912163506ff628e0db86f6c972aa3d20d766ea70a6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/es/phone/batch.png",
+    "capture_sha256": "c1d7b13d5aee58191d73345fc36ccd932f48f98efcf1d831af05ea3a389ad1d1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/es/phone/result.png",
+    "capture_sha256": "168be665d66347c23532ba82358de105a3c10faf0ac08ebe73426f61cf0f08bb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/es/phone/result-stats.png",
+    "capture_sha256": "c5a9fc54273ceee01d2adcdcae9524b8c119352f5280c0f771b2e6ad98ba2c02",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/es/phone/background.png",
+    "capture_sha256": "f315e4e195345bfa6d76e9ad1c59e97b0c60eb564badcf3acfa527c50d22cd1c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/es/phone/history.png",
+    "capture_sha256": "26d7a262128978508ad264ace64138fd708833383aa03f959ede002f79de13c2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/es/phone/settings.png",
+    "capture_sha256": "f4876b717dc71e90eac96d5524e2bd72ace0aebda1a9c059b4adfbcf902e7e32",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/es/tablet-7/home.png",
+    "capture_sha256": "e757dc7d877cc96d79e855740a3f66a247f341a92a0a34d2673f563a00866f4a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/es/tablet-7/editor.png",
+    "capture_sha256": "53f1a7e7049cb20c39a4818bcf556e4f1653587a4d4d005bfd5787baf300ec6d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/es/tablet-7/batch.png",
+    "capture_sha256": "2f2b03e152c837634e49de8a2feeaef1394316ea5aa9df468993987c012ae367",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/es/tablet-7/result.png",
+    "capture_sha256": "5b30bd883d2c2a203f89d1a4ec3cad5d51e7213c812f38c75ab55f3b935c155d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/es/tablet-7/result-stats.png",
+    "capture_sha256": "9aaae5e7604cd5f548744e62d28253395a82add069b1dc645a58f2ca5ca31392",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/es/tablet-7/background.png",
+    "capture_sha256": "73ef7cbf472c14ce6141f70bb28b956a743c3677669c9db242663c2a861be5ab",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/es/tablet-7/history.png",
+    "capture_sha256": "2b1183c97cdd0b38e6fdd9e90f7fb5b2ae7c48fc9320ee39b53b5d98bc75c0ce",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/es/tablet-7/settings.png",
+    "capture_sha256": "fb3d25fdae091caa64d8e9365c483b0e13096fa1829ed2ffcc8d9b08fd58fadf",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/es/tablet-10/home.png",
+    "capture_sha256": "6a40a26810158dfacfe567adbc9e180b9c09755a21d44dae49af1ef8de6e8de2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/es/tablet-10/editor.png",
+    "capture_sha256": "a36b6af24e1e93708497784b635652327fee0477c06b77945278d7cad3a91cf2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/es/tablet-10/batch.png",
+    "capture_sha256": "e10649c3dcfbb2e7da707af0dfa4868c1ce26e66941defecb914edde2ca0c54a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/es/tablet-10/result.png",
+    "capture_sha256": "eba831bc85c38f92f403e7327e104dde0416b776f15ba6bfec59575432259cf7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/es/tablet-10/result-stats.png",
+    "capture_sha256": "c03357f683055983c646dbed9a6d9618b4de140a1b59111d7266cc083abcadb6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/es/tablet-10/background.png",
+    "capture_sha256": "87a2754f83637182af9b289b84aaf25ce0760b220ba72d822407e6f87b240481",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/es/tablet-10/history.png",
+    "capture_sha256": "4efc88770ab94b83d30cea92887a4c8753709516e7fa6cb3532d5ee25259b630",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/es/tablet-10/settings.png",
+    "capture_sha256": "24242835c137e6cfa11108da2e411945a5639bf2a31a9ae3a5afb678ee2d7e43",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/es/chromebook/home.png",
+    "capture_sha256": "d25711d9b1bbc8ad1585b2dc6090a92a93590b7b09ccfde008d0c773675d8bec",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/es/chromebook/editor.png",
+    "capture_sha256": "948568ea7696adb482aae054b209c1636aba63b2cf74680d0759724186e300aa",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/es/chromebook/batch.png",
+    "capture_sha256": "673ac7b3cb82d0647b3066d38f23fb96f42c311605322d36da956e4289dd437b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/es/chromebook/result.png",
+    "capture_sha256": "6c5a69b851eb1f5d716167bbd7857c05bf17ffac368caace25a050674635f8f8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/es/chromebook/result-stats.png",
+    "capture_sha256": "6fa36e9eedf4919753a81245d6e676965299845fa951afbe5c57f6d44ac44c99",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/es/chromebook/background.png",
+    "capture_sha256": "09a8acec27f7b8e08044b4100931cd8b67ff2bd13f195bc1efd2eba44eb93bf9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/es/chromebook/history.png",
+    "capture_sha256": "e08baef51fda15cffbf6438dec6d3fd099b88c1c81cd2be0ed9dddbb1db6bb6a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "es",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/es/chromebook/settings.png",
+    "capture_sha256": "6ed3835c7a4ef45d5962fc4de4d2f7ca4f5e55c45040b62d912110fb42a6306e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/pt-PT/phone/home.png",
+    "capture_sha256": "fea99f4f1314d59ef1b1843f3d93c1b3129336c47b16a0784688b057812d9f0f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/pt-PT/phone/editor.png",
+    "capture_sha256": "051acb384d3d648efd98aa56b0ccff9877df8b346b0e9fc618a4b93e3a991e49",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/pt-PT/phone/batch.png",
+    "capture_sha256": "46ae6fdd5f44c6c33b9e8b27c63d6823a040101314f0e3c1eb63144d67c45bdf",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/pt-PT/phone/result.png",
+    "capture_sha256": "37000fc9f6dfeb2cba98b8216c2ab6078430f1de99a1c9d8eb24f3be55dd3ab1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/pt-PT/phone/result-stats.png",
+    "capture_sha256": "029e77c95308ece532c2f09a0829698dc401a494b40ae04b97e5eb22a7045f31",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/pt-PT/phone/background.png",
+    "capture_sha256": "58001d10a0d2034c6271838230c7d3e07c451e1b614155e6471bacfb390fff34",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/pt-PT/phone/history.png",
+    "capture_sha256": "deef465507877be6687834fa3c229778642608782278f0d0229e5f8d974e2093",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/pt-PT/phone/settings.png",
+    "capture_sha256": "ce778d70df7592c10255efa2122b920ff0dcb255809986a8b30203bb3a78a7ef",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/pt-PT/tablet-7/home.png",
+    "capture_sha256": "5e502924faafe9d733aa6e23009ef95e707e0981ea09975461942948e2737e21",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/pt-PT/tablet-7/editor.png",
+    "capture_sha256": "dc051cafccd29c96e36e7027008d063e69c32fe9a1fb370a3393aa4b4867a716",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/pt-PT/tablet-7/batch.png",
+    "capture_sha256": "694975ad98edb02ebfb932d24dd3e46f8c493400cfa93aa268af54459ac3f14d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/pt-PT/tablet-7/result.png",
+    "capture_sha256": "7aa261cd9ae28e989739e3993fb482df61a964ec4b6da090cb7f33233a4df144",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/pt-PT/tablet-7/result-stats.png",
+    "capture_sha256": "60b3ab5a88083b27d08929e3b16162a6d23a9f8ae439ed733a53265df6c8f64b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/pt-PT/tablet-7/background.png",
+    "capture_sha256": "d4122eac8c59f10013dba8ebd0f0986fbbd840763e1e239f3afdf4e58633668e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/pt-PT/tablet-7/history.png",
+    "capture_sha256": "35ce1e989af9e099919e718f071b992a41e0a6633e8bfdad315941bf6c594c1f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/pt-PT/tablet-7/settings.png",
+    "capture_sha256": "2bc54ee245110f081ffe1cc110814b91e289379a89522d0488f0498f9ba215b7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/pt-PT/tablet-10/home.png",
+    "capture_sha256": "ead3131eb85da48f3059d71a3aaab13d5df7df7538db16543ea40d795c324ebb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/pt-PT/tablet-10/editor.png",
+    "capture_sha256": "968ff45934158a1ad0b1898d9435da230acd8f096737a41bb70c9522df3afcbd",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/pt-PT/tablet-10/batch.png",
+    "capture_sha256": "0a4f11fda36861c87b2599d274a06496974cfd118d87cd633453cb644df893ca",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/pt-PT/tablet-10/result.png",
+    "capture_sha256": "9649454ac12c8226e3c059394a26cac44c2a9fadc6e8d4106511e9760a429827",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/pt-PT/tablet-10/result-stats.png",
+    "capture_sha256": "001eba14eb29ddecdc69ab569a96d264807fb823c2aa6de9686bf9dac12fd571",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/pt-PT/tablet-10/background.png",
+    "capture_sha256": "d6ee998e69a9f575be7276568137fd03b342da65ea4b5a8f9d0cb0aa11994125",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/pt-PT/tablet-10/history.png",
+    "capture_sha256": "de66bd8c6024911138d55fcd12af0513a079ce3abfe0bb33e1acd2ec1343228a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/pt-PT/tablet-10/settings.png",
+    "capture_sha256": "cd10da280f3d3839bad41be89540b72a9bf5f291e5b5b2f1a809fb90aedba87e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/pt-PT/chromebook/home.png",
+    "capture_sha256": "0884a6dd555f3d28e22d1b3c25a63632e5ae1c52c77776137b96863dbc88fbaf",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/pt-PT/chromebook/editor.png",
+    "capture_sha256": "c9f10d6b7c93f6ea26968e3586033e5d0b4eee8080cebd5e8a31cb285f6d9ce0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/pt-PT/chromebook/batch.png",
+    "capture_sha256": "1572b26b86ce2569fc37f665366c17fe7b61032ab5ba027e758d6cbe4fcaf4dc",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/pt-PT/chromebook/result.png",
+    "capture_sha256": "597d4e8783fef395ae1ded500240df2a4ea4e612957a99c36451ab8797b17888",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/pt-PT/chromebook/result-stats.png",
+    "capture_sha256": "f5a631b0b4b742196b73d21b49d477dfe6049bb7c116200ca7d9e9b9d8eb51f0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/pt-PT/chromebook/background.png",
+    "capture_sha256": "da687655b09f14c74daa0eff15ec416017a9ae6a90a5c10543d9919b6d9fe6b2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/pt-PT/chromebook/history.png",
+    "capture_sha256": "0eadb6cf43cbb86ab4def25ac04cc981407e40cd18f18261adfd4685f2de82a1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-PT",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/pt-PT/chromebook/settings.png",
+    "capture_sha256": "8781884deabf290431f1921e9750f9c48ace7be80828d0d19816007e3fcb2cfa",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/pt-BR/phone/home.png",
+    "capture_sha256": "2a2b034493dc553e749d3284893932965feb9d3ac2e51b5f64676a82bb26fe7b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/pt-BR/phone/editor.png",
+    "capture_sha256": "a41841fd03b7e1acf4ddee0619952b66c25c960fca3f7a9335e1385bf3c98f14",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/pt-BR/phone/batch.png",
+    "capture_sha256": "5f82e1f674863e1b9abce94ae33dce1377798713da15d11b02df45b26e03db22",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/pt-BR/phone/result.png",
+    "capture_sha256": "7e82b33df2fb387f7ba02e208c2c34caedade6d9eff1cb8303bb5b2c22d86c48",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/pt-BR/phone/result-stats.png",
+    "capture_sha256": "28cdf7dba3ab7d8937b6fe5f68d29444ebdbf49f1e147a6c892d1d0200ae1cdc",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/pt-BR/phone/background.png",
+    "capture_sha256": "b1445950cc7cd3fb786cc0c7d01aaef24081e942155f3442ad5fb592ed236261",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/pt-BR/phone/history.png",
+    "capture_sha256": "18b319616128a2cec8b1a0b17b2cb5c599493793b582c58b2295fd10e3fa536d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/pt-BR/phone/settings.png",
+    "capture_sha256": "36884e875a4ebb81272901376adb891cde832c18351d3f8ebbcdaf7f0ab6a04c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/pt-BR/tablet-7/home.png",
+    "capture_sha256": "417cb3c3809c36a79874b8bd25467449cb846575361c785986c46df758a51ad8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/pt-BR/tablet-7/editor.png",
+    "capture_sha256": "faf261091cd025d98a9cecafd7fadd8076869ad18af83889cdab4d79a46af616",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/pt-BR/tablet-7/batch.png",
+    "capture_sha256": "7c1ff72cb9593630552ecceabe1ae627122053afd8185155ca04e699b84254bf",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/pt-BR/tablet-7/result.png",
+    "capture_sha256": "a711fdc9f131461a1d9aa351d7282ecbdb22ab69995d40443a97364d42aa9214",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/pt-BR/tablet-7/result-stats.png",
+    "capture_sha256": "2261d1c9d294c8f0ec27b43ecea4fa7e0ce90bcf8a08f13a260447e1ba8ffd43",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/pt-BR/tablet-7/background.png",
+    "capture_sha256": "de26edd916f31b35d0539c2eae715b3adbcf7d207258221729edd15ff705f483",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/pt-BR/tablet-7/history.png",
+    "capture_sha256": "beb36faeab3a60ba28caeed0be460e9fe4100bd596e45e80f6a046666a001f17",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/pt-BR/tablet-7/settings.png",
+    "capture_sha256": "a533e237de3758a1075891640ea78f79127c977a3685d0c8da639f2eeddf1c7a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/pt-BR/tablet-10/home.png",
+    "capture_sha256": "d501a4f49c152463e9ec3591a5747734a6e820c2662a26d04d9563a18a278139",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/pt-BR/tablet-10/editor.png",
+    "capture_sha256": "177ff415fc09b1523546acfc5ddd783568b77d985fc1d4fdb84f989e216eec49",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/pt-BR/tablet-10/batch.png",
+    "capture_sha256": "4c5defe5b475c0b702a6e177c5f4c00c81df1b7189a7422a4fdbee15fb24eb88",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/pt-BR/tablet-10/result.png",
+    "capture_sha256": "35cdb6fb6b2781036d05c00ad50283739daa35b31d4ca60f58227ad04db85824",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/pt-BR/tablet-10/result-stats.png",
+    "capture_sha256": "87692bd8f2e5ee6d25ce326f1458b0415e1796c670979e1aa90f02fab403a617",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/pt-BR/tablet-10/background.png",
+    "capture_sha256": "592ec49cd43ec5bd259577a3e7ad7b75fcdb88524f1d78d9e36b7d0c0f400078",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/pt-BR/tablet-10/history.png",
+    "capture_sha256": "fed5a54a9fcdd58c86294fd515561f0ce4b1866fb480c0f4085dfb4008d6adae",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/pt-BR/tablet-10/settings.png",
+    "capture_sha256": "e880da52e273af20159ee09c84086c443abe9c4de24acf3982605a5d6c7b5e1c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/pt-BR/chromebook/home.png",
+    "capture_sha256": "dfb39b2f67980917c35e05ec74655c03dba907db2c54158ad9c64b03573fb195",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/pt-BR/chromebook/editor.png",
+    "capture_sha256": "00b3e03b0f2833e227a19af3fba29f3d7acd2f7098409e368c23ed0a4331a264",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/pt-BR/chromebook/batch.png",
+    "capture_sha256": "a4c37192884b896ad45812eadab2ded7d075e29d8b86f3b4bdceeaddb4246d55",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/pt-BR/chromebook/result.png",
+    "capture_sha256": "110e8d10cf143ce7d1fffa9600ab81ffcd2d4fc911beb2de459cb93ba18a4f25",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/pt-BR/chromebook/result-stats.png",
+    "capture_sha256": "07ddacaca7fc40e932e14b89f3d4e2f5cabb5770d7b69413411376b2c30519c0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/pt-BR/chromebook/background.png",
+    "capture_sha256": "3b060421a9bcca330889365e277e80bf073c4eb280eaee5c4aa78f4ddc3bdc18",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/pt-BR/chromebook/history.png",
+    "capture_sha256": "0cfac3acc87acdfb1704e8a7c3141130e60d65b27f5064cd5704c09e8964147b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "pt-BR",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/pt-BR/chromebook/settings.png",
+    "capture_sha256": "644a29e859d3de315b0ce4a00df8fbe0fe95a1e2afae91d4f233f34e0949357a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/it/phone/home.png",
+    "capture_sha256": "f1ac73f36baa84ea6c5641ce3bf452e84ac374e0d6640378fbb3a19e6fe701ec",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/it/phone/editor.png",
+    "capture_sha256": "7808c1dccbda8d704fbebbd370e01f33af22c8b0503af760ef9bc94f677532ec",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/it/phone/batch.png",
+    "capture_sha256": "1bb37a45b60877f8e36759e517bcec0180ffc4e102ea429863b6ec28c262c736",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/it/phone/result.png",
+    "capture_sha256": "d5479923c4709d944e76ef62e911dc66158784fae9898639890d0f1f1e3c17b1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/it/phone/result-stats.png",
+    "capture_sha256": "4923427dca2a0dd7e92fdf38fb535bb152cc0fb37f20bd82f1e5bddfe1f5955b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/it/phone/background.png",
+    "capture_sha256": "06a5e939afff7ac6f394008877e116abde5b3350cd1eb2179356a734658cd45a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/it/phone/history.png",
+    "capture_sha256": "cc2346fe253c865210ac5314b0f981bda807303ea299cf411544d86a8a676e32",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/it/phone/settings.png",
+    "capture_sha256": "45bd96e7b056f7bb253cc7b923a5ffecb4fe694677e15cb3a6515ade2d6e4687",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/it/tablet-7/home.png",
+    "capture_sha256": "24689e1ae86068ca9f00a93d41a2fadf9dac33a6826a4c0434f42945aae8855d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/it/tablet-7/editor.png",
+    "capture_sha256": "51a05d9934c14fd562d82ceacf763711a686190cb47e542428e226cbcc017650",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/it/tablet-7/batch.png",
+    "capture_sha256": "6096d2a4e2ae34da0212adb55d0b7ea02b8ca53f5cbfa8c97760da8d6651d562",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/it/tablet-7/result.png",
+    "capture_sha256": "3e21a4296010cfa0876b78559195d6bef3d0a6e18f7abbe6f95d808ce243bb59",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/it/tablet-7/result-stats.png",
+    "capture_sha256": "7e070c47c6c3fc7c92d67876be75ed11616e3e160583569e7d36d73683071ed2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/it/tablet-7/background.png",
+    "capture_sha256": "6275da198aa45746ff8b8c88f5d34ecd818d81b264b08d01c2a1ca86650131f2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/it/tablet-7/history.png",
+    "capture_sha256": "456f268f209401e30574fc34158e0ab6ca6baa850d3909bd3734fe35a287ac23",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/it/tablet-7/settings.png",
+    "capture_sha256": "436750a77087b1e6ed06d2637914ee1f04c165c51c09e2d65cee8b738a585793",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/it/tablet-10/home.png",
+    "capture_sha256": "c562e02e9f637083b8f69700034a2fb7b5ea230aef6913d14cb6c020ba0bf61a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/it/tablet-10/editor.png",
+    "capture_sha256": "a58b1d77c90137a26d18541e422dab988dde9caa1c472a7c2882d769912bdcea",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/it/tablet-10/batch.png",
+    "capture_sha256": "d571f486bcf6737eeea600cdfefc4380b5273a4656d5b4358f928ea4c768692a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/it/tablet-10/result.png",
+    "capture_sha256": "f99557142d6bf0e1ee1d46cd4febaa376927b7c829cf0b9d2c48ba17f8d5e3b5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/it/tablet-10/result-stats.png",
+    "capture_sha256": "d982e70810c8ae1caca96bc197b0ed29499602a9264ccf4ddb9c040d80a7f86e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/it/tablet-10/background.png",
+    "capture_sha256": "df653eff2ea330ddc11a01bbd834937865497dcc4316650ce7092b8e653e713f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/it/tablet-10/history.png",
+    "capture_sha256": "571a4ef8ebcb4f700b75785da8903e9d406dd6d24a4082c7cef31b96c045257a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/it/tablet-10/settings.png",
+    "capture_sha256": "c40cec0019fb62f507baea0a0f6c465a99da7da563ee21aa5b15f9cae2a4ba77",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/it/chromebook/home.png",
+    "capture_sha256": "4b127424bc447015a6338158b63fb0c75870e91653a5ebfae02c4183c2ca5b21",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/it/chromebook/editor.png",
+    "capture_sha256": "5d6b34dd4cdad58328935c81d90879535072321bb5472c9ddc517440c763a4db",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/it/chromebook/batch.png",
+    "capture_sha256": "3111224f8a04f02ed53f2b9c255c8ac75561bdd9a601169b4f5d78119aa475c4",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/it/chromebook/result.png",
+    "capture_sha256": "d6000ff19f785f18459851784e401da5dc8955b71e3628b9cd75b9d7c2935b0d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/it/chromebook/result-stats.png",
+    "capture_sha256": "008cb0a4c7edb57617cf2deb8470a473dca44b5ffd0edcc974ea1ce4911a3213",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/it/chromebook/background.png",
+    "capture_sha256": "ad195c19682241c80f7d08878c6c25a9f7e2a316536966757d5ba3116b2ff914",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/it/chromebook/history.png",
+    "capture_sha256": "b200d405325ab2eec250b978996c28b2ef495f616881c8fa8eb976d604cfd8ae",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "it",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/it/chromebook/settings.png",
+    "capture_sha256": "5c626d572a7824766ce5493b0a46eb4dfc6f7346e7fcba72d66f6c0b1b2290b9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/id/phone/home.png",
+    "capture_sha256": "39e9ffdb45593961ae0604073211bd887be4a31fc0b6482d80c641f595774bca",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/id/phone/editor.png",
+    "capture_sha256": "98b6cf31bdfc96415b958262b7c86febe306dae353b006d0caaceabb248b0330",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/id/phone/batch.png",
+    "capture_sha256": "70cfda356253198817fe3c2f8746b5b420972722b08fe2c3e4d53906ca174056",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/id/phone/result.png",
+    "capture_sha256": "cce98be8188f7053ddf596c0be55b157f9eae691795b86cfe0aa39656848a43a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/id/phone/result-stats.png",
+    "capture_sha256": "307a2ccbf2e3e7c7ae637e899273c40dd4cb046ae6f97ba6b6bd570a249e3d68",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/id/phone/background.png",
+    "capture_sha256": "4ac02e8f58cfab1ef0ae105dd2ab3cbfb48a79b27bbd25489ae61351172ee03e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/id/phone/history.png",
+    "capture_sha256": "eda0d787ec56f3a5dd9b572804931ebfbf685d596214bd35a5b436b5246f8c23",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/id/phone/settings.png",
+    "capture_sha256": "57cdb12f03d213bfa043752a0ed935aecddf0188d7f97bcf988fcb5c0429095d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/id/tablet-7/home.png",
+    "capture_sha256": "3f2138011e2728a4244e928be64a40976d2e1b57ba491f880d19ddc4fa10306f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/id/tablet-7/editor.png",
+    "capture_sha256": "1d7957fe72de4c126fcc01788dcab3248003098c11c8ad1dacb6f792cb6ef6ca",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/id/tablet-7/batch.png",
+    "capture_sha256": "b0d13b6ca6102b55d1fbf1ebb6ac26f2266c32852586d61582a896e8e10f72a3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/id/tablet-7/result.png",
+    "capture_sha256": "1851376d53a815a58c76b47b9a45df4815e28fea900afcd1b934f21a6e6518d1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/id/tablet-7/result-stats.png",
+    "capture_sha256": "35e626dac80dde683ba54ed46cc4551166f4c288d1b00b06279be6bb15547807",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/id/tablet-7/background.png",
+    "capture_sha256": "d6908884fb68cf805a647279711289ffcf22077e73d62738c8207bd74ef5e67e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/id/tablet-7/history.png",
+    "capture_sha256": "eaf776ea24c11b912cce9b25c8c12b26c04f67a1f589cf0b1e826aa2676f76d6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/id/tablet-7/settings.png",
+    "capture_sha256": "1370f55cecdd60285e78354b5683fde873256bb319eb581c20c2ca95992bfbe3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/id/tablet-10/home.png",
+    "capture_sha256": "612f9f60e4392ce541cf9785354e6338697f3086f7593290ac493c0d232f21ef",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/id/tablet-10/editor.png",
+    "capture_sha256": "e4d8a28859a34bc5391b1748051a271f747e3b6fec0bba290ac3514e656874e7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/id/tablet-10/batch.png",
+    "capture_sha256": "4371af1d7de680c95f9fb1a735b457faf599f5b15e5b34721f575d3ae57b7af4",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/id/tablet-10/result.png",
+    "capture_sha256": "c0f0b51df3d6ff20fdde27c03e43038024f85b8b22bbec66d0673922e4c7a969",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/id/tablet-10/result-stats.png",
+    "capture_sha256": "3c4ed0fde18045905068543a37c02814b825c9f5cadcf44aba2f4e323bb37808",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/id/tablet-10/background.png",
+    "capture_sha256": "57215015457f9b03237ab5d6a4e2412243e579e56c254f2b351fef04a99fadfb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/id/tablet-10/history.png",
+    "capture_sha256": "87970022a8d25a0ebdabe98e29dcde1d1ea760d1dac8cddbc71142843bd6a804",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/id/tablet-10/settings.png",
+    "capture_sha256": "9f224b4967a79ed8c966d91a9c5d8ce791821f6e5e305c9387307d5162bc971a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/id/chromebook/home.png",
+    "capture_sha256": "45fc6504ed8d16866036a2ee426b116d0274888b8d25f22d7cb1df80bae98473",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/id/chromebook/editor.png",
+    "capture_sha256": "8ccfd1b0426e6ef25dd532995e075b03d5b41f1fdf194d316b64ba62186c42e1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/id/chromebook/batch.png",
+    "capture_sha256": "504c2c9095fa1987e6a3cdd08bd51a751ef4ae407efb57e45cc6ca07899d038b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/id/chromebook/result.png",
+    "capture_sha256": "598399603a713faa7db0597feea4d4c469f1d5c1ae3999da6f43553aa698f13b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/id/chromebook/result-stats.png",
+    "capture_sha256": "b301656ed67a3a94f78799fbd73ce2fe04f1017cd5e085931a4d9225c9dcbfc5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/id/chromebook/background.png",
+    "capture_sha256": "5e4ab157b61127015a2b59a6a83ab78cb98380f77b58766fa63b4fabebc5486c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/id/chromebook/history.png",
+    "capture_sha256": "c2fe86d3564707c760f3b4cc7f5801f5e948cb5997e707cdfd25b760d3888bae",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "id",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/id/chromebook/settings.png",
+    "capture_sha256": "2601f3648b51beb7b2843d13b497d6faaf0046aed09fe393c6faf52b56d96aac",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/ar/phone/home.png",
+    "capture_sha256": "41b006021454eda7619a833fa4c26a99f5d1647267cf469f86348227a22ff6ac",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/ar/phone/editor.png",
+    "capture_sha256": "d89e45d095d435b754d4d2784d31f3c8e8aed6b9fe85ea9db8e1ef455897a7a8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/ar/phone/batch.png",
+    "capture_sha256": "b036df31cace771f2d79f82498075da1a578f326c77810a94d604093203693f2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/ar/phone/result.png",
+    "capture_sha256": "2b93e73d1601c68079e38b22a798f218bd8b9ba711f6602bb85395da79635bf2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/ar/phone/result-stats.png",
+    "capture_sha256": "661390f73b2df0f4d859f9b8266cfe6e9d68ada8982e35d3b1dd65ba90cf29ab",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/ar/phone/background.png",
+    "capture_sha256": "7746f75486611fd6f3364478eda626327a98f33690da2f5a7c652d2db7cff8be",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/ar/phone/history.png",
+    "capture_sha256": "cd4ca1df933558294a6395a341fc0b94ccf78f5f8ba984c60d7d309b5938cee9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/ar/phone/settings.png",
+    "capture_sha256": "99ed1eb3feb18d467dbc20c22beadecac5d2f268274b34ac4edd291bd9a872d5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/ar/tablet-7/home.png",
+    "capture_sha256": "5eba17b2d98aa41499571a7ebc63b625990271f05f34c1b86f07e463f9d28b25",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/ar/tablet-7/editor.png",
+    "capture_sha256": "944cf6dae65b677a829e7965e9149e319c815ee77f9d0b70f67a4e3f29d493de",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/ar/tablet-7/batch.png",
+    "capture_sha256": "2aa8a4d304ac7088d11c5d46123f406dacca5b187525d8ccedef91d529c9066e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/ar/tablet-7/result.png",
+    "capture_sha256": "c5cf0cb71b91f03d9d39c0f45e5a98bb5959655a460333e16011e82fa9af71fd",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/ar/tablet-7/result-stats.png",
+    "capture_sha256": "a358cb8e99d5d06526b8b4094f7441bd1d7469ff093a1d9ff5f7297d9b01ec35",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/ar/tablet-7/background.png",
+    "capture_sha256": "5c040aa98c5e2bee1fb7aee93336b59e72c58881381b4e38a3409adaf630dfc4",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/ar/tablet-7/history.png",
+    "capture_sha256": "c64577bfda7955bd37ab33c1078566424cd06e789507ddfd5da4584a87514226",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/ar/tablet-7/settings.png",
+    "capture_sha256": "dadef5d6fa7d2fad2f738571de8f1cb4856469b4d91f0f6a266c6b6a2bfb0b9b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/ar/tablet-10/home.png",
+    "capture_sha256": "db029d3f5189df7d510ecba919df0b0f45558ab5fac406116a2d32b9c06f9b26",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/ar/tablet-10/editor.png",
+    "capture_sha256": "cc2ef31da9ebd80551fa0716c6040ae67c1cf14037f6fb680f65bf651db90b14",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/ar/tablet-10/batch.png",
+    "capture_sha256": "048b7262048551a8693f654093ae8e28ba7ca7eb14c8e5d547c1cd990d4787c2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/ar/tablet-10/result.png",
+    "capture_sha256": "8a295b381c21c6df3a85e56583aadb29604a0eaad268072e7d01d373578c4871",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/ar/tablet-10/result-stats.png",
+    "capture_sha256": "49c9120a5f2f77b1da4f924b460771a0aacd9e497046472c997a201809ea78ef",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/ar/tablet-10/background.png",
+    "capture_sha256": "856cf590d250cccae9ca7121797ed4805d2a06afc2300db824f9870ec97c214e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/ar/tablet-10/history.png",
+    "capture_sha256": "727f44b383b011611c7981ad9365a5f51720afc2f7229a068ae4cf589ed59c60",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/ar/tablet-10/settings.png",
+    "capture_sha256": "7ddb3b1cb7a6ad733b9446a186a2d8f046d4b506ec8ef9c2acba44a296ebf415",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/ar/chromebook/home.png",
+    "capture_sha256": "e05bfae2ee4bda533ccd93dda10782265a9fd5ee608ae7fb2094df2719a1d6ad",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/ar/chromebook/editor.png",
+    "capture_sha256": "b13fb72108d8304c4be60f68b481cc55aa71858a26d8f197faa5293703b65392",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/ar/chromebook/batch.png",
+    "capture_sha256": "257009730f65276aef3cc952d28065b129243d9429659675353f8030af69b334",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/ar/chromebook/result.png",
+    "capture_sha256": "89848219c088b20a77e67da30fab1901aa01ebaa8c9d68d61dca890aeda405a2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/ar/chromebook/result-stats.png",
+    "capture_sha256": "eea80a9fa5037be7bda123d86d1948bdb207f0e6ba3688e986c8395ac95ae1d6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/ar/chromebook/background.png",
+    "capture_sha256": "80985576bf5e94fc91581539057c6ae5af6adc0d597fac01fc138d14c5669598",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/ar/chromebook/history.png",
+    "capture_sha256": "734cc7761febb668fb546cb9690cf00f457989f3db03b3d37e55b8dd77c9e049",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ar",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/ar/chromebook/settings.png",
+    "capture_sha256": "70a93a9fc51f7f57e0d77e1f4fc203ecff960242beb6794712104f2d60a830ab",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/ko/tablet-7/home.png",
+    "capture_sha256": "86bf885e2f0544d762f28eaef1a2842b9d4fa3741f10a89fd93d596b50f402fe",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/ko/tablet-7/editor.png",
+    "capture_sha256": "481f286ae6cc0b35d943c1afaebf78c07383c4eff672c70472bba06a6303c9dc",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/ko/tablet-7/batch.png",
+    "capture_sha256": "5e7e24d5e2da65f6eedabeb929127cdd311f8b2deff5de914d670e7a19e4e2f5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/ko/tablet-7/result.png",
+    "capture_sha256": "9413b8b117b5b12b7bf94f3e4b6a57ed4944c5ededa37c7a34ca41837d13aa01",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/ko/tablet-7/result-stats.png",
+    "capture_sha256": "a23fe842bbc298975ab52412b1a42993a20ac07b421634b2d5f1568825f4bdbf",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/ko/tablet-7/background.png",
+    "capture_sha256": "c47db12c4af11789aa07e6d7f29a90470e3f072c8a6aa112f59888499d720e4c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/ko/tablet-7/history.png",
+    "capture_sha256": "542329b368071c7e85ecf1d49a356f48117a0c0e4df8d1e9f422e1dc263e8ab5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/ko/tablet-7/settings.png",
+    "capture_sha256": "6c2a8ecb8982cee0fc92e1e7ba9d0de3e2fa54807f651cb4ee4127a615c2e769",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/ko/tablet-10/home.png",
+    "capture_sha256": "6c5db1f0fd9a869d00c3c1b6de98fef340e5536bb154521b6221611007f300b3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/ko/tablet-10/editor.png",
+    "capture_sha256": "1c26b022c4389ea40671cb18847e981008836ee087ec77f8ff9274f12a28a0e7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/ko/tablet-10/batch.png",
+    "capture_sha256": "7e4eb5829f2ccb3518d4fdd396bb261b1c59ec34d5b873ea1218bacab291b831",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/ko/tablet-10/result.png",
+    "capture_sha256": "327db6433b02b981c2716c839e9b8578ac8d53777d29ac48c02440d89481044e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/ko/tablet-10/result-stats.png",
+    "capture_sha256": "099a5e00b677ffceef742ad548b9d6cd165ee3f3a48c5bb497b55d3e56f26b5f",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/ko/tablet-10/background.png",
+    "capture_sha256": "ff66ee50122e7c2f6c83d9781a555014ddbdd16bafa22be483ef9f3f4e4a4404",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/ko/tablet-10/history.png",
+    "capture_sha256": "4b2ddd0e53e2aa1793cb76ca56d5b7639bfb79b5610251ab369d8163c3aa128e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/ko/tablet-10/settings.png",
+    "capture_sha256": "df7254d44c0b254cc71bedbcceb3cb4d968a63a9b4c6458d20c7c384c0ecdc86",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/ko/chromebook/home.png",
+    "capture_sha256": "89e946ff2177f48570d27cca41bf78cbdeaa9b2c8a3eb623de2265d179fab2de",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/ko/chromebook/editor.png",
+    "capture_sha256": "4bb8ffe8eb61d0a42042cfa08605c084af9888d0ae879b519c28621420bd023d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/ko/chromebook/batch.png",
+    "capture_sha256": "0ab0897e3a5e550c172c24dca3d91ec572d87c42eebc1a344b50d95b96b31c8e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/ko/chromebook/result.png",
+    "capture_sha256": "cb6268ae5f47acdfdbef9c0c79355fc4827755b053eb4b0a866a3216be6efee5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/ko/chromebook/result-stats.png",
+    "capture_sha256": "1e075ec899e595b5abeac8256bd10c7839c2dc21c942b43579e39661831c5317",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/ko/chromebook/background.png",
+    "capture_sha256": "fca8388065f64b03b1a7c20930d20dacd13b14f65a24f2254e4cc2a72b5d3810",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/ko/chromebook/history.png",
+    "capture_sha256": "794060f2da480a6e79c05663af165a9d4bdec862e88d72ea953c9ac68472af37",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/ko/chromebook/settings.png",
+    "capture_sha256": "6a233611b715ba1dc8012361f91b7ae7ece72b002eb4e8c59190c3d27d58b95e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/ur/phone/home.png",
+    "capture_sha256": "9ecb4676267499ab7056965a8890fba443ff471a726d10d647e39cae5f8e50c3",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/ur/phone/editor.png",
+    "capture_sha256": "0ad2fa2bf2323e6de9e3ff31732c35a5ef6920069196364a2f354158cd6119d6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/ur/phone/batch.png",
+    "capture_sha256": "11493286f68ca03f05fdafa6ec5392e4058c68f42e970f93bab53fd972769910",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/ur/phone/result.png",
+    "capture_sha256": "47b213a9d85bf4f0e5b363b61a8711ad5899d0c4e5afb5756f3b1ee849e8da06",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/ur/phone/result-stats.png",
+    "capture_sha256": "104fe6607504eeaf519056c55429e8aaa61b558daafbfcf073fe6c614e6dece6",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/ur/phone/background.png",
+    "capture_sha256": "2178ba5a079afef24d7aca00dcec425b44db653bf123b8a4992e6ceb577df327",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/ur/phone/history.png",
+    "capture_sha256": "f03f525840ee9ad1c0a1fe9a04608116da8fc2534af3e5320df0d2cb145f82bb",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/ur/phone/settings.png",
+    "capture_sha256": "e85e0fe85c7977843d004e1aa8525c04a6bdf5ea3b87bcb36a6bb44a0a38cbe9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "home",
+    "path": "final/ur/tablet-7/home.png",
+    "capture_sha256": "2d3534fa158d73454e66fcb9ca12c5521e53fd5e1b84c04fd4f8fb5a807ace82",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "editor",
+    "path": "final/ur/tablet-7/editor.png",
+    "capture_sha256": "a9e6d56aabf9e85283acdc5ce3b742168ebf51b333546436f22e4f80ef4e0f38",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "batch",
+    "path": "final/ur/tablet-7/batch.png",
+    "capture_sha256": "3c932f70d78024f6bd01e04587ab3b097948e5613830c061c37ac42a0ee67587",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "result",
+    "path": "final/ur/tablet-7/result.png",
+    "capture_sha256": "04a2ab4ee3f452b73c8777a3c9236099472d83f0f6c79f53ad73603ca6978587",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "result-stats",
+    "path": "final/ur/tablet-7/result-stats.png",
+    "capture_sha256": "16cd10c49e3379c3a415f4dad1ae1f1ae228385f201d620baffd90616516000b",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "background",
+    "path": "final/ur/tablet-7/background.png",
+    "capture_sha256": "1ef8fed713ed9bf5238b3080d0621ec9712517ac461a5328418552d3896d5ed0",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "history",
+    "path": "final/ur/tablet-7/history.png",
+    "capture_sha256": "a9a88d9a7843fb4ea703ec9e2aad960d7fa6b390551f1fce30b9fa53f0b1ae50",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-7",
+    "screen": "settings",
+    "path": "final/ur/tablet-7/settings.png",
+    "capture_sha256": "6436e82700a88f21619d85e3ee2c13b9e9fbd1db9dc03d585b8027b9c7ecc72c",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "home",
+    "path": "final/ur/tablet-10/home.png",
+    "capture_sha256": "80531ef4dab49c66c49fcd926f3ac31303f330316a87746a3909ecc8a32c1968",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "editor",
+    "path": "final/ur/tablet-10/editor.png",
+    "capture_sha256": "9c445fe8df93957ed4becb5e2b08959f478548d63d2c6360c41232e0ed4f0362",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "batch",
+    "path": "final/ur/tablet-10/batch.png",
+    "capture_sha256": "3657eb012e098d73173900a4622db467af4dd5d0e150088c38831fa61f665ab5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "result",
+    "path": "final/ur/tablet-10/result.png",
+    "capture_sha256": "0a33f6870b68b35cb074b0c9fa842bc2642c5e839f4b76bde05da353e29a0fad",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "result-stats",
+    "path": "final/ur/tablet-10/result-stats.png",
+    "capture_sha256": "813315769f154268fc459ab4d5cf3d40aa19124b398f763aff2761d8ed32efd9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "background",
+    "path": "final/ur/tablet-10/background.png",
+    "capture_sha256": "64650d3efa0662df5fd1c70805d4d091f44a4e836511270c8c88feb668d03c72",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "history",
+    "path": "final/ur/tablet-10/history.png",
+    "capture_sha256": "eef558677773f31a3812687d876b66f1a7fe9f504e50b0dd1927a7c96b963948",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "tablet-10",
+    "screen": "settings",
+    "path": "final/ur/tablet-10/settings.png",
+    "capture_sha256": "851df34ff547aac7dfdbc2a47344b370e8ab782c857f92ecd5fa66794d3806ef",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "home",
+    "path": "final/ur/chromebook/home.png",
+    "capture_sha256": "0f48ab8355db63cb723e6a1ed1ef9b8c6e435ef6d1a4003e61c50476a2d8da10",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "editor",
+    "path": "final/ur/chromebook/editor.png",
+    "capture_sha256": "66471aa889129559e70891e07cc8c0b91138b517b32e9462e227d39d83ed0c7d",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "batch",
+    "path": "final/ur/chromebook/batch.png",
+    "capture_sha256": "c43cf30f82d5e04b2a7af8744f3e62cd7c2b5b94f96d69c21d94b36f7948b76a",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "result",
+    "path": "final/ur/chromebook/result.png",
+    "capture_sha256": "02a1d3ca4da87cacfff786ce986342c423b91719be9ee079fda9490f666b91e8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "result-stats",
+    "path": "final/ur/chromebook/result-stats.png",
+    "capture_sha256": "19f0ab25a45a55e5661978b8b5cbfe7da931e4c79cbaf7786f4b5bb29719a292",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "background",
+    "path": "final/ur/chromebook/background.png",
+    "capture_sha256": "ab9cb096e263e89ef5e8f06a12bd5970c2a35007a0fab7abc96208b8bf2866b2",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "history",
+    "path": "final/ur/chromebook/history.png",
+    "capture_sha256": "5718640e2c2765ffe16eaf92f660f511fcd40eea150fb30669976267e5d545d9",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ur",
+    "profile": "chromebook",
+    "screen": "settings",
+    "path": "final/ur/chromebook/settings.png",
+    "capture_sha256": "d8ede82cc8af24c3125ffd53129295a00ee02e82a8a94fdbe952419b346ca707",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "home",
+    "path": "final/ko/phone/home.png",
+    "capture_sha256": "b54077533b142cb8b4b5f693b55a3594669286ddc22f150927939e992c76bbd7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "editor",
+    "path": "final/ko/phone/editor.png",
+    "capture_sha256": "6e7697d4beab49fae49e79224a8b1137cb18d07116d7803bd3a8603af3de2486",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "batch",
+    "path": "final/ko/phone/batch.png",
+    "capture_sha256": "573f6e651be9dc4beb4f6a8cf112add812f033f271b91aec68a81a481935aec1",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "result",
+    "path": "final/ko/phone/result.png",
+    "capture_sha256": "867a0c77c60323f42a1f41eca221831b83430afd5ab2990e419bd9523faadbf7",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "result-stats",
+    "path": "final/ko/phone/result-stats.png",
+    "capture_sha256": "9d5dbac3054697492a0d2ba41f80e31d2667d34dcc105584b52b3b74289bafef",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "background",
+    "path": "final/ko/phone/background.png",
+    "capture_sha256": "33422af34dbe7292e3dd7296485abfb5de131f8b99cedd09255392f4840b49a8",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "history",
+    "path": "final/ko/phone/history.png",
+    "capture_sha256": "03e30c60267db70ce6295ba3f44701a0d6914a3285915df9ee4e004f54714ba5",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  },
+  {
+    "locale": "ko",
+    "profile": "phone",
+    "screen": "settings",
+    "path": "final/ko/phone/settings.png",
+    "capture_sha256": "b1e16d8fff0801f4e0241d613a5bee4780e5fc7bdb888ef420b1987c4478e53e",
+    "ad_scan": "PASS",
+    "ad_prevention": "DEBUG_CAPTURE_CONTROLLER_HIDES_ADS_AND_THROWS_ON_REQUEST"
+  }
+]

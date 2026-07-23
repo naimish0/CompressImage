@@ -1,5 +1,3 @@
-import java.util.Locale
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,94 +5,32 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-// Keep packaging and the in-app selector sourced from the same production
-// resources. Adding a complete values-<locale>/strings.xml directory is enough
-// to make that locale available; pseudo-locales live outside this list.
-val preferredLocaleOrder = listOf(
-    "en",
-    "hi",
-    "gu",
-    "mr",
-    "bn",
-    "pa",
-    "ta",
-    "te",
-    "kn",
-    "ml",
-    "as",
-    "or",
-    "ur",
-    "ru",
-    "es",
-    "fr",
-    "de",
-    "pt",
-    "pt-BR",
-    "it",
-    "id",
-    "ar",
-    "ja",
-    "ko",
-    "zh-Hans",
-    "zh-Hant",
+// This is the single source of truth for packaged locales, Android's generated
+// locale config, and the in-app language selector. Keep the order aligned with
+// the product language list.
+val supportedLocaleResources = listOf(
+    "en" to "en",
+    "de" to "de",
+    "fr" to "fr",
+    "ja" to "ja",
+    "hi" to "hi",
+    "ru" to "ru",
+    "es" to "es",
+    "pt-PT" to "pt-rPT",
+    "pt-BR" to "pt-rBR",
+    "it" to "it",
+    // Android resources retain the legacy `in` qualifier for Indonesian.
+    // LocaleConfig and the public language tag remain the modern `id`.
+    "id" to "in",
+    "ar" to "ar",
+    "ko" to "ko",
+    "ur" to "ur",
 )
-val simpleLocaleDirectory = Regex("^values-([a-z]{2,3})$")
-val regionalLocaleDirectory = Regex("^values-([a-z]{2,3})-r([A-Z]{2}|[0-9]{3})$")
-val bcp47LocaleDirectory = Regex("^values-(b(?:\\+[A-Za-z0-9]{1,8})+)$")
-val excludedProductionLocaleTags = setOf("en-XA", "ar-XB")
-val legacyLocaleTagAliases = mapOf("in" to "id")
-val unsortedProductionLocales = mutableListOf<Pair<String, String>>()
-// The unqualified resources are English, as declared by resources.properties.
-unsortedProductionLocales += "en" to "en"
-file("src/main/res").listFiles()
-    .orEmpty()
-    .filter { directory ->
-        directory.isDirectory && directory.resolve("strings.xml").isFile
-    }
-    .forEach { directory ->
-        val directoryName = directory.name
-        val resourceLocale: Pair<String, String>? = when {
-            simpleLocaleDirectory.matches(directoryName) -> {
-                val language = simpleLocaleDirectory.matchEntire(directoryName)!!.groupValues[1]
-                (legacyLocaleTagAliases[language] ?: language) to language
-            }
-
-            regionalLocaleDirectory.matches(directoryName) -> {
-                val match = regionalLocaleDirectory.matchEntire(directoryName)!!
-                val language = match.groupValues[1]
-                val region = match.groupValues[2]
-                "$language-$region" to "$language-r$region"
-            }
-
-            bcp47LocaleDirectory.matches(directoryName) -> {
-                val qualifier = bcp47LocaleDirectory.matchEntire(directoryName)!!.groupValues[1]
-                val rawTag = qualifier.removePrefix("b+").replace('+', '-')
-                Locale.forLanguageTag(rawTag).toLanguageTag() to qualifier
-            }
-
-            else -> null
-        }
-        if (resourceLocale != null && excludedProductionLocaleTags.none {
-                it.equals(resourceLocale.first, ignoreCase = true)
-            }
-        ) {
-            unsortedProductionLocales += resourceLocale
-        }
-}
-val productionResourceQualifiers = unsortedProductionLocales
+val supportedProductionLanguageTags = supportedLocaleResources
+    .joinToString(separator = ",") { (languageTag, _) -> languageTag }
+val productionResourceQualifiers = supportedLocaleResources
     .map { (_, resourceQualifier) -> resourceQualifier }
-    .distinct()
-val discoveredProductionLocales = unsortedProductionLocales
-    .distinctBy { (languageTag, _) -> languageTag.lowercase() }
-    .sortedWith(
-        compareBy<Pair<String, String>> { (languageTag, _) ->
-            preferredLocaleOrder.indexOfFirst { it.equals(languageTag, ignoreCase = true) }
-                .takeIf { it >= 0 }
-                ?: Int.MAX_VALUE
-        }.thenBy { (languageTag, _) -> languageTag.lowercase() },
-    )
-val supportedProductionLanguageTags =
-    discoveredProductionLocales.joinToString(separator = ",") { (languageTag, _) -> languageTag }
+
 val appVersionCode = 2
 val appVersionName = "1.0"
 val releaseBundleFileName =
@@ -205,9 +141,28 @@ android {
         localeFilters += productionResourceQualifiers
         noCompress += "onnx"
     }
+    bundle {
+        // The app has an in-app language picker and must be able to switch to
+        // every shipped locale immediately, including while offline. Keep all
+        // language resources in the base APK delivered by Google Play.
+        language {
+            enableSplit = false
+        }
+    }
+    lint {
+        // Source catalogs outside localeFilters are intentionally not shipped.
+        // tools/check_localizations.py enforces complete parity for every
+        // packaged production locale, including placeholders and plurals.
+        disable += "MissingTranslation"
+    }
     sourceSets {
         getByName("main") {
             assets.directories.add("../legal")
+        }
+        getByName("debug") {
+            // Rights-cleared samples and genuine app outputs used only by the
+            // deterministic Play Store screenshot harness.
+            assets.directories.add("../play-store-assets/source/sample-images")
         }
     }
 }

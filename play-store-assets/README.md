@@ -4,6 +4,19 @@ Application: **Photo Compressor & BG Remover**
 Actual application ID: `com.rameshta.photocompressor`  
 Package working date: **2026-07-20 (Asia/Kolkata)**
 
+## Current final package
+
+The superseding multilingual export is under `final/` and was generated on
+2026-07-23. It contains one shared package icon plus localized feature
+graphics, per-language all-feature overview sheets, and eight authentic app
+screenshots per device profile for all 14 configured locales across phone,
+7-inch tablet, 10-inch tablet and Chromebook. The prior four-locale candidate
+notes below are retained as historical provenance only.
+
+Use `qa/final-asset-manifest.csv` and `qa/final-qa-report.md` as the authority
+for this export. The complete visual-review sheets are in
+`qa/final-contact-sheets/`.
+
 This directory contains the evidence, source inputs, real-app captures,
 editable generation inputs, experiment plan and final-export locations for the
 Google Play listing package. Nothing in this directory has been committed,

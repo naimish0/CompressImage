@@ -25,9 +25,6 @@ class LocaleResourcesInstrumentedTest {
     fun regionalLocalesResolveToTheirSupportedBaseResources() {
         val regionalToBase = mapOf(
             "hi-IN" to "hi",
-            "gu-IN" to "gu",
-            "mr-IN" to "mr",
-            "ta-IN" to "ta",
             "ru-RU" to "ru",
             "es-MX" to "es",
             "fr-CA" to "fr",
@@ -41,7 +38,7 @@ class LocaleResourcesInstrumentedTest {
     }
 
     @Test
-    fun supportedRegionalAndScriptResourcesResolveIndependently() {
+    fun supportedPortugueseResourcesResolveIndependently() {
         assertEquals(text("pt-BR"), text("pt-BR-u-nu-latn"))
         assertTrue(
             listOf(
@@ -52,9 +49,6 @@ class LocaleResourcesInstrumentedTest {
                 text("pt-BR", resourceId) != text("pt-PT", resourceId)
             },
         )
-        assertEquals(text("zh-Hans"), text("zh-Hans-CN"))
-        assertEquals(text("zh-Hant"), text("zh-Hant-TW"))
-        assertNotEquals(text("zh-Hans"), text("zh-Hant"))
     }
 
     @Test
@@ -66,9 +60,8 @@ class LocaleResourcesInstrumentedTest {
     @Test
     fun everyDeclaredTranslationResolvesAwayFromEnglish() {
         listOf(
-            "hi", "gu", "mr", "bn", "pa", "ta", "te", "kn", "ml", "as", "or", "ur",
-            "ru", "es", "fr", "de", "pt", "pt-BR", "it", "id", "ar", "ja", "ko",
-            "zh-Hans", "zh-Hant",
+            "de", "fr", "ja", "hi", "ru", "es", "pt-PT", "pt-BR", "it", "id", "ar",
+            "ko", "ur",
         ).forEach { languageTag ->
             assertNotEquals("$languageTag unexpectedly used English", text("en"), text(languageTag))
         }
@@ -111,7 +104,7 @@ class LocaleResourcesInstrumentedTest {
             .filter(String::isNotEmpty)
             .toSet()
 
-        assertEquals(productionTags + setOf("in", "en-XA", "ar-XB"), configuredTags)
+        assertEquals(productionTags + setOf("en-XA", "ar-XB"), configuredTags)
     }
 
     @SdkSuppress(minSdkVersion = 33)

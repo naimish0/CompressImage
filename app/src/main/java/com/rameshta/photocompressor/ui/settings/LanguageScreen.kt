@@ -60,7 +60,7 @@ private val LANGUAGE_NAME_RESOURCES = mapOf(
     "es" to R.string.language_name_es,
     "fr" to R.string.language_name_fr,
     "de" to R.string.language_name_de,
-    "pt" to R.string.language_name_pt,
+    "pt-PT" to R.string.language_name_pt_pt,
     "pt-BR" to R.string.language_name_pt_br,
     "it" to R.string.language_name_it,
     "id" to R.string.language_name_id,

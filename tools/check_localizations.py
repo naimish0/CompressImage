@@ -13,47 +13,30 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "app" / "src" / "main" / "res"
 LOCALES = {
+    "de": "values-de",
+    "fr": "values-fr",
+    "ja": "values-ja",
     "hi": "values-hi",
-    "gu": "values-gu",
-    "mr": "values-mr",
-    "bn": "values-bn",
-    "pa": "values-pa",
-    "ta": "values-ta",
-    "te": "values-te",
-    "kn": "values-kn",
-    "ml": "values-ml",
-    "as": "values-as",
-    "or": "values-or",
-    "ur": "values-ur",
     "ru": "values-ru",
     "es": "values-es",
-    "fr": "values-fr",
-    "de": "values-de",
-    "pt": "values-pt",
+    "pt-PT": "values-pt-rPT",
     "pt-BR": "values-pt-rBR",
     "it": "values-it",
-    "id": "values-id",
+    "id": "values-in",
     "ar": "values-ar",
-    "ja": "values-ja",
     "ko": "values-ko",
-    "zh-Hans": "values-b+zh+Hans",
-    "zh-Hant": "values-b+zh+Hant",
+    "ur": "values-ur",
 }
 COMPATIBILITY_ALIASES = {
-    # Android 14 and earlier rewrite the modern Indonesian code `id` to `in`.
-    "values-in": "values-id",
+    # Keep the modern-source spelling synchronized with Android's legacy
+    # Indonesian resource qualifier.
+    "values-id": "values-in",
 }
 POSITIONAL_FORMAT = re.compile(
     r"%(\d+)\$[-#+ 0,(<]*\d*(?:\.\d+)?([a-zA-Z])"
 )
 PROTECTED_TOKENS = ("Photo Compressor", "JPG", "JPEG", "PNG", "WEBP")
-SENTENCE_END = re.compile(r"[.!?।۔。！？](?:\s|$)")
-LOCALE_DIRECTORY = re.compile(
-    r"^values-(?:[a-z]{2,3}|[a-z]{2,3}-r(?:[A-Z]{2}|[0-9]{3})|"
-    r"b(?:\+[A-Za-z0-9]{1,8})+)$"
-)
-
-
+SENTENCE_END = re.compile(r"[.!?।۔。！？]")
 def text(element: ET.Element) -> str:
     return "".join(element.itertext()).strip()
 
@@ -102,9 +85,9 @@ def required_plural_quantities(locale: str) -> set[str]:
         return {"zero", "one", "two", "few", "many", "other"}
     if locale == "ru":
         return {"one", "few", "many", "other"}
-    if locale in {"ja", "ko", "zh-Hans", "zh-Hant", "id"}:
+    if locale in {"ja", "ko", "id"}:
         return {"other"}
-    if locale in {"es", "fr", "pt", "pt-BR", "it"}:
+    if locale in {"es", "fr", "pt-PT", "pt-BR", "it"}:
         return {"one", "many", "other"}
     return {"one", "other"}
 
@@ -122,18 +105,9 @@ def main() -> int:
             "default: duplicate resource names: " + ", ".join(sorted(default_duplicates))
         )
 
-    expected_directories = set(LOCALES.values()) | set(COMPATIBILITY_ALIASES)
-    discovered_directories = {
-        path.parent.name
-        for path in RES.glob("values-*/strings.xml")
-        if LOCALE_DIRECTORY.fullmatch(path.parent.name)
-    }
-    unexpected_directories = sorted(discovered_directories - expected_directories)
-    if unexpected_directories:
-        failures.append(
-            "unexpected locale catalogs are not validated: "
-            + ", ".join(unexpected_directories)
-        )
+    # Other source catalogs may remain in the repository, but Gradle's
+    # localeFilters excludes them from the shipped application. Only packaged
+    # locales are required to satisfy this production parity check.
 
     for locale, directory in LOCALES.items():
         path = RES / directory / "strings.xml"

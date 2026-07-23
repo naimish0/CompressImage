@@ -1,0 +1,4 @@
+role,path,sha256
+original,source/sample-images/portrait-curly-hair-original.png,811dcacb040b08d684ab438876b3fa5cbbaa34fd269a17e2e9f7eed139088380
+compressed,source/sample-images/real-app-results/compression/portrait-compressed.jpg,66e24c65ced37c721125df6507a346b9c22c7e4a0a68440809bbe3bf7e362b56
+cutout,source/sample-images/real-app-results/background/portrait-transparent.png,561e4d5238412dcb4d4246abc6afd51e463fb067d560c1ed0886daeead41eddf

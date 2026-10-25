@@ -1,0 +1,19 @@
+filename,creative_angle,level_or_state_id,orientation,dimensions,duration_seconds,intended_campaign_use
+images/final/landscape/editor_target_size_landscape_1200x628.png,Meaningful size decision,CI-02,landscape,1200x628,,Performance Max and App campaign
+images/final/landscape/background_result_landscape_1200x628.png,On-device background removal,CI-05,landscape,1200x628,,Performance Max and App campaign
+images/final/landscape/compare_result_landscape_1200x628.png,Before-and-after proof,CI-04,landscape,1200x628,,Performance Max and App campaign
+images/final/landscape/batch_complete_landscape_1200x628.png,Batch completion,CI-03,landscape,1200x628,,Performance Max and App campaign
+images/final/square/home_batch_square_1200x1200.png,Objective instantly,CI-01,square,1200x1200,,Performance Max and App campaign
+images/final/square/history_outputs_square_1200x1200.png,Completed outputs,CI-06,square,1200x1200,,Performance Max and App campaign
+images/final/square/background_result_square_1200x1200.png,On-device background removal,CI-05,square,1200x1200,,Performance Max and App campaign
+images/final/square/compare_result_square_1200x1200.png,Before-and-after proof,CI-04,square,1200x1200,,Performance Max and App campaign
+images/final/vertical/home_batch_vertical_1200x1500.png,Objective instantly,CI-01,vertical,1200x1500,,Performance Max and App campaign
+images/final/vertical/editor_resize_preview_vertical_1200x1500.png,Resize and output information,CI-02,vertical,1200x1500,,Performance Max and App campaign
+images/final/vertical/batch_complete_vertical_1200x1500.png,Batch completion,CI-03,vertical,1200x1500,,Performance Max and App campaign
+images/final/vertical/background_result_vertical_1200x1500.png,On-device background removal,CI-05,vertical,1200x1500,,Performance Max and App campaign
+videos/final/vertical/signature_background_removal_vertical_1080x1920.mp4,On-device background removal,CI-02>CI-05>CI-01,vertical,1080x1920,16.03,Performance Max and App campaign; upload to YouTube first
+videos/final/square/signature_background_removal_square_1080x1080.mp4,On-device background removal,CI-02>CI-05>CI-01,square,1080x1080,16.03,Performance Max and App campaign; upload to YouTube first
+videos/final/horizontal/signature_background_removal_horizontal_1920x1080.mp4,On-device background removal,CI-02>CI-05>CI-01,horizontal,1920x1080,16.03,Performance Max and App campaign; upload to YouTube first
+videos/final/vertical/batch_challenge_result_vertical_1080x1920.mp4,Batch challenge and satisfying result,CI-01>CI-02>CI-03>CI-04,vertical,1080x1920,21.00,Performance Max and App campaign; upload to YouTube first
+videos/final/square/batch_challenge_result_square_1080x1080.mp4,Batch challenge and satisfying result,CI-01>CI-02>CI-03>CI-04,square,1080x1080,21.00,Performance Max and App campaign; upload to YouTube first
+videos/final/horizontal/batch_challenge_result_horizontal_1920x1080.mp4,Batch challenge and satisfying result,CI-01>CI-02>CI-03>CI-04,horizontal,1920x1080,21.00,Performance Max and App campaign; upload to YouTube first

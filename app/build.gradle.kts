@@ -31,7 +31,7 @@ val supportedProductionLanguageTags = supportedLocaleResources
 val productionResourceQualifiers = supportedLocaleResources
     .map { (_, resourceQualifier) -> resourceQualifier }
 
-val appVersionCode = 2
+val appVersionCode = 4
 val appVersionName = "1.0"
 val releaseBundleFileName =
     "Photo-Compressor-BG-Remover-v$appVersionName-code$appVersionCode.aab"

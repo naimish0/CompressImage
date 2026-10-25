@@ -1,0 +1,6 @@
+id,text,character_count,creative_angle,verified_feature_source,recommended_priority
+LH01,"Compress photos toward a KB or MB target, then compare before you save.",71,Target-size compression,play-store/store-listing.md:52,high
+LH02,Resize photos by percentage or custom dimensions and keep the aspect ratio when needed.,87,Flexible resizing,play-store/store-listing.md:58,medium
+LH03,Remove or replace photo backgrounds on your device without uploading your images.,81,On-device background removal,README.md:40-45,high
+LH04,"Process one photo or a batch of up to 50 and export as JPG, PNG, or WEBP.",73,Batch and formats,play-store/store-listing.md:56-59,high
+LH05,"Photo Compressor & BG Remover combines compression, resizing, conversion, and cleanup.",86,All-in-one workflow,README.md:3,medium

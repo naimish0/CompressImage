@@ -1,0 +1,6 @@
+id,text,character_count,creative_angle,verified_feature_source,recommended_priority
+DS01,Set a KB or MB target and choose the balance between quality and file size.,75,Target-size control,CompressionConfig.kt:5-51,high
+DS02,"Compare original and processed images before saving, sharing, or opening.",73,Before-and-after comparison,play-store/store-listing.md:52,high
+DS03,"Resize by percent or custom pixels, then export as JPG, PNG, or WEBP.",69,Resize and convert,play-store/store-listing.md:58-59,medium
+DS04,Remove or replace photo backgrounds on your device with a bundled model.,72,On-device background removal,README.md:40-45,high
+DS05,Select one image or batch-process up to 50 with the same compression settings.,78,Batch processing,play-store/store-listing.md:52-56,high

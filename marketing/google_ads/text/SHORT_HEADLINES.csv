@@ -1,0 +1,16 @@
+id,text,character_count,creative_angle,verified_feature_source,recommended_priority
+SH01,Compress photos,15,Core compression,README.md:3,high
+SH02,Set a target size,17,Target-size control,CompressionConfig.kt:5-30,high
+SH03,Resize with control,19,Resizing,CompressionConfig.kt:32-38,medium
+SH04,Remove photo backgrounds,24,Background removal,README.md:40-45,high
+SH05,Compare before you save,23,Before-and-after comparison,play-store/store-listing.md:52,high
+SH06,Batch-compress your photos,26,Batch processing,play-store/store-listing.md:56,high
+SH07,"Choose JPG, PNG or WEBP",23,Format conversion,play-store/store-listing.md:59,medium
+SH08,Keep photo work on-device,25,On-device processing,README.md:3,high
+SH09,Photo Compressor & BG Remover,29,Brand,app/src/main/res/values/strings.xml:4,medium
+SH10,Balance quality and size,24,Quality modes,EditorScreen.kt:quality_mode,medium
+SH11,Resize by percent or pixels,27,Flexible resizing,play-store/store-listing.md:58,medium
+SH12,See the size you saved,22,Measurable result,ResultScreen.kt:compression_stats,medium
+SH13,Convert image formats,21,Format conversion,play-store/store-listing.md:59,medium
+SH14,Make sharing files smaller,26,Smaller sharing files,play-store/store-listing.md:73,medium
+SH15,Process up to 50 photos,23,Batch capacity,play-store/store-listing.md:56,medium
